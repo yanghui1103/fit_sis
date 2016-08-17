@@ -23,7 +23,7 @@ $(document).ready(function(){
 				};
 
 				var zNodes = "" ;
-				var arr = new Array(20);
+				var arr = new Array(60);
 				 for(var i in arr.length){
 					 arr[i] = "-9";		 
 				 }arr[0] = "0";  // 达旗这个没用0   而是用的当前机构的id进行查询

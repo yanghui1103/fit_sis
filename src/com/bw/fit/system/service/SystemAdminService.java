@@ -13,4 +13,10 @@ public interface SystemAdminService {
     public JSONObject getUserAuthExists(SystemCommonModel c);
     public String getAuthorityBtnsByThisUserService(SystemCommonModel c);
     public List<SystemCommonModel> getDragWindowList(SystemCommonModel c);
+    public JSONObject getCustomOrgTree(SystemCommonModel c);
+    public JSONObject getOrgTreeStructs(SystemCommonModel c);
+    public JSONObject getAllChildsTreeStructs(SystemCommonModel c);
+    public JSONObject getNextChildsTreeStructs(SystemCommonModel c);
+    public JSONObject getFunctionsTreeStructs(SystemCommonModel c);
+    public JSONObject checkRoleAndStaffValidate(SystemCommonModel c);
 }

@@ -9,13 +9,13 @@ $(document).ready(function(){
 	for(var i in arr.length){
 		 arr[i] = "-9";		 
 	}arr[0] = "101";arr[1] = "navTab"; 
-	renderBtnsToDiv($("#createUserSubBar"),'getAuthorityBtnsByThisUser.action',arr);
+	renderBtnsToDiv( $("#createUserSubBar", navTab.getCurrentPanel())  ,'getAuthorityBtnsByThisUser.action',arr);
 	
 	arr[0] = "ROLE"; 
-	 takeTypeDataList($("#createUser_role_cd"),"getSysItems.action","1", arr);	 
+	 takeTypeDataList( $("#createUser_role_cd", navTab.getCurrentPanel()) ,"getSysItems.action","1", arr);	 
 
 	 arr[0] = "STAFFTYPE";
-	 takeTypeDataList($("#createUser_type_cd"),"getSysItems.action","1", arr);	 
+	 takeTypeDataList( $("#createUser_type_cd", navTab.getCurrentPanel()) ,"getSysItems.action","1", arr);	 
 });
 
 baidu(document).on('click', '#save101', function() {	 
@@ -60,7 +60,7 @@ baidu(document).on('click', '#save101', function() {
 			<p>
 				<label>机构名称：</label>
 				<input type="text"  id="createUser_org_name"   style="float:left"  class="required" readonly name="orgLookup.orgName" value="" suggestFields="orgNum,orgName"   lookupGroup="orgLookup" />
-				<a class="btnLook" style="float:left" href="system/orgStructure_single.html" lookupGroup="orgLookup">查找带回</a>		
+				<a class="btnLook" style="float:left" href="system/orgStructure_qry.jsp?custom_org_function_id=101&select_org_multi=0&select_cascade=''&unselect_cascade=''" lookupGroup="orgLookup">查找带回</a>		
 			</p>
 			<p>
 				<label>部门编号：</label>
@@ -80,7 +80,7 @@ baidu(document).on('click', '#save101', function() {
 			</p>
 						<p>
 				<label>角色：</label>
-				<select id="createUser_role_cd" class="required   "  style="float:left" > 
+				<select id="createUser_role_cd" class="required   "   > 
 				</select>
 			</p>
 			<p>

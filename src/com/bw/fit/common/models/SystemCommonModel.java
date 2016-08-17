@@ -13,6 +13,7 @@ public class SystemCommonModel {
     private String select_company_id ;
     public String select_company_name ;
     private String staff_id ;
+    private String staff_parent_company_id ;
     private String staff_company_id ;
     private String staff_company_name ;
     public String address ;
@@ -81,6 +82,12 @@ public class SystemCommonModel {
     
     
     
+    public String getStaff_parent_company_id() {
+        return staff_parent_company_id;
+    }
+    public void setStaff_parent_company_id(String staff_parent_company_id) {
+        this.staff_parent_company_id = staff_parent_company_id;
+    }
     public int getTemp_int1() {
         return temp_int1;
     }

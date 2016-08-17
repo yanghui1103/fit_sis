@@ -3,7 +3,7 @@
  */ 
 
 $(document).ready(function(){
-	var arr = new Array(20);
+	var arr = new Array(60);
 	for(var i in arr.length){
 		 arr[i] = "-9";		 
 	}arr[0] = "104";arr[1] = "navTab"; 
@@ -27,11 +27,11 @@ $(document).ready(function(){
 					}
 				}; 
 				var zNodes = "" ;
-				var arr = new Array(20);
+				var arr = new Array(60);
 				 for(var i in arr.length){
 					 arr[i] = "-9";		 
 				 }arr[0] =$("#giveRole_role_cd").val() ; 
-					createJsonAndAjax(
+				 createJsonAndAjaxNew(
 							'getFunctionsTreeStructs.action',
 							arr,
 							function(data){  
@@ -42,28 +42,8 @@ $(document).ready(function(){
 								$("#checkTruePS").bind("click", {type:"checkTruePS"}, checkNode);
 								$("#checkFalsePS").bind("click", {type:"checkFalsePS"}, checkNode);
 								$("#checkAllTrue").bind("click", {type:"checkAllTrue"}, checkNode);
-								$("#checkAllFalse").bind("click", {type:"checkAllFalse"}, checkNode);
-								$("#btn_sub").click(function(){		
-
-									 var nodeStr  ="";
-								      var zTree = $.fn.zTree.getZTreeObj("roleFunctionTree");
-										var nodes = zTree.getCheckedNodes(true);					
-								    		for (var i=0; i<nodes.length;  i++) {
-								      			nodeStr = nodeStr +nodes[i].id ;
-								      			if(i<nodes.length-1){
-								      			    nodeStr = nodeStr + ",";
-								      			}
-								   			}	 
-								    		var arr = new Array(20);
-											 for(var i in arr.length){
-												 arr[i] = "-9";		 
-											 }arr[0] = role_cd_value;arr[1]=nodeStr;
-											 var eobj = createParamJson(arr); 
-											 var eJson = JSON.stringify(eobj);   
-												var resultJson = AjaxExchangeBackTextData('giveAuthorityToRole.action',eJson);  
-												alertToUserMsg(resultJson); 
-								});
-							},'JSON'
+								$("#checkAllFalse").bind("click", {type:"checkAllFalse"}, checkNode); 
+							},'JSON',true
 				    );
 				var code, log, className = "dark";
 			// -- 

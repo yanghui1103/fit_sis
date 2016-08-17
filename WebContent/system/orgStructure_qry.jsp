@@ -8,6 +8,8 @@
 <script type="text/javascript">
 var custom_org_function_id = "<%=request.getParameter("custom_org_function_id") %>" ;
 var select_org_multi = "<%=request.getParameter("select_org_multi") %>" ;
+var select_cascade = "<%=request.getParameter("select_cascade") %>" ;
+var unselect_cascade = "<%=request.getParameter("unselect_cascade") %>" ;
 </script>
 <script type="text/javascript" src="system/orgStructure_qry.js"></script>
 <link rel="stylesheet" href="common/css/zTreeStyle/zTreeStyle.css"

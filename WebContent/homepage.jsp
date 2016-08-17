@@ -28,9 +28,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="chart/g.line.js"></script>
 <script type="text/javascript" src="chart/g.pie.js"></script>
 <script type="text/javascript" src="chart/g.dot.js"></script>
-<script type="text/javascript" src="common/js/tangram-min.js"></script>
-<script type="text/javascript" src="common/js/dwz_common.js"></script>
-<script type="text/javascript" src="common/js/baiduTemplate.js"></script>
 <script src="js/jquery-1.7.2.js" type="text/javascript"></script> 
 <script src="js/jquery.validate.js" type="text/javascript"></script>
 <script src="js/jquery.bgiframe.js" type="text/javascript"></script>
@@ -84,6 +81,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	src="common/js/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript"
 	src="common/js/date.js"></script>
+<script type="text/javascript" src="common/js/tangram-min.js"></script>
+<script type="text/javascript" src="common/js/dwz_common.js"></script>
+<script type="text/javascript" src="common/js/baiduTemplate.js"></script>
 <style>
     body{position: relative;height: 1000px;}
     .footer{position: absolute;bottom: 0;left: 0;height: 20px;width: 100%;position:fixed;bottom:0;}

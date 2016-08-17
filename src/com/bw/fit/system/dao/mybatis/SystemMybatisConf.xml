@@ -52,4 +52,37 @@
     AND rf.state='2'
     AND uu.fdid =#{staff_id}   AND fb.function_cd =#{func_id}  
  	 </select>
+      <!-- 获取当前用户所在机构（用到组织架构中） -->
+      <select id="getThisOrgTreeStructs"  parameterType = "com.bw.fit.common.models.SystemCommonModel" resultType="com.bw.fit.common.models.SystemCommonModel">
+       select a.fdid staff_company_id,a.company_name staff_company_name,a.parent_company_id staff_parent_company_id,decode(a.state,'2',1,0) func_click
+      from company a   where a.fdid = #{staff_parent_company_id}  and isdeleted= '0'       
+      </select>
+ 	 <!-- 用户，角色，功能得出查询等级-->
+ 	 <select id="getCustomOrgTreeLevel"   parameterType = "com.bw.fit.common.models.SystemCommonModel"  resultType="com.bw.fit.common.models.SystemCommonModel">
+       	 select rq.level_code func_level
+      from staff2roles sr,role2function2qrylevel rq 
+      where sr.role_id = rq.role_id and sr.staff_id = #{staff_id} and rq.function_id= #{func_id}
+ 	 </select>
+      <!-- 获取组织架构树 -->
+      <select id="getOrgTreeStructs" parameterType = "com.bw.fit.common.models.SystemCommonModel" resultType="com.bw.fit.common.models.SystemCommonModel">
+       select a.fdid staff_company_id,a.company_name staff_company_name ,a.parent_company_id staff_parent_company_id,decode(a.state,'2',1,0) func_click,admin_phone temp_str1
+      from company a       where a.fdid = #{staff_parent_company_id}  and isdeleted= '0'
+		union
+      select a.fdid staff_company_id,a.company_name staff_company_name ,a.parent_company_id staff_parent_company_id,decode(a.state,'2',1,0) func_click,admin_phone temp_str1
+  		from company a connect by a.parent_company_id = prior a.fdid start with a.parent_company_id = #{staff_parent_company_id} and isdeleted='0'
+      </select>
+            <!--  获取功能树及选中 -->
+      <select id="getFunctionsTreeStructs"  parameterType = "com.bw.fit.common.models.SystemCommonModel"  resultType="com.bw.fit.common.models.SystemCommonModel">
+		SELECT fs.fdid func_id,fs.parent_function_id func_p_id,fs.function_name func_name,
+    (SELECT COUNT(1) FROM role2function rf WHERE rf.function_id = fs.fdid AND rf.role_id =#{role_id}
+    AND rf.btn_cd ='view') func_check ,0 temp_str1
+    FROM functions fs
+    WHERE fs.state = '2' 
+    UNION 
+    SELECT fb.fdid func_id,fb.function_cd func_p_id,fb.btn_name  func_name,
+    (CASE WHEN (SELECT COUNT(1) FROM role2function rf2 WHERE rf2.function_id = fb.function_cd  AND fb.btn_cd = rf2.btn_cd 
+    AND rf2.role_id =#{role_id} AND rf2.btn_cd !='view' ) = 0 THEN 0 ELSE 1 END ) func_check,0 temp_str1
+    FROM function_btn fb ,functions ff
+    WHERE  fb.function_cd = ff.fdid AND ff.state ='2' AND fb.btn_cd !='view'
+     </select>
 </mapper>

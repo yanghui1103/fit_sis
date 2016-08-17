@@ -81,6 +81,7 @@ public class AuthInterceptor extends AbstractInterceptor {
             info.put("msg", obj.get("msg").toString());
             wr.write(info.toJSONString());
             wr.close();
+            System.out.println("无权限");
             return null;
         } catch (Exception e) {
             // TODO Auto-generated catch block

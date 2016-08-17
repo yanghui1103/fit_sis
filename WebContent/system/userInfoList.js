@@ -1,14 +1,14 @@
 /**
  *  用户列表
  */
-	var num =0;
-	var total = 30;   
+var num =0;
+var total = 30;   
 $(document).ready(function(){	
-	var arr = new Array(20);
+	var arr = new Array(60);
 	for(var i in arr.length){
 		 arr[i] = "-9";		 
 	}arr[0] = "102";arr[1] = "navTab"; 
-	renderBtnsToDivV0($("#userListSubBar"),'getAuthorityBtnsByThisUser.action',arr); 
+	renderBtnsToDiv($("#userListSubBar"),'getAuthorityBtnsByThisUser.action',arr); 
 	 arr[0] = "ROLE"; 
 	 takeTypeDataList($("#userInfo_role_cd"),"getSysItems.action","1", arr);	
 	});

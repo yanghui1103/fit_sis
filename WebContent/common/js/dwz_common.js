@@ -84,15 +84,7 @@ function alertMsgBoxByXmlData(resultXml){
     }else{
     	alertMsg.warn(msg);
     }
-} 
-function AjaxExchangeBackTextDataV2(url,eJson){ 
-	var resultData = "";
-	$.post(url,"context="+eJson,function(data){
-		resultData = data; 
-	});	
-	   return resultData ;
- }
- 
+}  
 
 function alertToUserMsg(json){
 	var res = json.res;
@@ -361,8 +353,7 @@ function removeTableData(obj,cnt){
 }
 // 创建一个30长度的数组Json,并做ajax请求
 function createJsonAndAjax(action,arr, ff,dataFormat) {
-
-	var eJson = createParamJson(arr);
+	var eJson = createParamJsonCommon(arr);
 	eJson = JSON.stringify(eJson);  
 	var args = {
 		"context" : eJson
@@ -563,7 +554,15 @@ function checkThisCellValidate(obj){
 	return array;
 }
 
-
+function createJsonAndAjaxNew(action, array,dealAfter,dataFormat,async_val) { 
+	var eJson = createParamJsonCommon(array);
+	eJson = JSON.stringify(eJson); 
+	var args = {"context" : eJson};	
+	$.ajax({url:action, type:"POST",data:args,dataType:dataFormat,async:async_val,success: function(data) {
+		dealAfter(data)
+	}
+	});
+}
 
 function testAjax(action,form, dealAfter,dataFormat) { 
 	var x= form.serializeArray();  

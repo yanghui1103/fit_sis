@@ -3,7 +3,7 @@
         "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"  
         "http://struts.apache.org/dtds/struts-2.0.dtd">  
 <struts> 
-	<package   name="struts_system" extends="authInterceptor,nologinInterceptor,struts-default">
+	<package   name="struts_system"  extends="struts-default"> <!--   extends="authInterceptor,nologinInterceptor,struts-default" -->
 		<action name="userLoginStyleStaff" class="systemAction"  method="userLoginStyleStaff">
 			<result name="SUCCESS">homepage.jsp</result>
 			<result name="FAIL">index.jsp</result>
@@ -47,6 +47,8 @@
 		<!-- createNewRole 新建角色 -->
 		<action name="createNewRole" class="systemAction" method="createNewRole" />
 		<action name="getPositionList" class="systemAction" method="getPositionList" />
+		<!-- 角色权限分配：选择一个角色校验其合法性 -->
+		<action name="checkRoleAndStaffValidate"  class="systemAction" method="checkRoleAndStaffValidate" />
 		<!-- getFileListByForeginId 根据外部ID查询出关联的文件 -->
 		<action name="getFileListByForeginId" class="systemAction"
 			method="getFileListByForeginId"  >
@@ -91,11 +93,7 @@
 		<!-- 更改密码 -->
 		<action name="changePasswd"  class="systemAction" method="changePasswd" />
 		<action name="getCustomOrgTree"  class="systemAction" method="getCustomOrgTree" >
-		<interceptor-ref name="defaultStack"></interceptor-ref>		
-		</action>
-		<action name="getCustomOrgTreeTask"  class="systemAction" method="getCustomOrgTreeTask" >
-		<interceptor-ref name="defaultStack"></interceptor-ref>		
-		</action>
+		</action> 
 		<!-- 获取该角色的权限及所有权限 -->
 		<action name="getFunctionsTreeStructs" class="systemAction" method="getFunctionsTreeStructs" >
 		<interceptor-ref name="defaultStack"></interceptor-ref>

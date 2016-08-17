@@ -247,4 +247,244 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         return ls;
     }
 
+    @Override
+    public JSONObject getCustomOrgTree(SystemCommonModel c) {
+        // 根据用户，功能查询出组织架构树
+        JSONObject info = new JSONObject();
+        try {
+            c.setSql("systemAdminDAO.getCustomOrgTreeLevel");
+            List<SystemCommonModel> list = systemMybatisDaoUtil.getListData(
+                    c.getSql(), c);
+            if ("1".equals(list.get(0).getFunc_level())) {
+                // 所有组织
+                c.setStaff_parent_company_id("0");
+                return getOrgTreeStructs(c);
+            } else if ("2".equals(list.get(0).getFunc_level())) {
+                // 只有自身
+                c.setStaff_parent_company_id(c.getStaff_company_id());
+                c.setSql("systemAdminDAO.getThisOrgTreeStructs");
+                List<SystemCommonModel> list_this = systemMybatisDaoUtil
+                        .getListData(c.getSql(), c);
+                info.put("res", "2");
+                info.put("msg", "查询成功");
+                JSONArray array = new JSONArray();
+                JSONObject jsonObjArr = new JSONObject();
+                jsonObjArr.put("id", (list_this.get(0)).getStaff_company_id());
+                jsonObjArr
+                        .put("pId", (list_this.get(0)).getStaff_parent_company_id());
+                jsonObjArr.put("name", (list_this.get(0)).getStaff_company_name()+"_"+(list.get(0)).getTemp_str1());
+                jsonObjArr.put("open", false);
+                jsonObjArr.put("click", (list_this.get(0)).isFunc_click()); 
+                array.add(jsonObjArr);
+                jsonObjArr = null;
+                info.put("list", array);
+                array = null;
+                return info;
+            } else if ("3".equals(list.get(0).getFunc_level())) {// 自身及子组织
+                c.setStaff_parent_company_id(c.getStaff_company_id());
+                return getOrgTreeStructs(c);
+            }else if ("4".equals(list.get(0).getFunc_level())) {// 所有子组织
+                c.setStaff_parent_company_id(c.getStaff_company_id());
+                return getAllChildsTreeStructs(c);
+            }else if ("5".equals(list.get(0).getFunc_level())) {// 只下级子组织
+                c.setStaff_parent_company_id(c.getStaff_company_id());
+                return getNextChildsTreeStructs(c);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.info(ex.getMessage());
+        }
+        return info;
+    }
+
+    @Override
+    public JSONObject getOrgTreeStructs(SystemCommonModel c) {
+        /**
+         * 得出组织架构树
+         */
+        JSONObject info = new JSONObject();
+        
+        try {
+            c.setSql("systemAdminDAO.getOrgTreeStructs");
+            c.setFdid(getUUID());
+            List<SystemCommonModel> list = systemMybatisDaoUtil.getListData(
+                    c.getSql(), c);
+            if (list.size() > 0) {
+                info.put("res", "2");
+                info.put("msg", "查询成功");
+                JSONArray array = new JSONArray();
+                if(c.getTemp_int1()!=1){
+                    for (int i = 0; i < list.size(); i++) {
+                        JSONObject jsonObjArr = new JSONObject();
+                        jsonObjArr.put("id", (list.get(i)).getStaff_company_id());
+                        jsonObjArr.put("pId", (list.get(i)).getStaff_parent_company_id());
+                        jsonObjArr.put("name", (list.get(i)).getStaff_company_name());
+                        jsonObjArr.put("open", false);
+                        jsonObjArr.put("click", (list.get(i)).isFunc_click());
+                        jsonObjArr.put("task", (list.get(i)).getTemp_str1());
+                        array.add(jsonObjArr);
+                        jsonObjArr = null;
+                        }
+                    info.put("list", array);
+                    array = null;
+                }else{
+                    for (int i = 0; i < list.size(); i++) {
+                        JSONObject jsonObjArr = new JSONObject();
+                        jsonObjArr.put("id", (list.get(i)).getStaff_company_id());
+                        jsonObjArr.put("pId", (list.get(i)).getStaff_parent_company_id());
+                        jsonObjArr.put("name", (list.get(i)).getStaff_company_name() );
+                        jsonObjArr.put("open", false);
+                        jsonObjArr.put("click", (list.get(i)).isFunc_click());  
+                        array.add(jsonObjArr);
+                        jsonObjArr = null;
+                        }
+                    info.put("list", array);
+                    array = null;
+                }
+            } else {
+                info.put("res", "2");
+                info.put("msg", "查询失败");
+            } 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.info(ex.getMessage());
+        }
+        return info;
+    }
+
+    @Override
+    public JSONObject getAllChildsTreeStructs(SystemCommonModel c) {
+        /**
+         * 得出组织架构树
+         */
+        JSONObject info = new JSONObject();     
+        try {
+            c.setSql("systemAdminDAO.getAllChildsTreeStructs");
+            c.setFdid(getUUID());
+            List<SystemCommonModel> list = systemMybatisDaoUtil.getListData(
+                    c.getSql(), c);
+            if (list.size() > 0) {
+                info.put("res", "2");
+                info.put("msg", "查询成功");
+                JSONArray array = new JSONArray(); 
+                    for (int i = 0; i < list.size(); i++) {
+                        JSONObject jsonObjArr = new JSONObject();
+                        jsonObjArr.put("id", (list.get(i)).getStaff_company_id());
+                        jsonObjArr.put("pId", (list.get(i)).getStaff_parent_company_id());
+                        jsonObjArr.put("name", (list.get(i)).getStaff_company_name());
+                        jsonObjArr.put("open", false);
+                        jsonObjArr.put("click", (list.get(i)).isFunc_click()); 
+                        array.add(jsonObjArr);
+                        jsonObjArr = null;
+                        }
+                    info.put("list", array);
+                    array = null;
+                 
+            } else {
+                info.put("res", "2");
+                info.put("msg", "查询失败");
+            } 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.info(ex.getMessage());
+        }
+        return info;
+    }
+
+    @Override
+    public JSONObject getNextChildsTreeStructs(SystemCommonModel c) {
+        /**
+         * 得出组织架构树
+         */
+        JSONObject info = new JSONObject();     
+        try {
+            c.setSql("systemAdminDAO.getNextChildsTreeStructs");
+            c.setFdid(getUUID());
+            List<SystemCommonModel> list = systemMybatisDaoUtil.getListData(
+                    c.getSql(), c);
+            if (list.size() > 0) {
+                info.put("res", "2");
+                info.put("msg", "查询成功");
+                JSONArray array = new JSONArray(); 
+                    for (int i = 0; i < list.size(); i++) {
+                        JSONObject jsonObjArr = new JSONObject();
+                        jsonObjArr.put("id", (list.get(i)).getStaff_company_id());
+                        jsonObjArr.put("pId", (list.get(i)).getStaff_parent_company_id());
+                        jsonObjArr.put("name", (list.get(i)).getStaff_company_name());
+                        jsonObjArr.put("open", false);
+                        jsonObjArr.put("click", (list.get(i)).isFunc_click()); 
+                        array.add(jsonObjArr);
+                        jsonObjArr = null;
+                        }
+                    info.put("list", array);
+                    array = null;
+                 
+            } else {
+                info.put("res", "2");
+                info.put("msg", "查询失败");
+            } 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.info(ex.getMessage());
+        }
+        return info;
+    }
+    /***
+     * 角色分配的树
+     */
+
+    @Override
+    public JSONObject getFunctionsTreeStructs(SystemCommonModel c) {
+        /**
+         * 获取功能树，及选中
+         */
+        JSONObject info = new JSONObject();
+        try {
+            c.setSql("systemAdminDAO.getFunctionsTreeStructs");
+            c.setFdid(getUUID());
+            List<SystemCommonModel> list = systemMybatisDaoUtil.getListData(
+                    c.getSql(), c);
+            if (list.size() > 0) {
+                info.put("res", "2");
+                info.put("msg", "查询成功");
+                JSONArray array = new JSONArray();
+                for (int i = 0; i < list.size(); i++) {
+                    JSONObject jsonObjArr = new JSONObject();
+                    jsonObjArr.put("id", (list.get(i)).getFunc_id());
+                    jsonObjArr.put("pId", (list.get(i)).getFunc_p_id());
+                    jsonObjArr.put("name", (list.get(i)).getFunc_name());
+                    jsonObjArr.put("open", false);
+                    if ("0".equals(list.get(i).getFunc_check())) {
+                        jsonObjArr.put("nochecked", true);
+                    } else {
+                        jsonObjArr.put("checked", true);
+                    }
+                    array.add(jsonObjArr);
+                    jsonObjArr = null;
+                }
+                info.put("list", array);
+                array = null;
+            } else {
+                info.put("res", "2");
+                info.put("msg", "查询失败");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.info(ex.getMessage());
+        }
+        return info;
+    }
+    /****
+     * 角色和用户使用合法性校验
+     */
+    @Override
+    public JSONObject checkRoleAndStaffValidate(SystemCommonModel c) {
+        // TODO Auto-generated method stub
+
+        JSONObject info = new JSONObject(); 
+            info.put("res", "2");
+            info.put("msg", "校验合法"); 
+        return info;
+    }
+
 }

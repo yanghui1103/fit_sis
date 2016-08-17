@@ -181,4 +181,85 @@ public class SystemAction extends BaseAction{
         }
         return null;
     }
+    
+    /**
+     * 获取该用户的此功能，所拥有的
+     * 层级的树
+     */
+    public String getCustomOrgTree() throws Exception {
+        HttpSession session = request.getSession(false); 
+        response.setContentType("text/plain;charset=UTF-8");
+        Writer wr = response.getWriter();
+        String str =  (request.getParameter("context")) ; 
+        JSONObject obj = (JSONObject) JSONValue.parse(str);
+        JSONArray array = (JSONArray) obj.get("content");
+        String param1 = (String) (((JSONObject) array.get(0)).get("param1")); 
+        SystemCommonModel c = new SystemCommonModel(); 
+        c.setFunc_id(param1) ;
+        c.setStaff_company_id(((LoginUser) session.getAttribute("LoginUser"))
+                .getOrg_cd());
+        c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
+                .getStaff_id());
+        c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
+        JSONObject objItem = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                .getCustomOrgTree(c);
+        wr.write(objItem.toJSONString());
+        wr.close();
+        
+        return null ;
+    }
+    
+    /***
+     * 获取这个角色的权限树及没有选中的情况
+     */
+    public String getFunctionsTreeStructs(){
+        try {
+            HttpSession session = request.getSession(false); 
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            JSONObject obj = (JSONObject) JSONValue.parse(str);
+            JSONArray array = (JSONArray) obj.get("content");
+            String param1 = (String) (((JSONObject) array.get(0)).get("param1")); 
+            SystemCommonModel c = new SystemCommonModel(); 
+            c.setRole_id(param1) ; 
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
+                    .getStaff_id());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
+            JSONObject objItem = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                    .getFunctionsTreeStructs(c);
+            wr.write(objItem.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
+    /***
+     * 角色和用户之间的合法性
+     */
+    public String checkRoleAndStaffValidate(){
+        try {
+            HttpSession session = request.getSession(false); 
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            JSONObject obj = (JSONObject) JSONValue.parse(str);
+            JSONArray array = (JSONArray) obj.get("content");
+            String param1 = (String) (((JSONObject) array.get(0)).get("param1")); 
+            SystemCommonModel c = new SystemCommonModel(); 
+            c.setRole_id(param1) ; 
+            c.setStaff_id((String) (((JSONObject) array.get(0)).get("param2")));
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
+            JSONObject objItem = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                    .checkRoleAndStaffValidate(c);
+            wr.write(objItem.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null ;
+    }
 }
