@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+	<link rel="stylesheet" href="common/css/zTreeStyle/zTreeStyle.css" type="text/css">
+	<script type="text/javascript" src="common/js/common.js"></script>
+	<script type="text/javascript" src="common/js/jquery.ztree.core-3.0.js"></script> 
+	<SCRIPT LANGUAGE="javaScript"> 
+		var setting = {
+			data: {
+				key: {
+					title:"t"
+				},
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				onMouseDown: onMouseDown
+			}
+		};
+
+		var zNodes = getAllOrgListInfoJson();
+		var log, className = {down:"dark", up:"dark", right:"dark"};
+		function getAllOrgListInfoJson(){			
+			var edom = createParamDom1("-1");
+			var jsonText = AjaxExchangeBackTextDataV1('getAllOrgListInfoJson.action',edom);    
+			jsonText = eval("["+jsonText+"]");
+			
+			return jsonText ;
+		}
+		function onMouseDown(event, treeId, treeNode) { 
+			qrySearchStaffByTopTree(treeNode.id);
+		} 
+		function qrySearchStaffByTopTree(company_cd){ 
+			//把本级机构及以下机构的人员查询出来 			
+			var edom = createParamDom1(company_cd); 
+			var ttDom = AjaxExchangeBackXMLData('qrySearchClassInfoByOrgTopTree.action',edom);     
+		    var s = $.parseXML(ttDom.xml );  
+		    for(var i=1;i<900 ;i++){
+		    	$("#SearchClassTopDiv").children().find(".gridTbody tr").remove();
+		    }
+		    var obj =$("#SearchClassTopDiv").children().find(".gridThead").children();
+		    obj.append("<tbody class=gridTbody>");
+			   	$(s).find('node').each(function() {
+			   		var table = obj; 
+			   		var xml = $(this); 
+				 	table.append("<tr class=list-blue data-state='"+replaceF9ValToNull(xml.children("state_value").text())+"'><td width='120px'>"+xml.children("class_name").text()+
+				 	 "</td><td width='120px'>"+replaceF9ValToNull(xml.children("type_name").text())+
+				 	"</td><td width='120px'>"+replaceF9ValToNull(xml.children("company_name").text())+
+				 	"</td><td width='120px'>"+replaceF9ValToNull(xml.children("state").text())+
+				 	 "</td><td width='120px''><a class='btnSelect' href=\"javascript:$.bringBack({id:'"+xml.children("class_cd").text()+"', name:'"+xml.children("class_name").text()+"'})\" title=\"查找带回\">选择</a>"+
+				 	 "</td></tr>");  
+			   });  
+			   	obj.append("</tbody>");
+		}
+
+		$(document).ready(function(){
+			$.fn.zTree.init($("#SearchClassTopTree"), setting, zNodes);
+		});
+	</SCRIPT>
+</HEAD>
+
+<BODY> 
+<div class="content_wrap" id="SearchClassTopDiv" >
+    <div layoutH="70" style="float:left; display:block; overflow:auto; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff">		  
+		<ul id="SearchClassTopTree" class="ztree"></ul>
+	</div> 
+	
+<div layoutH="70"  >
+<div  class="pageContent"> 	
+	<table   class="table"  layoutH="118"   width="100%">
+		<thead>
+			<tr>
+				<th width="120">班级名称</th>
+				<th width="120">工种</th>
+				<th width="120">所属机构</th>
+				<th width="120">状态</th> 
+				<th width="100"></th>
+			</tr>
+		</thead>			
+	</table>
+ </div>
+</div>
+
+
+
+</BODY>
+</HTML>

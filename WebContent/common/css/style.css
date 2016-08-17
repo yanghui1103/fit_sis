@@ -1,0 +1,113 @@
+@charset "utf-8";
+
+/** ============= 内容区域样式 Start ============= */
+#wrapper{background-color:#FFFFFF;padding:7px 6px;}
+
+/** 模块标题样式 */
+#headline,#headline .hl-main-bg{height:30px;background:url(../images/bg_sp.png) no-repeat 0 -422px;}
+#headline{background-position:right -452px;padding-right:5px;}
+#headline .hl-main-bg{padding-left:10px;}
+.hl-main-bg h3{float:left;background:url(../images/bg_sign.png) no-repeat 0 -95px;line-height:26px;font-weight:bold;padding-left:22px;max-width:80%;}
+.hl-main-bg .opt{float:right;margin-top:6px;overflow:hidden;}
+.hl-main-bg .opt a.dg-btn{float:left;width:16px;height:16px;background:url(../images/icons.png) no-repeat;margin:0 3px;font-size:0;}
+.hl-main-bg .opt a.min-dialog-btn{background-position:-45px -155px;}
+.hl-main-bg .opt a.close-dialog-btn{background-position:-88px -155px;}
+.hl-main-bg .opt a.min-dialog-btn:hover{background-position:-66px -155px;}
+.hl-main-bg .opt a.close-dialog-btn:hover{background-position:-108px -155px;}
+
+/** 查询样式 */
+#search{background:#F7F7F7;border:1px solid #D9D9D9;margin-top:1px;margin-bottom:4px;position:relative;}
+#search a.search-btn{display:block;width:94px;height:31px;background:url(../images/icons.png) no-repeat 0 -64px;font-size:0;position:absolute;right:20px;top:4px;}
+#search a.search-btn:hover{background-position:0 -96px;}
+#search .option{margin-right:180px;overflow:hidden;}
+.option ul{width:100%;margin:6px 8px;margin:4px 6px 2px 6px\9;overflow:hidden;}
+.option ul li{float:left;width:300px;width:316px\9;margin:4px 8px;*margin:1px 8px;}
+.option ul li span{float:left;width:88px;color:#6A6D70;text-align:right;margin-right:2px;line-height:20px;*line-height:26px;}
+.option ul li input{width:200px;border:1px solid #2279CA;}
+.option ul li select{width:206px;}
+.option ul li input.date{background:url(../images/bg_sign.png) #FFFFFF no-repeat 98% -283px;}
+.option ul li input.combox{background:url(../images/bg_sign.png) no-repeat 99% -313px;}
+.option ul li.interval input{width:87px;width:91px\9;}
+.option ul li.interval em{margin:0 2px;}
+/** 查询样式 */
+
+/** 表格数据样式 */
+#dataInfo{overflow:hidden;}
+#dataInfo table.list{width:100%;border:1px solid #BCD4ED;}
+table.list tr:hover{background-color:#FFF8D9;}
+table.list th,table.list td{text-align:center;padding:2px 10px;max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+table.list th{height:26px;background:url(../images/bgx.png) repeat-x 0 -105px;font-weight:bold;border:1px solid #BCD4ED;padding:0px 10px\9;background:url(../images/bgx.png) repeat-x 0 -103px\9;}
+table.list td{border:1px dotted #BCD4ED;*padding:3px 10px;}
+table.list td.left{text-align:left;}
+table.list .wd2{width:2%;}
+table.list .wd8{width:8%;}
+table.list .wd10{width:10%;}
+table.list .wd14{width:14%;}
+table.list .wd20{width:20%;}
+table.list .check-box{width:12px;padding:4px;padding:0 4px\9;}
+
+
+/** 列表页功能区域样式(新增,导出) */
+#dataInfo .operation{margin:4px 4px 2px 4px;*margin:4px;overflow:hidden;}
+#dataInfo .block-opt-area{border-bottom:1px dashed #D5D3D3;padding-bottom:4px;}
+.operation .opt-box{float:left;margin-top:5px;*margin-top:8px;}
+.operation .opt-box span{line-height:18px;}
+.operation .opt-box a{background:url(../images/bg_sign.png) no-repeat;font-family:"SimSun";color:blue;text-decoration:underline;margin:0 2px;padding:2px 0px 2px 20px;}
+.operation .opt-box a:hover{color:#FF3300;}
+.operation .export{margin-left:36px;}
+.operation .export a.word{background-position:0px -192px;}
+.operation .export a.excel{background-position:0px -163px;}
+.operation .export a.pdf{background-position:0px -134px;}
+.operation .export a.xml{background-position:0px -223px}
+.operation .export a.csv{background-position:0px -251px;}
+.operation .action a{color:#1671B1;}
+.operation .action a.add{background-position:1px -383px;}
+.operation .action a.remove{background-position:0px -353px;padding-left:17px;margin-left:6px;}
+
+/** 分页样式 */
+#pagination{float:right;padding:1px;overflow:hidden;}
+#pagination a.folio, #pagination span.ins {color:#0063DC;border:1px solid #CCCCCC;padding:2px 6px;text-align:center;*border:none;}
+#pagination a.folio:hover {color:#FF3300;border:1px solid #FD6D01;*border:none;}
+#pagination span.active {background-color:#FFEDE1;border:1px solid #FD6D01;color:#FD6D01;font-weight:bold;*border:none;}
+#pagination span.enabled{color:#717171;background-color:#ECF0F2;}
+#pagination span.desc-txt{color:#484848;margin-left:8px;line-height:24px;}
+#pagination span.desc-txt input.go-page{width:22px;height:10px;height:14px\9;text-align:center;color:#424242;margin:3px;vertical-align:top;}
+#pagination span.desc-txt input.go-btn{width:34px;margin-left:6px;margin-top:1px;color:#494949;vertical-align:top;line-height:18px;padding:0;}
+#pagination span.desc-txt input.go-btn:hover{font-weight:bold;}
+/** ============= 内容区域样式 End ============= */
+
+
+/** ============= 弹出页面样式  Start ============= */
+#section{margin:10px;border:1px solid #CCCCCC;padding:10px;overflow:hidden;}
+#dtMain{margin-top:20px;}
+#dtMain ul.form0{margin:0 6px;overflow:hidden;}
+ul.form0 li{margin-bottom:8px;}
+ul.form0 li label{width:84px;float:left;text-align:right;padding-right:6px;margin-top:2px;}
+ul.form0 li .input{width:300px;padding:2px 0;color:#333333;}
+ul.form0 li select.input{padding:0;width:304px;}
+ul.form0 li textarea.input{height:30px;}
+ul.form0 li b.cln{font-size:14px;font-weight:bold;margin:0 1px;}
+#dtMain .action{float:right;margin:10px 22px 6px 0;}
+#dtMain .action .btn{float:left;width:100px;height:28px;background:url(../images/icons.png) no-repeat 0px -205px;color:#FFFFFF;border:none;font-size:14px;font-weight:bold;}
+#dtMain .action .btn:hover{background-position:0 -177px;}
+#dtMain .action .disabled{background-position:0 -233px;}
+#dtMain .action .disabled:hover{background-position:0 -233px;}
+/** ============= 弹出页面样式  End ============= */
+
+.form-box{margin:8px 20px;overflow:hidden;}
+.form-box p.must-res{background-color:#FDFCD5;padding:4px 14px;border-left:4px solid #FF3300;}
+.form-box dl{padding:12px 0 10px;border-bottom:1px dashed #DDDEEE;clear:both;overflow:hidden;}
+.form-box dl.odd{background-color:#E9F5FC;}
+.form-box dl dt{width:140px;float:left;color:#444444;padding-left:10px;}
+.form-box dl dt em{color:#FF3300;margin-left:2px;font-size:14px;}
+.form-box dl dd{float:left;margin-left:14px;}
+.form-box dl dd .text{width:360px;height:18px;}
+.form-box dl dd .res{color:#999999;}
+.form-box dl dd span.opt{color:#333333;margin-left:2px;margin-right:8px;}
+.form-box dl dd textarea{width:600px;height:120px;}
+.form-box .action{margin-top:20px;}
+.form-box .action .btn{float:left;margin:0 30px;}
+
+.btn{width:65px;height:23px;background:url(../images/btn.gif) no-repeat;border:none;}
+.btn:hover{background:url(../images/btn1.gif) no-repeat;}
+

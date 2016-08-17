@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+$(document).ready(function(){
+	var arr = new Array(20);
+	for(var i in arr.length){
+		 arr[i] = "-9";		 
+	}arr[0] = "103";arr[1] = "navTab"; 
+	 renderBtnsToDiv($("#createNewRoleBar"),'getAuthorityBtnsByThisUser.action',arr);
+
+	 
+});
+$(document).on('click', '#save103', function() {			 
+	 var role_name = $("#role_name").val()==""?"-9":$("#role_name").val();
+	 var remark = $("#remark").val()==""?"-9":$("#remark").val();
+	 var array = new Array(role_name,remark);  
+		createJsonAndAjax(
+				'createNewRole.action',
+				array,
+				dealCreateRoleMsg,'JSON'
+	    );
+});
+	function dealCreateRoleMsg(data){
+		alertToUserMsg(data);		
+	}
+</script>
+</head>
+<div class="pageContent">
+	<form method="post" action=""  id=form1 class="pageForm required-validate">
+		<div class="pageFormContent" layoutH="56">
+			<p>
+				<label>角色名称：</label>
+				<input id="role_name"   style="float:left" class="required" type="text" size="30"  alt="请输入角色名称"/>
+			</p>
+			<p>
+				<label>备注：</label>
+				<input id="remark"   style="float:left"  type="text" size="30"  alt="请输入备注"/>
+			</p>
+		</div>
+		<div class="formBar" id="createNewRoleBar">
+		</div>
+	</form>
+</div> 

@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script type="text/javascript">
+$(document).ready(function(){
+	// 添加该功能上显示的按钮权限 
+	 var arr = new Array(20);
+	 for(var i in arr.length){
+		 arr[i] = "-9";		 
+	 }arr[0] = "108";
+	 var eobj = createParamJson(arr); 
+	 var eJson = JSON.stringify(eobj); 
+	 renderBtnsToDiv($("#editCompSubBar"),'getAuthorityBtnsByThisUser.action',eJson);
+	  
+	 //根据上页的OrgId查询出用户资料，并遍历页面
+	if(($('input[id="orgListFdId"]:checked').length) == 1){
+			var orgListFdId = $('input[id="orgListFdId"]:checked').val();
+			getOrgInfosById(orgListFdId);
+	}else{
+			alertMsg.error("请选择一条记录！");
+	}
+});
+$("#save108").click(function(){
+	if($("#editOrg_id").val()=="" || $("#editOrg_name").val()=="" ||$("#edit_uporg_id").val()=="" ){
+		alertMsg.error("请填写非空项！");
+		return ;
+	}
+	var arr = new Array(20);
+	 for(var i in arr.length){
+		 arr[i] = "-9";		 
+	 }arr[0] =$("#editOrg_id").val();
+	 arr[1]=$("#editOrg_name").val();
+	 arr[2]=$("#edit_uporg_id").val();
+	arr[3] = 	$("#editComp_address").val() ;
+	 var eobj = createParamJson(arr); 
+	 var eJson = JSON.stringify(eobj);  
+	 if($("#edit_uporg_id").val()=='0'){
+		 alertMsg.info("该机构不容许修改");
+		 return ;
+	 }
+	// 保存变更后的用户资料 
+	var ttDom = AjaxExchangeBackTextData('updateOrgInfosByOrgId.action',eJson);   
+	alertToUserMsg(ttDom);
+});
+function getOrgInfosById(orgListFdId){ 
+	var arr = new Array(20);
+	 for(var i in arr.length){
+		 arr[i] = "-9";		 
+	 }arr[0] = orgListFdId;
+	 var eobj = createParamJson(arr); 
+	 var eJson = JSON.stringify(eobj);  
+		var ttDom = AjaxExchangeBackXMLDataByJson('getOrgInfosById.action',eJson);   
+		 var s = $.parseXML(ttDom.xml );
+		   	$(s).find('org').each(function() {  
+			 	 var xml = $(this);
+		   		$("#editOrg_id").val(xml.children("company_cd").text());$("#editOrg_name").val(xml.children("company_name").text());
+		   		$("#edit_uporg_name").val(xml.children("upcompany_name").text());$("#edit_uporg_id").val(xml.children("upcompany_cd").text());
+		   		$("#editComp_address").val(xml.children("address").text());$("#editComp_date").val(xml.children("create_date").text());
+		   		$("#editComp_level").val(xml.children("level").text());$("#editComp_operator").val(xml.children("operator").text());
+		   	});
+}
+</script>
+</head>
+<div class="pageContent">
+	<form method="post" action=""  id=editORGForm class="pageForm required-validate">
+		<div class="pageFormContent" layoutH="56">
+			<p>
+				<label>组织编码：</label>
+				<input id=editOrg_id  type="text" size="30" maxlength=10  class=required readonly />
+			</p>
+			<p>
+				<label>组织名称：</label>
+				<input id="editOrg_name" class="required" type="text"   maxlength=12  size="30"  alt="请输入组织名称"/>
+			</p>
+			<p>
+				<label>上级组织名称：</label>
+				<input type="text"  id="edit_uporg_name" class="required" readonly name="orgLookup.orgName" value="" suggestFields="orgNum,orgName"   lookupGroup="orgLookup" />
+				<a class="btnLook" href="system/getAllOrgs.html" lookupGroup="orgLookup">查找带回</a>		
+			</p>
+			<p>
+				<label>上级组织编码：</label>
+				<input type="text"  class="required" readonly="readonly"  id="edit_uporg_id" name="orgLookup.id" />
+			</p>
+			<p>
+				<label>地址：</label>
+				<input type="text" id=editComp_address size="30" />
+			</p>
+			<p>
+				<label>创建时间：</label>
+				<input type="text" id=editComp_date size="30" readonly/>
+			</p>
+			<p>
+				<label>机构级别：</label>
+				<input type="text" id=editComp_level size="30" readonly />
+			</p>
+			<p>
+				<label>录入员：</label>
+				<input type="text" id=editComp_operator readonly size="30" />
+			</p>
+		</div>
+		<div class="formBar" id="editCompSubBar">
+		</div>
+	</form>
+</div> 

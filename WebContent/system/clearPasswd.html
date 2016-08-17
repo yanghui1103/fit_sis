@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript">
+$(document).ready(function(){
+	var arr = new Array(20);
+	for(var i in arr.length){
+		 arr[i] = "-9";		 
+	}arr[0] = "120";arr[1] = "navTab"; 
+	 renderBtnsToDiv($("#clearPasswdBar"),'getAuthorityBtnsByThisUser.action',arr);
+
+	 
+});
+$(document).on('click', '#save120', function() {			 
+	 var staff_number = $("#staff_number").val()==""?"-9":$("#staff_number").val(); 
+	 if(staff_number=="-9" ){
+		 alertMsg.info("请输入登录名！");
+		 return ;
+	 }
+	 var array = new Array(staff_number,"1");  
+		createJsonAndAjax(
+				'clearPasswd.action',
+				array,
+				dealChangePasswdMsg,'JSON'
+	    );
+});
+	function dealChangePasswdMsg(data){ 
+		alertToUserMsg(data);		
+	}
+</script>
+</head> 
+	
+<div class="pageContent">
+	<form method="post" action=""  id=form1 class="pageForm required-validate">
+		<div class="pageFormContent" layoutH="56">
+			<p>
+				<label>登录名：</label>
+				<input id="staff_number"  style="float:left"  class="required" type="text" size="30"  maxlength=12  />
+			</p> 
+		</div>
+		<div class="formBar" id="clearPasswdBar">
+		</div>
+	</form>
+</div>  
+</html>

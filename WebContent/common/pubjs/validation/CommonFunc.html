@@ -1,0 +1,343 @@
+<HTML>
+<HEAD>
+<TITLE>JavaScript 函数测试器</TITLE>
+
+<SCRIPT language="JavaScript" src= "validate.js"></SCRIPT>
+
+<SCRIPT language="JavaScript">
+	function execFunc(funcName, para1, para2, para3) {
+		var strVal = "";
+		
+		if (funcName == "") alert("The function name cannot be empty!");
+		else if (funcName.indexOf("\\") > -1) alert("Invalid character in inputting!");
+		else {
+			strVal = funcName + "(";
+			
+			if (para1.indexOf("\\") > -1) {
+				alert("Invalid character in inputting!");
+				return;
+			}
+			
+			if (funcName != "dialog"){
+				switch (document.forms[0].selType1.options[document.forms[0].selType1.selectedIndex].value) {
+					case "0":
+						strVal += "'" + para1 + "'";
+						break;
+					case "1":
+						strVal += para1;
+						break;
+					case "2":
+						strVal += para1;
+						break;
+				}
+				
+				if (para2 != "") {
+					if (para2.indexOf("\\") > -1) {
+						alert("Invalid character in inputting!");
+						return;
+					}
+			
+					switch (document.forms[0].selType2.options[document.forms[0].selType2.selectedIndex].value) {
+						case "0":
+							strVal += ",'" + para2 + "'";
+							break;
+						case "1":
+							strVal += "," + para2;
+							break;
+						case "2":
+							strVal += "," + para2;
+							break;
+					}
+				
+					if (para3 != "") {
+						if (para3.indexOf("\\") > -1) {
+							alert("Invalid character in inputting!");
+							return;
+						}
+			
+						switch (document.forms[0].selType3.options[document.forms[0].selType3.selectedIndex].value) {
+							case "0":
+								strVal += ",'" + para3 + "'";
+								break;
+							case "1":
+								strVal += "," + para3;
+								break;
+							case "2":
+								strVal += "," + para3;
+								break;
+						}
+					}
+				}
+			}
+			else if (funcName == "dialog")
+				strVal += "'" + para1 + "','" + para2 + "','" + para3 + "'";
+			
+			strVal += ")";
+
+			document.forms[0].txtExec.value = strVal;
+			document.forms[0].txtResult.value = eval(strVal);
+		}
+	}
+	
+	function fillFunc(funcName) {
+		document.forms[0].txtFunc.value = funcName;
+		document.forms[0].txtPara1.focus();
+	}
+</SCRIPT>
+
+<STYLE>
+<!--
+	th { height: 30; font-family: SimSun; font-size: 9.5pt; background-color: #ADDFFF; }
+	td { height: 30; font-family: SimSun; font-size: 9.5pt; background-color: #DDDFFF; }
+//-->
+</STYLE>
+</HEAD>
+
+<BODY>
+	<P><CODE>函数测试区：</CODE></P>
+	<CENTER><TABLE cellspacing="1" bgcolor="blue">
+	<FORM>
+		<TR>
+			<TH>Function Name</TH>
+			<TH>Parameter(s)</TH>
+			<TH>Result</TH>
+		</TR>
+		<TR>
+			<TD rowspan="3"><INPUT type="text" name="txtFunc" size="35"></TD>
+			<TD>
+				<INPUT type="text" size="25" name="txtPara1">
+				<SELECT size="1" name="selType1">
+					<OPTION value="0">String
+					<OPTION value="1">Number
+					<OPTION value="2">Date
+				</SELECT>
+			</TD>
+			<TD rowspan="3" align="center">
+				<INPUT type="button" value="Run" style="width:90%;height:100%;" onclick="JavaScript:execFunc(txtFunc.value,txtPara1.value,txtPara2.value,txtPara3.value);">
+			</TD>
+		</TR>
+		<TR>
+			<TD>
+				<INPUT type="text" size="25" name="txtPara2">
+				<SELECT size="1" name="selType2">
+					<OPTION value="0">String
+					<OPTION value="1">Number
+					<OPTION value="2">Date
+				</SELECT>
+			</TD>
+		</TR>
+		<TR>
+			<TD>
+				<INPUT type="text" size="25" name="txtPara3">
+				<SELECT size="1" name="selType3">
+					<OPTION value="0">String
+					<OPTION value="1">Number
+					<OPTION value="2">Date
+				</SELECT>
+			</TD>
+		</TR>
+		<TR>
+			<TD colspan="2"><INPUT type="text" name="txtExec" style="width:100%;">
+				
+			</TD>
+			<TD><INPUT type="text" size="25" name="txtResult"></TD>
+		</TR>
+	</TABLE></CENTER>
+	
+	<BR>
+	
+	<P><CODE>请点击函数名的超链接以测试该函数：</CODE></P>
+	<CENTER><TABLE cellspacing="1" bgcolor="blue" width="760" cellpadding="4">
+		<TR>
+			<TH>Function</TH>
+			<TH width="500">Comment</TH>
+			<TH width="100">Parameter(s)</TH>
+			<TH>Return</TH>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('isNullOrEmpty');">isNullOrEmpty</A></TD>
+			<TD>判断一个字符串是否 null 或者空串。</TD>
+			<TD>String</TD>
+			<TD>boolean</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('isBlank');">isBlank</A></TD>
+			<TD>判断一个字符串是否 null 或者空串，或者完全由空格字符构成。</TD>
+			<TD>String</TD>
+			<TD>boolean</TD>
+		</TR>
+		<TR><TD colspan="4">
+			<FONT color="green">下面的 5 个函数用于判断单个字符。</FONT>
+		</TD></TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('isDigitChar');">isDigitChar</A></TD>
+			<TD>判断一个字符是否数字。</TD>
+			<TD><nobr>String (1 char)</nobr></TD>
+			<TD>boolean</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('isSmallAlphabetChar');">isSmallAlphabetChar</A></TD>
+			<TD>判断一个字符是否小写英文字母。</TD>
+			<TD>String (1 char)</TD>
+			<TD>boolean</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('isCapitalAlphabetChar');">isCapitalAlphabetChar</A></TD>
+			<TD>判断一个字符是否大写英文字母。</TD>
+			<TD>String (1 char)</TD>
+			<TD>boolean</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('isAlphabetChar');">isAlphabetChar</A></TD>
+			<TD>判断一个字符是否英文字母。</TD>
+			<TD>String (1 char)</TD>
+			<TD>boolean</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('isAlphanumericChar');">isAlphanumericChar</A></TD>
+			<TD>判断一个字符是否英文字母或者数字。</TD>
+			<TD>String (1 char)</TD>
+			<TD>boolean</TD>
+		</TR>
+		<TR><TD colspan="4">
+			<FONT color="green">下面的 8 个函数用于判断字符串（一到多个字符）。</FONT>
+		</TD></TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('isNumber');">isNumber</A></TD>
+			<TD>判断一个字符串是否可以转换为整数。</TD>
+			<TD>String</TD>
+			<TD>boolean</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('isFloat');">isFloat</A></TD>
+			<TD>判断一个字符串是否可以转换为浮点数（float）。</TD>
+			<TD>String</TD>
+			<TD>boolean</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('isDecimal');">isDecimal</A></TD>
+			<TD>判断一个字符串是否可以转换为小数。起始字符是“0”或者结束字符是“.”都是允许的。</TD>
+			<TD>String</TD>
+			<TD>boolean</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('isAlphabet');">isAlphabet</A></TD>
+			<TD>判断一个字符串是否仅由英文字母组成。</TD>
+			<TD>String</TD>
+			<TD>boolean</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('isAlphanumeric');">isAlphanumeric</A></TD>
+			<TD>判断一个字符串是否仅由英文字母或数字组成。</TD>
+			<TD>String</TD>
+			<TD>boolean</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('isDate');">isDate</A></TD>
+			<TD>判断一个字符串（参数 1）是否表示了一个合法的日期；这样的日期通常包含三部分：年、月、日。如果分隔符（参数 2）是 null 或者空串，或者未提供，那么认为日期格式是“yyyyMMdd”。</TD>
+			<TD><nobr>String<BR>[String (1 char)]</nobr></TD>
+			<TD>boolean</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('isEmailSimp');">isEmailSimp</A></TD>
+			<TD>简单地判断一个字符串是否表示一个合法的电子邮件地址。</TD>
+			<TD>String</TD>
+			<TD>boolean</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('isEmailComp');">isEmailComp</A></TD>
+			<TD>复杂地判断一个字符串是否表示一个合法的电子邮件地址。</TD>
+			<TD>String</TD>
+			<TD>boolean</TD>
+		</TR>
+		<TR><TD colspan="4">
+			<FONT color="green">下面的 3 个函数用于数据类型转换。</FONT>
+		</TD></TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('padNumber');">padNumber</A></TD>
+			<TD>使用字符“0”衬垫一个数字（参数 1）以达到要求的长度（参数 2）。字符“0”总是被衬垫到数字的前面。</TD>
+			<TD>int<BR>int</TD>
+			<TD>String</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('dateToString');">dateToString</A></TD>
+			<TD>将日期格式化为字符串。参数 1 必须是 Script 中的 Date 对象；格式串（参数 2）与 Java 语言的 DateFormat 类中含义一致。主要地有：y - 年；M - 月；d - 日；H - 小时；m - 分钟；s - 秒。<BR>（该函数调用了 padNumber 函数。）</TD>
+			<TD>Date<BR>String (1 char)</TD>
+			<TD>String</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('stringToDate');">stringToDate</A></TD>
+			<TD>将特定格式的日期字符串转换为 Script 中的 Date 对象。该日期字符串（参数 1）只能包含年、月、日三部分。如果分隔符（参数 2）是 null 或者空串，或者未提供，则认为日期格式是“yyyyMMdd”。如果转换失败，返回 null。</TD>
+			<TD>String<BR>[String (1 char)]</TD>
+			<TD>Date</TD>
+		</TR>
+		<TR><TD colspan="4">
+			<FONT color="green">下面的 7 个函数用于字符串的剥离操作。</FONT>
+		</TD></TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('trimLeading');">trimLeading</A></TD>
+			<TD>从一个字符串（参数 1）的头部剥去指定字符（参数 2）。如果这个字符串是 null 或者空串，不进行任何操作。</TD>
+			<TD>String<BR>String (1 char)</TD>
+			<TD>String</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('trimTail');">trimTail</A></TD>
+			<TD>从一个字符串（参数 1）的尾部剥去指定字符（参数 2）。如果这个字符串是 null 或者空串，不进行任何操作。</TD>
+			<TD>String<BR>String (1 char)</TD>
+			<TD>String</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('trimLeadingAndTail');">trimLeadingAndTail</A></TD>
+			<TD>从一个字符串（参数 1）的头部和尾部剥去指定字符（参数 2）。如果这个字符串是 null 或者空串，不进行任何操作。</TD>
+			<TD>String<BR>String (1 char)</TD>
+			<TD>String</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('trimLeadingSpace');">trimLeadingSpace</A></TD>
+			<TD>从一个字符串（参数 1）的头部剥去空格字符（ASCII 0x20）。</TD>
+			<TD>String</TD>
+			<TD>String</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('trimTailSpace');">trimTailSpace</A></TD>
+			<TD>从一个字符串（参数 1）的尾部剥去空格字符（ASCII 0x20）。</TD>
+			<TD>String</TD>
+			<TD>String</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('trimSpace');">trimSpace</A></TD>
+			<TD>从一个字符串（参数 1）的头部和尾部剥去空格字符（ASCII 0x20）。</TD>
+			<TD>String</TD>
+			<TD>String</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('trimWhiteSpace');">trimWhiteSpace</A></TD>
+			<TD>从一个字符串（参数 1）的头部剥去空白字符，包含 horizontal tab、line feed、回车符（carriage return）、空格（ASCII 0x20）。</TD>
+			<TD>String</TD>
+			<TD>String</TD>
+		</TR>
+		<TR><TD colspan="4">
+			<FONT color="green">更多的 3 个函数。</FONT>
+		</TD></TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('isConsistOf');">isConsistOf</A></TD>
+			<TD>判断一个字符串（参数 1）是否完全由另一个字符串（参数 2）中的字符构成。参数 2 必须不是 null 或者空串，但该函数自身不检查这一点。</TD>
+			<TD>String<BR>String</TD>
+			<TD>boolean</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('replace');">replace</A></TD>
+			<TD>在字符串（参数 1）中查找某个子串（参数 2），用另一个字符串（参数 3）代替。</TD>
+			<TD>String<BR>String<BR>String</TD>
+			<TD>String</TD>
+		</TR>
+		<TR>
+			<TD><A href="JavaScript:fillFunc('compareDate');">compareDate</A></TD>
+			<TD>比较两个 Script 中的 Date 对象。如果两个对象相等返回 0；如果 Date 1 早于 Date 2，返回一个负数；如果 Date 1 迟于 Date 2，返回一个正数。</TD>
+			<TD>Date<BR>Date</TD>
+			<TD>int</TD>
+		</TR>
+	</TABLE></CENTER>
+</BODY>
+
+</HTML>

@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.Position/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.Position/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+	// 添加该功能上显示的按钮权限 
+	 var arr = new Array(20);
+	 for(var i in arr.length){
+		 arr[i] = "-9";		 
+	 }arr[0] = "111";
+	 var eobj = createParamJson(arr); 
+	 var eJson = JSON.stringify(eobj); 
+	 renderBtnsToDiv($("#editPositionSubBar"),'getAuthorityBtnsByThisUser.action',eJson);
+	  
+	 //根据上页的PositionId查询出用户资料，并遍历页面
+	if(($('input[id="postListFdId"]:checked').length) == 1){
+			var PositionListFdId = $('input[id="postListFdId"]:checked').val();
+			getPositionInfosById(PositionListFdId);
+	}else{
+			alertMsg.error("请选择一条记录！");
+	}
+});
+$("#save111").click(function(){
+	if($("#editPosition_id").val()=="" || $("#editPosition_remark").val()=="" ){
+		alertMsg.error("请填写非空项！");
+		return ;
+	}
+	var arr = new Array(20);
+	 for(var i in arr.length){
+		 arr[i] = "-9";		 
+	 }arr[0] =$("#editPosition_id").val();
+	 arr[1]=$("#editPosition_name").val();
+	 arr[2]=$("#editPosition_remark").val();
+	arr[3] = 	$("#editPosition_state").val() ;
+	 var eobj = createParamJson(arr); 
+	 var eJson = JSON.stringify(eobj); 
+	// 保存变更后的用户资料 
+	var ttDom = AjaxExchangeBackTextData('updatePositionInfosByPositionId.action',eJson);   
+	alertToUserMsg(ttDom);
+});
+function getPositionInfosById(PositionListFdId){ 
+	var arr = new Array(20);
+	 for(var i in arr.length){
+		 arr[i] = "-9";		 
+	 }arr[0] = PositionListFdId;
+	 var eobj = createParamJson(arr); 
+	 var eJson = JSON.stringify(eobj);  
+		var ttDom = AjaxExchangeBackXMLDataByJson('getPositionInfosById.action',eJson);   
+		 var s = $.parseXML(ttDom.xml );
+		   	$(s).find('position').each(function() {  
+			 	 var xml = $(this);
+		   		$("#editPosition_id").val(xml.children("position_cd").text());$("#editPosition_name").val(xml.children("position_name").text());
+		   		$("#editPosition_remark").val(xml.children("position_remark").text());$("#editPosition_state").val(xml.children("state").text());
+		   	});
+	}
+	$("#getFile111").click(function(){
+		//$.download('excelDownload.action','find=627.gif','post' );
+		//$("#getEditPostFiles").trigger("click");
+	});
+</script>
+</head>
+<div class="pageContent">
+	<form method="post" action=""  id=editPositionForm class="pageForm required-validate">
+		<div class="pageFormContent" layoutH="56">
+			<p>
+				<label>岗位编码：</label>
+				<input id=editPosition_id  type="text" size="30" maxlength=10  class=required readonly />
+			</p>
+			<p>
+				<label>岗位名称：</label>
+				<input id="editPosition_name" class="required" type="text"   maxlength=12  size="30"  readonly />
+			</p>
+			<p>
+				<label>岗位说明：</label>
+				<input type="text" id=editPosition_remark size="30" />
+			</p>
+			<p>
+				<label>状态：</label>
+				<input type="text" id=editPosition_state size="30" readonly />
+			</p>
+		</div>
+		
+		<div id="editPositionFileBar" style="display:none">
+		<a class="button" href="system/allFilesById.jsp?foregin_id=111" target="dialog" rel="dlg_page10" mask="true" title="附件"><span id="getEditPostFiles">附件</span></a>
+		</div>
+		<div class="formBar" id="editPositionSubBar">
+		</div>
+	</form>
+</div> 

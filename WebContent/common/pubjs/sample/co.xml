@@ -1,0 +1,1471 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.4.1" class="java.beans.XMLDecoder"> 
+ <object id="CustOrder0" class="bss.model.crm.CustOrder"> 
+  <void property="areaByAreaId"> 
+   <object id="Area0" class="bss.model.crm.Area"> 
+    <void property="accounts"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="areaId"> 
+     <int>1</int> 
+    </void> 
+    <void property="areaLever"> 
+     <string>1</string> 
+    </void> 
+    <void property="areas"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="categories"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="channels"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="compPspecCompGrps"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="contactTopicSpecs"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="contractSpecs"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="contractTermGrpSpecs"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="contracts"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="couponInstances"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="custOrdersByAreaId"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="custOrdersBySoAreaId"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="customContacts"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="models"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="name"> 
+     <string>集团公司</string> 
+    </void> 
+    <void property="offering2Areas"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="offerings"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="operationSpecs"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="parties"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="paymentAccounts"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="policies"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="pp2Areas"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="pricePlanRules"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="pricePlans"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="prodSpec2Areas"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="prodSpecRelas"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="prodSpecs"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="products"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="pspec2TdSpecs"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="rates"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="resourceFacingServs"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="rewards"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="segmentsByAreaId"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="servSpec2Areas"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="servSpecRelas"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="servSpecs"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="sspecCompGrps"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="surveys"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="sysConfigs"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+    <void property="terminalDevices"> 
+     <object class="net.sf.hibernate.collection.Set"/> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="co2Ans"> 
+   <object class="java.util.HashSet"/> 
+  </void> 
+  <void property="coAns"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object class="bss.model.crm.CoAn"> 
+      <void property="accessNumber"> 
+       <string>88880560</string> 
+      </void> 
+      <void property="anId"> 
+       <long>583</long> 
+      </void> 
+      <void property="custOrder"> 
+       <object idref="CustOrder0"/> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="coChargeItems"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object id="CoChargeItem0" class="bss.model.crm.CoChargeItem"> 
+      <void property="chargeItem"> 
+       <object class="bss.model.crm.ChargeItem"> 
+        <void property="chargeItemCd"> 
+         <int>0</int> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="coChargeItemAccts"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="bss.model.crm.CoChargeItemAcct"> 
+          <void property="account"> 
+           <object class="bss.model.crm.Account$$EnhancerByCGLIB$$baa201cc"> 
+            <void property="accountRelasByAcctId"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="accountRelasByRelatedAcctId"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="accountStatusReason"> 
+             <object class="bss.model.crm.AccountStatusReason"> 
+              <void property="accountStatuses"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="accounts"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="acctStatusReasonCd"> 
+               <int>1</int> 
+              </void> 
+              <void property="name"> 
+               <string>客户要求</string> 
+              </void> 
+             </object> 
+            </void> 
+            <void property="accountStatuses"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="acct2PaymentAccts"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="acctCd"> 
+             <string>1234</string> 
+            </void> 
+            <void property="acctDeposits"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="acctId"> 
+             <long>1</long> 
+            </void> 
+            <void property="acctSegmentMemberLists"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="acctStatusType"> 
+             <object class="bss.model.crm.AcctStatusType"> 
+              <void property="accountStatuses"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="accounts"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="acctStatusCd"> 
+               <int>1</int> 
+              </void> 
+              <void property="name"> 
+               <string>启用</string> 
+              </void> 
+             </object> 
+            </void> 
+            <void property="area"> 
+             <object class="bss.model.crm.Area"> 
+              <void property="accounts"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="area"> 
+               <object id="Area1" class="bss.model.crm.Area"> 
+                <void property="accounts"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="area"> 
+                 <object idref="Area0"/> 
+                </void> 
+                <void property="areaId"> 
+                 <int>2</int> 
+                </void> 
+                <void property="areaLever"> 
+                 <string>2</string> 
+                </void> 
+                <void property="areas"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="categories"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="channels"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="compPspecCompGrps"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="contactTopicSpecs"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="contractSpecs"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="contractTermGrpSpecs"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="contracts"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="couponInstances"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="custOrdersByAreaId"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="custOrdersBySoAreaId"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="customContacts"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="models"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="name"> 
+                 <string>江苏省公司</string> 
+                </void> 
+                <void property="offering2Areas"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="offerings"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="operationSpecs"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="parties"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="paymentAccounts"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="policies"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="pp2Areas"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="pricePlanRules"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="pricePlans"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="prodSpec2Areas"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="prodSpecRelas"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="prodSpecs"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="products"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="pspec2TdSpecs"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="rates"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="resourceFacingServs"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="rewards"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="segmentsByAreaId"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="servSpec2Areas"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="servSpecRelas"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="servSpecs"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="sspecCompGrps"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="surveys"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="sysConfigs"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="terminalDevices"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+               </object> 
+              </void> 
+              <void property="areaId"> 
+               <int>4</int> 
+              </void> 
+              <void property="areaLever"> 
+               <string>3</string> 
+              </void> 
+              <void property="areas"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="categories"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="channels"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="compPspecCompGrps"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="contactTopicSpecs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="contractSpecs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="contractTermGrpSpecs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="contracts"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="couponInstances"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="custOrdersByAreaId"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="custOrdersBySoAreaId"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="customContacts"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="models"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="name"> 
+               <string>镇江分公司</string> 
+              </void> 
+              <void property="offering2Areas"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="offerings"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="operationSpecs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="parties"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="paymentAccounts"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="policies"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="pp2Areas"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="pricePlanRules"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="pricePlans"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="prodSpec2Areas"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="prodSpecRelas"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="prodSpecs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="products"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="pspec2TdSpecs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="rates"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="resourceFacingServs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="rewards"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="segmentsByAreaId"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="servSpec2Areas"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="servSpecRelas"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="servSpecs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="sspecCompGrps"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="surveys"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="sysConfigs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="terminalDevices"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+             </object> 
+            </void> 
+            <void id="CallbackArray0" property="callbacks"/> 
+            <void property="callbacks"> 
+             <object idref="CallbackArray0"/> 
+            </void> 
+            <void property="cfServ2Accounts"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="coChargeItemAccts"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="coMailings"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="contractTerm2Accts"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="lfServ2Accounts"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="party"> 
+             <object class="bss.model.crm.Party$$EnhancerByCGLIB$$81709255"> 
+              <void id="CallbackArray1" property="callbacks"/> 
+              <void property="callbacks"> 
+               <object idref="CallbackArray1"/> 
+              </void> 
+              <void property="partyId"> 
+               <long>52</long> 
+              </void> 
+             </object> 
+            </void> 
+            <void property="paymentAccountRelas"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="prodAccounts"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="products"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+           </object> 
+          </void> 
+          <void property="coAcct2PaymentAccts"> 
+           <object class="java.util.HashSet"/> 
+          </void> 
+          <void property="coChargeItem"> 
+           <object idref="CoChargeItem0"/> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="custOrder"> 
+       <object idref="CustOrder0"/> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="coCustomerFacingServs"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object id="CoCustomerFacingServ0" class="bss.model.crm.CoCustomerFacingServ"> 
+      <void property="coCfServItems"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="bss.model.crm.CoCfServItem"> 
+          <void property="coCustomerFacingServ"> 
+           <object idref="CoCustomerFacingServ0"/> 
+          </void> 
+          <void property="flag"> 
+           <string>N</string> 
+          </void> 
+          <void property="sspecItem"> 
+           <object class="bss.model.crm.SspecItem"> 
+            <void property="coCfServItems"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="isConstant"> 
+             <string>Y</string> 
+            </void> 
+            <void property="isEnabled"> 
+             <string>Y</string> 
+            </void> 
+            <void property="isOptional"> 
+             <string>Y</string> 
+            </void> 
+            <void property="isPublic"> 
+             <string>Y</string> 
+            </void> 
+            <void property="servItemSpec"> 
+             <object class="bss.model.crm.ServItemSpec"> 
+              <void property="cfServItems"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="coRfServItems"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="cprodSspecItem2PrcPkgs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="itemSpec"> 
+               <object class="bss.model.crm.ItemSpec"> 
+                <void property="attrLen"> 
+                 <int>12</int> 
+                </void> 
+                <void property="dataSourceType"> 
+                 <object id="DataSourceType0" class="bss.model.crm.DataSourceType"> 
+                  <void property="dsTypeCd"> 
+                   <int>1</int> 
+                  </void> 
+                  <void property="itemSpecs"> 
+                   <object class="net.sf.hibernate.collection.Set"/> 
+                  </void> 
+                  <void property="manageCd"> 
+                   <string>1</string> 
+                  </void> 
+                  <void property="name"> 
+                   <string>基本类型</string> 
+                  </void> 
+                 </object> 
+                </void> 
+                <void property="dataType"> 
+                 <object class="bss.model.crm.DataType"> 
+                  <void property="arrayListDataType"> 
+                   <string>N</string> 
+                  </void> 
+                  <void property="arrayListDataTypesByMemberDataTypeCd"> 
+                   <object class="net.sf.hibernate.collection.Set"/> 
+                  </void> 
+                  <void property="dataMask"> 
+                   <string>.*</string> 
+                  </void> 
+                  <void property="dataTypeCd"> 
+                   <int>1</int> 
+                  </void> 
+                  <void property="description"> 
+                   <string>字符串</string> 
+                  </void> 
+                  <void property="isBusiDataType"> 
+                   <string>N</string> 
+                  </void> 
+                  <void property="itemSpecs"> 
+                   <object class="net.sf.hibernate.collection.Set"/> 
+                  </void> 
+                  <void property="manageCd"> 
+                   <string>1</string> 
+                  </void> 
+                  <void property="mapDataTypesByKeyDataTypeCd"> 
+                   <object class="net.sf.hibernate.collection.Set"/> 
+                  </void> 
+                  <void property="mapDataTypesByValueDataTypeCd"> 
+                   <object class="net.sf.hibernate.collection.Set"/> 
+                  </void> 
+                  <void property="name"> 
+                   <string>字符串</string> 
+                  </void> 
+                  <void property="policies"> 
+                   <object class="net.sf.hibernate.collection.Set"/> 
+                  </void> 
+                  <void property="policyParams"> 
+                   <object class="net.sf.hibernate.collection.Set"/> 
+                  </void> 
+                  <void property="resultSetItemSpecParams"> 
+                   <object class="net.sf.hibernate.collection.Set"/> 
+                  </void> 
+                  <void property="systemConstants"> 
+                   <object class="net.sf.hibernate.collection.Set"/> 
+                  </void> 
+                 </object> 
+                </void> 
+                <void property="defaultValue"> 
+                 <string>2004-9-23</string> 
+                </void> 
+                <void property="description"> 
+                 <string>到期日期</string> 
+                </void> 
+                <void property="discreteValueLists"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="itemSpec2ControlTypes"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="itemSpecGroup2ItemGroups"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="itemSpecId"> 
+                 <int>2</int> 
+                </void> 
+                <void property="itemSpecRelasByRelatedItemSpecId"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="itemSpecRelasByRelatesItemSpecId"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="itemSpecType"> 
+                 <object class="bss.model.crm.ItemSpecType"> 
+                  <void property="itemSpecTypeCd"> 
+                   <int>2</int> 
+                  </void> 
+                  <void property="itemSpecs"> 
+                   <object class="net.sf.hibernate.collection.Set"/> 
+                  </void> 
+                  <void property="manageCd"> 
+                   <string>2</string> 
+                  </void> 
+                  <void property="name"> 
+                   <string>服务规格属性</string> 
+                  </void> 
+                 </object> 
+                </void> 
+                <void property="manageCode"> 
+                 <string>PHS-SERV_SPEC_2</string> 
+                </void> 
+                <void property="mapValueLists"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="name"> 
+                 <string>到期日期2</string> 
+                </void> 
+                <void property="nullable"> 
+                 <string>N</string> 
+                </void> 
+                <void property="offering2PpItems"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="ppItems"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="pprParamRefs"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="productPropertySpecs"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+               </object> 
+              </void> 
+              <void property="lfServItems"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="offering2PpSspecs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="rfServItems"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="servItemSpecCd"> 
+               <int>2</int> 
+              </void> 
+              <void property="sspecItem2PrcPkgs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="sspecItems"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+             </object> 
+            </void> 
+            <void property="servSpec"> 
+             <object class="bss.model.crm.ServSpec"> 
+              <void property="area"> 
+               <object idref="Area1"/> 
+              </void> 
+              <void property="coCustomerFacingServs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="componentProdServPrices"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="containItem"> 
+               <string>Y</string> 
+              </void> 
+              <void property="contractTerm2ServSpecs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="cprodSspec2PrcPkgs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="cprodSspecItem2PrcPkgs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="customerFacingServs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="isInst"> 
+               <string>Y</string> 
+              </void> 
+              <void property="laborFacingServs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="manageCode"> 
+               <string>PHS-SERV-6</string> 
+              </void> 
+              <void property="name"> 
+               <string>PHS来电显示</string> 
+              </void> 
+              <void property="ooSspecPps"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="prodServPrices"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="servSpec2Areas"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="servSpec2CategoryNodes"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="servSpec2ResourceSpecs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="servSpec2SegGrps"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="servSpecId"> 
+               <int>7</int> 
+              </void> 
+              <void property="servSpecRelasByServSpec2Id"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="servSpecRelasByServSpecId"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="servSpecType"> 
+               <object class="bss.model.crm.ServSpecType"> 
+                <void property="description"> 
+                 <string>用户可见的通信功能，例如：来电显示</string> 
+                </void> 
+                <void property="instTableName"> 
+                 <string>CUSTOMER_FACING_SERV</string> 
+                </void> 
+                <void property="name"> 
+                 <string>客户类服务</string> 
+                </void> 
+                <void property="servSpecTypeCd"> 
+                 <int>1</int> 
+                </void> 
+                <void property="servSpecs"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+               </object> 
+              </void> 
+              <void property="servSpecs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="sliValueRanges"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="slis"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="specStatus"> 
+               <object class="bss.model.crm.SpecStatus"> 
+                <void property="description"> 
+                 <string>目前被前端使用的规格</string> 
+                </void> 
+                <void property="name"> 
+                 <string>使用中</string> 
+                </void> 
+                <void property="prodSpecs"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="servSpecs"> 
+                 <object class="net.sf.hibernate.collection.Set"/> 
+                </void> 
+                <void property="specStatusCd"> 
+                 <int>2</int> 
+                </void> 
+               </object> 
+              </void> 
+              <void property="sspec2PrcPkgs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="sspec2Sl2Slas"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="sspecCompGrp2Sspecs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="sspecConflictGrp2Sspecs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="sspecItem2PrcPkgs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="sspecItems"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+             </object> 
+            </void> 
+            <void property="sspecItemId"> 
+             <int>6</int> 
+            </void> 
+           </object> 
+          </void> 
+          <void property="value"> 
+           <string>2004-9-23</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="custOrder"> 
+       <object idref="CustOrder0"/> 
+      </void> 
+      <void property="flag"> 
+       <string>Y</string> 
+      </void> 
+      <void property="servSpec"> 
+       <object class="bss.model.crm.ServSpec"> 
+        <void property="isInst"> 
+         <string>Y</string> 
+        </void> 
+        <void property="manageCode"> 
+         <string>PHS-SERV-6</string> 
+        </void> 
+        <void property="name"> 
+         <string>PHS来电显示</string> 
+        </void> 
+        <void property="servSpecId"> 
+         <int>7</int> 
+        </void> 
+        <void property="servSpecRelasByServSpecId"> 
+         <object class="java.util.HashSet"/> 
+        </void> 
+       </object> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="coProdAddresses"> 
+   <object class="java.util.HashSet"/> 
+  </void> 
+  <void property="coProdItems"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object class="bss.model.crm.CoProdItem"> 
+      <void property="custOrder"> 
+       <object idref="CustOrder0"/> 
+      </void> 
+      <void property="flag"> 
+       <string>Y</string> 
+      </void> 
+      <void property="prodSpecItem"> 
+       <object class="bss.model.crm.ProdSpecItem"> 
+        <void property="coProdItems"> 
+         <object class="net.sf.hibernate.collection.Set"/> 
+        </void> 
+        <void property="isConstant"> 
+         <string>Y</string> 
+        </void> 
+        <void property="isEnabled"> 
+         <string>Y</string> 
+        </void> 
+        <void property="isOptional"> 
+         <string>Y</string> 
+        </void> 
+        <void property="isPublic"> 
+         <string>Y</string> 
+        </void> 
+        <void property="itemOrder"> 
+         <int>1</int> 
+        </void> 
+        <void property="maxQty"> 
+         <int>1</int> 
+        </void> 
+        <void property="minQty"> 
+         <int>1</int> 
+        </void> 
+        <void property="prodItemSpec"> 
+         <object class="bss.model.crm.ProdItemSpec"> 
+          <void property="coRelaAttrs"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="compPspecItem2PrcPkgs"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="itemSpec"> 
+           <object class="bss.model.crm.ItemSpec"> 
+            <void property="attrLen"> 
+             <int>1</int> 
+            </void> 
+            <void property="dataSourceType"> 
+             <object idref="DataSourceType0"/> 
+            </void> 
+            <void property="dataType"> 
+             <object class="bss.model.crm.DataType"> 
+              <void property="arrayListDataType"> 
+               <string>N</string> 
+              </void> 
+              <void property="arrayListDataTypesByMemberDataTypeCd"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="dataMask"> 
+               <string>^[Y|N]$</string> 
+              </void> 
+              <void property="dataTypeCd"> 
+               <int>2</int> 
+              </void> 
+              <void property="description"> 
+               <string>逻辑判断类型</string> 
+              </void> 
+              <void property="isBusiDataType"> 
+               <string>N</string> 
+              </void> 
+              <void property="itemSpecs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="manageCd"> 
+               <string>2</string> 
+              </void> 
+              <void property="mapDataTypesByKeyDataTypeCd"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="mapDataTypesByValueDataTypeCd"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="name"> 
+               <string>布尔型</string> 
+              </void> 
+              <void property="policies"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="policyParams"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="resultSetItemSpecParams"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="systemConstants"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+             </object> 
+            </void> 
+            <void property="defaultValue"> 
+             <string>2</string> 
+            </void> 
+            <void property="description"> 
+             <string>是否是预付费小灵通(小灵通产品的属性)</string> 
+            </void> 
+            <void property="discreteValueLists"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="itemSpec2ControlTypes"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="itemSpecGroup2ItemGroups"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="itemSpecId"> 
+             <int>21</int> 
+            </void> 
+            <void property="itemSpecRelasByRelatedItemSpecId"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="itemSpecRelasByRelatesItemSpecId"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="itemSpecType"> 
+             <object class="bss.model.crm.ItemSpecType"> 
+              <void property="itemSpecTypeCd"> 
+               <int>1</int> 
+              </void> 
+              <void property="itemSpecs"> 
+               <object class="net.sf.hibernate.collection.Set"/> 
+              </void> 
+              <void property="manageCd"> 
+               <string>1</string> 
+              </void> 
+              <void property="name"> 
+               <string>产品规格属性</string> 
+              </void> 
+             </object> 
+            </void> 
+            <void property="manageCode"> 
+             <string>PHS-IS-PRE</string> 
+            </void> 
+            <void property="mapValueLists"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="name"> 
+             <string>预付费</string> 
+            </void> 
+            <void property="nullable"> 
+             <string>N</string> 
+            </void> 
+            <void property="offering2PpItems"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="ppItems"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="pprParamRefs"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="productPropertySpecs"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+           </object> 
+          </void> 
+          <void property="prodItemSpecCd"> 
+           <int>21</int> 
+          </void> 
+          <void property="prodItems"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="prodSpecItems"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="pspecItem2PrcPkgs"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+         </object> 
+        </void> 
+        <void property="prodSpec"> 
+         <object id="ProdSpec$$EnhancerByCGLIB$$229e25630" class="bss.model.crm.ProdSpec$$EnhancerByCGLIB$$229e2563"> 
+          <void property="accessNumberType"> 
+           <object class="bss.model.crm.AccessNumberType"> 
+            <void property="anTypeCd"> 
+             <int>101</int> 
+            </void> 
+            <void property="anTypeGroupCd"> 
+             <int>1</int> 
+            </void> 
+            <void property="co2Ans"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="name"> 
+             <string>固定电话号码</string> 
+            </void> 
+            <void property="prod2AccessNumbers"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="prodSpec2AccessNumTypes"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="prodSpecs"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="tableName"> 
+             <string>PHONE_NUMBER</string> 
+            </void> 
+           </object> 
+          </void> 
+          <void property="area"> 
+           <object idref="Area1"/> 
+          </void> 
+          <void id="CallbackArray2" property="callbacks"/> 
+          <void property="callbacks"> 
+           <object idref="CallbackArray2"/> 
+          </void> 
+          <void property="compProd"> 
+           <string>N</string> 
+          </void> 
+          <void property="compPspecCompGrp2Pspecs"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="compPspecItem2PrcPkgs"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="componentProdPrices"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="componentProdServPrices"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="contractTerm2ProdSpecs"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="cprodServGrp2PrcPkgs"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="cprodSspec2PrcPkgs"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="cprodSspecItem2PrcPkgs"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="custOrders"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="description"> 
+           <string>PHS产品!!!</string> 
+          </void> 
+          <void property="isInst"> 
+           <string>Y</string> 
+          </void> 
+          <void property="manageCd"> 
+           <string>PHS-PROD-1</string> 
+          </void> 
+          <void property="mutiAnType"> 
+           <string>N</string> 
+          </void> 
+          <void property="name"> 
+           <string>PHS</string> 
+          </void> 
+          <void property="offerings"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="offrReqCompProdCfgPolicies"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="offrReqCompProdRelasByComponentProdSpecId"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="offrReqCompProdRelasByProdSpecId"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="offrReqProdOffrRelas"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="prodMarketName"> 
+           <string>小灵通</string> 
+          </void> 
+          <void property="prodSpec"> 
+           <object id="ProdSpec$$EnhancerByCGLIB$$229e25631" class="bss.model.crm.ProdSpec$$EnhancerByCGLIB$$229e2563"> 
+            <void id="CallbackArray3" property="callbacks"/> 
+            <void property="callbacks"> 
+             <object idref="CallbackArray3"/> 
+            </void> 
+            <void property="prodSpecId"> 
+             <int>2</int> 
+            </void> 
+           </object> 
+          </void> 
+          <void property="prodSpec2AccessNumTypes"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="prodSpec2Areas"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="prodSpec2SegGrps"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="prodSpecId"> 
+           <int>1</int> 
+          </void> 
+          <void property="prodSpecItems"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="prodSpecRelasByRelatedProdSpecId"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="prodSpecRelasByRelatesProdSpecId"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="prodSpecs"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="productSpec2CategoryNodes"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="products"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="pspec2Sl2Slas"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="pspec2TdSpecs"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="pspecRelaitems"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="sliValueRanges"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+          <void property="specStatus"> 
+           <object class="bss.model.crm.SpecStatus"> 
+            <void property="description"> 
+             <string>已在前端暂停使用的规格，但仍然有效</string> 
+            </void> 
+            <void property="name"> 
+             <string>已封锁</string> 
+            </void> 
+            <void property="prodSpecs"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="servSpecs"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="specStatusCd"> 
+             <int>4</int> 
+            </void> 
+           </object> 
+          </void> 
+          <void property="sspecCompGrp"> 
+           <object class="bss.model.crm.SspecCompGrp"> 
+            <void property="cprodServGrp2PrcPkgs"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="description"> 
+             <string>PHS产品的所有服务...</string> 
+            </void> 
+            <void property="isExclusive"> 
+             <string>N</string> 
+            </void> 
+            <void property="maxMemberQty"> 
+             <int>1</int> 
+            </void> 
+            <void property="minMemberQty"> 
+             <int>1</int> 
+            </void> 
+            <void property="name"> 
+             <string>PHS服务组</string> 
+            </void> 
+            <void property="prodSpecs"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="servGrp2PrcPkgs"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="sspec2SspecCompGrps"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="sspecCompGrp2Sspecs"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="sspecCompGrpId"> 
+             <int>1</int> 
+            </void> 
+            <void property="sspecCompGrpRelasBySspecCompGrpId"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+            <void property="sspecCompGrpRelasBySspecCompSubId"> 
+             <object class="net.sf.hibernate.collection.Set"/> 
+            </void> 
+           </object> 
+          </void> 
+         </object> 
+        </void> 
+        <void property="prodSpecItemId"> 
+         <int>1</int> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="prodSpecItemId"> 
+       <int>1</int> 
+      </void> 
+      <void property="value"> 
+       <string>2</string> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="coProdOfferings"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object class="bss.model.crm.CoProdOffering"> 
+      <void property="custOrder"> 
+       <object idref="CustOrder0"/> 
+      </void> 
+      <void property="offering"> 
+       <object class="bss.model.crm.Offering$$EnhancerByCGLIB$$bc9658f7"> 
+        <void property="area"> 
+         <object idref="Area1"/> 
+        </void> 
+        <void id="CallbackArray4" property="callbacks"/> 
+        <void property="callbacks"> 
+         <object idref="CallbackArray4"/> 
+        </void> 
+        <void property="channel2Offerings"> 
+         <object class="net.sf.hibernate.collection.Set"/> 
+        </void> 
+        <void property="coProdOfferings"> 
+         <object class="net.sf.hibernate.collection.Set"/> 
+        </void> 
+        <void property="description"> 
+         <string>小灵通标准商品</string> 
+        </void> 
+        <void property="manageCode"> 
+         <string>PHS</string> 
+        </void> 
+        <void property="name"> 
+         <string>小灵通</string> 
+        </void> 
+        <void property="offering"> 
+         <object class="bss.model.crm.Offering$$EnhancerByCGLIB$$bc9658f7"> 
+          <void id="CallbackArray5" property="callbacks"/> 
+          <void property="callbacks"> 
+           <object idref="CallbackArray5"/> 
+          </void> 
+          <void property="offeringId"> 
+           <int>5</int> 
+          </void> 
+         </object> 
+        </void> 
+        <void property="offering2Areas"> 
+         <object class="net.sf.hibernate.collection.Set"/> 
+        </void> 
+        <void property="offering2CategoryNodes"> 
+         <object class="net.sf.hibernate.collection.Set"/> 
+        </void> 
+        <void property="offering2ContractSpecs"> 
+         <object class="net.sf.hibernate.collection.Set"/> 
+        </void> 
+        <void property="offering2Pps"> 
+         <object class="net.sf.hibernate.collection.Set"/> 
+        </void> 
+        <void property="offering2Servs"> 
+         <object class="net.sf.hibernate.collection.Set"/> 
+        </void> 
+        <void property="offeringId"> 
+         <int>1</int> 
+        </void> 
+        <void property="offeringRelasByRelatedOffering"> 
+         <object class="net.sf.hibernate.collection.Set"/> 
+        </void> 
+        <void property="offeringRelasByRelatesOffering"> 
+         <object class="net.sf.hibernate.collection.Set"/> 
+        </void> 
+        <void property="offeringStatus"> 
+         <object class="bss.model.crm.OfferingStatus"> 
+          <void property="name"> 
+           <string>在用</string> 
+          </void> 
+          <void property="offeringStatusCd"> 
+           <int>1</int> 
+          </void> 
+          <void property="offerings"> 
+           <object class="net.sf.hibernate.collection.Set"/> 
+          </void> 
+         </object> 
+        </void> 
+        <void property="offeringTargetSegments"> 
+         <object class="net.sf.hibernate.collection.Set"/> 
+        </void> 
+        <void property="offerings"> 
+         <object class="net.sf.hibernate.collection.Set"/> 
+        </void> 
+        <void property="ooOfferingPps"> 
+         <object class="net.sf.hibernate.collection.Set"/> 
+        </void> 
+        <void property="ooSspecPps"> 
+         <object class="net.sf.hibernate.collection.Set"/> 
+        </void> 
+        <void property="party2Offerings"> 
+         <object class="net.sf.hibernate.collection.Set"/> 
+        </void> 
+        <void property="pricePackages"> 
+         <object class="net.sf.hibernate.collection.Set"/> 
+        </void> 
+        <void property="prod2PricePkgs"> 
+         <object class="net.sf.hibernate.collection.Set"/> 
+        </void> 
+        <void property="prodSpec"> 
+         <object idref="ProdSpec$$EnhancerByCGLIB$$229e25630"/> 
+        </void> 
+        <void property="prodSpecs"> 
+         <object class="net.sf.hibernate.collection.Set"/> 
+        </void> 
+        <void property="seqId"> 
+         <int>1</int> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="prodId"> 
+       <long>105</long> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="partyByOwnerId"> 
+   <object class="bss.model.crm.Party$$EnhancerByCGLIB$$81709255"> 
+    <void id="CallbackArray6" property="callbacks"/> 
+    <void property="callbacks"> 
+     <object idref="CallbackArray6"/> 
+    </void> 
+    <void property="partyId"> 
+     <long>96</long> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="prodId"> 
+   <long>105</long> 
+  </void> 
+  <void property="prodSpec"> 
+   <object idref="ProdSpec$$EnhancerByCGLIB$$229e25631"/> 
+  </void> 
+ </object> 
+</java> 

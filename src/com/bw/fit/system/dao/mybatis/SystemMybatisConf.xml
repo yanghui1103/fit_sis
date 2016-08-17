@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="systemAdminDAO">
+	<!--用户登录 -->
+	<select id="loginCheckAndBackUserInfos" parameterType="com.bw.fit.common.models.SystemCommonModel"
+		resultType="com.bw.fit.common.models.SystemCommonModel">
+		select st.fdid staff_id,st.staff_name,st.create_time,cp.fdid staff_company_id,cp.company_name staff_company_name,
+	rl.fdid role_id ,rl.role_name
+	from staff st ,roles rl,company cp ,staff2roles sr, staff2company sc
+	where st.fdid = sr.staff_id and sr.role_id = rl.fdid and st.fdid = sc.staff_id 
+	and sc.company_id = cp.fdid and st.staff_number = #{staff_number} and st.passwd =#{passwd_mm}
+	</select>
+	
+	<!--getThisUserAuthLists 获取权限列表 -->
+	<select id="getAuthTreeList" parameterType="com.bw.fit.common.models.SystemCommonModel"
+		resultType="com.bw.fit.common.models.SystemCommonModel">
+		SELECT fs.fdid func_id ,fs.function_name func_name ,fs.parent_function_id
+		func_p_id,fs.func_level ,fs.action func_address,fs.target
+		func_target,fs.rel func_rel
+		FROM staff u,staff2roles ur,role2function rf ,functions fs,function_btn fb
+		WHERE u.fdid = ur.staff_id
+		AND ur.role_id = rf.role_id
+		AND rf.function_id = fb.function_cd
+		AND fs.fdid = fb.function_cd
+		AND rf.btn_cd = fb.btn_cd
+		AND rf.state = fs.state
+		AND fs.state = '2'
+		AND fb.btn_cd = 'view'
+		AND u.fdid = #{staff_id} ORDER BY func_id asc
+	</select>
+	  <!-- getDragWindowList获取下拉框 -->
+     <select id="getDragWindowList"  parameterType = "com.bw.fit.common.models.SystemCommonModel" resultType="com.bw.fit.common.models.SystemCommonModel">
+       SELECT id item_id,NAME item_name,state item_state FROM vw_sys_item a WHERE TYPE =#{item_type} and state = '2'
+     </select>
+      <!-- getAuthorityBtnsByThisUserService 获取到这个用户这个功能所展示的按钮 -->
+ 	 <select id="getAuthorityBtnsByThisUserService"  parameterType = "com.bw.fit.common.models.SystemCommonModel"  resultType="com.bw.fit.common.models.SystemCommonModel">
+		SELECT rf.btn_cd ,fb.btn_name  ,CONCAT(fb.btn_cd,fb.function_cd) func_btn,fb.addr func_address,fb.btn_type  
+    FROM staff uu,staff2roles ur,roles r ,role2function rf ,function_btn fb 
+    WHERE uu.fdid = ur.staff_id     AND ur.role_id = rf.role_id
+    AND r.fdid = rf.role_id     AND fb.function_cd = rf.function_id
+    AND rf.btn_cd = fb.btn_cd    AND fb.btn_cd != 'view'
+    AND r.state = '2'       AND rf.state='2'
+    AND uu.fdid =#{staff_id}   AND fb.function_cd =#{func_id} 
+    UNION
+    SELECT rf.btn_cd  ,fb.btn_name  ,CONCAT(fb.btn_cd,fb.function_cd) func_btn,fb.addr func_address,fb.btn_type  
+    FROM staff uu,staff2roles ur,role2function rf ,function_btn fb
+    WHERE uu.fdid = ur.staff_id   
+      AND fb.function_cd = rf.function_id
+    AND rf.btn_cd = fb.btn_cd  
+    AND rf.role_id = '*'
+      AND fb.btn_cd != 'view'
+    AND rf.state='2'
+    AND uu.fdid =#{staff_id}   AND fb.function_cd =#{func_id}  
+ 	 </select>
+</mapper>

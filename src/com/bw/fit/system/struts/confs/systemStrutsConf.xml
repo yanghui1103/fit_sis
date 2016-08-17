@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>   
+<!DOCTYPE struts PUBLIC   
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"  
+        "http://struts.apache.org/dtds/struts-2.0.dtd">  
+<struts> 
+	<package   name="struts_system" extends="authInterceptor,nologinInterceptor,struts-default">
+		<action name="userLoginStyleStaff" class="systemAction"  method="userLoginStyleStaff">
+			<result name="SUCCESS">homepage.jsp</result>
+			<result name="FAIL">index.jsp</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+
+		<action name="getSysItems" class="systemAction" method="getSysItems"  />	
+		
+		<action name="excelDownload" class="systemAction" method="excelDownload" />
+		<!-- getUserAuthList 获取该用户登录后左侧菜单显示的功能列表 -->
+		<action name="getUserAuthLists" class="systemAction" method="getUserAuthLists" >
+		<interceptor-ref name="defaultStack"></interceptor-ref>
+			</action>
+		<action name="getUserAuthListV2" class="systemAction" method="getUserAuthListV2"  >
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			</action>
+		<action name ="getOrgTreeStructs" 	class="systemAction" method="getOrgTreeStructs"  >
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			</action>
+		<action name="logOut"  class="systemAction" method="logOut"  >
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="SUCCESS">index.jsp</result>
+			</action>
+		<action name="getUserAuthListV3" class="systemAction" method="getUserAuthListV3" />
+		<!-- getRoleExistAndNoexitAuthList获取该角色已经存在和不存的功能树 -->
+		<action name="getRoleExistAndNoexitAuthList" class="systemAction"
+			method="getRoleExistAndNoexitAuthList" />
+		<!-- getUserListUnderTheStation 获取本级及以下机构人员的信息列表 -->
+		<action name="getUserListUnderTheStation" class="systemAction"
+			method="getUserListUnderTheStation" />
+		<!-- createForeignAndAttachmentRelation 把外键与附件关联 -->
+		<action name="createForeignAndAttachmentRelation" class="systemAction"
+			method="createForeignAndAttachmentRelation"   >
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			</action>
+		<!-- 根据机构查询该机构下所有任务数据 -->
+		<action name="getThisCompanyTaskDetails" class="systemAction"
+			method="getThisCompanyTaskDetails"   >
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			</action>
+		<!-- createNewRole 新建角色 -->
+		<action name="createNewRole" class="systemAction" method="createNewRole" />
+		<action name="getPositionList" class="systemAction" method="getPositionList" />
+		<!-- getFileListByForeginId 根据外部ID查询出关联的文件 -->
+		<action name="getFileListByForeginId" class="systemAction"
+			method="getFileListByForeginId"  >
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			</action>
+		<action name="qryAllUserInfoList" class="systemAction"
+			method="qryAllUserInfoList" />
+		<action name="clearPasswd"  class="systemAction"
+			method="clearPasswd" />
+		<action name="updateUserInfo"  class="systemAction"
+			method="updateUserInfo" />
+		<action name="getPositionInfosById" class="systemAction"
+			method="getPositionInfosById" />
+		<action name="deleteUserInfo"  class="systemAction"
+			method="deleteUserInfo" />
+		<action name="getThisUserInfo"   class="systemAction"
+			method="getThisUserInfo" >
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<action name="updatePositionInfosByPositionId" class="systemAction"
+			method="updatePositionInfosByPositionId" />
+		<!-- getAllOrgs 获取组织架构(List) -->
+		<action name="getAllOrgs" class="systemAction" method="getAllOrgs" />
+		<!-- getAllOrgs 获取组织架构(List)当前机构下的所有 -->
+		<action name="getAllOrgsUnderMyOrg" class="systemAction"
+			method="getAllOrgsUnderMyOrg" />
+		<!-- getOrgInfoTree 获取组织架构（tree） -->
+		<action name="getOrgInfoTree" class="systemAction" method="getOrgInfoTree" />
+		<!-- getThisRoleAuthTreeJson 获取该角色的权限json -->
+		<action name="getThisRoleAuthTreeJson" class="systemAction"
+			method="getThisRoleAuthTreeJson" />
+		<!-- giveAuthorityToRole 赋权 -->
+		<action name="giveAuthorityToRole" class="systemAction" method="giveAuthorityToRole" />
+		<!-- getAuthorityBtnsByThisUser 当前用户得到这个功能（function_cd）的按钮 -->
+		<action name="getAuthorityBtnsByThisUser" class="systemAction"
+			method="getAuthorityBtnsByThisUser" >
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			</action>
+		<!-- createNewSysUser 单笔创建用户 -->
+		<action name="createNewSysUser" class="systemAction" method="createNewSysUser" />
+		<action name="createNewPosition" class="systemAction" method="createNewPosition" />
+		<!-- 更改密码 -->
+		<action name="changePasswd"  class="systemAction" method="changePasswd" />
+		<action name="getCustomOrgTree"  class="systemAction" method="getCustomOrgTree" >
+		<interceptor-ref name="defaultStack"></interceptor-ref>		
+		</action>
+		<action name="getCustomOrgTreeTask"  class="systemAction" method="getCustomOrgTreeTask" >
+		<interceptor-ref name="defaultStack"></interceptor-ref>		
+		</action>
+		<!-- 获取该角色的权限及所有权限 -->
+		<action name="getFunctionsTreeStructs" class="systemAction" method="getFunctionsTreeStructs" >
+		<interceptor-ref name="defaultStack"></interceptor-ref>
+			</action>
+			<!-- 赋权 -->
+		<action name="giveThisRoleFuntions"   class="systemAction" method="giveThisRoleFuntions"  />
+		<!-- getUserInfosByUserId 根据user查询出用户资料 -->
+		<action name="getUserInfosByUserId" class="systemAction"
+			method="getUserInfosByUserId" />
+		<!-- updateUserInfosByUserId 更新用户资料 -->
+		<action name="updateUserInfosByUserId" class="systemAction"
+			method="updateUserInfosByUserId" />
+		<!-- createNewSysOrg 新建机构 -->
+		<action name="createNewSysOrg" class="systemAction" method="createNewSysOrg" />
+		<!-- qrySearchStaffInfoByOrgTopTree 根据组织架构查询员工信息 -->
+		<action name="qrySearchStaffInfoByOrgTopTree" class="systemAction"
+			method="qrySearchStaffInfoByOrgTopTree" />
+		<!-- getOrgInfosById 根据编码查询出机构资料 -->
+		<action name="getOrgInfosById" class="systemAction" method="getOrgInfosById" />
+		<!-- updateOrgInfosByOrgId 更新机构资料 -->
+		<action name="updateOrgInfosByOrgId" class="systemAction"
+			method="updateOrgInfosByOrgId" />
+		<!-- getAllOrgListInfoJson 得到所有机构数据 -->
+		<action name="getAllOrgListInfoJson" class="systemAction"
+			method="getAllOrgListInfoJson" />
+		<!-- qrySearchOrgUserTopList 根据部门ID查询该机构下面所有的用户 -->
+		<action name="qrySearchOrgUserTopListAction" class="systemAction"
+			method="qrySearchOrgUserTopListAction" />
+		<!-- qrySearchOrgUserTopListByKeyWords 根据关键字查询用户信息 -->
+		<action name="qrySearchOrgUserTopListByKeyWords" class="systemAction"
+			method="qrySearchOrgUserTopListByKeyWords" />
+		<!-- 根据本机构查询拥有的工种 -->
+		<action name="getWtItemsByOrg" class="systemAction" method="getWtItemsByOrg" />
+		<!-- 根据机构查询其下的教师 -->
+		<action name="getTeachersItemsByOrg" class="systemAction"
+			method="getTeachersItemsByOrg" />
+		<!-- 根据机构查询班级信息 -->
+		<action name="qrySearchClassInfoByOrgTopTree" class="systemAction"
+			method="qrySearchClassInfoByOrgTopTree" />
+		<!-- 根据角色，查询该角色下功能及权级信息 -->
+		<action name="qryRoleRelatFuncInfoList"  class="systemAction"
+			method="qryRoleRelatFuncInfoList" />
+		<!-- 保存角色功能权级信息 -->
+		<action name="saveRoleFuncLevelInfo"   class="systemAction"
+			method="saveRoleFuncLevelInfo" />
+		<action name="test" class="com.bw.common.actions.TestAction"
+			method="test" />
+		<action name="deleteAttachmentFile"  class="systemAction"
+			method="deleteAttachmentFile" >
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>	
+	</package>
+	<package name="struts_fileUpLoad" extends="json-default">
+		<action name="fileUploadAction" class="com.bw.fit.common.actions.FileAction">
+		<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result type="json" name="success">
+				<param name="contentType">
+					text/html
+				</param>
+			</result>
+			<result type="json" name="error">
+				<param name="contentType">
+					text/html
+				</param>
+			</result>
+		</action>
+	</package>
+</struts>  

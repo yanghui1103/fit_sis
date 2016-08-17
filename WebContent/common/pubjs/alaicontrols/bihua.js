@@ -1,0 +1,1 @@
+var strChineseBiHua	= "78";

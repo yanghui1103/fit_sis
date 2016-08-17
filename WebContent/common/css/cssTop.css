@@ -1,0 +1,13 @@
+@charset "utf-8";
+body { margin: 0px; padding: 0px; font-family: "宋体"; font-size: 12px; color: #0066CC; }
+a:link,a:visited { color: #003399; text-decoration: none; }
+.line { border-bottom-width: 1px; border-bottom-style: dotted; border-bottom-color: #0066CC; }
+.txt { font-size: 14px; font-weight: bold; color: #000000; }
+ul,li { margin: 0px; padding: 0px; list-style-type: none; }
+
+.nav { font-size: 12px; color: #FFFFFF; padding-left: 10px; padding-right: 10px; }
+.box { border: 1px solid #3399CC; padding: 5px; }
+.list { padding: 10px; }
+.listbox { border: 1px solid #CCCCCC; }
+.list li { line-height: 23px; }
+.bdline { border-right-width: 1px; border-right-style: solid; border-right-color: #a4d5f3; }

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=GB18030">
+<META name="GENERATOR" content="IBM WebSphere Studio">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK href="../../theme/Master.css" rel="stylesheet"
+	type="text/css">
+<TITLE>testOptionUpAndDown.html</TITLE>
+<SCRIPT>
+function up(){
+   for(var i=0;i<sel.options.length;i++){
+       if(sel.options[i].selected){
+          if(i>0){
+             sel.options[i].swapNode(sel.options[i-1]);
+             break;
+          }
+       }
+   }
+}
+function down(){
+   for(var i=0;i<sel.options.length;i++){
+       if(sel.options[i].selected){
+          if(i<sel.options.length-1){
+             sel.options[i].swapNode(sel.options[i+1]);
+             break;
+          }
+       }
+   }
+}
+
+function cc(){
+   ff.innerText = "dfsaf";
+   ff.contentEditable = false;
+   ff.innerText = 'hello';
+}
+</SCRIPT>
+</HEAD>
+<BODY>
+<P>Place content here.</P>
+<INPUT type="button" value="up" onclick="up()">
+<INPUT type="button" value="down" onclick="down()">
+<SELECT id="sel" multiple="multiple">
+<OPTION value="1">1</OPTION>
+<OPTION value="2">2</OPTION>
+<OPTION value="3">3</OPTION>
+<OPTION value="4">4</OPTION>
+<OPTION value="5">5</OPTION>
+<OPTION value="6">6</OPTION>
+<OPTION value="7">7</OPTION>
+<OPTION value="8">8</OPTION>
+<OPTION value="9">9</OPTION>
+</SELECT>
+<INPUT type="button" value="readonly" onclick="cc()">
+<input type="text" id="ff"></input>
+</BODY>
+</HTML>

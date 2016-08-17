@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<tree>
+	<node showchildren="yes">
+		<columntext><![CDATA[]]></columntext>
+		<columntext><![CDATA[<input type="checkbox">]]></columntext>
+		<columntext><![CDATA[6]]></columntext>
+		<columntext><![CDATA[5]]></columntext>
+		<columntext><![CDATA[4]]></columntext>
+		<children>
+			<node refkey="" iconsrc="" xmlsrc="" showchildren="yes" onclick="">
+				<columntext><![CDATA[]]></columntext>
+				<columntext><![CDATA[<input type="checkbox">]]></columntext>
+				<columntext><![CDATA[E]]></columntext>
+				<columntext><![CDATA[R]]></columntext>
+				<columntext><![CDATA[T]]></columntext>
+				<children />
+			</node>
+			<node refkey="" iconsrc="" xmlsrc="http://top01wdt1:8090/workspace/test.xml" showchildren="no" onclick="">
+				<columntext><![CDATA[]]></columntext>
+				<columntext><![CDATA[<input type="checkbox">]]></columntext>
+				<columntext><![CDATA[I]]></columntext>
+				<columntext><![CDATA[O]]></columntext>
+				<columntext><![CDATA[P]]></columntext>
+				<children />
+			</node>
+		</children>
+	</node>
+	<node refkey="" iconsrc="" xmlsrc="" showchildren="yes" onclick="alert(this.innerHTML);">
+		<columntext><![CDATA[]]></columntext>
+		<columntext><![CDATA[<input type="checkbox">]]></columntext>
+		<columntext><![CDATA[e]]></columntext>
+		<columntext><![CDATA[r]]></columntext>
+		<columntext><![CDATA[t]]></columntext>
+		<children>
+			<node refkey="" iconsrc="http://top01wdt1:8090/web_api/images/icons/icon_user.gif" xmlsrc="test.xml" showchildren="no" onclick="">
+				<columntext><![CDATA[]]></columntext>
+				<columntext><![CDATA[<input type="checkbox">]]></columntext>
+				<columntext><![CDATA[h]]></columntext>
+				<columntext><![CDATA[j]]></columntext>
+				<columntext><![CDATA[k]]></columntext>
+				<children />
+			</node>
+		</children>
+	</node>
+</tree>
+			

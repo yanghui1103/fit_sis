@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>   
+<!DOCTYPE struts PUBLIC   
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"  
+        "http://struts.apache.org/dtds/struts-2.0.dtd">  
+<struts>
+	<!-- 默认 -->
+	<include file="struts-default.xml"></include>
+	<!-- 指定struts的扩展名 -->
+	<constant name="struts.action.extension" value="action"></constant>
+	<!--  默认大陆-->
+	<constant name="struts.locale" value="zh_CN"></constant>
+	<!-- 字符集 -->
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	<!-- 指定struts的配置文件是否自动重载 -->
+	<constant name="struts.configuration.xml.reload" value="true"></constant>
+	<!-- 指定struts的资源文件自动重载 -->
+	<constant name="struts.i18n.reload" value="action"></constant>
+	<!--  指定struts的国际化资源文件
+		<constant name="struts.custom.i18n.resources" value="internalConfigMessage"></constant>
+	 -->
+	<constant name="struts.configuration.files" value="struts-default.xml,struts-plugin.xml,struts.xml"></constant>
+	<!--  文件上传的最大MB20 -->
+	<constant name="struts.multipart.maxSize" value="20971520"></constant>
+	
+	<!-- 自定义拦截器 ,无登录和无权限start -->
+	<package name="authInterceptor" extends="struts-default">
+		<interceptors>
+			<!--判断是否登录 和 是否有访问权限 -->
+			<interceptor name="auth" class="authenticationInterceptor" />
+			<interceptor-stack name="authStack">
+				<interceptor-ref name="auth"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="authStack"></default-interceptor-ref>
+	</package>
+	<!-- 没有登录的拦截器 -->
+	<package name="nologinInterceptor" extends="struts-default">
+		<interceptors>
+			<!--判断是否登录 和 是否有访问权限 -->
+			<interceptor name="nologin" class="noLoginInterceptor" />
+			<interceptor-stack name="nologinStack">
+				<interceptor-ref name="nologin"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="nologinStack"></default-interceptor-ref>
+	</package>
+	
+	<include file="com/bw/fit/system/struts/confs/systemStrutsConf.xml"  /> 
+</struts>  

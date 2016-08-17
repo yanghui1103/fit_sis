@@ -1,0 +1,55 @@
+@charset "utf-8";
+.main_body {width:1002px; margin:0 auto;}
+.banner_div {height:100px; background:url(../images/tbg.jpg) repeat-x;}
+.logo {width:180px; height:80px; padding:10px; float:left; text-align:center;}
+.banner {width:802px; float:right;}
+.banner_span {width:50px; line-height:40px; float:left; text-indent:inherit;}
+.banner_span2 {width:70px; line-height:40px; float:left; text-indent:inherit;}
+
+.ad1 {width:998px; height:150px; padding:1px; border:#C6DDDC 1px solid;}
+.adpic {width:808px; height:150px; float:left;}
+.adlist {width:178px; height:130px; padding:5px; float:right;}
+.adtitle {line-height:20px; margin-left:10px;}
+
+.w_s {width:1000px; height:30px; margin:5px 0; border:1px solid #C6DDDC; padding-top:5px; background:#FFFFFF}
+.weather {width:180px; line-height:35px; margin-left:15px; float:left;}
+.search {width:800px; line-height:35px; float:left;}
+.search_input {width:400px; height:22px; border:1px solid #CCCCCC; float:left;}
+.search_submit {width:67px; height:26px; background:url(../images/s_s.jpg) no-repeat; border:0;}
+.s_input {width:500px; float:left;}
+.hot_key {height:25px; line-height:30px; float:left; overflow:hidden;}
+
+.alist {width:1002px;}
+.alist2 {width:1002px; margin:5px 0;}
+.aleft {width:685px; height:390px; float:left;}
+.aboutordos {width:227px; height:390px; float:left; margin:0 5px 5px 0; border:1px solid #B1C8D6;}
+.amid {width:444px; height:390px; float:right; margin:0 5px 5px 0; border:1px solid #C6DDDC;}
+.aright {width:316px; height:390px; float:right;}
+.ad2 {width:314px; height:90px; padding:1px; border:1px solid #CCCCCC; margin-bottom:5px;}
+
+.atitle {height:25px; background:url(../images/abg.jpg) repeat-x; line-height:25px; padding-left:10px; letter-spacing:5px; font-size:12px; font-weight:bolder; color:#000066}
+
+.tab_til {width:444px; height:24px; font-size:14px; color:#000066; line-height:25px; text-align:center}
+.tab_li_hover {width:88px; background:#FFFFFF; float:left; text-indent:inherit; font-size:14px; color:#000066; line-height:25px; text-align:center; font-weight:bolder;}
+.tab_li {background:url(../images/tabg.jpg) repeat-x; float:left; width:87px; border:1px solid #B1C8D6; border-top:0;}
+.tab_cont_hover {widows:444px; height:390px;}
+.tab_cont {width:444px; height:390px; display:none;}
+
+.pub {text-align:center;}
+.pub_btn {background:url(../images/pbbg.jpg) no-repeat; width:316px; height:38px; margin:5px 0; border:0; font-size:16px; font-weight:bolder}
+
+.pic {padding:2px; width:184; height:144; margin:5px; float:left; border:#CCCCCC solid 1px;}
+.nli {line-height:30px; padding:0 10px; float:right}
+.nli2 {line-height:30px; padding:0 10px; list-style-type:square}
+
+.ad3 {width:1002px; height:128px; margin:5px 0;}
+.ad3_1 {width:680px; height:128px; float:left;}
+.ad3_2 {width:314px; height:128px; float:right; margin-left:5px;}
+
+.ad4 {width:1002px; height:128px; margin:5px 0;}
+.ad4_1 {width:680px; height:128px; float:left;}
+.ad4_2 {width:314px; height:128px; float:right; margin-left:5px;}
+
+.ad5 {width:1002px; height:128px; margin:5px 0;}
+.ad5_1 {width:680px; height:128px; float:left;}
+.ad5_2 {width:314px; height:128px; float:right; margin-left:5px;}

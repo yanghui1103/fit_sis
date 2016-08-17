@@ -1,0 +1,130 @@
+@charset "utf-8";
+/** Copyright myzbq.com */
+ 
+/** ============= 页面基本元素样式 Start ============= */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td a {margin:0;padding:0;
+}
+table {border-collapse:collapse;border-spacing:0;}
+fieldset, img {border:0;}
+address, caption, cite, code, dfn, em, th, var {font-style:normal;font-weight:normal;}
+li {list-style:none;}
+h1, h2, h3, h4, h5, h6 {font-size:100%;font-weight:normal;}
+input, textarea {font-family:inherit;font-size:12px;font-weight:inherit;vertical-align:middle;padding:2px;}
+body {font:12px / 1.5 tahoma, arial, simsun, sans-serif;color:#00407B;text-align:left;}
+html, body {height:100%;width:100%;overflow:hidden;}
+table {font-size:inherit;}
+a {color:#00407B;text-decoration:none;}
+a:hover {color:#EE302C;text-decoration:none;}
+/** ============= 页面基本元素样式 End ============= */
+
+#container{overflow:hidden;}
+/** ============= 页面右侧区域样式 Start ============= */
+#header{height:57px;background:url(../images/bgx.png) repeat-x 0 -33px;position:relative;}
+#headerMenu{position:absolute;top:2px;right:2px;overflow:hidden;}
+#headerMenu li:hover,#headerMenu li span{background:url(../images/sys_menu.png) no-repeat;}
+#headerMenu li{float:left;text-align:center;width:56px;height:52px;margin: 0 2px;cursor:pointer;}
+#headerMenu li span{display:block;width:56px;height:52px;color: #E2051F;padding-top:35px;}
+#headerMenu li span.desktop{background-position: -224px 0;}
+#headerMenu li span.system{background-position: -56px 0;}
+#headerMenu li span.app{background-position: -112px 0;}
+#headerMenu li span.help{background-position: -280px 0;}
+#headerMenu li span.logout{background-position: -168px 0;}
+
+/** ============= 页面右侧区域样式 End ============= */
+
+#main{clear:both;position:relative;}
+
+/** ============= 页面左侧菜单栏样式 Start ============= */
+#menuCaption,#menuCaption p,#menuBottom,#menuBottom span,.node-box .cate{background:url(../images/bg_sp.png) no-repeat;}
+#menuCaption p span,.node-box .cate p,.node-box ul.sub li{background:url(../images/bg_sign.png) no-repeat;}
+#menu{width:215px;position:absolute;left:2px;top:2px;}
+#menu .hidden{display:none;}
+#menuCaption{	background-position:right -310px;height:28px;padding-right:8px;position:relative;}
+#menuCaption p{height:28px;background-position:0 -280px;}
+#menuCaption p span{background-position:6px -35px;font-size:14px;font-weight:bold;padding-left:26px;line-height:30px;line-height:32px\9;line-height:28px !important;}
+#menuCaption span{	background-position:right -310px;height:28px;padding-right:8px;position:relative;}
+#menuNode{border:solid 1px #99bce8;border-width:0 1px 1px;background-color:#EDF6FB;overflow: auto;}
+#menuNode .node-wrapper{overflow:hidden;}
+#menuNode .node-box{}
+.node-box .cate{height:24px;background-position:0 -360px;border:solid 1px #9cbee9;border-width:1px 0;margin-top:-1px;position:relative;cursor:pointer;}
+.node-box .cate:hover{background-position:0 -390px;}
+.node-box .cate p{background-position:6px 5px;line-height: 22px;line-height: 26px\9;padding-left:26px;}
+.node-box .cate span{display:block;width:7px;height:8px;background:url(../images/icons.png) no-repeat -75px -1px;position:absolute;top:8px;right:8px;}
+.node-box .cate span.hide{background-position:-58px -1px;}
+.node-box .cate:hover span{background-position:-110px -1px;}
+.node-box .cate:hover span.hide{background-position:-93px -1px;}
+.node-box ul.sub{display:none;padding:3px 4px 6px 4px;overflow:hidden;}
+.node-box ul.sub li{background-position:-5px -64px;height:17px;margin:1px 0 1px 18px;white-space:nowrap;padding-left:18px;line-height:20px\9;}
+.node-box ul.sub li a:hover{text-decoration:underline;}
+/** ============= 页面左侧菜单栏样式 End ============= */
+
+/** ============= 分隔栏样式 Start ============= */
+/** 可过拽分隔栏样式
+#splitter{width:5px;height:396px;background:url(../images/splitter.gif) 0 50% no-repeat;position:absolute;top:2px;left:200px;cursor:e-resize;}
+#splitter:hover{background-color:#99BCE8;}
+*/
+#splitter{width:5px;height:396px;position:absolute;top:2px;left:200px;}
+/** ============= 分隔栏样式 Start ============= */
+
+/** ============= 页面右侧区域样式 Start ============= */
+#content{overflow:hidden;position:absolute;top:2px;}
+/** 右侧Tab菜单样式 */
+#tabView,#tabIndex,#tabMenu ul li,#tabMenu ul li p,#ctBottom,#ctBottom span{background:url(../images/bg_sp.png) no-repeat;}
+#tabView{background-position:right -30px;height:28px;padding-right:4px;}
+#tabIndex{background-position:0 0;height:28px;position:relative;}
+#tabMenu{height:28px;position:absolute;top:0;left:4px;overflow:hidden;width:1127px;}
+#tabMenu ul.tab{width:9999px;height:23px;padding-top:5px;}
+#tabMenu ul.tab li{float:left;height:23px;background-position:right -170px;padding-right:6px;margin-right:2px;position:relative;cursor:pointer;}
+#tabMenu ul.tab li p{height:23px;display:block;background-position:0 -140px;padding:0 15px 0 10px;float:left;cursor:pointer;}
+#tabMenu ul.tab li p span{display:block;color:#00407B;line-height:24px;}
+#tabMenu ul.tab li p a{display:block;width:11px;height:11px;background:url(../images/icons.png) no-repeat -20px 0;position:absolute;right:6px;top:6px;text-indent:-2000em;z-index:99;}
+#tabMenu ul.tab li p a:hover{background-position:0 0;}
+#tabMenu ul.tab li.on{background-position:right -110px;cursor:default;}
+#tabMenu ul.tab li.on p{background-position:0 -80px;}
+#tabMenu ul.tab li.on p span{font-weight:bold;}
+#tabMenu ul.tab li.off:hover{background-position:right -230px;cursor:default;}
+#tabMenu ul.tab li.off:hover p{background-position:0 -200px;}
+
+/** 右侧Tab工具栏样式 */
+#tabTool{height:18px;position:absolute;right:0;top:5px;width:80px;}
+#tabTool a{float:left;width:18px;height:18px;background:url(../images/icons.png) no-repeat;font-size:0;margin-right:2px;}
+#tabTool a#rightMoveBtn{background-position:-100px -20px;}
+#tabTool a#leftMoveBtn{background-position:-80px -20px;}
+#tabTool a#showMenuBtn{background-position:-60px -20px;display:none;}
+#tabTool a#hideMenuBtn{background-position:-40px -20px;}
+#tabTool a#exitScreenBtn{background-position:-20px -20px;display:none;}
+#tabTool a#fullScreenBtn{background-position:0 -20px;}
+#tabTool a#rightMoveBtn:hover{background-position:-100px -40px;}
+#tabTool a#leftMoveBtn:hover{background-position:-80px -40px;}
+#tabTool a#showMenuBtn:hover{background-position:-60px -40px;display:none;}
+#tabTool a#hideMenuBtn:hover{background-position:-40px -40px;}
+#tabTool a#exitScreenBtn:hover{background-position:-20px -40px;display:none;}
+#tabTool a#fullScreenBtn:hover{background-position:0 -40px;}
+
+/** 右侧中间内容区域样式 */
+#mainInfo{height:265px;border:1px solid #99BCE8;border-width:0 1px 1px;overflow:hidden;}
+#mainInfo iframe{width:100%;height:100%;border:none;position:relative;}
+
+/** ============= 页面右侧区域样式 End ============= */
+
+/** ============= 页面底部区域样式 Start ============= */
+#footer{text-align:center;height:23px;background:url(../images/bgx.png) 0 0 repeat-x;}
+#footer span{color:#666666;line-height:23px;}
+/** ============= 页面底部区域样式 End ============= */
+
+/** ============= 弹出窗体样式 Start ============= */
+.overlay,.frame-overlay{width:100%;height:100%;position:absolute;left:0;top:0;z-index:99;background:url(../images/shadow.png) repeat scroll 50% 50% ;opacity:0.3;}
+.layer,.modal{width:200px;background-color:#FFFFFF;border:1px solid #24BAF8;box-shadow:2px 2px 10px #FFFFFF;position:absolute;z-index:999;display:none;overflow:hidden;}
+#minLayerArea,.min-dialog-area{max-width:500px;overflow:hidden;position:absolute;}
+#minLayerArea{left:4px;bottom:1px;}
+#minLayerArea li,.min-dialog-area li{float:left;height:20px;margin:0 4px;cursor:pointer;}
+#minLayerArea li div,.min-dialog-area li div{padding:0 10px;background: -moz-linear-gradient(center top,#BBFF8F,#A0D181) repeat;border-radius: 3px 3px 0 0;}
+#minLayerArea li:hover div,.min-dialog-area li:hover div{background: -moz-linear-gradient(center top,#A0D181,#BBFF8F) repeat;}
+#minLayerArea li span,.min-dialog-area li span{color:#212121;line-height:20px;font-weight:bold;}
+.min-dialog-area{right:2px;bottom:0px;}
+.min-dialog-area li{float:left;height:20px;margin:0 4px;cursor:pointer;}
+.min-dialog-area li div{background: -moz-linear-gradient(center top,#73BDFD,#3987CA) repeat;}
+.min-dialog-area li:hover div{background: -moz-linear-gradient(center top,#3987CA,#73BDFD) repeat;}
+.min-dialog-area li span{color:#F0F1F2;}
+.body-msg-box,.frame-msg-box{width:300px;height:20px;background-color:#F4F6FD;border:2px solid #24BAF8;box-shadow:5px 5px 10px #A9A9A9;font-size:14px;font-weight:bold;text-align:center;color:#1791E6;position:absolute;z-index:99999;}
+/** ============= 弹出窗体样式 End =============== */

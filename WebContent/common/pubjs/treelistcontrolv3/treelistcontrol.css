@@ -1,0 +1,60 @@
+.treelistcontrol {
+	font-family: microsoft sans serif, verdana;
+	font-size: 8pt;
+	position: relative;
+	border: 2px inset;
+	background-color: white;
+}
+
+.tlc_headings {
+	position:relative;
+	height:16px;
+}
+
+.tlc_columnheading {
+	font-size: 8pt;
+	position: absolute;
+	background-color: threedface;
+	border: 1px outset;
+	border-top: 1px solid white;
+	border-left: 1px solid white;
+	padding-left: 2px;
+	padding-bottom: 1px;
+}
+
+.tlc_node {
+	position: relative;
+}
+
+.tlc_node_row {
+	position: relative;
+	border-top: 1px dotted #EEEEEE;
+	height:16px;
+}
+
+.tlc_node_row_hover {
+	position: relative;
+	border-top: 1px dotted #EEEEEE;
+	background-color: #EEEEFF;
+	height:16px;
+}
+
+.tlc_node_row_click {
+	position: relative;
+	border-top: 1px dotted #EEEEEE;
+	background-color: darkblue;
+	color: white;
+	height:16px;
+}
+
+.tlc_node_text {
+	position: absolute;
+	height: 16px;
+	vertical-align: middle;
+	overflow: hidden;
+	padding-left: 2px;
+	white-space: nowrap;
+}
+
+.tlc_node_children {
+}

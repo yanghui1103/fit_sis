@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=GB18030">
+<META name="GENERATOR" content="IBM WebSphere Studio">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK href="../../theme/Master.css" rel="stylesheet"
+	type="text/css">
+<TITLE>main.html</TITLE>
+</HEAD>
+<BODY>
+<P>Place content here.</P>
+<SCRIPT language="javascript">
+function bb(){
+   var btn = document.getElementById('mainbtn');
+//取出子窗口返回值，用随机函数避免缓存问题
+//参数一：新开窗口路径
+//参数二：传到子窗口的对象
+//参数三：子窗口的样式
+//Optional. String that specifies the window ornaments for the dialog box, using one or more of the following semicolon-delimited values: dialogHeight:sHeight Sets the height of the dialog window (see Remarks for default unit of measure). 
+//dialogLeft:sXPos Sets the left position of the dialog window relative to the upper-left corner of the desktop. 
+//dialogTop:sYPos Sets the top position of the dialog window relative to the upper-left corner of the desktop. 
+//dialogWidth:sWidth Sets the width of the dialog window (see Remarks for default unit of measure). 
+//center:{ yes | no | 1 | 0 | on | off } Specifies whether to center the dialog window within the desktop. The default is yes. 
+//dialogHide:{ yes | no | 1 | 0 | on | off } Specifies whether the dialog window is hidden when printing or using print preview. This feature is only available when a dialog box is opened from a trusted application. The default is no. 
+//edge:{ sunken | raised } Specifies the edge style of the dialog window. The default is raised. 
+//help:{ yes | no | 1 | 0 | on | off } Specifies whether the dialog window displays the context-sensitive Help icon. The default is yes. 
+//resizable:{ yes | no | 1 | 0 | on | off } Specifies whether the dialog window has fixed dimensions. The default is no. 
+//scroll:{ yes | no | 1 | 0 | on | off } Specifies whether the dialog window displays scrollbars. The default is yes. 
+//status:{ yes | no | 1 | 0 | on | off } Specifies whether the dialog window displays a status bar. The default is yes for untrusted dialog windows and no for trusted dialog windows. 
+//unadorned:{ yes | no | 1 | 0 | on | off } Specifies whether the dialog window displays the border window chrome. This feature is only available when a dialog box is opened from a trusted application. The default is no 
+
+   var results = window.showModalDialog('childModalDialog.html?rand=' + Math.random() ,btn,'dialogHeight:300px;dialogWidth:200px');
+   
+   if(results){
+      alert(results[1]);
+   }
+}
+</SCRIPT>
+<INPUT type="button" value="button" id="mainbtn" onclick="bb()">
+<INPUT type="checkbox" value="1" name="chk" id="chk1"><LABEL for="chk1">12321</LABEL>
+<INPUT type="radio" value="1" name="chk" id="rad1"><LABEL for="rad1">12321</LABEL>
+
+</BODY>
+</HTML>

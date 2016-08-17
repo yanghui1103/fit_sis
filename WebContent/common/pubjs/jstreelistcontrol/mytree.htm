@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>JScript Tree List Control</title>
+<link rel="stylesheet" href="treelistcontrol.css">
+<script language="javascript" src="treelistcontrol.js"></script>
+</head>
+<body>
+<script language="javascript">
+function addone(parentid) {
+	var opt = "[ <a href=\"javascript:void(0)\" onclick=\"xx.deleteNode([[id]])\">Delete</a>";
+	opt += " | <a href=\"javascript:void(0)\" onclick=\"addone([[id]])\">Add Child</a> ]"
+	var newid = xx.addNode(parentid,
+				xx.pathtoicons+"icon_folder.gif", //the icon to use
+				false, //expand this node's children?
+				s[Math.floor(Math.random()*s.length)], //value for column 1
+				s[Math.floor(Math.random()*s.length)], //value for column 2
+				s[Math.floor(Math.random()*s.length)], //value for column 3
+				s[Math.floor(Math.random()*s.length)], //value for column 4
+				opt); //value for column 4
+}
+
+xx = new TreeListControl("tlc1");
+xx.autoRedrawIcons = false;
+xx.pathtoicons = "treeicons/";
+xx.addColumn("Things",250)
+xx.addColumn("More Things",150)
+xx.addColumn("Interesting Things",150)
+xx.addColumn("Other Things",150)
+xx.addColumn("Options",null,"right")
+xx.createIn(document.body);
+s = new Array("yay","cool","wonderful","great","awesome","fluff","green","beans","mean","machine","high","balloons","flying","for","fun","great","happy","apples and cherries","bump");
+for(var z=0; z<50; z++){
+	addone(Math.floor(Math.random()*z));
+}
+xx.autoRedrawIcons = true;
+xx.redrawAllIcons();
+</script>
+<input type="submit" onclick="addone(0)" value="Add One">
+</body>
+</html>

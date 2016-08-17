@@ -1,0 +1,26 @@
+<html>
+<head>
+<script language="javascript" src="timer.js"></script>
+</head>
+<body>
+<span style="border:1px;border-style:solid;padding:0px;margin:0px;"  align="center">
+<input type="text" name="hour" style="width:15px;border:none;padding:0px;margin:0px;" maxLength="2" value="00" id="hour">:
+<input type="text" name="minute" style="width:15px;border:none;padding:0px;margin:0px;" maxLength="2" id="minute" value="00">
+</span>
+<input type="button" name="up" id="up"  value="up">
+<input type="button" name="down" id="down" value="down">
+
+<input type="text" name="hour2" maxLength="2" value="0" id="hour2">:
+<input type="text" name="minute2" maxLength="2" id="minute2">
+<input type="button" name="up2" id="up2"  value="up2">
+<input type="button" name="down2" id="down2" value="down2">
+
+<script language=javascript>
+
+var timer = new Timer(hour,minute,up,down);
+
+var timer2 = new Timer(hour2,minute2,up2,down2);
+
+</script>
+</body>
+<html>

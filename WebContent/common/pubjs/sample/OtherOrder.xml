@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="GB2312"?>
+<Root>
+	<Pages id="1" prodId="2" CoNbr="469">
+		<Page id="custInfo">
+			<Control id="Party.PartyId" type="Hidden">
+				<Item>
+					<Text>96</Text>
+				</Item>
+			</Control>
+			<Control id="Party.Name" type="TextBox">
+				<Item>
+					<Text>gg</Text>
+				</Item>
+			</Control>
+			<Control id="Party.AreaId" type="Hidden">
+				<Item>
+					<Text>1</Text>
+				</Item>
+			</Control>
+			<Control id="Party.IdentidiesTypeCd" type="DropDownList">
+				<Item>
+					<Text />
+					<Value>2</Value>
+				</Item>
+			</Control>
+			<Control id="Party.PrimaryIdentifyNum" type="TextBox">
+				<Item>
+					<Text>2534596</Text>
+				</Item>
+			</Control>
+			<Control id="Party.AddressId" type="Hidden">
+				<Item>
+					<Text>654</Text>
+				</Item>
+			</Control>
+			<Control id="Party.AddressStr" type="TextBox">
+				<Item>
+					<Text>鼓楼区中山北路三牌楼大街篓子巷sdf</Text>
+				</Item>
+			</Control>
+			<Control id="Party.MailAddressId" type="Hidden">
+				<Item>
+					<Text />
+				</Item>
+			</Control>
+			<Control id="Party.MailAddressStr" type="TextBox">
+				<Item>
+					<Text />
+				</Item>
+			</Control>
+			<Control id="Party.BusinessPassWord" type="PassWord">
+				<Item>
+					<Text />
+				</Item>
+			</Control>
+			<Control id="Party.QueryPassWord" type="PassWord">
+				<Item>
+					<Text />
+				</Item>
+			</Control>
+		</Page>
+		<Page id="baseInfo">
+			<Control id="CustOrder.ProdSpecId" type="DownList">
+				<Item selected="true">
+					<Text>小灵通</Text>
+					<Value>1</Value>
+					<Hidden>1</Hidden>
+				</Item>
+			</Control>
+			<Control id="CustOrder.SlaSa" type="DropDownList">
+				<Item selected="true">
+					<Text>一级</Text>
+					<Value>1</Value>
+				</Item>
+				<Item>
+					<Text>二级</Text>
+					<Value>2</Value>
+				</Item>
+				<Item>
+					<Text>三级</Text>
+					<Value>3</Value>
+				</Item>
+				<Item>
+					<Text>四级</Text>
+					<Value>4</Value>
+				</Item>
+			</Control>
+			<Control id="SLA_FUL" type="DropDownList">
+				<Item selected="true">
+					<Text>一级</Text>
+					<Value>1</Value>
+				</Item>
+				<Item>
+					<Text>二级</Text>
+					<Value>2</Value>
+				</Item>
+				<Item>
+					<Text>三级</Text>
+					<Value>3</Value>
+				</Item>
+				<Item>
+					<Text>四级</Text>
+					<Value>4</Value>
+				</Item>
+				<Item>
+					<Text>五级</Text>
+					<Value>5</Value>
+				</Item>
+			</Control>
+			<Control id="CoAn.AnId" type="Hidden">
+				<Item>
+					<Text>252</Text>
+				</Item>
+			</Control>
+			<Control id="CoAn.AccessNumber" type="TextBox">
+				<Item>
+					<Text>88880229</Text>
+				</Item>
+			</Control>
+			<Control id="CustOrder.InstallDate" type="TextBox">
+				<Item>
+					<Text />
+				</Item>
+			</Control>
+			<Control id="CustOrder.LinkMan" type="set">
+				<Property id="LinkMan.Name" type="TextBox">
+					<Item>
+						<Text />
+					</Item>
+				</Property>
+				<Property id="LinkMan.Nbr" type="TextBox">
+					<Item>
+						<Text />
+					</Item>
+				</Property>
+			</Control>
+			<Control id="CustOrder.CoOther.Security" type="Checkbox">
+				<Item>
+					<Text />
+				</Item>
+			</Control>
+			<Control id="CustOrder.CoOther.Regedit" type="Checkbox">
+				<Item>
+					<Text />
+				</Item>
+			</Control>
+			<Control id="CustOrder.Co2Ans" type="set">
+				<Property id="Co2Ans.ReasonCd" type="Hidden">
+					<Item>
+						<Text>1</Text>
+					</Item>
+				</Property>
+				<Property id="Co2Ans.Name" type="TextBox">
+					<Item>
+						<Text>134533523</Text>
+					</Item>
+				</Property>
+			</Control>
+			<Control id="CustOrder.CoParties" type="set" />
+			<Control id="CustOrder.CoProdAttrs" type="set" />
+			<Control id="CustOrder.Party.PartyId" type="Hidden" description="客户ID">
+				<Item>
+					<Text>96</Text>
+				</Item>
+			</Control>
+		</Page>
+		<Page id="acctInfo">
+			<Control id="CoAccount" type="Table">
+				<Item key="acctCd" id="1">
+					<Column name="chargeItemName">全部费用</Column>
+					<Column name="chargeItemCd" type="hidden">0</Column>
+					<Column name="priorityAcct">1</Column>
+					<Column name="acctCd">1</Column>
+					<Column name="acctId" type="hidden">1</Column>
+					<Column name="partyName">ddddd</Column>
+					<Column name="partyId" type="hidden">52</Column>
+					<Column name="percent">100</Column>
+					<Column name="coMailing">1</Column>
+				</Item>
+			</Control>
+			<Control id="CoRelaType" type="Hidden" />
+			<Control id="CoPaymentAccount" type="Table">
+				<Item dependId="1" id="1">
+					<Column name="paymentAccountId" type="hidden">50</Column>
+					<Column name="payType">代扣</Column>
+					<Column name="payMethod" type="hidden">2</Column>
+					<Column name="bankName">建设银行</Column>
+					<Column name="bankId" type="hidden">1</Column>
+					<Column name="payCount">fdsafas</Column>
+					<Column name="name">no field</Column>
+					<Column name="priority">1</Column>
+				</Item>
+			</Control>
+		</Page>
+		<Page id="nwkInfo">
+			<Control id="AllNwk" type="table">
+				<Props id="NwkProps">
+					<Property id="itemspec.itemspecid._1" dependId="servspec.servspecid._4" checked="true" label="呼限密码" datatype="8" datatypelen="6" type="TextBox">
+						<Item>
+							<Text>呼限密码</Text>
+							<Value>1</Value>
+						</Item>
+					</Property>
+					<Property id="itemspec.itemspecid._2" dependId="servspec.servspecid._4" checked="true" label="到期日期2" datatype="4" datatypelen="12" type="TextBox">
+						<Item>
+							<Text>到期日期2</Text>
+							<Value>2</Value>
+						</Item>
+					</Property>
+					<Property id="itemspec.itemspecid._2" dependId="servspec.servspecid._9" checked="true" label="到期日期2" datatype="4" datatypelen="12" type="TextBox">
+						<Item>
+							<Text>到期日期2</Text>
+							<Value>2</Value>
+						</Item>
+					</Property>
+					<Property id="itemspec.itemspecid._1" dependId="servspec.servspecid._69" checked="true" label="呼限密码" datatype="8" datatypelen="6" type="TextBox">
+						<Item>
+							<Text>呼限密码</Text>
+							<Value>1</Value>
+						</Item>
+					</Property>
+					<Property id="itemspec.itemspecid._2" dependId="servspec.servspecid._3" checked="true" label="到期日期2" datatype="4" datatypelen="12" type="TextBox">
+						<Item>
+							<Text>到期日期2</Text>
+							<Value>2</Value>
+						</Item>
+					</Property>
+					<Property id="itemspec.itemspecid._22" dependId="servspec.servspecid._3" checked="true" label="资源充足" datatype="2" datatypelen="1" type="" />
+					<Property id="itemspec.itemspecid._1" dependId="servspec.servspecid._3" checked="true" label="呼限密码" datatype="8" datatypelen="6" type="TextBox">
+						<Item>
+							<Text>呼限密码</Text>
+							<Value>1</Value>
+						</Item>
+					</Property>
+					<Property id="itemspec.itemspecid._3" dependId="servspec.servspecid._20" checked="true" label="到期日期3" datatype="4" datatypelen="12" type="TextBox">
+						<Item>
+							<Text>到期日期3</Text>
+							<Value>3</Value>
+						</Item>
+					</Property>
+					<Property id="itemspec.itemspecid._2" dependId="servspec.servspecid._20" checked="true" label="到期日期2" datatype="4" datatypelen="12" type="TextBox">
+						<Item>
+							<Text>到期日期2</Text>
+							<Value>2</Value>
+						</Item>
+					</Property>
+					<Property id="itemspec.itemspecid._1" dependId="servspec.servspecid._20" checked="true" label="呼限密码" datatype="8" datatypelen="6" type="TextBox">
+						<Item>
+							<Text>呼限密码</Text>
+							<Value>1</Value>
+						</Item>
+					</Property>
+					<Property id="itemspec.itemspecid._2" dependId="servspec.servspecid._7" checked="true" label="到期日期2" datatype="4" datatypelen="12" type="TextBox">
+						<Item>
+							<Text>到期日期2</Text>
+							<Value>2</Value>
+						</Item>
+					</Property>
+					<Property id="itemspec.itemspecid._2" dependId="servspec.servspecid._5" checked="true" label="到期日期2" datatype="4" datatypelen="12" type="TextBox">
+						<Item>
+							<Text>到期日期2</Text>
+							<Value>2</Value>
+						</Item>
+					</Property>
+					<Property id="itemspec.itemspecid._3" dependId="servspec.servspecid._6" checked="true" label="到期日期3" datatype="4" datatypelen="12" type="TextBox">
+						<Item>
+							<Text>到期日期3</Text>
+							<Value>3</Value>
+						</Item>
+					</Property>
+					<Property id="itemspec.itemspecid._2" dependId="servspec.servspecid._8" checked="true" label="到期日期2" datatype="4" datatypelen="12" type="TextBox">
+						<Item>
+							<Text>到期日期2</Text>
+							<Value>2</Value>
+						</Item>
+					</Property>
+				</Props>
+				<Item>
+					<Column id="servspec.servspecid._4" type="Checkbox" isDefault="N" ifExist="" isMust="" datakey="4">4</Column>
+					<Column>PHS本地网呼叫权限</Column>
+					<Column id="servspec.servspecid._9" type="Checkbox" isDefault="N" ifExist="Y" isMust="" datakey="9" checked="true">9</Column>
+					<Column>PHS拇指信息</Column>
+					<Column id="servspec.servspecid._69" type="Checkbox" isDefault="N" ifExist="" isMust="" datakey="69">69</Column>
+					<Column>qqq</Column>
+				</Item>
+				<Item>
+					<Column id="servspec.servspecid._3" type="Checkbox" isDefault="N" ifExist="" isMust="" datakey="3">3</Column>
+					<Column>PHS基本呼叫权限</Column>
+					<Column id="servspec.servspecid._20" type="Checkbox" isDefault="N" ifExist="" isMust="" datakey="20">20</Column>
+					<Column>ccc9</Column>
+					<Column id="servspec.servspecid._7" type="Checkbox" isDefault="N" ifExist="Y" isMust="Y" datakey="7" checked="true">7</Column>
+					<Column>PHS来电显示</Column>
+				</Item>
+				<Item>
+					<Column id="servspec.servspecid._5" type="Checkbox" isDefault="N" ifExist="" isMust="" datakey="5">5</Column>
+					<Column>PHS国内长途权限</Column>
+					<Column id="servspec.servspecid._6" type="Checkbox" isDefault="N" ifExist="" isMust="" datakey="6">6</Column>
+					<Column>PHS国际长途权限</Column>
+					<Column id="servspec.servspecid._8" type="Checkbox" isDefault="N" ifExist="" isMust="" datakey="8">8</Column>
+					<Column>PHS短信息</Column>
+				</Item>
+				<Item>
+					<Column id="servspec.servspecid._406" type="Checkbox" isDefault="N" ifExist="" isMust="" datakey="406">406</Column>
+					<Column>固话国际长途权限</Column>
+				</Item>
+				<Rules id="NwkRule">
+					<Rule id="rule4" source="4" target="3" relation="1" />
+					<Rule id="rule4" source="4" target="9" relation="1">互斥关系</Rule>
+					<Rule id="rule4" source="4" target="6" relation="1" />
+					<Rule id="rule4" source="4" target="5" relation="1" />
+					<Rule id="rule9" source="9" target="65" relation="1">互斥关系</Rule>
+					<Rule id="rule3" source="3" target="405" relation="1">互斥关系</Rule>
+					<Rule id="rule3" source="3" target="5" relation="1" />
+					<Rule id="rule3" source="3" target="7" relation="1">互斥关系</Rule>
+					<Rule id="rule3" source="3" target="4" relation="1" />
+					<Rule id="rule3" source="3" target="6" relation="1" />
+					<Rule id="rule5" source="5" target="8" relation="1">互斥关系</Rule>
+					<Rule id="rule6" source="6" target="3" relation="1" />
+					<Rule id="rule6" source="6" target="8" relation="1">互斥关系</Rule>
+					<Rule id="rule6" source="6" target="5" relation="1" />
+					<Rule id="rule6" source="6" target="50" relation="1">互斥关系</Rule>
+					<Rule id="rule6" source="6" target="4" relation="1" />
+					<Rule id="rule8" source="8" target="9" relation="1">互斥关系</Rule>
+					<Rule id="rule8" source="8" target="7" relation="2">依赖关系</Rule>
+				</Rules>
+			</Control>
+			<Control id="terminal" type="table" />
+		</Page>
+		<Page id="orderTypeInfo">
+			<Control id="OrderType" type="table">
+				<Item>
+					<Column hidden="11">过户</Column>
+				</Item>
+				<Item>
+					<Column hidden="7">程控业务变动</Column>
+				</Item>
+				<Item>
+					<Column hidden="6">修改帐户信息</Column>
+				</Item>
+				<Item>
+					<Column hidden="5">修改客户信息</Column>
+				</Item>
+				<Item>
+					<Column hidden="3">拆机</Column>
+				</Item>
+				<Item>
+					<Column hidden="2" checked="true">改号</Column>
+				</Item>
+				<Item>
+					<Column hidden="20">用户申请复机</Column>
+				</Item>
+				<Item>
+					<Column hidden="19">用户申请停机保号</Column>
+				</Item>
+				<Item>
+					<Column hidden="17">资费变更</Column>
+				</Item>
+			</Control>
+		</Page>
+	</Pages>
+</Root>

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=GB18030">
+<META name="GENERATOR" content="IBM WebSphere Studio">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK href="../theme/Master.css" rel="stylesheet" type="text/css">
+<TITLE>test.html</TITLE>
+<script language="javascript"
+	src="../treelistcontrolv3/treelistcontrol.js"></script>
+<link rel="stylesheet"
+	href="../treelistcontrolv3/treelistcontrol.css">
+
+</HEAD>
+<BODY>
+<DIV id=span2></DIV>
+<P>Place content here.</P>
+<SCRIPT>
+//创建treelist控件
+
+tree = new TreeListControl('Test Tree', '',false);
+
+//显示根节点
+tree.showRootNode = true;
+TreeListControlHandler.preventRowClick = false;
+//设置图标目录路径
+tree.iconPath = '../treelistcontrolv3/tlcimages/';
+
+//添加列
+
+tree.addColumn ( new TreeListControlColumn(20, '') );
+tree.addColumn ( new TreeListControlColumn(50,'first'));
+tree.addColumn ( new TreeListControlColumn(250,'second'));
+
+//添加根节点
+
+tree.rootNode.setText('','<input type="checkbox">','root');
+tree.nLabelColumn = 2;
+
+//添加节点(注：节点参数个数与列数相同，参数true表示展开下面的子节点)
+
+var node = new TreeListControlNode(true);
+node.setText('aa','<input type="checkbox">','sdsfs');
+tree.add(node);
+
+var node2 = new TreeListControlNode(false);
+//修改后增加的行点击事件
+
+node2.clickfunction = 'bb(\'ds\')';
+
+node2.setText('','<input type="checkbox">','Hy');
+node.add(node2);
+
+var node3 = new TreeListControlNode(true);
+node3.clickfunction = 'bb(\'aaa\')';
+node3.setText('','<input type="checkbox">','ssHy');
+node2.add(node3);
+//将控件设置在界面的元素中
+
+span2.innerHTML= tree;
+span2.firstChild.style.height="400px";
+//节点事件函数
+function bb(item){
+   //避免在点击行的复选框和文件夹时引发事件
+   
+   if(event.srcElement.tagName =='DIV'){
+      alert('ok' + item);
+   }
+
+}
+
+</SCRIPT>
+
+
+</BODY>
+</HTML>

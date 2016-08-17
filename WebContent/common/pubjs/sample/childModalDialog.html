@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=GB18030">
+<META name="GENERATOR" content="IBM WebSphere Studio">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK href="../../theme/Master.css" rel="stylesheet"
+	type="text/css">
+<TITLE>child.html</TITLE>
+<SCRIPT>
+function bb(){
+  alert('bb');
+}
+
+</SCRIPT>
+</HEAD>
+<BODY id="body1">
+<P>Place content here.</P>
+<SCRIPT>
+//var returnValue =  new Array('1','2');;
+
+function aa(){
+//取出父窗口传入的对象
+  var arg = window.dialogArguments;
+  alert(arg.value);
+  
+  var aa = new Array('1','2');
+  //设置父窗口获取的返回值
+  window.returnValue = aa;
+  window.close();
+}
+//document.getElementById("body1").attachEvent("onload",bb);
+//document.body.attachEvent("onload",bb);
+function bb(){
+   alert('ok');
+   return false;
+}
+function zz(){
+   alert(typeof(document.frames(0).cc));
+}
+</SCRIPT>
+<INPUT type="button" onclick="aa()" value="close">
+<A href="javascript:bb();" target="ff">dfa</A>
+<IFRAME name="ff" src="frame.html" width="0px;" height="0px"></IFRAME>
+<INPUT type="button" onclick="zz()" value="jflsj">
+
+</BODY>
+</HTML>

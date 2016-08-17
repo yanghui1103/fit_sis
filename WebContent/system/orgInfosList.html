@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+	var num = 0;
+	var total = 30;  
+	var actualTotal = 0;
+	var pageNo = 1; //当前页数
+	var pageTotalNo = 1; //总页数
+	$(document).ready(function() {
+
+			var arr = new Array(20);
+			for(var i in arr.length){
+				 arr[i] = "-9";		 
+			}arr[0] = "107";arr[1] = "navTab"; 
+			 renderBtnsToDiv($("#orgsListSubBar"),'getAuthorityBtnsByThisUser.action',arr);
+				qryOrgInfoList(0);	 
+	});
+	$(document).on('click', '#qry107', function() {		 
+		qryOrgInfoList(0);	 
+		});
+	 
+	function qryOrgInfoList(num) {
+		var orgName = $("#orgName").val() == "" ? "-9" : $("#orgName").val();
+		var array = new Array(orgName, num*total + "", (num*total + total)+"",total+"" );  
+		createJsonAndAjax('getAllOrgs.action', array, dealQryOrgInfoList,
+				'JSON');
+	}
+	function dealQryOrgInfoList(data) {
+		// 先清空翻页 
+		initPageSelectList($("#orgInfoListPageNo"),data.pageNum,$("#orgInfoListTatol"),data.tatol,num);
+		var $tbody = $("#allSaleOrderDiv").find("tbody");
+		$tbody.find("tr").remove();
+		if (data.res == "2") {
+			var jsonArr = data.list;
+			for (var i = 0; i < jsonArr.length; i++) {
+				var $tr = $("<tr  target=sid_user rel=" + (i + 1) + " >");
+				$tr.append($("<td width=4%>").html("<input type=checkbox name=cardfdid value='"+replaceF9ValToUnknown(jsonArr[i].company_cd)+"'/>"));
+				$tr.append($("<td width=20%>").html(replaceF9ValToUnknown(jsonArr[i].company_name)));
+				$tr.append($("<td width=10%>").html(replaceF9ValToUnknown(jsonArr[i].level)));
+				$tr.append($("<td width=10%>").html(replaceF9ValToUnknown(jsonArr[i].up_company_name)));
+				$tr.append($("<td width=15%>").html(replaceF9ValToUnknown(jsonArr[i].create_time)));
+				$tr.hover(function(){
+					$(this).addClass("hover selected");
+				},
+				function(){
+					$(this).removeClass("hover selected");
+				});
+				$tbody.append($tr);
+			}
+		}
+
+	}
+	baidu(document).on('change', '#orgInfoListPageNo', function() {		 
+		var $this = $(this);
+		num = $this.val();	  
+		qryOrgInfoList(num);	   
+	});
+</script>
+</head>
+
+<div class="pageHeader searchBar">
+	<ul class="searchContent">
+		<li><label>机构名称：</label> <input id="orgName" type="text"
+			size="30" /></li>
+	</ul>
+	<div class="subBar" id="orgsListSubBar"> 
+	</div>
+</div>
+<div id="allSaleOrderDiv">
+	<div class="pageContent ">
+	<div class="panelBar">
+		<ul>
+			<li><label>当前</label></li><li><select id="orgInfoListPageNo"  ></select></li><li><label>页，</label></li>
+			<li><label>共计</label></li><li><span id="orgInfoListTatol">0</span></li><li><label>记录</label></li>
+		</ul>
+	</div>	
+		<table class="table" width="1200" layoutH="100">
+			<thead>
+				<tr>
+					<th width=4%></th>
+					<th width=20%>机构名称</th>
+					<th width=10%>级别</th>
+					<th width=10%>上级机构</th>
+					<th width=15%>创建时间</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+</div>

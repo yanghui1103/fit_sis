@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=GB18030">
+<META name="GENERATOR" content="IBM WebSphere Studio">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK href="../../theme/Master.css" rel="stylesheet" type="text/css">
+<TITLE>testXmlRPC.html</TITLE>
+
+<SCRIPT language="javascript">
+try{
+var connection = "http://localhost:8080/JsSample/server/Init2.jsp";
+
+var rpc = new XmlRPC(connection);
+rpc.sendXml();
+
+var dom = rpc.getXml();
+alert(dom.xml);
+}
+catch(e){
+   alert(e.message);
+}
+
+
+</SCRIPT>
+</HEAD>
+<BODY>
+<table id=tab1><tr>
+<td><div></div>
+</td>
+</tr></table>
+<script language="javascript">
+tab1.dataSrc = dom;
+</script>
+</BODY>
+</HTML>

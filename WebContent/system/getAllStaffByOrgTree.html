@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+	<link rel="stylesheet" href="common/css/zTreeStyle/zTreeStyle.css" type="text/css">
+	<script type="text/javascript" src="common/js/common.js"></script>
+	<script type="text/javascript" src="common/js/jquery.ztree.core-3.0.js"></script>
+	<script type="text/javascript" src="common/js/jquery.ztree.excheck-3.0.js"></script>
+<script language="javascript"  type="text/javascript" src="common/pubjs/xmlhttp/ControlFactory.js" ></script>
+<script language="javascript"  type="text/javascript" src="common/pubjs/xmlhttp/XmlDomReader.js" ></script>
+<script language="javascript"  type="text/javascript" src="common/pubjs/xmlhttp/XmlRPC.js" ></script>
+<script language="javascript"  type="text/javascript" src="common/pubjs/xmlhttp/XmlHttp.js" ></script>
+	<SCRIPT LANGUAGE="JavaScript"> 
+		var setting = {
+			data: {
+				key: {
+					title:"t"
+				},
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				onMouseDown: onMouseDown
+			}
+		};
+
+		var zNodes = getAllOrgListInfoJson();
+
+		var log, className = {down:"dark", up:"dark", right:"dark"};
+		function getAllOrgListInfoJson(){			
+			var edom = createParamDom1("-1");
+			var jsonText = AjaxExchangeBackTextDataV1('getAllOrgListInfoJson.action',edom);    
+			jsonText = eval("["+jsonText+"]");
+			
+			return jsonText ;
+		}
+		function onMouseDown(event, treeId, treeNode) { 
+			qrySearchStaffByTopTree(treeNode.id);
+		} 
+		function qrySearchStaffByTopTree(company_cd){ 
+			//把本级机构及以下机构的人员查询出来 			
+			var edom = createParamDom1(company_cd); 
+			var ttDom = AjaxExchangeBackXMLData('qrySearchStaffInfoByOrgTopTree.action',edom);     
+		    var s = $.parseXML(ttDom.xml );  
+		    for(var i=1;i<900 ;i++){
+		    	$("#SearchStaffDeStorageGoodsTopDiv").children().find(".gridTbody tr").remove();
+		    }
+		    var obj =$("#SearchStaffDeStorageGoodsTopDiv").children().find(".gridThead").children();
+		    obj.append("<tbody class=gridTbody>");
+			   	$(s).find('staff').each(function() {
+			   		var table = obj; 
+			   		var xml = $(this); 
+				 	table.append("<tr class=list-blue><td width='160px'>"+xml.children("user_cd").text()+
+				 	 "</td><td width='160px'>"+replaceF9ValToNull(xml.children("user_name").text())+
+				 	"</td><td width='160px'>"+replaceF9ValToNull(xml.children("post").text())+
+				 	 "</td><td width='120px''><a class='btnSelect' href=\"javascript:$.bringBack({userId:'"+xml.children("user_cd").text()+"', userName:'"+xml.children("user_name").text()+"'})\" title=\"查找带回\">选择</a>"+
+				 	 "</td></tr>");  
+			   });  
+			   	obj.append("</tbody>");
+		}
+		$(document).ready(function(){
+			$.fn.zTree.init($("#SearchStaffDeStorageGoodsTopTree"), setting, zNodes);
+		});
+	</SCRIPT>
+</HEAD>
+
+<BODY> 
+<div class="content_wrap" id="SearchStaffDeStorageGoodsTopDiv" >
+    <div layoutH="70" style="float:left; display:block; overflow:auto; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff">		  
+		<ul id="SearchStaffDeStorageGoodsTopTree" class="ztree"></ul>
+	</div> 
+	
+<div layoutH="70"  >
+<div  class="pageContent"> 	
+	<table   class="table"  layoutH="118"   width="100%">
+		<thead>
+			<tr>
+				<th width="200">用户编码</th>
+				<th width="200">用户名称</th>
+				<th width="200">职务</th>
+				<th width="100"></th>
+			</tr>
+		</thead>			
+	</table>
+ </div>
+</div>
+
+
+
+</BODY>
+</HTML>

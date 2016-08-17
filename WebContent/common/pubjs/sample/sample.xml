@@ -1,0 +1,1297 @@
+<?xml version="1.0" encoding="GB2312"?>
+<Root>
+	　　
+	<ResourceValidation isEffect="true" />
+	<Pages id="1" CoId="95" CoNbr="1" CoGrp="1" prodId="299" CoSeq="1" prodSpecId="2">
+
+		<Page id="orderTypeInfo">
+			<Control id="OrderType" type="table">
+				<Item hasParent="false" checked="true" actionType="1|2|3|" flag="YNNNNNNY" hidden="3" cause="$" isEnable="false" label="拆机" hasChilds="false" ifAffectRes="true" />
+				<Item hasParent="false" hidden="14" cause="$" isEnable="false" label="小灵通补机" hasChilds="false" ifAffectRes="true" />
+				<Item hasParent="false" hidden="15" cause="$" isEnable="false" label="小灵通局方换机" hasChilds="false" ifAffectRes="true" />
+				<Item hasParent="false" hidden="19" cause="$" isEnable="false" label="用户申请停机保号" hasChilds="false" ifAffectRes="true" />
+				<Item hasParent="false" hidden="20" cause="$" isEnable="false" label="用户申请复机" hasChilds="false" ifAffectRes="true" />
+				<Item hasParent="false" hidden="32" cause="$" isEnable="false" label="变更" hasChilds="true">
+					<Item hasParent="true" hidden="2" cause="" isEnable="true" label="改号" hasChilds="false" />
+					<Item hasParent="true" hidden="5" cause="$" isEnable="false" label="修改客户信息" hasChilds="false" ifAffectRes="false" />
+					<Item hasParent="true" hidden="6" cause="$" isEnable="false" label="修改帐户信息" hasChilds="false" ifAffectRes="false" />
+					<Item hasParent="true" hidden="7" cause="$" isEnable="false" label="程控业务变动" hasChilds="false" ifAffectRes="false" />
+					<Item hasParent="true" hidden="11" cause="$" isEnable="false" label="过户" hasChilds="false" ifAffectRes="false" />
+					<Item hasParent="true" hidden="17" cause="$" isEnable="false" label="资费变更" hasChilds="false" ifAffectRes="false" />
+				</Item>
+			</Control>
+		</Page>
+
+		<Page id="coModifyInfo">
+			<!-- 订单稽核、退单、修改记录 -->
+			<Control id="CoModiRemark">
+				<Property seq="1" coId=''>
+					<Item id='ReturnReasonCd'>回退原因ID</Item>
+					<Item id='ReturnReasonName'>回退原因</Item>
+					<Item id='ReturnStaffId'>回退员工ID</Item>
+					<Item id='ReturnStaffName'>回退员工</Item>
+					<Item id='ReturnRemarks'>回退备注</Item>
+					<Item id='ReturnDate'>回退时间</Item>
+					<Item id='DealStaffId'>处理员工ID</Item>
+					<Item id='DealStaffName'>处理员工</Item>
+					<Item id='DealRemarks'>处理备注</Item>
+					<Item id='DealDate'>处理时间</Item>
+					<Item id="ActionType">
+						<Column>1</Column>
+						<Column>2</Column>
+					</Item>
+				</Property>
+			</Control>
+
+			<Control id="ReturnReason" type="DropDownList" description="回退修改原因">
+				<Item selected="true">
+					<Text>地址不详</Text>
+					<Value>1</Value>
+				</Item>
+				<Item>
+					<Text>营业员录入错误</Text>
+					<Value>2</Value>
+				</Item>
+				<Item>
+					<Text>端口错(坏)</Text>
+					<Value>3</Value>
+				</Item>
+			</Control>
+		</Page>
+
+		<Page id="coOdditionalInfo">
+			<!-- 订单附加信息 -->
+			<Control id="CoOdditionalInfo">
+				<Item id='ReasonId'>原因编码</Item>
+				<Item id='ReasonName'>原因说明</Item>
+				<Item id='Detail'>详细描述</Item>
+			</Control>
+
+			<Control id="ReturnReason" type="DropDownList" description="拆机原因">
+				<Item selected="true">
+					<Text>搬家</Text>
+					<Value>1</Value>
+				</Item>
+				<Item>
+					<Text>太贵</Text>
+					<Value>2</Value>
+				</Item>
+				<Item>
+					<Text>不详</Text>
+					<Value>3</Value>
+				</Item>
+			</Control>
+		</Page>
+
+		<Page id="prodStatusInfo">
+			<!-- 产品状态信息 -->
+			<Control id="prodStatus">
+				<Item actionTypeCd="28">
+					<Text>用户报停</Text>
+					<Value>2</Value>
+				</Item>
+			</Control>
+			<Control id="curStartDt">
+				<Item>
+					<Text>当前生效日期</Text>
+				</Item>
+			</Control>
+			<Control id="curEndDt">
+				<Item>
+					<Text>当前失效日期</Text>
+				</Item>
+			</Control>
+			<Control id="startDt">
+				<Item>
+					<Text>生效日期</Text>
+				</Item>
+			</Control>
+			<Control id="endDt">
+				<Item>
+					<Text>失效日期</Text>
+				</Item>
+			</Control>
+			<Control id="timeUnit">
+				<Item>
+					<Text>天</Text>
+					<Value>1</Value>
+				</Item>
+			</Control>
+			<!--具体的天数,checked表示当前处理时长关系-->
+			<Control id="effTime">
+				<Item checked="true">
+					<Text>3</Text>
+				</Item>
+			</Control>
+		</Page>
+
+		<Page id="orderRelaInfo">
+			<!-- text:组合产品coId为空,表明:新装时,取组合产品订单id为dependId-->
+			<Control id="CoRela.relaId.order" Co_relaType="102" type="Hidden" description="组合关联关系" minQty="0">
+				<Item relaObject="order" prodCompRelaRole="1" dependId='2'>
+					<Text></Text>
+					<Value></Value>
+				</Item>
+				<Property id="CoRela.CoRelaAttr" label="虚拟网短号码" type="TextBox" dataSourceType="1" dataType="1">
+					<Item>
+						<Text>guanhao</Text>
+						<Value>10</Value>
+					</Item>
+				</Property>
+			</Control>
+			<!-- text:组合产品coId,value:订单修改时取出的接入号-->
+			<Control id="CoRela.relaId" Co_relaType="102" type="Hidden" description="组合关联关系" minQty="0">
+				<Item relaObject="order" prodCompRelaRole="2">
+					<Text>233</Text>
+					<Value>NJ200501010001</Value>
+				</Item>
+			</Control>
+
+			<!-- text:为空,表明:同时新装adsl和电话时，捆绑电话未存在,取电话订单id为dependId,minQty>0表示必须要有捆绑电话-->
+			<Control id="CoRela.relaId" Co_relaType="102" type="Hidden" description="承载关联关系" minQty="0">
+				<Item relaObject="order" prodCompRelaRole="2" dependId='2'>
+					<Text></Text>
+					<Value></Value>
+				</Item>
+			</Control>
+
+			<!-- text:prodId,value:捆绑号码-->
+			<Control id="CoRela.relaId" Co_relaType="6" type="Hidden" prodSpecId="1" prodSpecName="普通电话" description="承载关联关系" minQty="0">
+				<Item relaObject="prod" prodCompRelaRole="">
+					<Text>236</Text>
+					<Value>12345678</Value>
+				</Item>
+			</Control>
+		</Page>
+
+		<Page id="custInfo">
+			<Control id="Party.PartyId" type="Hidden">
+				<Item>
+					<Text>111111111114</Text>
+				</Item>
+			</Control>
+			<Control id="Party.Name" type="TextBox" description="客户名称">
+				<Item>
+					<Text>江苏省电信公司</Text>
+				</Item>
+			</Control>
+			<Control id="Party.SimpleSpell" type="TextBox" description="客户简拼">
+				<Item>
+					<Text>江苏电信</Text>
+				</Item>
+			</Control>
+			<Control id="Party.AreaId" type="Hidden">
+				<Item>
+					<Text>镇江市</Text>
+					<Value>4</Value>
+				</Item>
+			</Control>
+
+			<Control id="Party.PartyTypeCd" type="DropDownList" description="客户类型">
+				<Item>
+					<Text>组织</Text>
+					<Value>2</Value>
+				</Item>
+			</Control>
+
+			<Control id="Party.SegmentId" type="TextBox" description="客户类型分段">
+				<Item>
+					<Text>公众客户</Text>
+					<Value>6</Value>
+				</Item>
+			</Control>
+
+			<Control id="Party.IndustryClassCd" type="TextBox" description="行业类型编码">
+				<Item>
+					<Text>学校</Text>
+					<Value>2</Value>
+				</Item>
+			</Control>
+
+			<Control id="Party.ProfessionCd" type="TextBox" description="职业代码">
+				<Item>
+					<Text>教师</Text>
+					<Value>4</Value>
+				</Item>
+			</Control>
+
+			<Control id="Party.Identities" type="set" description="客户证件">
+				<Property id="Party.Identify.1" label="身份证" type="TextBox">
+					<Item>
+						<Text>234523462436</Text>
+					</Item>
+				</Property>
+				<Property id="Party.Identify.6" label="驾驶证" type="TextBox">
+					<Item>
+						<Text>C46345654</Text>
+					</Item>
+				</Property>
+			</Control>
+
+			<Control id="Party.IdentidiesTypeCd" type="TextBox" description="默认证件类型">
+				<Item>
+					<Text>身份证</Text>
+					<Value>1</Value>
+				</Item>
+			</Control>
+
+			<Control id="Party.PrimaryIdentifyNum" type="TextBox" description="证件号码">
+				<Item>
+					<Text>123456789012345</Text>
+				</Item>
+			</Control>
+
+			<!--<Control id="Segment.SegmentId" type="DropDownList" description="客户类型">
+				<Item selected="true">
+				<Text>大客户</Text>
+				<Value>1</Value>
+				</Item>
+				<Item>
+				<Text>商业客户</Text>
+				<Value>2</Value>
+				</Item>
+				<Item>
+				<Text>公众客户</Text>
+				<Value>3</Value>
+				</Item>
+				</Control>
+			-->
+
+			<Control id="Party.AddressId" type="Hidden">
+				<Item>
+					<Text>EEE</Text>
+				</Item>
+			</Control>
+			<Control id="Party.AddressStr" type="TextBox" description="所在地址">
+				<Item>
+					<Text>南京中山北路3号</Text>
+				</Item>
+			</Control>
+			<Control id="Party.MailAddressId" type="Hidden">
+				<Item>
+					<Text>EEE</Text>
+				</Item>
+			</Control>
+			<Control id="Party.MailAddressStr" type="TextBox" description="通信地址">
+				<Item>
+					<Text>南京中山北路3号</Text>
+				</Item>
+			</Control>
+
+			<Control id="PostalCode.PostalCodeId" type="TextBox" description="邮政编码">
+				<Item>
+					<Text>210032</Text>
+				</Item>
+			</Control>
+			<Control id="Party.BusinessPassWord" type="PassWord" description="业务密码">
+				<Item>
+					<Text>234</Text>
+				</Item>
+			</Control>
+			<Control id="Party.QueryPassWord" type="PassWord" description="查询密码">
+				<Item>
+					<Text>abc</Text>
+				</Item>
+			</Control>
+
+			<Control id="Party.Profiles" type="set" description="客户扩展属性">
+				<Property id="Party.Profile.1" label="第一联系信息">
+					<Item>
+						<Text>34534473</Text>
+						<Value>CONTACT_PHONE_1</Value>
+					</Item>
+				</Property>
+				<Property id="Party.Profile.2" label="第二联系信息">
+					<Item>
+						<Text>45634784</Text>
+						<Value>CONTACT_PHONE_2</Value>
+					</Item>
+				</Property>
+				<Property id="Party.Profile.3" label="出生年月">
+					<Item>
+						<Text>1980.01</Text>
+						<Value>BIRTHDAY</Value>
+					</Item>
+				</Property>
+			</Control>
+
+		</Page>
+
+		<Page id="baseInfo">
+			<!-- value:offeringId,hidden:prodSpecId -->
+			<Control id="CustOrder.ProdSpecId" type="DropDownList">
+				<Item selected="true">
+					<Text>201专用电话</Text>
+					<Value>443</Value>
+					<Hidden>1</Hidden>
+				</Item>
+			</Control>
+
+			<Control id="Panel.CustOrder.CoProdAttrs" type="set" description="产品属性">
+			    <!--isVisible:Y,可见;N,不可见,界面不需要处理 -->
+				<Property id="CoProdAttrs.AttrId.0" label="end date" type="TextBox" defaultValue="默认值" dataMask="数据类型校验串" mask="格式校验串" isVisble="Y">
+					<Item>
+						<Text>hhh</Text>
+					</Item>
+				</Property>
+				<Property id="CoProdAttrs.AttrId.1" label="" type="DropDownList" isVisble="Y">
+					<Item>
+						<Text>20岁</Text>
+						<Value>20</Value>
+					</Item>
+					<Item selected="true">
+						<Text>19</Text>
+						<Value>19</Value>
+					</Item>
+					<Item>
+						<Text>18</Text>
+						<Value>18</Value>
+					</Item>
+				</Property>
+				<Property id="CoProdAttrs.AttrId.2" type="TextBox" isVisible="N">
+					<Item>
+						<Text>sss</Text>					
+					</Item>
+				</Property>
+			</Control>
+
+			<Control id="CustOrder.AreaId" type="TextBox">
+				<Item>
+					<Text>8</Text>
+				</Item>
+			</Control>
+			<Control id="CustOrder.AreaName" type="Hidden">
+				<Item>
+					<Text>镇江市区</Text>
+				</Item>
+			</Control>
+			
+			<!--有passward属性:输入或变更了密码,需要入库;没有password属性,不处理-->
+			<Control id="CustOrder.CoProdPw" type="set" description="产品密码">
+				<Item password="" description="查询密码">
+					<Text>产品查询密码</Text>
+					<Value>1</Value>
+				</Item>
+				<Item description="业务密码">
+					<Text>产品业务密码</Text>
+					<Value>2</Value>
+				</Item>
+			</Control>
+
+			<Control id="CustOrder.CoProdAddress" type="set" description="地址信息">
+
+				<Property id="CoProdAddress.AddrId" type="Hidden">
+					<Item>
+						<Text>1021</Text>
+					</Item>
+				</Property>
+				<Property id="BindAccNbr" type="TextBox" description="捆绑电话">
+					<Item>
+						<Text>88880388</Text>
+					</Item>
+				</Property>
+
+				<Property id="CoProdAddress.AddrStd" type="TextBox" description="标准地址">
+					<Item>
+						<Text></Text>
+					</Item>
+				</Property>
+				<Property id="CoProdAddress.AddrDetail" type="TextBox" description="详细地址">
+					<Item>
+						<Text>南京中山北路3号</Text>
+					</Item>
+				</Property>
+				<Property id="CoProdAddress.NeigborNbr" type="TextBox" description="就近电话">
+					<Item>
+						<Text>86062322</Text>
+					</Item>
+				</Property>
+				<Property id="CoProdAddress.MinQty" description="最小数量" type="Hidden">
+					<Item>
+						<Text>1</Text>
+					</Item>
+				</Property>
+				<Property id="CoProdAddress.MaxQty" description="最大数量" type="Hidden">
+					<Item>
+						<Text>1</Text>
+					</Item>
+				</Property>
+
+			</Control>
+
+			<Control id="CustOrder.SlaSa" type="DropDownList" description="开通等级">
+				<Item>
+					<Text>一级</Text>
+					<Value>1</Value>
+				</Item>
+				<Item>
+					<Text>二级</Text>
+					<Value>2</Value>
+				</Item>
+				<Item selected="true">
+					<Text>三级</Text>
+					<Value>3</Value>
+				</Item>
+				<Item>
+					<Text>四级</Text>
+					<Value>4</Value>
+				</Item>
+			</Control>
+
+			<Control id="SLA_FUL" description="保障等级">
+				<Item>
+					<Text>一级</Text>
+					<Value>1</Value>
+				</Item>
+				<Item selected="true">
+					<Text>二级</Text>
+					<Value>2</Value>
+				</Item>
+				<Item>
+					<Text>三级</Text>
+					<Value>3</Value>
+				</Item>
+				<Item>
+					<Text>四级</Text>
+					<Value>4</Value>
+				</Item>
+			</Control>
+
+			<Control id="CustOrder.CoAn" type="set">
+				<Property id="CoAn.AnId" description="过程主接入号ID" type="Hidden">
+					<Item>
+						<Text>345</Text>
+					</Item>
+				</Property>
+
+				<Property id="CoAn.AccessNumber" description="过程主接入号码" type="TextBox">
+					<Item>
+						<Text>88880223</Text>
+					</Item>
+				</Property>
+				<Property id="CoAn.AccessNumberType" description="过程主接入号码类型" type="Hidden">
+					<Item>
+						<Text>1</Text>
+					</Item>
+				</Property>
+				<Property id="CoAn.ChooseType" description="号码选择类型" type="Hidden">
+					<Item>
+						<Text>1</Text>
+					</Item>
+				</Property>
+				<Property id="CoAn.TmlId" description="局向ID" type="Hidden">
+					<Item>
+						<Text>xxx</Text>
+						<Value>211</Value>
+					</Item>
+				</Property>
+				<Property id="CoAn.MinQty" description="最小数量" type="Hidden">
+					<Item>
+						<Text>1</Text>
+					</Item>
+				</Property>
+				<Property id="CoAn.MaxQty" description="最大数量" type="Hidden">
+					<Item>
+						<Text>1</Text>
+					</Item>
+				</Property>
+			</Control>
+
+			<Control id="CustOrder.InstallDate" type="TextBox" checked="true" description="预约时间">
+				<Item>
+					<Text>2004-10-10</Text>
+				</Item>
+			</Control>
+
+			<Control id="CustOrder.EndDate" type="TextBox" checked="true" description="预约结束时间">
+				<Item>
+					<Text>2004-10-10</Text>
+				</Item>
+			</Control>
+
+			<Control id="CustOrder.PreCo" type="CheckBox" checked="true" description="预受理标识">
+				<Item>
+					<Text>Y</Text>
+				</Item>
+			</Control>
+
+			<Control id="CustOrder.LinkMan" type="set" description="联系人信息">
+				<Property id="LinkMan.Name" type="TextBox" description="联系人名字">
+					<Item>
+						<Text>张三</Text>
+					</Item>
+				</Property>
+				<Property id="LinkMan.Nbr" type="TextBox" description="联系电话">
+					<Item>
+						<Text>34323432,34343545</Text>
+					</Item>
+				</Property>
+			</Control>
+
+			<Control id="CustOrder.Co2ProdPrivacyType" type="set">
+				<Property id="PrivacyCatg.PrivacyCatgCd.4" PrivacyCatgCd="4" PrivacyCatgName="号簿列名" PrivacyConsentLevelCd="" PrivacyConsentLevelName="" Co2ProdPrivacyType.StartDt="" Co2ProdPrivacyType.EndDt="" checked="" />
+				<Property id="PrivacyCatg.PrivacyCatgCd.3" PrivacyCatgCd="3" PrivacyCatgName="114列名" PrivacyConsentLevelCd="" PrivacyConsentLevelName="" Co2ProdPrivacyType.StartDt="" Co2ProdPrivacyType.EndDt="" checked="" />
+			</Control>
+
+			<!-- 存在多个co2An -->
+			<Control id="CustOrder.Co2Ans" type="set">
+				<Property id="Co2Ans.Id.0" type="setItems">
+					<Item id="Co2Ans.ReasonCd.0" type="Hidden" description="接入号码关联原因">
+						<Text>2</Text>
+					</Item>
+					<Item id="Co2Ans.ReasonName.0" type="Label" description="过程接入接入号码名称">
+						<Text></Text>
+					</Item>
+					<Item id="Co2Ans.AccessNumberType.0" type="Hidden" description="接入号码类型">
+						<Text>101</Text>
+					</Item>
+					<Item id="Co2Ans.AnChooseTypeCd.0" type="Hidden" description="选号类型代码">
+						<Text>1</Text>
+					</Item>
+					<Item id="Co2Ans.AnId.0" type="Hidden" description="过程接入号码ID">
+						<Text>343</Text>
+					</Item>
+					<Item id="Co2Ans.AccessNumber.0" type="TextBox" description="过程接入号码">
+						<Text>abc</Text>
+					</Item>
+					<Item id="Co2Ans.CoAccessAccount.LoginName.0" type="TextBox" description="账号">
+						<Text>abc</Text>
+					</Item>
+					<Item id="Co2Ans.IsNeedPass.0" type="TextBox" description="是否需要密码">
+						<Text>Y</Text>
+					</Item>
+					<Item id="Co2Ans.CoAccessAccount.LoginPassWord.0" type="PassWord" description="登录密码">
+						<Text>abc</Text>
+					</Item>
+					<Item id="Co2Ans.MinQty.0" type="Hidden" description="最小数量">
+						<Text>1</Text>
+					</Item>
+					<Item id="Co2Ans.MaxQty.0" type="Hidden" description="最大数量">
+						<Text>1</Text>
+					</Item>
+				</Property>
+				<Property id="Co2Ans.Id.1" type="setItems">
+					<Item id="Co2Ans.ReasonCd.1" type="Hidden" description="接入号码关联原因">
+						<Text>2</Text>
+					</Item>
+					<Item id="Co2Ans.ReasonName.1" type="Label" description="过程接入接入号码名称">
+						<Text>账号</Text>
+					</Item>
+					<Item id="Co2Ans.AccessNumberType.1" type="Hidden" description="接入号码类型">
+						<Text>101</Text>
+					</Item>
+					<Item id="Co2Ans.AnChooseTypeCd.1" type="Hidden" description="选号类型代码">
+						<Text>1</Text>
+					</Item>
+					<Item id="Co2Ans.AnId.1" type="Hidden" description="接入号码ID">
+						<Text>343</Text>
+					</Item>
+					<Item id="Co2Ans.AccessNumber.1" type="TextBox" description="接入号码">
+						<Text>abc</Text>
+					</Item>
+					<Item id="Co2Ans.CoAccessAccount.LoginName.1" type="TextBox" description="账号">
+						<Text>abc</Text>
+					</Item>
+					<Item id="Co2Ans.IsNeedPass.1" type="TextBox" description="是否需要密码">
+						<Text></Text>
+					</Item>
+					<Item id="Co2Ans.CoAccessAccount.LoginPassWord.1" type="PassWord" description="登录密码">
+						<Text>xyz</Text>
+					</Item>
+					<Item id="Co2Ans.MinQty.1" type="Hidden" description="最小数量">
+						<Text>1</Text>
+					</Item>
+					<Item id="Co2Ans.MaxQty.1" type="Hidden" description="最大数量">
+						<Text>1</Text>
+					</Item>
+				</Property>
+			</Control>
+
+			<Control id="CoAssureInfo" type="set">
+				<Property id="CoAssureInfo.AssureTypeCd" type="DropDownList" description="担保类型">
+					<Item>
+						<Text>产品担保</Text>
+						<Value>1</Value>
+					</Item>
+					<Item selected="true">
+						<Text>员工担保</Text>
+						<Value>2</Value>
+					</Item>
+					<Item>
+						<Text>客户担保</Text>
+						<Value>3</Value>
+					</Item>
+					<Item>
+						<Text>帐户担保</Text>
+						<Value>4</Value>
+					</Item>
+					<Item>
+						<Text>现金担保</Text>
+						<Value>5</Value>
+					</Item>
+				</Property>
+				<Property id="CoAssureInfo.AssureId" description="或为担保账户、产品ID、客户ID、现金">
+					<Item>
+						<Text>产品号码、员工名、客户名、帐户合同号、金额等</Text>
+						<Value>id</Value>
+					</Item>
+				</Property>
+				<Property id="CoAssureInfo.StartDt" description="生效日期">
+					<Item>
+						<Text>20050101000000</Text>
+					</Item>
+				</Property>
+				<Property id="CoAssureInfo.EndDt" description="失效日期">
+					<Item>
+						<Text>20051231235959</Text>
+					</Item>
+				</Property>
+			</Control>
+
+			<Control id="CustOrder.CoParties" type="set">
+				<Property id="CoParties.PartyRoleId.0" description="协销人角色ID" type="Hidden">
+					<Item>
+						<Text>0</Text>
+					</Item>
+				</Property>
+				<Property id="CoParties.PartyId.0" description="协销人ID" type="Hidden"><!--已废弃 -->
+					<Item>
+						<Text>111</Text>
+					</Item>
+				</Property>
+				<Property id="CoParties.PartyName.0" description="协销人名字" type="TextBox">
+					<Item>
+						<Text>partyId</Text>
+						<Value>具体信息(一连串的)</Value>
+					</Item>
+				</Property>
+				<Property id="CoParties.PartyId.2" description="资费特批人ID" type="Hidden"><!--已废弃 -->
+					<Item>
+						<Text>111</Text>
+					</Item>
+				</Property>
+				<Property id="CoParties.PartyName.2" description="资费特批人名字" type="TextBox">
+					<Item>
+						<Text>partyId</Text>
+						<Value>具体信息(一连串的)</Value>
+					</Item>
+				</Property>
+				<Property id="CoParties.PartyRoleId.1" description="经办人角色ID" type="Hidden">
+					<Item>
+						<Text>1</Text>
+					</Item>
+				</Property>
+				<Property id="CoParties.PartyId.1" description="经办人ID" type="Hidden">
+					<Item>
+						<Text>现在为空了</Text>
+					</Item>
+				</Property>
+				<Property id="CoParties.PartyName.1" description="经办人名字" type="TextBox">
+					<Item>
+						<Text>李某</Text>
+					</Item>
+				</Property>
+				<Property id="CoParties.PartyRemarks.1" description="经办人信息" type="TextBox">
+					<Item>
+						<Text>证件号码等</Text>
+					</Item>
+				</Property>
+			</Control>
+
+
+			<Control id="CustOrder.Remarks" type="TextBox" description="备注信息">
+				<Item>
+					<Text>备注信息</Text>
+				</Item>
+			</Control>
+
+			<Control id="StartDt" description="产品生效信息">
+				<Item>
+					<Text>2005-01-01</Text>
+				</Item>
+			</Control>
+			<Control id="EndDt" description="产品失效信息">
+				<Item>
+					<Text>2006-01-01</Text>
+				</Item>
+			</Control>
+
+		</Page>
+
+		<Page id="nwkInfo"  ifDisplay ='true'>
+			<Control id="AllNwk" type="table" label="程控新功能">
+				<Item>
+					<Column id='servspec.servspecid._7' type='Checkbox' name='PHS来电显示' isDefault="Y" isMust="Y" value="7" min_qty='0' max_qty='1' checked='' ifExist='' grp_id='1'></Column>
+				</Item>
+				<Item>
+					<Column id='servspec.servspecid._8' type='Checkbox' name='PHS短信息' isDefault="Y" isMust="Y" value="8" min_qty='0' max_qty='1' checked='' ifExist='' grp_id='1'></Column>
+				</Item>
+				<Item>
+					<Column id='servspec.servspecid._9' type='Checkbox' name='PHS拇指信息' isDefault="Y" isMust="" value="9" min_qty='0' max_qty='0' checked='' ifExist='' grp_id='2'></Column>
+				</Item>
+				<Item>
+					<Column id='servspec.servspecid._3' type='Checkbox' name='PHS基本呼叫权限' isDefault="Y" isMust="" value="3" min_qty='0' max_qty='' checked='true' ifExist='' grp_id='2'></Column>
+				</Item>
+				<Item>
+					<Column id='servspec.servspecid._4' type='Checkbox' name='PHS本地网呼叫权限' isDefault="Y" isMust="" value="4" min_qty='0' max_qty='' checked='' ifExist='Y' grp_id='2'></Column>
+				</Item>
+				<Item>
+					<Column id='servspec.servspecid._6' type='Checkbox' name='PHS国际长途权限' isDefault="Y" isMust="" value="6" min_qty='1' max_qty='' checked='' ifExist='Y' grp_id='3'></Column>
+				</Item>
+				<Item>
+					<Column id='servspec.servspecid._5' type='Checkbox' name='PHS国内长途权限' isDefault="Y" isMust="" value="5" min_qty='1' max_qty='' checked='true' ifExist='Y' grp_id='3'></Column>
+				</Item>
+				<Item>
+					<Column id='servspec.servspecid._1' type='Checkbox' name='PHS国际长途权限1' isDefault="Y" isMust="" value="1" min_qty='0' max_qty='' checked='' ifExist='' grp_id='3'></Column>
+				</Item>
+				<Item>
+					<Column id='servspec.servspecid._2' type='Checkbox' name='PHS国内长途权限2' isDefault="Y" isMust="" value="2" min_qty='0' max_qty='' checked='' ifExist='' grp_id='3'></Column>
+				</Item>
+				<Item>
+					<Column id='servspec.servspecid._10' type='Checkbox' name='PHS国际长途权限3' isDefault="Y" isMust="" value="10" min_qty='0' max_qty='' checked='' ifExist='' grp_id='3'></Column>
+				</Item>
+				<Item>
+					<Column id='servspec.servspecid._11' type='Checkbox' name='PHS国内长途权限4' isDefault="Y" isMust="" value="11" min_qty='0' max_qty='' checked='' ifExist='' grp_id=''></Column>
+				</Item>
+
+				<Props id="NwkProps">
+					<Property dependId="servspec.servspecid._7" checked='true' label="到期日期2" type="TextBox" datatype="4" datatypelen="12" isNull="Y">
+						<Item>
+							<Text>到期日期2</Text>
+							<Value>2004-09-26</Value>
+						</Item>
+					</Property>
+					<Property dependId="servspec.servspecid._7" checked='true' label="呼限密码" type="TextBox" datatype="8" datatypelen="6" isNull="Y">
+						<Item>
+							<Text>呼限密码</Text>
+							<Value>111</Value>
+						</Item>
+					</Property>
+					<Property dependId="servspec.servspecid._3" label="呼限密码" type="TextBox" datatype="1" datatypelen="6" isNull="N">
+						<Item>
+							<Text>呼限密码</Text>
+							<Value>111</Value>
+						</Item>
+					</Property>
+					<Property dependId="servspec.servspecid._3" label="到期日期2" type="TextBox" datatype="4" datatypelen="12" isNull="N">
+						<Item>
+							<Text>到期日期2</Text>
+							<Value>2004-09-26</Value>
+						</Item>
+					</Property>
+				</Props>
+				<Rules id="NwkRule">
+					<Rule id="rule6" source="11" target="5" relation="1">互斥关系</Rule>
+					<Rule id="rule8" source="10" target="2" relation="2">依赖关系</Rule>
+					<Rule id="rule8" source="8" target="7" relation="2">依赖关系</Rule>
+				</Rules>
+			</Control>
+
+			<Control id="terminal" type="table" label="终端">
+				<Item>
+					<Column id="terminalName._2" type="Checkbox" checked="" ifExist="Y" isMust="" value="2" maintainTypeCd='2' ownerTypeCd='1' name="phs手机" ifInstance="Y" manageCode="PHS_HAND_SET">
+						<manufacturer id="manufacturer" value='0' name="联创" />
+						<device_model id="device_model" value='0' name="MODEL1" />
+						<access_numbers>
+							<access_number value="SN0005" />
+						</access_numbers>
+						<device_numbers>
+							<device_number name="机身码" an_id="" an_type_cd="" number="" />
+						</device_numbers>
+						<attr_items />
+						<serv_specs>
+							<serv_spec value="7" name="" is_support="N" />
+							<serv_spec value="8" name="" is_support="Y" />
+							<serv_spec value="9" name="" is_support="N" />
+						</serv_specs>
+						<remarks value='' />
+					</Column>
+				</Item>
+
+				<Item>
+					<Column id="terminalName._3" type="Checkbox" checked="" ifExist="" isMust="" value="3" maintainTypeCd='1' ownerTypeCd='2' name="phs手机2" ifInstance="N" manageCode="PHS_SIM_CARD">
+						<manufacturer id="manufacturer" value='0' name="联创" />
+						<device_model id="device_model" value='0' name="MODEL1" />
+						<device_numbers>
+							<device_number id='device_number' an_type_cd="1" name="条型码" an_id="1" value="SN0001" />
+						</device_numbers>
+						<attr_items>
+							<attr_item id="Co2AnsAttrs.Type" name="颜色" value="白色" />
+							<attr_item id="Co2AnsAttrs.Color" name="类型" value="彩屏" />
+						</attr_items>
+						<serv_specs>
+							<serv_spec value='7' name='' is_support='N' />
+							<serv_spec value='6' name='国内长途' is_support='N' />
+							<serv_spec value='9' name='phs拇指' is_support='N' />
+						</serv_specs>
+						<remarks value='' />
+					</Column>
+				</Item>
+			</Control>
+		</Page>
+
+		<Page id="feeInfo">
+			<Control id="PricePackage" type="table">
+				<Item>
+					<Column packageId="1" type="CheckBox" checked="false" label="资费计划名称1" isMain="Y" isMust="N" isDefault="Y" ifExist="N" ppRateTypeCd ="1">1</Column>
+					<Column>资费计划描述1</Column>
+				</Item>
+				<Item>
+					<Column packageId="2" type="CheckBox" checked="false" label="资费计划名称2" isMain="Y" isMust="N" isDefault="N" ifExist="N" ppRateTypeCd ="3">2</Column>
+					<Column>资费计划描述2</Column>
+				</Item>
+				<Item>
+					<Column packageId="3" type="CheckBox" checked="false" label="资费计划名称3" isMain="N" isMust="N" isDefault="N" ifExist="N">3</Column>
+					<Column>资费计划描述3</Column>
+				</Item>
+				<Item>
+					<Column packageId="4" type="CheckBox" checked="false" label="资费计划名称4" isMain="N" isMust="N" isDefault="N" ifExist="N">4</Column>
+					<Column>资费计划描述4</Column>
+				</Item>
+				<Item>
+					<Column packageId="5" type="CheckBox" checked="false" label="资费计划名称5" isMain="N" isMust="N" isDefault="N" ifExist="N">5</Column>
+					<Column>资费计划描述5</Column>
+				</Item>
+				<Item>
+					<Column packageId="6" type="CheckBox" checked="false" label="资费计划名称6" isMain="N" isMust="N" isDefault="N" ifExist="N">6</Column>
+					<Column>资费计划描述6</Column>
+				</Item>
+				<Item>
+					<Column packageId="7" type="CheckBox" checked="false" label="资费计划名称7" isMain="N" isMust="N" isDefault="N" ifExist="N">7</Column>
+					<Column>资费计划描述7</Column>
+				</Item>
+				<Props id="Validity">
+					<Property packageId="1" checked = "false"> <!--checked = "false",是为何丽处理的，后台并不生成-->
+						<Control id="curStartDt">
+							<Item>
+								<Text>当前生效日期</Text>
+							</Item>
+						</Control>
+						<Control id="curEndDt">
+							<Item>
+								<Text>当前失效日期</Text>
+							</Item>
+						</Control>
+						<Control id="startDt">
+							<Item>
+								<Text>生效日期</Text>
+							</Item>
+						</Control>
+						<Control id="endDt">
+							<Item>
+								<Text>失效日期</Text>
+							</Item>
+						</Control>
+						<Control id="timeUnit">
+							<Item>
+								<Text>天</Text>
+								<Value>1</Value>
+							</Item>
+						</Control>
+						<Control id="effTime">
+							<Item>
+								<Text>时长</Text>
+							</Item>
+						</Control>
+						<Control id="minEffTime">
+							<Item>
+								<Text>最短时长</Text>
+							</Item>
+						</Control>
+						<Control id="maxEffTime">
+							<Item>
+								<Text>最长时长</Text>
+							</Item>
+						</Control>
+						<Control id="ppStatus">
+							<Item>
+								<Text>启用</Text>
+								<Value>1</Value>
+							</Item>
+						</Control>
+					</Property>
+					<Property packageId="2" />
+				</Props>
+				<Props id="PricePackageProps">
+					<Property packageId="1" label="月租值" checked="true" type="TextBox" datatype="5" datatypelen="12" isNull="N" isMust="N" isConstant="N">
+						<Item>
+							<Text>月租值</Text>
+							<Value>20</Value>
+						</Item>
+					</Property>
+
+					<Property packageId="1" label="开始日期" checked="true" type="TextBox" datatype="4" datatypelen="12" isNull="N" isMust="N" isConstant="N">
+						<Item>
+							<Text>结束日期</Text>
+							<Value>2005-01-01</Value>
+						</Item>
+					</Property>
+					<Property packageId="1" label="到期日期" checked="false" type="TextBox" datatype="4" datatypelen="12" isNull="N" isMust="N" isConstant="N">
+						<Item>
+							<Text>结束日期</Text>
+							<Value>2005-01-01</Value>
+						</Item>
+					</Property>
+					<Property packageId="1" label="月租值" checked="false" type="DropDownList" datatype="5" datatypelen="12" isNull="N" isMust="N" isConstant="Y">
+						<Item selected="true">
+							<Text>月租值1</Text>
+							<Value>100</Value>
+						</Item>
+						<Item>
+							<Text>月租值2</Text>
+							<Value>200</Value>
+						</Item>
+						<Item>
+							<Text>月租值3</Text>
+							<Value>300</Value>
+						</Item>
+						<Item>
+							<Text>月租值4</Text>
+							<Value>400</Value>
+						</Item>
+					</Property>
+					<Property packageId="1" label="输入查询密码" checked="false" type="Password" datatype="8" datatypelen="6" isNull="N" isMust="N" isConstant="N">
+						<Item>
+							<Text>查询密码</Text>
+							<Value>111111</Value>
+						</Item>
+					</Property>
+					<Property packageId="2" label="月租值" checked="false" type="TextBox" datatype="5" datatypelen="12" isNull="N" isMust="Y" isConstant="N">
+						<Item>
+							<Text>月租值</Text>
+							<Value>20</Value>
+						</Item>
+					</Property>
+
+					<Property packageId="2" label="开始日期" checked="false" type="TextBox" datatype="4" datatypelen="12" isNull="Y" isMust="Y" isConstant="N">
+						<Item>
+							<Text>开始日期</Text>
+							<Value>2005-01-01</Value>
+						</Item>
+					</Property>
+					<Property packageId="2" label="结束日期" checked="false" type="TextBox" datatype="4" datatypelen="12" isNull="Y" isMust="N" isConstant="N">
+						<Item>
+							<Text>结束日期</Text>
+							<Value>2005-01-01</Value>
+						</Item>
+					</Property>
+					<Property packageId="2" label="月租值" checked="false" type="DropDownList" datatype="5" datatypelen="12" isNull="Y" isMust="Y" isConstant="N">
+						<Item>
+							<Text>月租值1</Text>
+							<Value>100</Value>
+						</Item>
+						<Item selected="true">
+							<Text>月租值2</Text>
+							<Value>200</Value>
+						</Item>
+						<Item>
+							<Text>月租值3</Text>
+							<Value>300</Value>
+						</Item>
+						<Item>
+							<Text>月租值4</Text>
+							<Value>400</Value>
+						</Item>
+					</Property>
+					<Property packageId="2" label="输入查询密码" checked="false" type="Password" datatype="8" datatypelen="6" isNull="Y" isMust="N" isConstant="N">
+						<Item>
+							<Text>查询密码</Text>
+							<Value>111111</Value>
+						</Item>
+					</Property>
+					<Property packageId="3" label="月租值" checked="false" type="DropDownList" datatype="5" datatypelen="12" isNull="Y" isMust="Y" isConstant="N">
+						<Item>
+							<Text>月租值1</Text>
+							<Value>100</Value>
+						</Item>
+						<Item>
+							<Text>月租值2</Text>
+							<Value>200</Value>
+						</Item>
+						<Item selected="true">
+							<Text>月租值3</Text>
+							<Value>300</Value>
+						</Item>
+						<Item>
+							<Text>月租值4</Text>
+							<Value>400</Value>
+						</Item>
+					</Property>
+					<Property packageId="3" label="输入查询密码" checked="false" type="Password" datatype="8" datatypelen="6" isNull="Y" isMust="N" isConstant="N">
+						<Item>
+							<Text>查询密码</Text>
+							<Value>111111</Value>
+						</Item>
+					</Property>
+				</Props>
+				<Rules id="package">
+					<Rule id="rule1" sourcePackage="1" targetPackage="4" relation="2">互斥</Rule>
+					<Rule id="rule2" sourcePackage="2" targetPackage="4" relation="2">互斥</Rule>
+					<Rule id="rule1" sourcePackage="1" targetPackage="5" relation="1">依赖</Rule>
+					<Rule id="rule2" sourcePackage="3" targetPackage="4" relation="1">依赖</Rule>
+					<Rule id="rule3" sourcePackage="4" targetPackage="6" relation="1">依赖</Rule>
+					<Rule id="rule5" sourcePackage="5" targetPackage="6" relation="1">依赖</Rule>
+					<Rule id="rule6" sourcePackage="7" targetPackage="6" relation="1">依赖</Rule>
+				</Rules>
+				<Relations id="package">
+					<Relation id="23">
+						<servSpecs>
+							<servSpec servSpecId="20" minQty="0" maxQty="0" />
+							<servSpec servSpecId="22" minQty="1" maxQty="1" />
+						</servSpecs>
+						<terminals>
+							<terminalSpecs>
+								<terminalSpec terminalDevSpecId="10302008" minQty="1" maxQty="1" />
+							</terminalSpecs>
+							<terminalModels>
+								<terminalModel deviceModelId="107" minQty="0" maxQty="0" />
+								<terminalModel deviceModelId="116" minQty="1" maxQty="1" />
+							</terminalModels>
+						</terminals>
+					</Relation>
+					<Relation id="19" />
+					<Relation id="22" />
+					<Relation id="20" />
+					<Relation id="25" />
+					<Relation id="21" />
+					<Relation id="24" />
+				</Relations>
+			</Control>
+
+		</Page>
+
+
+		<Page id="acctInfo">
+			<Control id="CoAccount" type="Table">
+				<Item key="acctCd" id="1">
+					<Column name="chargeItemName">默认</Column>
+					<Column name="chargeItemCd" type="hidden">1</Column>
+					<Column name="priorityAcct">1</Column>
+					<Column name="acctCd">80001</Column>
+					<Column name="acctId" type="hidden">1</Column>
+					<Column name="partyName">李宁</Column>
+					<Column name="partyId" type="hidden">1</Column>
+					<Column name="percent">100</Column>
+					<Column name="coMailing">投递信息</Column>
+					<Column name="limitQty">最高限额</Column>
+					<Column name="prodId">支付号码产品编码</Column>
+					<Column name="accessNumber">支付号码</Column>
+				</Item>
+				<Item key="acctCd" id="2">
+					<Column name="chargeItemName">市话</Column>
+					<Column name="chargeItemCd" type="hidden">2</Column>
+					<Column name="priorityAcct">1</Column>
+					<Column name="acctCd">80002</Column>
+					<Column name="acctId" type="hidden">2</Column>
+					<Column name="partyName">李宁的单位</Column>
+					<Column name="partyId" type="hidden">2</Column>
+					<Column name="percent">100</Column>
+					<Column name="coMailing">投递信息</Column>
+					<Column name="limitQty">最高限额</Column>
+					<Column name="prodId">支付号码产品编码</Column>
+					<Column name="accessNumber">支付号码</Column>
+				</Item>
+				<Item key="acctCd" id="3">
+					<Column name="chargeItemName">市话</Column>
+					<Column name="chargeItemCd" type="hidden">2</Column>
+					<Column name="priorityAcct">2</Column>
+					<Column name="acctCd">80003</Column>
+					<Column name="acctId" type="hidden">2</Column>
+					<Column name="partyName">李宁的单位</Column>
+					<Column name="partyId" type="hidden">2</Column>
+					<Column name="percent">100</Column>
+					<Column name="coMailing">投递信息</Column>
+					<Column name="limitQty">最高限额</Column>
+					<Column name="prodId">支付号码产品编码</Column>
+					<Column name="accessNumber">支付号码</Column>
+				</Item>
+			</Control>
+
+			<Control id="CoMail" depend="CoAccount" type="Table">
+				<Item dependId="80001">
+					<Column name="coMailMethod">邮件</Column>
+					<Column name="coMailMethodId" type="hidden">1</Column>
+					<Column name="coMailP1">投递地址</Column>
+					<Column name="coMailP2">邮编</Column>
+					<Column name="coMailP3">投递人姓名</Column>
+				</Item>
+			</Control>
+
+			<Control id="CoRela.CoId.233" type="Hidden">
+				<Property CoRelaType="3" label="支付电话关系">
+					<Item>
+						<Text>88880520</Text>
+					</Item>
+					<Item>
+						<Text>88880522</Text>
+					</Item>
+				</Property>
+
+			</Control>
+
+			<Control id="CoRelaType" type="hidden">
+				<Item dependId="80001">
+					<Column name="payAccNbr" type="TextBox">88880388</Column>
+					<Column name="payProdId" type="hidden">191</Column>
+				</Item>
+			</Control>
+
+			<Control id="CoRelaAttr" type="Hidden">
+				<Property id="CoProdAttrs.AttrId.0" dependId="CoRela.CoId.233" label="end date" type="TextBox">
+					<Item>
+						<Text>2005-10-20</Text>
+					</Item>
+				</Property>
+			</Control>
+
+			<Control id="CoPaymentAccount" depend="CoAccount" type="Table">
+				<Item dependId="80001" id="1">
+					<Column name="paymentAccountId" type="hidden">1</Column>
+					<Column name="payType">银行代扣</Column>
+					<Column name="payMethod" type="hidden">银行代扣Id</Column>
+					<Column name="bankName">南京建设银行</Column>
+					<Column name="bankId" type="hidden">98765</Column>
+					<Column name="payCount">12345678</Column>
+					<Column name="name">李宁</Column>
+					<Column name="priority">1</Column>
+					<Column name="limitQty">最高限额</Column>
+				</Item>
+			</Control>
+		</Page>
+
+	</Pages>
+
+	<Pages id="2" CoId="96" CoNbr="2" CoGrp="1">
+		<Page></Page>
+		<Page></Page>
+		<Page></Page>
+		<Page></Page>
+		<Page></Page>
+	</Pages>
+	<Pages id="3" CoId="97" CoNbr="" CoGrp="1">
+		<Page></Page>
+		<Page></Page>
+		<Page></Page>
+		<Page></Page>
+		<Page></Page>
+	</Pages>
+	<Pages id="4" CoId="98" CoNbr="" CoGrp="2">
+		<Page></Page>
+		<Page></Page>
+		<Page></Page>
+		<Page></Page>
+		<Page></Page>
+	</Pages>
+	<Pages id="5" CoId="99" CoGrp="2">
+		<Page></Page>
+		<Page></Page>
+		<Page></Page>
+		<Page></Page>
+		<Page></Page>
+	</Pages>
+	<Pages id="6" CoId="100" CoGrp="2">
+		<Page></Page>
+		<Page></Page>
+		<Page></Page>
+		<Page></Page>
+		<Page></Page>
+	</Pages>
+	<OrdGrps>
+		<OrdGrp CoGrp="1" parentGrp="" CoGrpTypeCd="1" id="CustOrder.coRelaCoGrps.1" type="set">
+			<Item>
+				<Text>1</Text>
+			</Item>
+			<Item>
+				<Text>2</Text>
+			</Item>
+			<Item SubGrp="2">
+				<Text>3</Text>
+			</Item>
+		</OrdGrp>
+		<OrdGrp CoGrp="2" parentGrp="3" CoGrpTypeCd="2" id="CustOrder.coRelaCoGrps.2" type="set">
+			<Item>
+				<Text>4</Text>
+			</Item>
+			<Item>
+				<Text>5</Text>
+			</Item>
+			<Item>
+				<Text>6</Text>
+			</Item>
+		</OrdGrp>
+	</OrdGrps>
+	<PayInfos>
+		<PayInfo id='payInfo' staffId="" coNbr='124' coId='1'>
+			<Item coName='新装' accNbr='88880233' amount="202000" prodId ="12" invoiceId="NO1" coNbr='123' customName="张三" orderTypeId ="1" pricePlanCd ="1">
+				<Column causeType="offering" prodName='小灵通' prodId="12" orderTypeId ="1" pricePlanCd = "2" chargeId='2' chargeName='手续费' arCharge='50000' apCharge='50000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' remark='' relaOffering ="411"></Column>
+				<Column causeType="offering" prodName='小灵通' prodId="12" chargeId='3' chargeName='来电显示' arCharge='500' apCharge='500' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='2' allowReason='' remark='' relaOffering ="411"></Column>
+				<Column causeType="serv" prodName='来电显示' chargeId='1' relaOffering='12' chargeName='工本费' arCharge='30000' apCharge='20000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' remark='' ></Column>
+				<Column causeType="serv" prodName='小灵通' chargeId='4' relaOffering='12' chargeName='服务开通费' arCharge='1000' apCharge='1000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' remark=''></Column>
+				<Column causeType="serv" prodName='小灵通' chargeId='5' chargeName='终端设备费' arCharge='80000' apCharge='80000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' agentType='' agentCharge='' remark=''></Column>
+				<Column causeType="serv" prodName='小灵通' chargeId='2' chargeName='手续费' arCharge='-20000' apCharge='-20000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' agentType='' agentCharge='' remark=''></Column>
+			</Item>
+			<Item coName='改号' accNbr='88880233' amount="202000" invoiceId="NO1" coNbr='124' customName="张三">
+				<Column causeType="offering" prodName='小灵通' prodId="12" chargeId='2' chargeName='改号费' arCharge='500' apCharge='500' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' remark=''></Column>
+			</Item>
+		</PayInfo>
+		<PayInfo id='payInfo' staffId="" coNbr='123' coId='1'>
+			<Item coName='新装' accNbr='88880233' amount="202000" invoiceId="NO1" coNbr='123' customName="张三">
+				<Column causeType="offering" prodName='小灵通' prodId="12" chargeId='2' chargeName='手续费' arCharge='50000' apCharge='50000' pricePlanCd ="1"  payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' remark=''></Column>
+				<Column causeType="serv" prodName='小灵通' chargeId='3' chargeName='来电显示' arCharge='500' apCharge='500' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='2' allowReason='' remark=''></Column>
+				<Column causeType="serv" prodName='来电显示' chargeId='1' chargeName='工本费' arCharge='30000' apCharge='20000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' remark=''></Column>
+				<Column causeType="serv" prodName='小灵通' chargeId='4' chargeName='服务开通费' arCharge='1000' apCharge='1000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' remark=''></Column>
+				<Column causeType="serv" prodName='小灵通' chargeId='5' chargeName='终端设备费' arCharge='80000' apCharge='80000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' agentType='' agentCharge='' remark=''></Column>
+				<Column causeType="serv" prodName='小灵通' chargeId='2' chargeName='手续费' arCharge='-20000' apCharge='-20000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' agentType='' agentCharge='' remark=''></Column>
+			</Item>
+			<Item coName='改号' accNbr='88880233' amount="202000" invoiceId="NO1" coNbr='124' customName="张三">
+				<Column causeType="offering" prodName='小灵通' prodId="12" chargeId='2' chargeName='改号费' arCharge='500' apCharge='500' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' remark=''></Column>
+			</Item>
+		</PayInfo>
+		
+		<oldPayInfo id='payInfo' staffId="" coNbr='124' coId='1'>
+			<Item coName='新装' accNbr='88880233' amount="202000" invoiceId="NO1" coNbr='123' customName="张三">
+				<Column causeType="offering" prodName='小灵通' prodId="12" chargeId='2' chargeName='手续费' arCharge='50000' apCharge='50000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' remark=''></Column>
+				<Column causeType="serv" prodName='小灵通' chargeId='3' chargeName='来电显示' arCharge='500' apCharge='500' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='2' allowReason='' remark=''></Column>
+				<Column causeType="serv" prodName='来电显示' chargeId='1' chargeName='工本费' arCharge='30000' apCharge='20000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' remark=''></Column>
+				<Column causeType="serv" prodName='小灵通' chargeId='4' chargeName='服务开通费' arCharge='1000' apCharge='1000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' remark=''></Column>
+				<Column causeType="serv" prodName='小灵通' chargeId='5' chargeName='终端设备费' arCharge='80000' apCharge='80000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' agentType='' agentCharge='' remark=''></Column>
+				<Column causeType="serv" prodName='小灵通' chargeId='2' chargeName='手续费' arCharge='-20000' apCharge='-20000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' agentType='' agentCharge='' remark=''></Column>
+			</Item>
+		</oldPayInfo>
+	</PayInfos>
+	<ServSpecGrps>
+		<Grp grpType='serv_spec' sspec_comp_grp_id='1' name='test1组' sspec_comp_sub_id='2' is_exclusive='' min_member_qty='' max_member_qty=''></Grp>
+		<Grp grpType='serv_spec' sspec_comp_grp_id='1' name='test1组' sspec_comp_sub_id='3' is_exclusive='' min_member_qty='' max_member_qty=''></Grp>
+		<Grp grpType='serv_spec' sspec_comp_grp_id='2' name='test2组' sspec_comp_sub_id='' is_exclusive='Y' min_member_qty='' max_member_qty=''></Grp>
+		<Grp grpType='serv_spec' sspec_comp_grp_id='3' name='test3组' sspec_comp_sub_id='' is_exclusive='' min_member_qty='' max_member_qty=''></Grp>
+		<Grp grpType='comp' sspec_comp_grp_id='3' name='test4组' sspec_comp_sub_id='' is_exclusive='' min_member_qty='' max_member_qty=''></Grp>
+	</ServSpecGrps>
+
+	<!--仅提交给发票打印-->
+	<payInfos>
+		<payInfo>
+			<Item coName='改程控,改资费' accNbr='A123456' amount="20200" coNbr='13' customName="张三" remark='批打'>
+				<Column causeType="offering" prodId="12" chargeId='2' chargeName='手续费' invoiceId="NO2" arCharge='50000' apCharge='50000' payMethod='1' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason=''></Column>
+				<Column causeType="serv" prodName='小灵通' chargeId='3' chargeName='来电显示' invoiceId="NO2" arCharge='500' apCharge='500' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='2' allowReason='' remark=''></Column>
+				<Column causeType="serv" prodName='来电显示' chargeId='1' chargeName='工本费' invoiceId="NO2" arCharge='30000' apCharge='20000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' remark=''></Column>
+				<Column causeType="serv" prodName='小灵通' chargeId='4' chargeName='服务开通费' invoiceId="NO2" arCharge='1000' apCharge='1000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' remark=''></Column>
+				<Column causeType="serv" prodName='小灵通' chargeId='5' chargeName='终端设备费' invoiceId="NO2" arCharge='80000' apCharge='80000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' agentType='' agentCharge='' remark=''></Column>
+				<Column causeType="serv" prodName='小灵通' chargeId='2' chargeName='免手续费' invoiceId="NO3" arCharge='-20000' apCharge='-20000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' agentType='' agentCharge='' remark=''></Column>
+				<Column causeType="offering" prodName='小灵通' prodId="12" chargeId='2' invoiceId="NO3" chargeName='改号费' arCharge='500' apCharge='500' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' remark=''></Column>
+			</Item>
+		</payInfo>
+		<payInfo>
+			<Item coName='改号,改名' accNbr='A123457' amount="20200" coNbr='14' customName="王五" remark='批打'>
+				<Column causeType="offering" prodId="12" chargeId='2' chargeName='手续费' invoiceId="NO4" arCharge='50000' apCharge='50000' payMethod='1' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason=''></Column>
+				<Column causeType="serv" prodName='小灵通' chargeId='3' chargeName='来电显示' invoiceId="NO4" arCharge='500' apCharge='500' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='2' allowReason='' remark=''></Column>
+				<Column causeType="serv" prodName='来电显示' chargeId='1' chargeName='工本费' invoiceId="NO4" arCharge='30000' apCharge='20000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' remark=''></Column>
+				<Column causeType="serv" prodName='小灵通' chargeId='4' chargeName='服务开通费' invoiceId="NO4" arCharge='1000' apCharge='1000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' remark=''></Column>
+				<Column causeType="serv" prodName='小灵通' chargeId='5' chargeName='终端设备费' invoiceId="NO4" arCharge='80000' apCharge='80000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' agentType='' agentCharge='' remark=''></Column>
+				<Column causeType="serv" prodName='小灵通' chargeId='2' chargeName='免手续费' invoiceId="NO5" arCharge='-20000' apCharge='-20000' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' agentType='' agentCharge='' remark=''></Column>
+				<Column causeType="offering" prodName='小灵通' prodId="12" chargeId='2' chargeName='改号费' arCharge='500' apCharge='500' payMethod='1' payMethodDesc='现金' state='0' stateDesc='未付' chequeNbr='' poNbr='' chargeNbr='88880220' allowMan='1' allowReason='' remark=''></Column>
+			</Item>
+		</payInfo>
+	</payInfos>
+
+</Root>
+

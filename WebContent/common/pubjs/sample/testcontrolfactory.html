@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=GB18030">
+<META name="GENERATOR" content="IBM WebSphere Studio">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK href="../../theme/Master.css" rel="stylesheet" type="text/css">
+<TITLE>testcontrolfactory.html</TITLE>
+<SCRIPT src="../xmlhttp/XmlDomReader.js"></SCRIPT>
+<SCRIPT src="../xmlhttp/ControlFactory.js"></SCRIPT>
+<SCRIPT language="javascript">
+function add(){
+   var dom = new ActiveXObject("Msxml2.DOMDocument.3.0");
+   dom.load("sample.xml");
+
+   var asy = new XmlDomReader(dom);
+   var node = asy.getControlById('cust.name');
+  
+   var factory = new ControlFactory();
+   var controls = factory.createTextBox(node);
+   
+   //alert(controls.innerHTML);
+   span1.appendChild(controls);
+
+   node = asy.getControlById('cust.othername');
+  var controls2 = factory.createPassword(node);
+
+   span1.appendChild(controls2);
+   //alert(controls2.innerHTML);
+   
+   var node2 = asy.getControlById('cust.gender');
+   var lbl = asy.getAttribute(node2,'label');
+  
+   
+   var controls3 = factory.createRadioList(node2);
+   var span = document.getElementById(controls3.id);
+   if(!span){
+      controls3.appendChild(factory.createLabel(lbl));
+      span1.appendChild(controls3); 
+   }
+   
+   var node3 = asy.getControlById('cust.hobby');
+   //var lbl = asy.getAttribute(node3,'label');
+   //span2.appendChild(factory.createLabel(lbl));
+   var controls3 = factory.createCheckboxList(node3);
+   var span = document.getElementById(controls3.id);
+   if(!span){
+      //controls3.appendChild(factory.createLabel(lbl));
+      span2.appendChild(controls3);
+   }
+   var age = asy.getControlById('cust.age');
+   var ageItem = factory.createDropDownList(age);
+   span2.appendChild(ageItem);
+   
+  
+   
+   data.appendChild(document.createElement("<XML ID='xmldata'/>"));
+   xmldata.XMLDocument=dom.xml;
+   alert(xmldata.XMLDocument);
+  
+   
+}
+
+
+</SCRIPT>
+
+</HEAD>
+<BODY>
+<P>Place content here.</P>
+
+<FORM>
+<SPAN id=span1>
+
+<span id="cust.genderspan">
+
+<INPUT type="radio" value="13" name="cust.gender" id="cust.gender0">
+<INPUT type="radio" value="15" name="cust.gender" id="cust.gender1">
+
+</span>
+
+
+<span id="cust.hobby.span">爱好：
+足球
+<INPUT type="checkbox" value="12" name="cust.hobby" id="cust.hobby0">
+篮球
+<INPUT type="checkbox" value="13" name="cust.hobby" id="cust.hobby1">
+排球
+<INPUT type="checkbox" value="14" name="cust.hobby" id="cust.hobby2">
+</span>
+</SPAN><br>
+<SPAN id=span2></SPAN>
+
+<INPUT type="button" value="button" onclick="add()">
+
+
+</FORM>
+<span id=data></span>
+
+
+</BODY>
+</HTML>

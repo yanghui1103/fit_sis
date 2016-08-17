@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+	<Pages id="1" coId="1" prodId="597" CoNbr="10496" staffId="1001">
+		<Page id="custInfo">
+			<Control id="Party.PartyId" type="Hidden">
+				<Item>
+					<Text>730</Text>
+					<Value></Value>
+				</Item>
+			</Control>
+			<Control id="Party.Name" type="TextBox">
+				<Item>
+					<Text>zys123</Text>
+					<Value></Value>
+				</Item>
+			</Control>
+			<Control id="Party.SimpleSpell" type="Hidden">
+				<Item>
+					<Text>nn</Text>
+					<Value></Value>
+				</Item>
+			</Control>
+			<Control id="Party.AreaId" type="Hidden">
+				<Item>
+					<Text>8</Text>
+					<Value></Value>
+				</Item>
+			</Control>
+			<Control id="Party.IdentidiesTypeCd" type="DropDownList">
+				<Item selected="true">
+					<Text>身份证</Text>
+					<Value>1</Value>
+				</Item>
+			</Control>
+			<Control id="Party.PrimaryIdentifyNum" type="TextBox">
+				<Item>
+					<Text>730</Text>
+					<Value></Value>
+				</Item>
+			</Control>
+			<Control id="Party.AddressId" type="Hidden">
+				<Item>
+					<Text>1344</Text>
+					<Value></Value>
+				</Item>
+			</Control>
+			<Control id="Party.AddressStr" type="TextBox">
+				<Item>
+					<Text>鼓楼区中山北路310栋test</Text>
+					<Value></Value>
+				</Item>
+			</Control>
+			<Control id="Party.MailAddressId" type="Hidden">
+				<Item>
+					<Text>0</Text>
+					<Value></Value>
+				</Item>
+			</Control>
+			<Control id="Party.MailAddressStr" type="TextBox">
+				<Item>
+					<Text>0</Text>
+					<Value></Value>
+				</Item>
+			</Control>
+			<Control id="PostalCode.PostalCodeId" type="TextBox">
+				<Item>
+					<Text></Text>
+					<Value></Value>
+				</Item>
+			</Control>
+			<Control id="Party.BusinessPassWord" type="PassWord">
+				<Item>
+					<Text>1</Text>
+					<Value></Value>
+				</Item>
+			</Control>
+			<Control id="Party.QueryPassWord" type="PassWord">
+				<Item>
+					<Text>1</Text>
+					<Value></Value>
+				</Item>
+			</Control>
+		</Page>
+		<Page id="baseInfo">
+			<Control id="CustOrder.ProdSpecId" type="DropDownList">
+				<Item selected="true">
+					<Text>拨号ADSL</Text>
+					<Value>8</Value>
+					<Hidden>9</Hidden>
+				</Item>
+			</Control>
+			<Control id="CustOrder.SlaSa" type="DropDownList">
+				<Item>
+					<Text>一级</Text>
+					<Value>1</Value>
+				</Item>
+				<Item>
+					<Text>二级</Text>
+					<Value>2</Value>
+				</Item>
+				<Item>
+					<Text>三级</Text>
+					<Value>3</Value>
+				</Item>
+				<Item>
+					<Text>四级</Text>
+					<Value>4</Value>
+				</Item>
+			</Control>
+			<Control id="SLA_FUL" type="DropDownList">
+				<Item>
+					<Text>一级</Text>
+					<Value>1</Value>
+				</Item>
+				<Item>
+					<Text>二级</Text>
+					<Value>2</Value>
+				</Item>
+				<Item>
+					<Text>三级</Text>
+					<Value>3</Value>
+				</Item>
+				<Item>
+					<Text>四级</Text>
+					<Value>4</Value>
+				</Item>
+				<Item>
+					<Text>五级</Text>
+					<Value>5</Value>
+				</Item>
+			</Control>
+			<Control id="CustOrder.CoAn" type="set">
+				<Property id="CoAn.AnId" type="Hidden">
+					<Item>
+						<Text>403</Text>
+						<Value></Value>
+					</Item>
+				</Property>
+				<Property id="CoAn.AccessNumber" type="TextBox">
+					<Item>
+						<Text>A00000410</Text>
+						<Value></Value>
+					</Item>
+				</Property>
+				<Property id="CoAn.AccessNumberType" type="Hidden">
+					<Item>
+						<Text>402</Text>
+						<Value></Value>
+					</Item>
+				</Property>
+				<Property id="CoAn.ChooseType" type="Hidden">
+					<Item>
+						<Text></Text>
+						<Value></Value>
+					</Item>
+				</Property>
+				<Property id="CoAn.TmlId" type="Hidden">
+					<Item>
+						<Text></Text>
+						<Value></Value>
+					</Item>
+				</Property>
+			</Control>
+			<Control id="CustOrder.InstallDate" type="TextBox">
+				<Item>
+					<Text></Text>
+					<Value></Value>
+				</Item>
+			</Control>
+			<Control id="CustOrder.PreCo" type="CheckBox">
+				<Item>
+					<Text></Text>
+					<Value></Value>
+				</Item>
+			</Control>
+			<Control id="CustOrder.LinkMan" type="set">
+				<Property id="LinkMan.Name" type="TextBox">
+					<Item>
+						<Text></Text>
+						<Value></Value>
+					</Item>
+				</Property>
+				<Property id="LinkMan.Nbr" type="TextBox">
+					<Item>
+						<Text></Text>
+						<Value></Value>
+					</Item>
+				</Property>
+			</Control>
+			<Control id="CustOrder.CoOther.Security" type="Checkbox">
+				<Item>
+					<Text></Text>
+					<Value></Value>
+				</Item>
+			</Control>
+			<Control id="CustOrder.CoOther.Regedit" type="Checkbox">
+				<Item>
+					<Text></Text>
+					<Value></Value>
+				</Item>
+			</Control>
+			<Control id="CustOrder.Co2Ans" type="set">
+				<Property id="Co2Ans.Id.0" type="setItems">
+					<Item id="Co2Ans.ReasonCd" type="Hidden">
+						<Text>2</Text>
+						<Value></Value>
+					</Item>
+					<Item id="Co2Ans.ReasonName" type="Label">
+						<Text>宽带接入帐号</Text>
+						<Value></Value>
+					</Item>
+					<Item id="Co2Ans.AccessNumberType" type="Hidden">
+						<Text>301</Text>
+						<Value></Value>
+					</Item>
+					<Item id="Co2Ans.AnId" type="Hidden">
+						<Text>122</Text>
+						<Value></Value>
+					</Item>
+					<Item id="Co2Ans.AccessNumber" type="TextBox">
+						<Text>zys123</Text>
+						<Value></Value>
+					</Item>
+					<Item id="Co2Ans.CoAccessAccount.LoginName" type="TextBox">
+						<Text>zys123</Text>
+						<Value></Value>
+					</Item>
+					<Item id="Co2Ans.CoAccessAccount.LoginPassWord" type="PassWord">
+						<Text></Text>
+						<Value></Value>
+					</Item>
+				</Property>
+			</Control>
+			<Control id="CustOrder.CoParties" type="set">
+				<Property id="CoParties.PartyRoleId.0" type="Hidden">
+					<Item>
+						<Text>0</Text>
+						<Value></Value>
+					</Item>
+				</Property>
+				<Property id="CoParties.PartyId.0" type="Hidden">
+					<Item>
+						<Text></Text>
+						<Value></Value>
+					</Item>
+				</Property>
+				<Property id="CoParties.PartyName.0" type="TextBox">
+					<Item>
+						<Text></Text>
+						<Value></Value>
+					</Item>
+				</Property>
+				<Property id="CoParties.PartyRoleId.1" type="Hidden">
+					<Item>
+						<Text>1</Text>
+						<Value></Value>
+					</Item>
+				</Property>
+				<Property id="CoParties.PartyId.1" type="Hidden">
+					<Item>
+						<Text></Text>
+						<Value></Value>
+					</Item>
+				</Property>
+				<Property id="CoParties.PartyName.1" type="TextBox">
+					<Item>
+						<Text></Text>
+						<Value></Value>
+					</Item>
+				</Property>
+			</Control>
+			<Control id="Panel.CustOrder.CoProdAttrs" type="set">
+				<Property id="CoProdAttrs.AttrId.9.12" label="速率" type="DropDownList">
+					<Item>
+						<Text>512K</Text>
+						<Value>1</Value>
+					</Item>
+					<Item>
+						<Text>2M</Text>
+						<Value>3</Value>
+					</Item>
+					<Item>
+						<Text>1M</Text>
+						<Value>2</Value>
+					</Item>
+				</Property>
+			</Control>
+			<Control id="CustOrder.CoProdAddress" type="set" />
+			<Control id="CustOrder.AreaId" type="Hidden">
+				<Item>
+					<Text>1</Text>
+					<Value></Value>
+				</Item>
+			</Control>
+			<Control id="CustOrder.Remarks" type="TextBox" description="备注信息">
+				<Item>
+					<Text></Text>
+					<Value></Value>
+				</Item>
+			</Control>
+		</Page>
+		<Page id="acctInfo">
+			<Control id="CoAccount" type="Table">
+				<Item key="acctCd" id="1">
+					<Column name="chargeItemName">全部费用</Column>
+					<Column name="chargeItemCd" type="hidden">0</Column>
+					<Column name="priorityAcct">1</Column>
+					<Column name="acctCd">1813</Column>
+					<Column name="acctId" type="hidden">556</Column>
+					<Column name="partyName">zys123</Column>
+					<Column name="partyId" type="hidden">730</Column>
+					<Column name="percent">100</Column>
+					<Column name="coMailing">1</Column>
+				</Item>
+			</Control>
+			<Control id="CoRelaType" type="Hidden" />
+			<Control id="CoPaymentAccount" type="Table">
+				<Item dependId="1813" id="1">
+					<Column name="paymentAccountId" type="hidden">209</Column>
+					<Column name="payType">代扣</Column>
+					<Column name="payMethod" type="hidden">2</Column>
+					<Column name="bankName">工商银行鼓楼分行</Column>
+					<Column name="bankId" type="hidden">56</Column>
+					<Column name="payCount">12321321</Column>
+					<Column name="name">no field</Column>
+					<Column name="priority">1</Column>
+				</Item>
+			</Control>
+		</Page>
+		<Page id="nwkInfo">
+			<Control id="AllNwk" type="table">
+				<Props id="NwkProps" />
+				<Rules id="NwkRule" />
+			</Control>
+			<Control id="terminal" type="table" />
+		</Page>
+		<Page id="feeInfo">
+			<Control id="PricePackage" type="Table" label="资费信息">
+				<Rules id="package" />
+				<Props id="PricePackageProps" />
+				<Item>
+					<Column packageId="46" type="CheckBox" checked="false" label="adsl新装" isMust="" isDefault="N" ifExist="N" />
+					<Column></Column>
+				</Item>
+			</Control>
+		</Page>
+	</Pages>
+	<ServSpecGrps>
+		<Grp grpType="serv_spec" sspec_comp_grp_id="260" name="金卡全家福-ADSL(成员)服务规格组" sspec_comp_sub_id="" is_exclusive="N" min_member_qty="0" max_member_qty="1" />
+		<Grp grpType="serv_spec" sspec_comp_grp_id="9" name="ADSL服务规格构成组" sspec_comp_sub_id="" is_exclusive="N" min_member_qty="2" max_member_qty="-1" />
+	</ServSpecGrps>
+</Root>

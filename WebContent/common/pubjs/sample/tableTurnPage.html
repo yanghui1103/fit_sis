@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=GB18030">
+<META name="GENERATOR" content="IBM WebSphere Studio">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" href="../../theme/Master.css" type="text/css">
+<TITLE>tableTurnPage.html</TITLE>
+<SCRIPT>
+function bodyLoad(){
+   pageSize = 10;
+   initTable('tb2');
+   turnPage('next');
+   viewPageInfo();
+}
+function viewPageInfo(){
+   document.getElementById("pageInfo").innerText = pageIndex + '/' + pageCount;
+}
+</SCRIPT>
+</HEAD>
+<BODY onload="bodyLoad()">
+<P>Place content here.</P>
+<table id=tb2 border=1 width=100%>
+<tr><td>number</td><td>字母</td><td>汉字</td><td>符号</td></tr>
+<tr><td>1</td><td>a</td><td>阿</td><td>*</td></tr>
+<tr><td>2</td><td>b</td><td>波</td><td>&</td></tr>
+<tr><td>3</td><td>c</td><td>西</td><td>$</td></tr>
+<tr><td>4</td><td>d</td><td>达</td><td>#</td></tr>
+<tr><td>5</td><td>e</td><td>意</td><td>(</td></tr>
+<tr><td>6</td><td>a</td><td>阿</td><td>*</td></tr>
+<tr><td>7</td><td>b</td><td>波</td><td>&</td></tr>
+<tr><td>8</td><td>c</td><td>西</td><td>$</td></tr>
+<tr><td>9</td><td>d</td><td>达</td><td>#</td></tr>
+<tr><td>10</td><td>e</td><td>意</td><td>(</td></tr>
+<tr><td>11</td><td>a</td><td>阿</td><td>*</td></tr>
+<tr><td>12</td><td>b</td><td>波</td><td>&</td></tr>
+<tr><td>13</td><td>c</td><td>西</td><td>$</td></tr>
+<tr><td>14</td><td>d</td><td>达</td><td>#</td></tr>
+<tr><td>15</td><td>e</td><td>意</td><td>(</td></tr>
+<tr><td>16</td><td>a</td><td>阿</td><td>*</td></tr>
+<tr><td>17</td><td>b</td><td>波</td><td>&</td></tr>
+<tr><td>18</td><td>c</td><td>西</td><td>$</td></tr>
+<tr><td>19</td><td>d</td><td>达</td><td>#</td></tr>
+<tr><td>20</td><td>e</td><td>意</td><td>(</td></tr>
+<tr><td>21</td><td>a</td><td>阿</td><td>*</td></tr>
+<tr><td>22</td><td>b</td><td>波</td><td>&</td></tr>
+<tr><td>23</td><td>c</td><td>西</td><td>$</td></tr>
+<tr><td>24</td><td>d</td><td>达</td><td>#</td></tr>
+<tr><td>25</td><td>e</td><td>意</td><td>(</td></tr>
+<tr><td>26</td><td>a</td><td>阿</td><td>*</td></tr>
+<tr><td>27</td><td>b</td><td>波</td><td>&</td></tr>
+<tr><td>28</td><td>c</td><td>西</td><td>$</td></tr>
+<tr><td>29</td><td>d</td><td>达</td><td>#</td></tr>
+<tr><td>30</td><td>e</td><td>意</td><td>(</td></tr>
+<tr><td>31</td><td>a</td><td>阿</td><td>*</td></tr>
+<tr><td>32</td><td>b</td><td>波</td><td>&</td></tr>
+<tr><td>33</td><td>c</td><td>西</td><td>$</td></tr>
+<tr><td>34</td><td>d</td><td>达</td><td>#</td></tr>
+<tr><td>35</td><td>e</td><td>意</td><td>(</td></tr>
+
+</table>
+<a href="javascript:turnPage('prev')">上一页</a>
+&nbsp;&nbsp;
+<a href="javascript:turnPage('next')">下一页</a>
+&nbsp;&nbsp;
+<a href="javascript:turnPage('first')">首  页</a>
+&nbsp;&nbsp;
+<a href="javascript:turnPage('end')">末  页</a>
+<LABEL id=pageInfo></LABEL>
+<SCRIPT language=javascript src="../alaicontrols/turnPage.js"></SCRIPT>
+</BODY>
+</HTML>

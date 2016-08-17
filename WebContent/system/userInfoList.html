@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="system/userInfoList.js">
+</script>
+</head>
+<div class="pageFormContent">
+	<form onsubmit="return navTabSearch(this);"   method="post">
+		<table >
+			<tr>
+				<td>
+					<label style="float:left">关键词：</label><input class="orgReqCss"  style="float:left" type="text" id="userInfokeyword"  alt="请输入姓名"/>
+				</td>
+				<td> 
+				<label>机构名称：</label>
+				<input type="text"  class="required"  style="float:left" readonly name="orgLookup.orgName" value="" suggestFields="orgNum,orgName"   lookupGroup="orgLookup" />
+				<a style="float:left" class="btnLook" href="system/orgStructure_multiV3.html" lookupGroup="orgLookup">查找带回</a>						
+				<input type="hidden"  class="required orgReqCss" readonly="readonly"  id="userInfoorg_id" name="orgLookup.id" />
+			</td>
+			<td>
+				<label>角色：</label>
+				<select name="userInfo_role_cd" id="userInfo_role_cd"  style="float:left" class="required  "  >
+				</select> 
+				</td> 
+			</tr>
+		</table>
+		<div class="subBar" id="userListSubBar">
+			
+		</div> 
+	</form>
+</div>
+<div id = "allUserInfoListDiv">
+<div class="pageContent">
+			<div class="panelBar">
+				<ul>
+					<li><label>当前</label></li>
+					<li><select id="userInfoListPageNo"></select></li>
+					<li><label>页，</label></li>
+					<li><label>共计</label></li>
+					<li><span id="userInfoListTatol">0</span></li>
+					<li><label>记录</label></li>
+				</ul>
+			</div>
+	<table class="table" width="100%" heigth="100%" layoutH="110">
+		<thead>
+			<tr>
+				<th width="5%"></th>
+				<th width="10%">登录名</th>
+				<th width="10%">用户名称</th>
+				<th width="10%">手机号码</th> 
+				<th width="10%">地址</th>
+				<th width="20%">所属角色</th>
+				<th width="20%">所属机构</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>  
+</div>

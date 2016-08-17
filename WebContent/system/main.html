@@ -1,0 +1,100 @@
+<!DOCTYPE script PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<head>
+<script type="text/javascript">
+$(function(){ 
+	    var dayNames = new Array("星期日","星期一","星期二","星期三","星期四","星期五","星期六");  
+	var Stamp = new Date();  
+	var str = ("" +  (Stamp.getMonth() + 1) +"月"+Stamp.getDate()+ "日"+ " " + dayNames[Stamp.getDay()] +""); 
+	$("#p_time").text(str);
+	getDaiBan();
+});
+function getDaiBan(){
+	var array = new Array("-9");
+	createJsonAndAjaxRpt(
+			'getUserWeiDuMessageCnt.action',
+			array,
+			function(data){
+				if(data.res == '2'){
+					$("#daibanText").text("未读消息"+data.msg+"条");
+				}
+			},'JSON'
+    );
+}
+</script>
+</head>
+<!--  div class="accountInfo">
+	<div class="alertInfo"> 
+		<h2><a href="uploadfiles/caozuosc.doc" target="_blank">系统操作手册下载</a></h2> 
+	</div>
+	<div class="right">
+		<p><a href="notice/reviceNotice.html" target="navTab"  id=daibanText>未读消息</a> </p>
+		<p id="p_time"></p>
+	</div> 
+</div-->
+
+<div class="pageCentent"  id="main">   
+	<div>
+       <div id="main_left" style="float:left;width:45%;" class="panel "   defH="200">
+          <h1>新闻轮转图</h1>
+		<div>
+			总 ：<input type="text" id="send_param8" /> 
+			2涉 ：<input type="text" id="send_param9" />  
+		</div> 
+       </div>
+       <div id="main_right" style="float:right;width:54%;list_style:none" class="panel "   defH="200">
+           <h1>待审/待阅<a href="notice/reviceNotice.html" target="navTab"  id=daibanText>0条</a> 
+	</h1>
+		<div>
+			<table class="table"  width="100%">
+			<thead>
+				<tr>
+					<th width="80">序号</th>
+					<th>姓名</th>
+					<th>性别</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>1</td>
+					<td>张三</td>
+					<td>男</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>李四</td>
+					<td>女</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>张三</td>
+					<td>男</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>李四</td>
+					<td>女</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>张三</td>
+					<td>男</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>李四</td>
+					<td>女</td>
+				</tr>
+			</table>
+		</div> 
+       </div>
+       </div>
+       <div style="heigth:5"  ></div>
+       <div id="main_left" style="float:left;width:100%;" class="panel "   defH="310">
+          <h1>生产经营数据分析图</h1>
+		<div>
+			总 ：<input type="text" id="send_param8" /> 
+			2涉 ：<input type="text" id="send_param9" /> 
+			总 ：<input type="text" id="send_param10" /> 
+		</div> 
+       </div>
+</div>

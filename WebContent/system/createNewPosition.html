@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+$(document).ready(function(){
+	var arr = new Array(20);
+	 for(var i in arr.length){
+		 arr[i] = "-9";		 
+	 }arr[0] = "109";
+	 var eobj = createParamJson(arr); 
+	 var eJson = JSON.stringify(eobj); 
+	 renderBtnsToDiv($("#createNewPostBar"),'getAuthorityBtnsByThisUser.action',eJson);
+	$("#save109").click(function(){
+		 var arr = new Array(20);
+		 for(var i in arr.length){
+			 arr[i] = "-9";		 
+		 }arr[0] =$("#position_name").val();
+		 	arr[1] =$("#postion_remark").val(); 
+		 var eobj = createParamJson(arr); 
+		 var eJson = JSON.stringify(eobj); 
+		var ttDom = AjaxExchangeBackTextData('createNewPosition.action',eJson);  
+		alertToUserMsg(ttDom);
+	});
+});
+
+</script>
+</head>
+<div class="pageContent">
+	<form method="post" action=""  id=form1 class="pageForm required-validate">
+		<div class="pageFormContent" layoutH="56">
+			<p>
+				<label>岗位名称：</label>
+				<input id="position_name" class="required" type="text" size="30"  alt="请输入角色名称"/>
+			</p>
+			<p>
+				<label>岗位职能描述：</label>
+				<input id="postion_remark"  type="text" size="30"  alt="请输入备注"/>
+			</p>
+		</div>
+		<div class="formBar" id="createNewPostBar">
+		</div>
+	</form>
+</div> 

@@ -1,0 +1,84 @@
+<script type="text/javascript">
+var rows = 1;
+var total = "15" ; // 共15条
+var actualTotal = 0 ;
+var pageNo = 1 ; //当前页数
+var pageTotalNo =1 ; //总页数
+$(document).ready(function(){	
+	 var arr = new Array(20);
+	 for(var i in arr.length){
+		 arr[i] = "-9";		 
+	 }arr[0] = "110";
+	 var eobj = createParamJson(arr); 
+	 var eJson = JSON.stringify(eobj); 
+	 renderBtnsToDiv($("#positionsListSubBar"),'getAuthorityBtnsByThisUser.action',eJson);
+	 initPositionInfoList($("#allpositionsDiv").find("table").find("tbody"),"0");	 
+});
+
+function initPositionInfoList(obj,page_num){ 
+     removeTableData(obj,total);// 清空行数据 
+	//把本级机构及以下机构的人员查询出来
+	var arr = new Array(20);
+	 for(var i in arr.length){
+		 arr[i] = "-9";		 
+	 }arr[0] = "9001";
+	 arr[1]= page_num ;
+	 arr[2]= total ;
+	 arr[3]=$("#positionName").val()==""?"-9":$("#positionName").val();
+	 arr[4]=$("#positionNum").val()==""?"-9":$("#positionNum").val();
+	 var eobj = createParamJson(arr); 	 
+	 var eJson = JSON.stringify(eobj);  
+	var ttDom = AjaxExchangeBackXMLDataByJson('getPositionList.action',eJson);    
+    var s = $.parseXML(ttDom.xml );
+	   	$(s).find('position').each(function() {  
+		 	 var table = obj; 
+		 	 var xml = $(this);
+		 	 var tr = "<tr class = list-blue target=sid_user><td width=160><input id=postListFdId class=checkboxCtrl type=checkbox value="+xml.children("fdid").text()+
+		 	 "></input><td width=220>"+xml.children("position_cd").text()+
+		 	 "</td><td width=220>"+xml.children("position_name").text()+
+		 	 "</td><td width=240>"+xml.children("remark").text()+
+		 	 "</td><td width=230>"+xml.children("state").text()+
+		 	 "</td></tr>";
+		 	table.append(tr); 
+	   }); 
+}	
+ $("#qry110").click(function(){ 
+	 initPositionInfoList($("#allpositionsDiv").find("table").find("tbody"),"0");	 
+ }); 
+</script>
+<div class="pageHeader">
+	<form  method="post" >
+	<div class="searchBar">
+		<ul class="searchContent">
+			<li>
+				<label>岗位名称:</label>
+				<input class="textInput"  id	="positionName" value="" type="text">
+			</li>	  
+			<li>
+				<label>岗位编号:</label>
+				<input class="textInput" id="positionNum" value="" type="text">
+			</li>
+			
+		</ul>
+		<div class="subBar" id="positionsListSubBar">
+		</div>
+	</div>
+	</form>
+</div>
+<div id = "allpositionsDiv">
+<div  class="pageContent">
+	<table class="table" width="98%" targetType="navTab" asc="asc" desc="desc" layoutH="190">
+		<thead>
+			<tr>			
+				<th width="80"></th>
+				<th width="120">岗位编号</th>
+				<th width="120">岗位名称</th>
+				<th width="120">岗位描述</th>
+				<th width="120">状态</th>
+			</tr>
+		</thead>		
+		<tbody></tbody>	
+	</table> 
+	<table></table>
+ </div>
+</div>
