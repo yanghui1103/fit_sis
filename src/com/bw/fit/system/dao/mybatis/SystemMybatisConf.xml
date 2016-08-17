@@ -85,4 +85,15 @@
     FROM function_btn fb ,functions ff
     WHERE  fb.function_cd = ff.fdid AND ff.state ='2' AND fb.btn_cd !='view'
      </select>
+     <!-- 修改密码 -->
+ 	 <update id="changePasswd"     parameterType = "com.bw.fit.common.models.SystemCommonModel" >
+		update staff set passwd = #{temp_str1} where fdid = #{staff_id}  	 
+ 	 </update>
+ 	 <update id="clearPasswd"   parameterType = "com.bw.fit.common.models.SystemCommonModel" >
+ 	 update staff set passwd = #{temp_str1} where staff_number = #{staff_number}  	
+ 	 </update>
+ 	 <!-- 检查工号是否存在 -->
+ 	 <select id="checkPersonExists" parameterType = "com.bw.fit.common.models.SystemCommonModel"  resultType="com.bw.fit.common.models.SystemCommonModel">
+		select * from staff where staff_number = #{staff_number} and isdeleted='0'
+		</select>
 </mapper>

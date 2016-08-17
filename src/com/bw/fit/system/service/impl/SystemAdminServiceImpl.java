@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.dom4j.Document;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -487,4 +488,41 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         return info;
     }
 
+    @Override
+    public JSONObject changePasswd(SystemCommonModel c) {
+        // 修改密码
+        JSONObject info = new JSONObject();
+        try {
+            c.setCreate_time(getSysDate());
+            c.setFdid(getUUID());
+            c.setSql("systemAdminDAO.changePasswd"); 
+            info =  systemMybatisDaoUtil.sysUpdateData( 
+                    c.getSql(), c);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return info;
+    }
+
+    @Override
+    public JSONObject clearPasswd(SystemCommonModel c) {
+        // 重置密码
+        JSONObject info = new JSONObject();
+        try {
+            c.setCreate_time(getSysDate());
+            c.setFdid(getUUID());
+            c.setSql("systemAdminDAO.checkPersonExists");
+            List list = systemMybatisDaoUtil.getListData( c.getSql(), c); 
+            if(list.size()<1){
+                info.put("res", "1");
+                info.put("msg","该登录名不存在或已失效!");
+                return info ;
+            }
+            c.setSql("systemAdminDAO.clearPasswd");
+            info = systemMybatisDaoUtil.sysUpdateData(c.getSql(), c); 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return info;
+    }
 }

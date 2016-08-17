@@ -4,19 +4,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="text/javascript">
 $(document).ready(function(){
-	var arr = new Array(20);
+	var arr = new Array(60);
 	for(var i in arr.length){
 		 arr[i] = "-9";		 
 	}arr[0] = "119";arr[1] = "navTab"; 
-	 renderBtnsToDiv($("#changePasswdBar"),'getAuthorityBtnsByThisUser.action',arr);
-
-	 
+	 renderBtnsToDiv($("#changePasswdBar",navTab.getCurrentPanel()),'getAuthorityBtnsByThisUser.action',arr); 
 });
 $(document).on('click', '#save119', function() {			 
 	 var passwd_1 = $("#passwd_1").val()==""?"-9":$("#passwd_1").val();
 	 var passwd_2 = $("#passwd_2").val()==""?"-9":$("#passwd_2").val(); 
 	 if(passwd_1=="" ||passwd_1 !=passwd_2){
 		 alertMsg.info("请输入密码，俩次密码必须一致");
+		 return ;
+	 }
+	 if(passwd_1.length != 6 ){
+		 alertMsg.info("密码必须为6位");
 		 return ;
 	 }
 	 var array = new Array(passwd_1,passwd_2);  

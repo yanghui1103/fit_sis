@@ -19,4 +19,6 @@ public interface SystemAdminService {
     public JSONObject getNextChildsTreeStructs(SystemCommonModel c);
     public JSONObject getFunctionsTreeStructs(SystemCommonModel c);
     public JSONObject checkRoleAndStaffValidate(SystemCommonModel c);
+    public JSONObject changePasswd(SystemCommonModel c);
+    public JSONObject clearPasswd(SystemCommonModel c);
 }

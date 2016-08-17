@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 
 import com.bw.fit.common.models.LoginUser;
 import com.bw.fit.common.models.SystemCommonModel;
+import com.bw.fit.common.utils.MD5;
 import com.bw.fit.system.service.impl.SystemAdminServiceImpl;
 
 
@@ -260,6 +261,52 @@ public class SystemAction extends BaseAction{
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        return null ;
+    }
+    
+    /**
+     * 修改密码
+     */
+    public String changePasswd() throws Exception {
+        HttpSession session = request.getSession(false); 
+        response.setContentType("text/plain;charset=UTF-8");
+        Writer wr = response.getWriter();
+        String str =  (request.getParameter("context")) ; 
+        JSONObject obj = (JSONObject) JSONValue.parse(str);
+        JSONArray array = (JSONArray) obj.get("content");
+        String param1 = (String) (((JSONObject) array.get(0)).get("param1")); 
+        SystemCommonModel c = new SystemCommonModel();
+        MD5 m = new MD5();      
+        c.setTemp_str1(m.getMD5ofStr(param1));
+        c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
+                .getStaff_id());
+        JSONObject objItem = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                .changePasswd(c);
+        wr.write(objItem.toJSONString());
+        wr.close();
+        
+        return null ;
+    }
+    public String clearPasswd() throws Exception {
+        HttpSession session = request.getSession(false); 
+        response.setContentType("text/plain;charset=UTF-8");
+        Writer wr = response.getWriter();
+        String str =  (request.getParameter("context")) ; 
+        JSONObject obj = (JSONObject) JSONValue.parse(str);
+        JSONArray array = (JSONArray) obj.get("content");
+        String param1= (String) (((JSONObject) array.get(0)).get("param1")); 
+        String param2= (String) (((JSONObject) array.get(0)).get("param2")); 
+        SystemCommonModel c = new SystemCommonModel();
+        MD5 m = new MD5();      
+        c.setTemp_str1(m.getMD5ofStr(param2));
+        c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
+                .getStaff_id());
+        c.setStaff_number(param1);
+        JSONObject objItem = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                .clearPasswd(c);
+        wr.write(objItem.toJSONString());
+        wr.close();
+        
         return null ;
     }
 }
