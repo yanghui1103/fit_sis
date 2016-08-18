@@ -466,7 +466,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
                 info.put("list", array);
                 array = null;
             } else {
-                info.put("res", "2");
+                info.put("res", "1");
                 info.put("msg", "查询失败");
             }
         } catch (Exception ex) {
@@ -625,6 +625,42 @@ public class SystemAdminServiceImpl implements SystemAdminService {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
         }
         return info; 
+    }
+    @Override
+    public JSONObject initOrgInfoEdit(SystemCommonModel c) {
+        // TODO Auto-generated method stub
+        JSONObject info = new JSONObject();     
+        try {
+            c.setSql("systemAdminDAO.initOrgInfoEdit"); 
+            List<SystemCommonModel> list = systemMybatisDaoUtil.getListData(
+                    c.getSql(), c);
+            if (list.size() > 0) {
+                info.put("res", "2");
+                info.put("msg", "查询成功");
+                JSONArray array = new JSONArray(); 
+                    for (int i = 0; i < 1; i++) {
+                        JSONObject jsonObjArr = new JSONObject();
+                        jsonObjArr.put("company_id", (list.get(i)).getSelect_company_id());
+                        jsonObjArr.put("company_name", (list.get(i)).getSelect_company_name());
+                        jsonObjArr.put("p_company_name", (list.get(i)).getTemp_str1());
+                        jsonObjArr.put("p_company_id", (list.get(i)).getTemp_str2());
+                        jsonObjArr.put("company_type",  (list.get(i)).getTemp_str3());
+                        jsonObjArr.put("company_address", (list.get(i)).getSelect_company_address()); 
+                        array.add(jsonObjArr);
+                        jsonObjArr = null;
+                        }
+                    info.put("list", array);
+                    array = null;
+                 
+            } else {
+                info.put("res", "1");
+                info.put("msg", "查询失败");
+            } 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.info(ex.getMessage());
+        }
+        return info;
     }
 
 }

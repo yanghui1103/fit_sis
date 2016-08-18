@@ -438,9 +438,11 @@ function renderBtnsToDiv(obj,action,array){
 	var args = {
 		"context" : eJson
 	};
-	baidu.post(action, args, function(data) {   
+	$.ajax({url:action, type:"POST",data:args,dataType:'html',async:false,success: function(data) {
 		obj.html(data);
-	},  'html');
+	}
+	});
+	
 } 
 function initPageSelectList(obj,pageNum,obj2,tatol,thisPageNo){ 
     obj.find("option").remove(); 

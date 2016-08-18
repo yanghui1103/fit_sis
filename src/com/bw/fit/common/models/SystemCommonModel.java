@@ -12,6 +12,7 @@ public class SystemCommonModel {
     private String isDeleted ;
     private String select_company_id ;
     public String select_company_name ;
+    public String select_company_address ;
     private String staff_id ;
     private String staff_parent_company_id ;
     private String staff_company_id ;
@@ -82,6 +83,12 @@ public class SystemCommonModel {
     
     
     
+    public String getSelect_company_address() {
+        return select_company_address;
+    }
+    public void setSelect_company_address(String select_company_address) {
+        this.select_company_address = select_company_address;
+    }
     public String getStaff_parent_company_id() {
         return staff_parent_company_id;
     }

@@ -121,4 +121,13 @@
 	<update id="deleteSelectedOrgs"  parameterType="com.bw.fit.common.models.SystemCommonModel">
 	update company set isdeleted='1',version_time=to_date(#{version_time},'yyyy-mm-dd hh24:mi:ss'),operator=#{staff_id}  where fdid = #{select_company_id}
 	</update>
+	<!-- 获取组织资料 -->
+	<select id="initOrgInfoEdit"  parameterType="com.bw.fit.common.models.SystemCommonModel"
+		resultType="com.bw.fit.common.models.SystemCommonModel">
+	select fdid select_company_id,a.company_name select_company_name,
+(select company_name from company where fdid = a.parent_company_id ) temp_str1,
+(select fdid from company where fdid = a.parent_company_id ) temp_str2,
+a.company_type_cd temp_str3,a.address select_company_address 
+from company a where fdid = #{fdid}
+	</select>
 </mapper>

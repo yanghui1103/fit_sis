@@ -24,4 +24,6 @@ public interface SystemAdminService {
     public JSONObject createNewSysOrgService(SystemCommonModel c);
     public JSONObject getAllOrgsService(SystemCommonModel c);
     public JSONObject deleteSelectedOrgs(SystemCommonModel c);
+    public JSONObject initOrgInfoEdit(SystemCommonModel c);
+    
 }

@@ -13,7 +13,7 @@
 			for(var i in arr.length){
 				 arr[i] = "-9";		 
 			}arr[0] = "107";arr[1] = "navTab"; 
-			 renderBtnsToDiv($("#orgsListSubBar", navTab.getCurrentPanel()),'getAuthorityBtnsByThisUser.action',arr);
+			 renderBtnsToDiv($("#orgsListSubBar"),'getAuthorityBtnsByThisUser.action',arr);
 			 qryOrgInfoList(0);	 
 	});
 	$(document).on('click', '#qry107', function() {		 
@@ -63,6 +63,14 @@
 			alertToPageMsg(data);
 		},'JSON',true) ;		
 	});
+
+		$(document).on('click',  "#edit107" , function() {		
+			var length = $("input[name=orgAllId]:checked").length ;
+			if(length != 1){
+				alertMsg.info("只能选择一条记录");
+				return ;
+			}
+		});
 </script>
 </head>
 
@@ -71,8 +79,8 @@
 		<p><label>机构名称：</label> <input id="orgName" type="text"
 			size="30" /></p>
 	</div>
-	<div class="subBar" id="orgsListSubBar"> 
-	</div>
+	<div class="subBar" id="orgsListSubBar">  
+	</div> 
 </div>
 <div id="allSaleOrderDiv">
 	<div class="pageContent ">

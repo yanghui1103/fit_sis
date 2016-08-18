@@ -76,6 +76,8 @@
 		<action name="deleteSelectedOrgs"  class="systemAction" method="deleteSelectedOrgs" />
 		<!-- 编辑组织资料 -->
 		<action name="updateOrgInfo"   class="systemAction" method="updateOrgInfo" />
+		<!-- 初始化编辑页面 -->
+		<action name="initOrgInfoEdit"   class="systemAction" method="initOrgInfoEdit" />
 		<!-- getAllOrgs 获取组织架构(List)当前机构下的所有 -->
 		<action name="getAllOrgsUnderMyOrg" class="systemAction"
 			method="getAllOrgsUnderMyOrg" />

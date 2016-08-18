@@ -429,4 +429,33 @@ public class SystemAction extends BaseAction{
         }
         return null ;
     }
+    /****
+     * 组织编辑页面初始化
+     */
+    public String initOrgInfoEdit(){
+        try {
+            HttpSession session = request.getSession(false);  
+            response.setContentType("text/xml;charset=UTF-8");
+            Writer wr = response.getWriter();
+            SystemCommonModel c = new SystemCommonModel();
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName()); 
+            String str = (request.getParameter("context")) ;
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
+                    .getStaff_id());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());   
+            JSONObject obj = (JSONObject) JSONValue.parse(str);
+            JSONArray array = (JSONArray) obj.get("content");
+            c.setFdid((String) (((JSONObject) array.get(0)).get("param1")));  
+            JSONObject json = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                    .initOrgInfoEdit(c); 
+            wr.write(json.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            log.info(e.getLocalizedMessage());
+            e.printStackTrace();
+        }
+        
+        return null ;
+    }
 }
