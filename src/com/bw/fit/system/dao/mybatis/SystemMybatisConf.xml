@@ -95,5 +95,9 @@
  	 <!-- 检查工号是否存在 -->
  	 <select id="checkPersonExists" parameterType = "com.bw.fit.common.models.SystemCommonModel"  resultType="com.bw.fit.common.models.SystemCommonModel">
 		select * from staff where staff_number = #{staff_number} and isdeleted='0'
-		</select>
+		</select>     
+	<insert id="createNewSysOrg" parameterType = "com.bw.fit.common.models.SystemCommonModel"  >
+      insert into company (fdid,company_name ,address,state,isdeleted,company_type_cd,parent_company_id,create_time,version_time,creator,operator) values (
+	#{fdid},#{staff_company_name},#{temp_str1},'2','0',#{temp_str2},#{staff_parent_company_id},to_date(#{create_time},'yyyy-mm-dd hh24:mi:ss'),to_date(#{create_time},'yyyy-mm-dd hh24:mi:ss'),#{staff_id},#{staff_id})
+      </insert>
 </mapper>

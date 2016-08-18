@@ -15,14 +15,15 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.bw.fit.common.models.Function;
 import com.bw.fit.common.models.SystemCommonModel;
 import com.bw.fit.common.utils.MD5;
 import com.bw.fit.system.dao.utils.SystemMybatisDaoUtil;
 import com.bw.fit.system.service.SystemAdminService;
-import com.bw.fit.common.models.*
-;@Transactional
+import com.bw.fit.common.models.*;
+@Transactional
 @Service
 public class SystemAdminServiceImpl implements SystemAdminService {
 
@@ -273,7 +274,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
                 jsonObjArr.put("id", (list_this.get(0)).getStaff_company_id());
                 jsonObjArr
                         .put("pId", (list_this.get(0)).getStaff_parent_company_id());
-                jsonObjArr.put("name", (list_this.get(0)).getStaff_company_name()+"_"+(list.get(0)).getTemp_str1());
+                jsonObjArr.put("name", (list_this.get(0)).getStaff_company_name() );
                 jsonObjArr.put("open", false);
                 jsonObjArr.put("click", (list_this.get(0)).isFunc_click()); 
                 array.add(jsonObjArr);
@@ -525,4 +526,25 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         }
         return info;
     }
+
+    @Override
+    public JSONObject createNewSysOrgService(SystemCommonModel c) {
+        /**
+         * 新建组织
+         */
+        JSONObject info = new JSONObject();
+        try {
+            c.setCreate_time(getSysDate());
+            c.setFdid(getUUID());
+            c.setSql("systemAdminDAO.createNewSysOrg"); 
+            info = systemMybatisDaoUtil.sysUpdateData(c.getSql(), c); 
+            if("1".equals(info.get("res").toString())){
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return info;
+    }
+
 }

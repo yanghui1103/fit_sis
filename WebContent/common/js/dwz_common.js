@@ -100,6 +100,19 @@ function alertToUserMsg(json){
       }
 }
 
+function alertToPageMsg(json){
+	var res = json.res;
+    var msg = json.msg;
+    if(res == '0'){
+    	$.pdialog.open("login_dialog.html","dlglogin1","登录");
+    }else  if(res == '1'){
+    	alertMsg.error(msg);
+    }else if(res=='2'){
+    	alertMsg.correct(msg);
+    }else if(res=='3'){
+    	alertMsg.info(msg);
+      }
+}
 function alertToUserMsg(json,deal){
 	var res = json.res;
     var msg = json.msg;
@@ -378,18 +391,18 @@ function checkFormValidate(x){
 	return true ;
 }
 //创建一个30长度的数组Json,并做post请求，百度请求也可以适应全类型浏览器
-function createJsonAndPost2Java(action,form, dealAfter,dataFormat) { 
-	var x= form.serializeArray();  
+function createJsonAndPost2Java(action,form, dealAfter,dataFormat,async_val) { 
+	var x= form.serializeArray();    
 	var check_result = checkForm(x) ;
 	if(check_result=="1"){
 		return ;
 	}
 	var eJson = JSON.stringify(x); 
-	var args = {"context" : eJson};	
+	var args = {"context" : eJson};	 
 	$.ajax({
 		url:action,
 		type:"POST",
-		async:false,  // false:同步请求,同步请求将锁住浏览器，用户其它操作必须等待请求完成才可以执行。
+		async:async_val,  // false:同步请求,同步请求将锁住浏览器，用户其它操作必须等待请求完成才可以执行。
 		data:args,
 		dataType:dataFormat,
 		success:function(data, textStatus, jqXHR){ 
@@ -470,9 +483,10 @@ function checkThisCellValidate(obj){
 	var css = obj.attr("class");  
 	var str = obj.val();  
 	var array = new Array();
-	array[0] ="2";array[1]="-9";
-	if( css.indexOf("required")!='-1'){ 
-		if(str == ""||str==null||str==undefined){
+	array[0] ="2";array[1]="-9";  
+	if(css==undefined ){return array ;} 
+	if( css.indexOf("required")  != '-1'){ 
+		if(str == ""||str==null||str==undefined||str == "-1"||str == "-9"){
 			array[0] ="1";array[1]=obj.attr("ename")+"，为必输项"; 
 			return array ;
 		}
@@ -579,9 +593,9 @@ function testAjax(action,form, dealAfter,dataFormat) {
 }
 
 function checkForm(x){
-	var val = "2"; 
+	var val = "2";  
 	for(var i=0;i<x.length;i++){
-		var obj = $("input[name='"+x[i].name+"']") ;
+		var obj = $("input[name='"+x[i].name+"']") ; 
 	  	var return_array = checkThisCellValidate(obj );
 		obj.css("background-color","white");   
 		if(return_array[0] == "1"){

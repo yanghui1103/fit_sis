@@ -21,4 +21,5 @@ public interface SystemAdminService {
     public JSONObject checkRoleAndStaffValidate(SystemCommonModel c);
     public JSONObject changePasswd(SystemCommonModel c);
     public JSONObject clearPasswd(SystemCommonModel c);
+    public JSONObject createNewSysOrgService(SystemCommonModel c);
 }

@@ -309,4 +309,38 @@ public class SystemAction extends BaseAction{
         
         return null ;
     }
+    /**
+     * createNewSysOrg
+     * 
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    public String createNewSysOrg() throws Exception {
+        HttpSession session = request.getSession(false);  
+        response.setContentType("text/json;charset=UTF-8");
+        Writer wr = response.getWriter();
+        SystemCommonModel c = new SystemCommonModel();
+        String str =  (request.getParameter("context")) ; 
+        JSONArray array  = (JSONArray) JSONValue.parse(str); 
+        for(int i=0;i<array.size();i++){
+            if("create_company_name".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setStaff_company_name(((JSONObject)array.get(i)).get("value").toString());
+            }else if("orgLookup.id".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setStaff_parent_company_id(((JSONObject)array.get(i)).get("value").toString());
+            }else if("createComp_address".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setTemp_str1(((JSONObject)array.get(i)).get("value").toString());
+            }else if("create_uporg_type".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setTemp_str2(((JSONObject)array.get(i)).get("value").toString());
+            }
+        }  
+        c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
+                .getStaff_id());
+        c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());   
+        JSONObject  json = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                .createNewSysOrgService(c);
+        wr.write(json.toJSONString());
+        wr.close();
+        return null;
+    }
 }

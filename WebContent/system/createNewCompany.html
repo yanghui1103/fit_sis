@@ -16,63 +16,49 @@ $(document).ready(function(){
 $(document).on('click', '#save106', function() {	
 	alertMsg.confirm("是否确认新建此机构！", {
 		 okCall: function(){
-			 saveCreateOrg();
+			 if($("#create_uporg_type",navTab.getCurrentPanel()).val() == "-9"){
+				 alertMsg.info("请选择组织类型");return ;
+			 }
+			 createJsonAndPost2Java('createNewSysOrg.action',$("#createCompanyForm", navTab.getCurrentPanel()),dealCreateOrgMsg,'JSON',false) ;
 		 },
 		 cancelCall : function() {}
 		});
-});
-function saveCreateOrg(){
-	// 新建机构
-	if($("#create_uporg_type").val()=="-9" || $("#create_uporg_id").val()=="" ){
-		alertMsg.error("请填写非空项！");
-		return ;
-	}
-	var create_company_name  = $("#create_company_name").val()==""?"-9":$("#create_company_name").val();
- 	 var create_uporg_id  = $("#create_uporg_id").val()==""?"-9":$("#create_uporg_id").val();
- 	 var createComp_address = $("#createComp_address").val()==""?"-9":$("#createComp_address").val();
- 	var create_uporg_type = $("#create_uporg_type").val()==""?"-9":$("#create_uporg_type").val();
-	 var array = new Array(create_company_name,create_uporg_id,createComp_address,create_uporg_type);   
-		createJsonAndAjax(
-				'createNewSysOrg.action',
-				array,
-				dealCreateOrgMsg,'JSON'
-	    );
-}
+}); 
 function dealCreateOrgMsg(data){
-	alertToUserMsg(data);		
+	alertToPageMsg(data);		
 }
 </script>
 </head>
 <div class="pageContent">
 
 <ul id="errorlist"></ul>
-	<form method="post" action=""  id=createUserForm class="pageForm required-validate">
+	<form method="post" action=""  id=createCompanyForm class="pageForm required-validate">
 		<div class="pageFormContent" layoutH="56">
 			<p>
 				<label>组织编码：</label>
-				<input   type="text" size="30" maxlength=10   style="float:left"  class=required readonly alt="系统生成"/>
+				<input   type="text" size="30" maxlength=10   style="float:left"  readonly alt="系统生成"/>
 			</p>
 			<p>
 				<label>组织名称：</label>
-				<input id="create_company_name" class="required" type="text"   style="float:left"   maxlength=12  size="30"  alt="请输入组织名称"/>
+				<input id="create_company_name"  name="create_company_name"  ename="组织名称" class="required chinese" type="text"   style="float:left"   maxlength=12  size="30"  alt="请输入组织名称"/>
 			</p>
 			<p>
 				<label>上级组织名称：</label>
-				<input type="text"  id="create_uporg_name"   style="float:left" class="required" readonly name="orgLookup.orgName" value="" suggestFields="orgNum,orgName"   lookupGroup="orgLookup" />
-				<a   style="float:left"  class="btnLook" href="system/orgStructure_single.html" lookupGroup="orgLookup">查找带回</a>		
+				<input type="text"  id="create_uporg_name"  ename="上级组织"   style="float:left" class="required" readonly name="orgLookup.orgName" value="" suggestFields="orgNum,orgName"   lookupGroup="orgLookup" />
+				<a   style="float:left"  class="btnLook" href="system/orgStructure_qry.jsp?custom_org_function_id=106&select_org_multi=0&select_cascade=''&unselect_cascade=''"   lookupGroup="orgLookup">查找带回</a>		
 			</p>
 			<p>
 				<label>上级组织编码：</label>
-				<input type="text"  class="required" readonly="readonly"   style="float:left"  id="create_uporg_id" name="orgLookup.id" />
+				<input type="text"    readonly="readonly"   style="float:left"  id="create_uporg_id" name="orgLookup.id" />
 			</p>
 			<p>
 				<label>组织类型：</label>
-				<select id="create_uporg_type" class="required"  style="float:left" > 
+				<select id="create_uporg_type"  ename="组织类型" name ="create_uporg_type" class="required"  style="float:left" > 
 				</select>
 			</p>
 			<p>
 				<label>地址：</label>
-				<input type="text" id=createComp_address size="30"   style="float:left" />
+				<input type="text" id=createComp_address name="createComp_address" size="30"   style="float:left" />
 			</p>
 		</div>
 		<div class="formBar" id="createNewCompSubBar">
