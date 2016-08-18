@@ -36,7 +36,7 @@ $('#treeAuth').click(function(){
     	window.showModalDialog("system/powerSet.html",$("#giveRole_role_cd").val(),"height:600, width:220, minH:40, minW:50, total:20, max:false, mask:false, resizable:true, drawable:true, maxable:true,minable:true,fresh:true");
     }
     // 
-    $(document).on('change', $("#giveRole_role_cd", navTab.getCurrentPanel()), function() {	
+    $("#giveRole_role_cd", navTab.getCurrentPanel()).change(function() {	 
     	var giveRole_role_cd = $("#giveRole_role_cd", navTab.getCurrentPanel()).val() ;
     	var arr = new Array(60);
     	for(var i in arr.length){

@@ -26,7 +26,6 @@ import com.bw.fit.common.models.*;
 @Transactional
 @Service
 public class SystemAdminServiceImpl implements SystemAdminService {
-
     private  Log log = LogFactory.getLog(SystemAdminServiceImpl.class); 
     @Autowired
     private SystemMybatisDaoUtil systemMybatisDaoUtil;
@@ -499,8 +498,12 @@ public class SystemAdminServiceImpl implements SystemAdminService {
             c.setSql("systemAdminDAO.changePasswd"); 
             info =  systemMybatisDaoUtil.sysUpdateData( 
                     c.getSql(), c);
+            if("1".equals(info.get("res").toString())){
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
         }
         return info;
     }
@@ -543,8 +546,85 @@ public class SystemAdminServiceImpl implements SystemAdminService {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
         }
         return info;
+    }
+
+    @Override
+    public JSONObject getAllOrgsService(SystemCommonModel c) {
+        /**
+         * 查询机构
+         */
+        JSONObject info = new JSONObject();
+        try {
+            c.setSql("systemAdminDAO.getAllOrgs"); 
+            c.setFdid(getUUID());
+            List<SystemCommonModel> list = systemMybatisDaoUtil.getListData(
+                    c.getSql(), c);
+            if (list.size() > 0) {
+                info.put("res", "2");
+                info.put("msg", "查询成功");
+                JSONArray array = new JSONArray();
+                for (int i = 0; i < list.size(); i++) {
+                    JSONObject jsonObjArr = new JSONObject();
+                    jsonObjArr.put("company_cd", (list.get(i)).getSelect_company_id());
+                    jsonObjArr.put("company_name",
+                            (list.get(i)).getSelect_company_name());
+                    jsonObjArr.put("level", (list.get(i)).getTemp_str1());
+                    jsonObjArr.put("up_company_name",
+                            (list.get(i)).getTemp_str2());
+                    jsonObjArr.put("create_time",
+                            (list.get(i)).getCreate_time());
+                    array.add(jsonObjArr);
+                    jsonObjArr = null;
+                }
+                info.put("list", array);
+                // 算出总条数和总页数
+                c.setStart_num("-9");
+                c.setEnd_num("-9");
+                List<SystemCommonModel> listTatol = systemMybatisDaoUtil
+                        .getListData(c.getSql(), c);
+                info.put(
+                        "pageNum",
+                        getPageTatolNum(listTatol.size(),
+                                Integer.valueOf(c.getRecord_tatol())));
+                info.put("tatol", listTatol.size());
+            } else {
+                info.put("res", "1");
+                info.put("msg", "查询失败");
+                info.put("pageNum","0");
+                info.put("tatol", "0");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.info(ex.getMessage());
+        }
+        return info;
+    }
+    /**
+     * 删除组织(循环)
+     */
+    @Override
+    public JSONObject deleteSelectedOrgs(SystemCommonModel c) {
+        // TODO Auto-generated method stub
+        JSONObject info = new JSONObject();
+        try {
+            c.setVersion_time(getSysDate()); 
+            String[] array = c.getTemp_str1().split(",");
+            for(int i=0;i<array.length ;i++){
+                c.setSelect_company_id(array[i]);
+                c.setSql("systemAdminDAO.deleteSelectedOrgs"); 
+                info = systemMybatisDaoUtil.sysUpdateData(c.getSql(), c); 
+                if("1".equals(info.get("res").toString())){
+                    TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
+        }
+        return info; 
     }
 
 }

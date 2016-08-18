@@ -100,4 +100,25 @@
       insert into company (fdid,company_name ,address,state,isdeleted,company_type_cd,parent_company_id,create_time,version_time,creator,operator) values (
 	#{fdid},#{staff_company_name},#{temp_str1},'2','0',#{temp_str2},#{staff_parent_company_id},to_date(#{create_time},'yyyy-mm-dd hh24:mi:ss'),to_date(#{create_time},'yyyy-mm-dd hh24:mi:ss'),#{staff_id},#{staff_id})
       </insert>
+	<!-- 获取机构信息列表 -->
+	<select id="getAllOrgs" parameterType="com.bw.fit.common.models.SystemCommonModel"
+		resultType="com.bw.fit.common.models.SystemCommonModel">
+    select * from (
+     select a.fdid select_company_id,a.company_name select_company_name, 
+     (select  name from company_type where fdid = a.company_type_cd and isdeleted='0')temp_str1,
+     (select b.company_name from company b where  a.parent_company_id = b.fdid   ) temp_str2,a.create_time
+    ,rownum pageno
+     from company a where  isdeleted='0' 
+ 		 <if test="select_company_name !='-9'">
+  				and  a.company_name  like '%'||#{select_company_name}||'%'  
+  		</if>
+  		)  cc where 1=1    		
+ 		 <if test="end_num !='-9'">
+  				<![CDATA[  and cc.pageno > #{start_num} and cc.pageno<= #{end_num} ]]>
+  		</if>
+	</select>	
+	<!-- 删除组织 -->
+	<update id="deleteSelectedOrgs"  parameterType="com.bw.fit.common.models.SystemCommonModel">
+	update company set isdeleted='1',version_time=to_date(#{version_time},'yyyy-mm-dd hh24:mi:ss'),operator=#{staff_id}  where fdid = #{select_company_id}
+	</update>
 </mapper>

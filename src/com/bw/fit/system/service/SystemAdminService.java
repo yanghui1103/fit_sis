@@ -22,4 +22,6 @@ public interface SystemAdminService {
     public JSONObject changePasswd(SystemCommonModel c);
     public JSONObject clearPasswd(SystemCommonModel c);
     public JSONObject createNewSysOrgService(SystemCommonModel c);
+    public JSONObject getAllOrgsService(SystemCommonModel c);
+    public JSONObject deleteSelectedOrgs(SystemCommonModel c);
 }

@@ -72,6 +72,10 @@
 			method="updatePositionInfosByPositionId" />
 		<!-- getAllOrgs 获取组织架构(List) -->
 		<action name="getAllOrgs" class="systemAction" method="getAllOrgs" />
+		<!-- 删除选中的组织 -->
+		<action name="deleteSelectedOrgs"  class="systemAction" method="deleteSelectedOrgs" />
+		<!-- 编辑组织资料 -->
+		<action name="updateOrgInfo"   class="systemAction" method="updateOrgInfo" />
 		<!-- getAllOrgs 获取组织架构(List)当前机构下的所有 -->
 		<action name="getAllOrgsUnderMyOrg" class="systemAction"
 			method="getAllOrgsUnderMyOrg" />

@@ -343,4 +343,90 @@ public class SystemAction extends BaseAction{
         wr.close();
         return null;
     }
+    
+    /**
+     * getAllOrgs获取组织架构
+     * 
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    public String getAllOrgs() throws Exception {
+        response.setContentType("text/xml;charset=UTF-8");
+        Writer wr = response.getWriter();
+        SystemCommonModel c = new SystemCommonModel();
+        c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName()); 
+        String str = (request.getParameter("context")) ;
+        JSONObject obj = (JSONObject) JSONValue.parse(str);
+        JSONArray array = (JSONArray) obj.get("content");
+        c.setSelect_company_name((String) (((JSONObject) array.get(0)).get("param1"))); 
+        c.setStart_num((String)(((JSONObject) array.get(0)).get("param2"))); 
+        c.setEnd_num((String)(((JSONObject) array.get(0)).get("param3"))); 
+        c.setRecord_tatol((String)(((JSONObject) array.get(0)).get("param4"))); 
+
+        JSONObject json = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                .getAllOrgsService(c); 
+        wr.write(json.toJSONString());
+        wr.close();
+
+        return null;
+    }
+    /****
+     * deleteSelectedOrgs
+     * 删除组织
+     */
+    public String deleteSelectedOrgs(){
+        try {
+            HttpSession session = request.getSession(false);  
+            response.setContentType("text/xml;charset=UTF-8");
+            Writer wr = response.getWriter();
+            SystemCommonModel c = new SystemCommonModel();
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName()); 
+            String str = (request.getParameter("context")) ;
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
+                    .getStaff_id());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());   
+            JSONObject obj = (JSONObject) JSONValue.parse(str);
+            JSONArray array = (JSONArray) obj.get("content");
+            c.setTemp_str1((String) (((JSONObject) array.get(0)).get("param1")));  
+            JSONObject json = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                    .deleteSelectedOrgs(c); 
+            wr.write(json.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            log.info(e.getLocalizedMessage());
+            e.printStackTrace();
+        }
+
+        return null ;
+    }
+    /**
+     * 编辑组织资料
+     */
+    public String updateOrgInfo(){
+        try {
+            HttpSession session = request.getSession(false);  
+            response.setContentType("text/xml;charset=UTF-8");
+            Writer wr = response.getWriter();
+            SystemCommonModel c = new SystemCommonModel();
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName()); 
+            String str = (request.getParameter("context")) ;
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
+                    .getStaff_id());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());   
+            JSONObject obj = (JSONObject) JSONValue.parse(str);
+            JSONArray array = (JSONArray) obj.get("content");
+            c.setTemp_str1((String) (((JSONObject) array.get(0)).get("param1")));  
+            JSONObject json = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                    .deleteSelectedOrgs(c); 
+            wr.write(json.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            log.info(e.getLocalizedMessage());
+            e.printStackTrace();
+        }
+        return null ;
+    }
 }
