@@ -135,4 +135,9 @@ from company a where fdid = #{fdid}
 	update company set company_name=#{select_company_name} ,address=#{select_company_address},parent_company_id=#{staff_parent_company_id},
 	company_type_cd =#{temp_str1},version_time=to_date(#{version_time},'yyyy-mm-dd hh24:mi:ss'),operator=#{staff_id}    where fdid = #{select_company_id}
 	</update>
+	<!-- 新建角色 -->
+	<insert id="createNewRole"  parameterType="com.bw.fit.common.models.SystemCommonModel">
+	  insert into roles (fdid,role_name,desp,state,create_time,creator,isdeleted,version_time) values
+	(#{fdid},#{role_name},#{temp_str1},'2',to_date(#{version_time},'yyyy-mm-dd hh24:mi:ss'),#{staff_id},'0',to_date(#{version_time},'yyyy-mm-dd hh24:mi:ss'))
+	</insert>
 </mapper>

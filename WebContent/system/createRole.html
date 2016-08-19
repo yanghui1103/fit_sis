@@ -4,26 +4,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="text/javascript">
 $(document).ready(function(){
-	var arr = new Array(20);
+	var arr = new Array(60);
 	for(var i in arr.length){
 		 arr[i] = "-9";		 
 	}arr[0] = "103";arr[1] = "navTab"; 
-	 renderBtnsToDiv($("#createNewRoleBar"),'getAuthorityBtnsByThisUser.action',arr);
+	 renderBtnsToDiv($("#createNewRoleBar", navTab.getCurrentPanel()),'getAuthorityBtnsByThisUser.action',arr);
 
 	 
 });
-$(document).on('click', '#save103', function() {			 
-	 var role_name = $("#role_name").val()==""?"-9":$("#role_name").val();
-	 var remark = $("#remark").val()==""?"-9":$("#remark").val();
-	 var array = new Array(role_name,remark);  
-		createJsonAndAjax(
-				'createNewRole.action',
-				array,
-				dealCreateRoleMsg,'JSON'
-	    );
-});
+$(document).on('click', '#save103', function() {	
+	alertMsg.confirm("是否确认新建该角色！", {
+		 okCall: function(){ 
+			 createJsonAndPost2Java('createNewRole.action',$("#form1", navTab.getCurrentPanel()),dealCreateRoleMsg,'JSON',true) ;
+		 },
+		 cancelCall : function() {}
+		});
+}); 
 	function dealCreateRoleMsg(data){
-		alertToUserMsg(data);		
+		alertToPageMsg(data);		
 	}
 </script>
 </head>
@@ -32,11 +30,11 @@ $(document).on('click', '#save103', function() {
 		<div class="pageFormContent" layoutH="56">
 			<p>
 				<label>角色名称：</label>
-				<input id="role_name"   style="float:left" class="required" type="text" size="30"  alt="请输入角色名称"/>
+				<input id="role_name"  name="role_name" ename="角色名称"  style="float:left" class="required chinese" type="text" size="30"  alt="请输入角色名称"/>
 			</p>
 			<p>
 				<label>备注：</label>
-				<input id="remark"   style="float:left"  type="text" size="30"  alt="请输入备注"/>
+				<input id="remark"  name="remark" ename="备注"  style="float:left" class="chinese"  type="text" size="30"  alt="请输入备注"/>
 			</p>
 		</div>
 		<div class="formBar" id="createNewRoleBar">

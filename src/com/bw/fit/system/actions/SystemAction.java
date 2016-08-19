@@ -469,4 +469,37 @@ public class SystemAction extends BaseAction{
         
         return null ;
     }
+    /**
+     * 新建角色
+     */
+    public String createNewRole(){
+        try {
+            HttpSession session = request.getSession(false);  
+            response.setContentType("text/xml;charset=UTF-8");
+            Writer wr = response.getWriter();
+            SystemCommonModel c = new SystemCommonModel();
+            String str =  (request.getParameter("context")) ; 
+            JSONArray array  = (JSONArray) JSONValue.parse(str);             
+            for(int i=0;i<array.size();i++){
+                if("role_name".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setRole_name(((JSONObject)array.get(i)).get("value").toString());
+                }else if("remark".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setTemp_str1(((JSONObject)array.get(i)).get("value").toString());
+                } 
+            }  
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
+                    .getStaff_id()); 
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());     
+            JSONObject json = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                    .createNewRole(c); 
+            wr.write(json.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            log.info(e.getLocalizedMessage());
+            e.printStackTrace();
+        }
+        
+        return null ;
+    }
 }

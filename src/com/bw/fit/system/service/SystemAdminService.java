@@ -26,5 +26,6 @@ public interface SystemAdminService {
     public JSONObject deleteSelectedOrgs(SystemCommonModel c);
     public JSONObject initOrgInfoEdit(SystemCommonModel c);
     public JSONObject updateOrgInfo(SystemCommonModel c);
+    public JSONObject createNewRole(SystemCommonModel c);
     
 }
