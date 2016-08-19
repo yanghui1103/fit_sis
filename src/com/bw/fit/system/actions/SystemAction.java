@@ -318,7 +318,7 @@ public class SystemAction extends BaseAction{
      */
     public String createNewSysOrg() throws Exception {
         HttpSession session = request.getSession(false);  
-        response.setContentType("text/json;charset=UTF-8");
+        response.setContentType("text/plain;charset=UTF-8");
         Writer wr = response.getWriter();
         SystemCommonModel c = new SystemCommonModel();
         String str =  (request.getParameter("context")) ; 
@@ -406,20 +406,31 @@ public class SystemAction extends BaseAction{
      */
     public String updateOrgInfo(){
         try {
-            HttpSession session = request.getSession(false);  
-            response.setContentType("text/xml;charset=UTF-8");
+            HttpSession session = request.getSession(false);   
+            response.setContentType("text/plain;charset=UTF-8");
             Writer wr = response.getWriter();
             SystemCommonModel c = new SystemCommonModel();
-            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName()); 
-            String str = (request.getParameter("context")) ;
+            String str =  (request.getParameter("context")) ; 
+            JSONArray array  = (JSONArray) JSONValue.parse(str); 
+            
+            for(int i=0;i<array.size();i++){
+                if("orgEditId".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setSelect_company_id(((JSONObject)array.get(i)).get("value").toString());
+                }else if("create_company_name".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setSelect_company_name(((JSONObject)array.get(i)).get("value").toString());
+                }else if("orgLookup.id".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setStaff_parent_company_id(((JSONObject)array.get(i)).get("value").toString());
+                }else if("create_uporg_type".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setTemp_str1(((JSONObject)array.get(i)).get("value").toString());
+                }else if("createComp_address".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setSelect_company_address(((JSONObject)array.get(i)).get("value").toString());
+                }
+            }  
             c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
-                    .getStaff_id());
-            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());   
-            JSONObject obj = (JSONObject) JSONValue.parse(str);
-            JSONArray array = (JSONArray) obj.get("content");
-            c.setTemp_str1((String) (((JSONObject) array.get(0)).get("param1")));  
+                    .getStaff_id()); 
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());     
             JSONObject json = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
-                    .deleteSelectedOrgs(c); 
+                    .updateOrgInfo(c); 
             wr.write(json.toJSONString());
             wr.close();
         } catch (Exception e) {

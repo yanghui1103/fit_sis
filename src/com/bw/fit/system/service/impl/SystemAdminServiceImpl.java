@@ -662,5 +662,25 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         }
         return info;
     }
+    /***
+     * 编辑组织资料
+     */
+    @Override
+    public JSONObject updateOrgInfo(SystemCommonModel c) {
+        // TODO Auto-generated method stub
+        JSONObject info = new JSONObject();
+        try {
+                c.setVersion_time(getSysDate());    
+                c.setSql("systemAdminDAO.updateOrgInfo"); 
+                info = systemMybatisDaoUtil.sysUpdateData(c.getSql(), c); 
+                if("1".equals(info.get("res").toString())){
+                    TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
+                } 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
+        }
+        return info;  
+    }
 
 }
