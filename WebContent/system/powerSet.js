@@ -7,7 +7,7 @@ $(document).ready(function(){
 	for(var i in arr.length){
 		 arr[i] = "-9";		 
 	}arr[0] = "104";arr[1] = "navTab"; 
-	 renderBtnsToDiv($("#powerSetDiv"),'getAuthorityBtnsByThisUser.action',arr);
+	 renderBtnsToDiv($("#powerSetDiv" ),'getAuthorityBtnsByThisUser.action',arr);
 	
 				var setting = {
 					view: {
@@ -110,19 +110,15 @@ $(document).on('click', '#save104', function() {
 	for(var i=0;i<nodes.length;i++) {	     
 		ids = ids + nodes[i].id +","; 
 	}
-	if($("#giveRole_role_cd").val() == "-9"||$("#giveRole_role_cd").val()=="-1"){
+	if($("#giveRole_role_cd", navTab.getCurrentPanel()).val() == "-9"||$("#giveRole_role_cd", navTab.getCurrentPanel()).val()=="-1"){
 		alertMsg.info("请选择角色");
 		return ;
 	}
-	var arr = new Array($("#giveRole_role_cd").val(),ids);
-	createJsonAndAjax(
-			'giveThisRoleFuntions.action',
-			arr,
-			dealGiveAuthMsg,'JSON'
-    );
+	var arr = new Array($("#giveRole_role_cd", navTab.getCurrentPanel()).val(),ids);
+	createJsonAndAjaxNew("giveThisRoleFuntions.action", arr,dealGiveAuthMsg,'json',true); 
 });
 
 
 function dealGiveAuthMsg(data){
-	alertToUserMsg(data);		
+	alertToPageMsg(data);		
 }

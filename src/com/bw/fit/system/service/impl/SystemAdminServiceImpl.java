@@ -699,6 +699,73 @@ public class SystemAdminServiceImpl implements SystemAdminService {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
         }
         return info;  
-    }
+    } 
+        @Override
+        public JSONObject giveThisRoleFuntions(SystemCommonModel c) {
+            // 赋权给角色ID
+            JSONObject info = new JSONObject();
+            try { 
+                c.setSql("systemAdminDAO.qryAuthorityRoleRelation");
+                if (systemMybatisDaoUtil.getListData(c.getSql(), c).size() > 0) { // 如果该角色下有功能
+                    c.setSql("systemAdminDAO.deleteThisRoleFuntions");
+                    info = systemMybatisDaoUtil.sysDeleteData(c.getSql(), c);
+                    if("1".equals(info.get("res").toString())){
+                        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
+                        return info ;
+                    }
+                    c.setSql("systemAdminDAO.deleteThisRoleFuntionsLevel");
+                    JSONObject info_level = systemMybatisDaoUtil.sysDeleteData(
+                            c.getSql(), c); 
+                    if("1".equals(info_level.get("res").toString())){
+                        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
+                        return info ;
+                    }
+                }
+
+                String role_cd = c.getRole_id();
+                String[] nodeArray = c.getTemp_str1().split(",");
+                for (int i = 0; i < nodeArray.length; i++) {
+                    c.setFunc_id(nodeArray[i]);
+                    c.setSql("systemAdminDAO.checkAuthorityExiste");
+                    SystemCommonModel cc = (SystemCommonModel) systemMybatisDaoUtil
+                            .getOneData(c.getSql(), c);
+                    if (Integer.valueOf(cc.getTemp_int1()) < 1) {
+                        // 说明functions表中不存在这个ID的功能,肯定是在btn表里
+                        c.setSql("systemAdminDAO.qryAuthBtnExiste");
+                        List<SystemCommonModel> ls = systemMybatisDaoUtil
+                                .getListData(c.getSql(), c);
+                        c.setSql("systemAdminDAO.giveAuthorityToRoleService");
+                        c.setBtn_cd(ls.get(0).getBtn_cd()); // btn_cd
+                        c.setFunc_id(ls.get(0).getFunc_id()); // 把这个btn的function_cd找到并赋进去
+                        info = systemMybatisDaoUtil.sysUpdateData(c.getSql(), c);
+                        if("1".equals(info.get("res").toString())){
+                            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
+                            return info ;
+                        }
+                        
+                    } else {// 这样就把该功能的展示权限赋上
+                        c.setSql("systemAdminDAO.giveAuthorityToRoleService");
+                        c.setBtn_cd("view");// 展示权限
+                        info = systemMybatisDaoUtil.sysUpdateData(c.getSql(), c);
+                        if("1".equals(info.get("res").toString())){
+                            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
+                            return info ;
+                        }
+                    }
+                    if (!"2".equals(info.get("res").toString())) { 
+                        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
+                        return info;
+                    }
+                }
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            info.put("res", "2");
+            info.put("msg", "赋权成功");
+            return info;
+        }
+ 
 
 }

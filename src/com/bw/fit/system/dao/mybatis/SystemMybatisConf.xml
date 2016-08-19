@@ -140,4 +140,26 @@ from company a where fdid = #{fdid}
 	  insert into roles (fdid,role_name,desp,state,create_time,creator,isdeleted,version_time) values
 	(#{fdid},#{role_name},#{temp_str1},'2',to_date(#{version_time},'yyyy-mm-dd hh24:mi:ss'),#{staff_id},'0',to_date(#{version_time},'yyyy-mm-dd hh24:mi:ss'))
 	</insert>
+ 	 <!--  建立角色与功能关联 -->
+ 	 <insert id="giveAuthorityToRoleService"  parameterType = "com.bw.fit.common.models.SystemCommonModel" >
+ 	   insert into role2function (role_id,function_id,state,btn_cd) values (#{role_id},#{func_id},'2',#{btn_cd})
+ 	 </insert>
+ 	 <select id="qryAuthorityRoleRelation"  parameterType = "com.bw.fit.common.models.SystemCommonModel"  resultType="com.bw.fit.common.models.SystemCommonModel">
+      select function_id func_id   from role2function where role_id = #{role_id}
+ 	 </select>
+ 	 <!--  查询功能页面上其他权限 -->
+ 	 <select id="qryAuthBtnExiste"   parameterType = "com.bw.fit.common.models.SystemCommonModel"  resultType="com.bw.fit.common.models.SystemCommonModel">
+ 	   SELECT fdid ,btn_cd ,btn_name ,function_cd func_id FROM function_btn WHERE fdid =  #{func_id}
+ 	 </select>
+ 	 <!--  检查角色与功能关联 -->
+ 	 <select id="checkAuthorityExiste"   parameterType = "com.bw.fit.common.models.SystemCommonModel"  resultType="com.bw.fit.common.models.SystemCommonModel">
+ 	    select count(1) temp_int1 from functions where   fdid = #{func_id}
+ 	 </select>
+     <!-- 删除角色上所有功能 -->
+     <delete id="deleteThisRoleFuntions"    parameterType = "com.bw.fit.common.models.SystemCommonModel">
+     delete from role2function where role_id =#{role_id}
+     </delete>
+      <delete id="deleteThisRoleFuntionsLevel"    parameterType = "com.bw.fit.common.models.SystemCommonModel">
+     delete from role2function2qrylevel where role_id =#{role_id} 
+     </delete>
 </mapper>

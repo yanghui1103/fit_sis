@@ -502,4 +502,33 @@ public class SystemAction extends BaseAction{
         
         return null ;
     }
+    /**
+     * 赋权给角色
+     */
+    public String giveThisRoleFuntions()   {
+        try {
+            HttpSession session = request.getSession(false);  
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            JSONObject obj = (JSONObject) JSONValue.parse(str);
+            JSONArray array = (JSONArray) obj.get("content");
+            String param1 = (String) (((JSONObject) array.get(0)).get("param1"));
+            SystemCommonModel c = new SystemCommonModel();
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
+            c.setRole_id(param1);
+            c.setTemp_str1((String) (((JSONObject) array.get(0)).get("param2")));
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
+                    .getStaff_id());
+            JSONObject objItem = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                    .giveThisRoleFuntions(c);
+            wr.write(objItem.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        return null ;
+    }
 }
