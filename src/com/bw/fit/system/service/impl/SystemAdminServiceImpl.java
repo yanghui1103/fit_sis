@@ -713,12 +713,16 @@ public class SystemAdminServiceImpl implements SystemAdminService {
                         TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
                         return info ;
                     }
-                    c.setSql("systemAdminDAO.deleteThisRoleFuntionsLevel");
-                    JSONObject info_level = systemMybatisDaoUtil.sysDeleteData(
-                            c.getSql(), c); 
-                    if("1".equals(info_level.get("res").toString())){
-                        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
-                        return info ;
+
+                    c.setSql("systemAdminDAO.qryAuthorityRoleRelation2");
+                    if (systemMybatisDaoUtil.getListData(c.getSql(), c).size() > 0) {
+                        c.setSql("systemAdminDAO.deleteThisRoleFuntionsLevel");
+                        JSONObject info_level = systemMybatisDaoUtil.sysDeleteData(
+                                c.getSql(), c); 
+                        if("1".equals(info_level.get("res").toString())){
+                            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
+                            return info ;
+                        }
                     }
                 }
 
@@ -766,6 +770,96 @@ public class SystemAdminServiceImpl implements SystemAdminService {
             info.put("msg", "赋权成功");
             return info;
         }
- 
+        @Override
+        public JSONObject qryRoleRelatFuncInfoList(SystemCommonModel c) {
+            // TODO Auto-generated method stub
+         // 根据角色查询功能权级信息列表
+            JSONObject info = new JSONObject();
+            try {
+                c.setSql("systemAdminDAO.qryRoleRelatFuncInfoList");
+                List<SystemCommonModel> list = systemMybatisDaoUtil.getListData(
+                        c.getSql(), c); 
+                if(list.size()<1){
+                    info.put("res", "1");
+                    info.put("msg","无数据");
+                    info.put("pageNum","0");
+                    info.put("tatol", "0");
+                    return info ;
+                }else{
+                    info.put("res", "2");
+                    info.put("msg","执行成功"); 
+                }
+                JSONArray array = new JSONArray();
+                for(int i=0;i<list.size();i++){
+                    JSONObject jsonObjArr = new JSONObject();
+                    jsonObjArr.put("role_id", (list.get(i)).getFdid());
+                    jsonObjArr.put("func_id", (list.get(i)).getFunc_id());
+                    jsonObjArr.put("role_name", (list.get(i)).getRole_name());
+                    jsonObjArr.put("func_name", (list.get(i)).getFunc_name());
+                    jsonObjArr.put("parent_func_name", (list.get(i)).getTemp_str1());
+                    jsonObjArr.put("func_level", (list.get(i)).getFunc_level());
+                    jsonObjArr.put("version_time", (list.get(i)).getTemp_str2());
+                    jsonObjArr.put("operator", (list.get(i)).getStaff_name());
+                    array.add(jsonObjArr);
+                    jsonObjArr = null;
+                }
+                info.put("list", array);
+                array = null;
+                c.setEnd_num("-9");
+                List<SystemCommonModel> list_total = systemMybatisDaoUtil.getListData(
+                        c.getSql(), c); 
+                info.put("pageNum", 
+                        getPageTatolNum(list_total.size(),
+                                Integer.valueOf(c.getRecord_tatol())));
+                info.put("tatol", list_total.size());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                log.info(ex.getMessage());
+            }
+            return info;   
+        }
+        /**
+         * 保存权级信息
+         */
+        
+        @Override
+        public JSONObject saveRoleFuncLevelInfo(SystemCommonModel c) { 
+            JSONObject info1 =  new JSONObject();
+            JSONObject info =  new JSONObject();
+            try {
+                c.setCreate_time(getSysDateM());
+                String[] roleFuncArray = c.getTemp_str1().split(",");// 角色功能数组
+                for(int i =0;i<roleFuncArray.length;i++){
+                    String[] array = roleFuncArray[i].split(";");
+                    c.setRole_id(array[0]);             c.setFunc_id(array[1]);
+                    c.setSql("systemAdminDAO.qryRoleRelatFuncExsistInfo");
+                    List<SystemCommonModel> list = systemMybatisDaoUtil.getListData(
+                            c.getSql(), c); 
+                    c.setFdid(getUUID()); 
+                    if(list.size()>0){
+                        c.setSql("systemAdminDAO.changeRoleFuncLevelInfo");
+                        info1 = systemMybatisDaoUtil.sysUpdateData(c.getSql(),c);
+                    }else{
+                        c.setSql("systemAdminDAO.createRoleFuncLevelInfo");
+                        info1 = systemMybatisDaoUtil.sysUpdateData(c.getSql(),c);
+                    }
+                    if(!"2".equals(info1.get("res").toString())){
+                        info = info1 ;
+                        info1 = null ;
+                        TransactionAspectSupport.currentTransactionStatus()
+                        .setRollbackOnly();                 
+                        return info;
+                    }
+                }
+
+            }catch(Exception ex){
+                ex.printStackTrace();
+                
+            }
+            info.put("res", "2");
+            info.put("msg", "执行成功");
+            return info;
+        }
+
 
 }

@@ -22,8 +22,7 @@
 	function qryRoleRelatFuncInfoList(num){ 
 		var funcConf_role_cd = $("#funcConf_role_cd").val() == "" ? "-9" : $("#funcConf_role_cd").val();
 		var array = new Array(funcConf_role_cd, num*total + "", (num*total + total)+"",total+"" );  
-		createJsonAndAjax('qryRoleRelatFuncInfoList.action', array, dealQryRoleRelatFuncInfoList,
-				'JSON');		
+		createJsonAndAjaxNew('qryRoleRelatFuncInfoList.action',array,dealQryRoleRelatFuncInfoList,'JSON',true) ;		
 
 	}
 	

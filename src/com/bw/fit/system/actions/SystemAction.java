@@ -531,4 +531,66 @@ public class SystemAction extends BaseAction{
         
         return null ;
     }
+    
+    /**
+     * 根据角色查询功能权级信息
+     */
+    public String qryRoleRelatFuncInfoList()  {
+        try {
+            HttpSession session = request.getSession(false);  
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            JSONObject obj = (JSONObject) JSONValue.parse(str);
+            JSONArray array = (JSONArray) obj.get("content");
+            String param1 = (String) (((JSONObject) array.get(0)).get("param1"));       
+            SystemCommonModel c = new SystemCommonModel(); 
+            c.setStart_num( (String) (((JSONObject) array.get(0)).get("param2")));
+            c.setEnd_num((String) (((JSONObject) array.get(0)).get("param3")));
+            c.setRecord_tatol((String) (((JSONObject) array.get(0)).get("param4")));
+            c.setRole_id(param1); 
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
+                    .getStaff_id());
+            JSONObject objItem = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                    .qryRoleRelatFuncInfoList(c); 
+            wr.write(objItem.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            log.info(e.getLocalizedMessage());
+            e.printStackTrace();
+        }
+        
+        return null ;
+    }
+    /**
+     * 保存权级信息
+     * @author yangh
+     */
+    public String saveRoleFuncLevelInfo()  {
+        try {
+            HttpSession session = request.getSession(false);  
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            JSONObject obj = (JSONObject) JSONValue.parse(str);
+            JSONArray array = (JSONArray) obj.get("content");
+            String param1 = (String) (((JSONObject) array.get(0)).get("param1"));       
+            SystemCommonModel c = new SystemCommonModel();  
+            c.setTemp_str1(param1); 
+            c.setItem_type((String) (((JSONObject) array.get(0)).get("param2")));
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
+                    .getStaff_id());
+            JSONObject objItem = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                    .saveRoleFuncLevelInfo(c);
+            log.info((objItem.toJSONString()));
+            wr.write(objItem.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        return null ;
+    }
 }

@@ -162,4 +162,38 @@ from company a where fdid = #{fdid}
       <delete id="deleteThisRoleFuntionsLevel"    parameterType = "com.bw.fit.common.models.SystemCommonModel">
      delete from role2function2qrylevel where role_id =#{role_id} 
      </delete>
+     <select id="qryAuthorityRoleRelation2"  parameterType = "com.bw.fit.common.models.SystemCommonModel"  resultType="com.bw.fit.common.models.SystemCommonModel">
+ 	  select * from   role2function2qrylevel where role_id =#{role_id}      
+     </select>
+      	 <!-- 根据角色查询功能及权级信息 -->
+ 	 <select id="qryRoleRelatFuncInfoList"   parameterType = "com.bw.fit.common.models.SystemCommonModel"  resultType="com.bw.fit.common.models.SystemCommonModel">
+ 	 select * from (
+       	select rl.fdid ,fr.fdid func_id, rl.role_name,fr.function_name func_name,(select function_name from functions a where a.fdid = fr.parent_function_id ) temp_str1,
+	(select st.item_name  from  role2function2qrylevel rq ,sys_item st  where  rq.role_id = rl.fdid and rq.function_id = fr.fdid and st.fdid = rq.level_code and st.itype='QRYLEVEL' ) func_level ,
+	(select rq.version_time  from  role2function2qrylevel rq   where  rq.role_id = rl.fdid and rq.function_id = fr.fdid ) temp_str2, 
+	(select sa.staff_name  from  role2function2qrylevel rq,staff sa   where  rq.role_id = rl.fdid and rq.function_id = fr.fdid and sa.fdid = rq.operator )   staff_name,rownum pageno
+		from roles rl ,role2function rf ,functions fr
+		where rl.fdid = rf.role_id  and rf.function_id = fr.fdid  and fr.func_level = '3' and rf.btn_cd = 'view' and fr.fdid not like '1%'
+   		<if test="role_id !='-9'">
+  				and   rl.fdid   = #{role_id}   
+  		</if> 
+ 			order by rl.fdid asc 
+  		)  cc where 1=1    		
+ 		 <if test="end_num !='-9'">
+  				<![CDATA[  and cc.pageno > #{start_num} and cc.pageno<= #{end_num} ]]>
+  		</if>
+       	</select>
+       	<!-- 根据角色和功能查询它是否有权级 -->
+       	<select id="qryRoleRelatFuncExsistInfo"    parameterType = "com.bw.fit.common.models.SystemCommonModel"  resultType="com.bw.fit.common.models.SystemCommonModel">
+ 			select si.fdid
+			from role2function2qrylevel rq,sys_item si where si.fdid = rq.level_code and  si.itype = 'QRYLEVEL' and rq.role_id = #{role_id} and rq.function_id = #{func_id}       	
+       	</select>
+       	<!-- 更新角色功能的权级 -->
+       	<update id="changeRoleFuncLevelInfo" parameterType = "com.bw.fit.common.models.SystemCommonModel"  >
+       	update role2function2qrylevel set level_code = #{item_type},operator=#{staff_id},version_time=to_date(#{create_time},'yyyy-mm-dd hh24:mi')  where role_id=#{role_id} and function_id = #{func_id} 
+       	</update>
+       	<insert id="createRoleFuncLevelInfo"  parameterType = "com.bw.fit.common.models.SystemCommonModel"  >
+       	insert into role2function2qrylevel (fdid,role_id,function_id,level_code,version_time,operator) values (
+		#{fdid},#{role_id},#{func_id},#{item_type},to_date(#{create_time},'yyyy-mm-dd hh24:mi'),#{staff_id})
+       	</insert>
 </mapper>

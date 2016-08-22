@@ -28,6 +28,8 @@ public interface SystemAdminService {
     public JSONObject updateOrgInfo(SystemCommonModel c);
     public JSONObject createNewRole(SystemCommonModel c);
     public JSONObject giveThisRoleFuntions(SystemCommonModel c);
+    public JSONObject qryRoleRelatFuncInfoList(SystemCommonModel c);
+    public JSONObject saveRoleFuncLevelInfo(SystemCommonModel c);
     
     
 }
