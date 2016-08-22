@@ -1,5 +1,7 @@
 package com.bw.fit.common.models;
 
+import java.util.List;
+
 
 public class SystemCommonModel {    
     private String staff_number ;
@@ -17,6 +19,7 @@ public class SystemCommonModel {
     private String staff_parent_company_id ;
     private String staff_company_id ;
     private String staff_company_name ;
+    private String staff_phone;
     public String address ;
     public String start_date ;
     public String end_date ;
@@ -60,6 +63,7 @@ public class SystemCommonModel {
     private String temp_str1;
     private String temp_str2;
     private String temp_str3;
+    private List<String> temp_list ;
     private String rpt_date; 
     private String card_id; 
     private String person_name; 
@@ -83,6 +87,12 @@ public class SystemCommonModel {
     
     
     
+    public String getStaff_phone() {
+        return staff_phone;
+    }
+    public void setStaff_phone(String staff_phone) {
+        this.staff_phone = staff_phone;
+    }
     public String getSelect_company_address() {
         return select_company_address;
     }
@@ -508,6 +518,12 @@ public class SystemCommonModel {
     }
     public void setRpt_month_count(String rpt_month_count) {
         this.rpt_month_count = rpt_month_count;
+    }
+    public List<String> getTemp_list() {
+        return temp_list;
+    }
+    public void setTemp_list(List<String> temp_list) {
+        this.temp_list = temp_list;
     }
     
     

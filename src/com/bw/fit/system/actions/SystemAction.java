@@ -593,4 +593,171 @@ public class SystemAction extends BaseAction{
         
         return null ;
     }
+    /**
+     * 新建用户资料
+     */
+    public String createNewSysUser()  throws Exception {
+        try {
+            HttpSession session = request.getSession(false);  
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            SystemCommonModel c = new SystemCommonModel();
+            String str =  (request.getParameter("context")) ; 
+            JSONArray array  = (JSONArray) JSONValue.parse(str); 
+            for(int i=0;i<array.size();i++){
+                if("createUser_user_cd".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setStaff_number(((JSONObject)array.get(i)).get("value").toString());
+                }else if("createUser_user_name".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setStaff_name(((JSONObject)array.get(i)).get("value").toString());
+                }else if("orgLookup.id".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setSelect_company_id(((JSONObject)array.get(i)).get("value").toString());
+                }else if("createUser_phone".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setStaff_phone(((JSONObject)array.get(i)).get("value").toString());
+                }else if("createUser_address".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setSelect_company_address(((JSONObject)array.get(i)).get("value").toString());
+                }else if("createUser_role_cd".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setRole_id(((JSONObject)array.get(i)).get("value").toString());
+                }else if("createUser_type_cd".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setTemp_str2(((JSONObject)array.get(i)).get("value").toString());
+                } 
+            }  
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")).getStaff_id());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());   
+            JSONObject objItem = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                    .createNewSysUser(c);
+            wr.write(objItem.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        
+        return null ;
+    }
+    /**
+     * qryAllUserInfoList
+     * 用户列表
+     */
+    public String qryAllUserInfoList()   throws Exception {
+        try {
+            HttpSession session = request.getSession(false);  
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            JSONObject obj = (JSONObject) JSONValue.parse(str);
+            JSONArray array = (JSONArray) obj.get("content");
+            String param1 = (String) (((JSONObject) array.get(0)).get("param1"));       
+            SystemCommonModel c = new SystemCommonModel();  
+            c.setFdid(getUUID());
+            c.setTemp_str1(param1);  
+            c.setSelect_company_id( (String) (((JSONObject) array.get(0)).get("param2")));
+            c.setRole_id( (String) (((JSONObject) array.get(0)).get("param3")));
+            c.setStart_num( (String) (((JSONObject) array.get(0)).get("param4")));
+            c.setEnd_num( (String) (((JSONObject) array.get(0)).get("param5")));
+            c.setRecord_tatol( (String) (((JSONObject) array.get(0)).get("param6")));
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
+                    .getStaff_id());
+            JSONObject objItem = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                    .qryAllUserInfoList(c); 
+            wr.write(objItem.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        return null ;
+    }
+    
+    /**
+     * 删除用户
+     */
+    public String deleteUserInfo()  throws Exception {
+        try {
+            HttpSession session = request.getSession(false);  
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            JSONObject obj = (JSONObject) JSONValue.parse(str);
+            JSONArray array = (JSONArray) obj.get("content");
+            String param1 = (String) (((JSONObject) array.get(0)).get("param1"));       
+            SystemCommonModel c = new SystemCommonModel();  
+            c.setFdid(getUUID());
+            c.setTemp_str1(param1);   
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
+                    .getStaff_id());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName()); 
+            JSONObject objItem = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                    .deleteUserInfo(c); 
+            wr.write(objItem.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        return null ;
+    }
+    /**
+     * 获取单个用户资料
+     */
+    public String getThisUserInfo()  throws Exception {
+        try {
+            HttpSession session = request.getSession(false);  
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            JSONObject obj = (JSONObject) JSONValue.parse(str);
+            JSONArray array = (JSONArray) obj.get("content");
+            String param1 = (String) (((JSONObject) array.get(0)).get("param1"));       
+            SystemCommonModel c = new SystemCommonModel();  
+            c.setFdid(param1);   
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
+                    .getStaff_id());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName()); 
+            JSONObject objItem = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                    .getThisUserInfo(c); 
+            wr.write(objItem.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        return null ;
+    }
+    /**
+     * updateUserInfo
+     * 用户资料编辑
+     */
+    public String updateUserInfo()  throws Exception {
+        HttpSession session = request.getSession(false);  
+        response.setContentType("text/plain;charset=UTF-8");
+        Writer wr = response.getWriter();
+        String str =  (request.getParameter("context")) ; 
+        JSONObject obj = (JSONObject) JSONValue.parse(str);
+        JSONArray array = (JSONArray) obj.get("content");
+        String param1 = (String) (((JSONObject) array.get(0)).get("param1"));       
+        SystemCommonModel c = new SystemCommonModel();  
+        c.setFdid(param1);   
+        c.setStaff_number((String) (((JSONObject) array.get(0)).get("param2")));
+        c.setStaff_name((String) (((JSONObject) array.get(0)).get("param3")));
+        c.setSelect_company_id((String) (((JSONObject) array.get(0)).get("param4")));
+        c.setStaff_phone((String) (((JSONObject) array.get(0)).get("param5")));
+        c.setSelect_company_address((String) (((JSONObject) array.get(0)).get("param6")));
+        c.setRole_id((String) (((JSONObject) array.get(0)).get("param7")));
+        c.setCreate_time((String) (((JSONObject) array.get(0)).get("param8")));
+        c.setTemp_str2((String) (((JSONObject) array.get(0)).get("param9")));
+        c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
+                .getStaff_id());
+        c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName()); 
+        JSONObject objItem = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                .updateUserInfo(c);
+        log.info((objItem.toJSONString()));
+        wr.write(objItem.toJSONString());
+        wr.close();
+        
+        return null ;
+    }
 }

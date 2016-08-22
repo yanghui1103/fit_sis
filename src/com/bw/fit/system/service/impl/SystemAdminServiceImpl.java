@@ -2,6 +2,7 @@ package com.bw.fit.system.service.impl;
 import static com.bw.fit.common.utils.PubFun.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -861,5 +862,200 @@ public class SystemAdminServiceImpl implements SystemAdminService {
             return info;
         }
 
+        @Override
+        public JSONObject createNewSysUser(SystemCommonModel c) {
+            // 新建用户资料
+            JSONObject info1 = new JSONObject();
+            JSONObject info = new JSONObject();
+            try {
+                c.setCreate_time(getSysDateM());
+                c.setFdid(getUUID());
+                c.setSql("systemAdminDAO.createNewSysUser");
+                info1 = systemMybatisDaoUtil.sysUpdateData(c.getSql(), c);
+                if ("2".equals(info1.get("res").toString())) {
+                    c.setTemp_str1(getUUID());
+                    c.setSql("systemAdminDAO.createStaff2Role");
+                    info1 = systemMybatisDaoUtil.sysUpdateData(
+                            c.getSql(), c);
+                    if ("2".equals(info1.get("res").toString())) {
+                        c.setSql("systemAdminDAO.createStaff2Company");
+                        info1 = systemMybatisDaoUtil.sysUpdateData(
+                                c.getSql(), c);
+                        if ("2".equals(info1.get("res").toString())) { 
+                            return info1;
+                        } else {
+                            TransactionAspectSupport.currentTransactionStatus()
+                                    .setRollbackOnly();
+                            info.put("res", "1");
+                            info.put("msg", "系统出错");
+                            return info;
+                        }
+                    } else {
+                        TransactionAspectSupport.currentTransactionStatus()
+                                .setRollbackOnly();
+                        info.put("res", "1");
+                        info.put("msg", "系统出错");
+                        return info;
+                    }
+
+                } else {
+                    TransactionAspectSupport.currentTransactionStatus()
+                            .setRollbackOnly();
+                    info.put("res", "1");
+                    info.put("msg", "系统出错");
+                    return info;
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            return info;
+        }
+
+        @Override
+        public JSONObject qryAllUserInfoList(SystemCommonModel c) {
+            // 用户列表
+            JSONObject info = new JSONObject();
+            try {
+                c.setSql("systemAdminDAO.qryAllUserInfoList"); 
+                String[] comps = c.getSelect_company_id().split(",");
+                List<String> ls = Arrays.asList(comps);
+                c.setTemp_list(ls);
+                List<SystemCommonModel> list = systemMybatisDaoUtil.getListData(
+                        c.getSql(), c); 
+                if(list.size()<1){
+                    info.put("res", "1");
+                    info.put("msg","无数据");
+                    info.put("pageNum","0");
+                    info.put("tatol", "0");
+                    return info ;
+                }else{
+                    info.put("res", "2");
+                    info.put("msg","执行成功"); 
+                }
+                JSONArray array = new JSONArray();
+                for(int i=0;i<list.size();i++){
+                    JSONObject jsonObjArr = new JSONObject();
+                    jsonObjArr.put("staff_id", (list.get(i)).getFdid());
+                    jsonObjArr.put("staff_number", (list.get(i)).getStaff_number());
+                    jsonObjArr.put("staff_name", (list.get(i)).getStaff_name());
+                    jsonObjArr.put("phone", (list.get(i)).getStaff_phone()); 
+                    jsonObjArr.put("address", (list.get(i)).getSelect_company_address());
+                    jsonObjArr.put("role_name", (list.get(i)).getRole_name());
+                    jsonObjArr.put("company_name", (list.get(i)).getSelect_company_name());
+                    array.add(jsonObjArr);
+                    jsonObjArr = null;
+                }
+                info.put("list", array);
+                array = null;
+                c.setEnd_num("-9");
+                List<SystemCommonModel> list_total = systemMybatisDaoUtil.getListData(
+                        c.getSql(), c); 
+                info.put("pageNum", 
+                        getPageTatolNum(list_total.size(),
+                                Integer.valueOf(c.getRecord_tatol())));
+                info.put("tatol", list_total.size());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                log.info(ex.getMessage());
+            }
+            return info;
+        }
+
+        @Override
+        public JSONObject deleteUserInfo(SystemCommonModel c) {
+            // 删除用户
+            JSONObject info = new JSONObject();
+            try { 
+                c.setCreate_time(getSysDate());
+                String[] array = c.getTemp_str1().split(",");
+                for(int i =0;i<array.length;i++){
+                    c.setFdid(array[i]);
+                    c.setSql("systemAdminDAO.deleteUserInfo"); 
+                    info= systemMybatisDaoUtil.sysUpdateData(c.getSql(), c);
+                    if(!"2".equals(info.get("res").toString())){
+                         TransactionAspectSupport.currentTransactionStatus()
+                            .setRollbackOnly(); 
+                                return info;
+                     } 
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            return info;
+        }
+
+        @Override
+        public JSONObject getThisUserInfo(SystemCommonModel c) {
+            // 获取一个用户资料
+            JSONObject info = new JSONObject();
+            try {
+                c.setSql("systemAdminDAO.getThisUserInfo");
+                List<SystemCommonModel> list = systemMybatisDaoUtil.getListData(
+                        c.getSql(), c); 
+                if(list.size()<1){
+                    info.put("res", "1");
+                    info.put("msg","无数据"); 
+                    return info ;
+                }else{
+                    info.put("res", "2");
+                    info.put("msg","执行成功"); 
+                }
+                JSONArray array = new JSONArray();
+                for(int i=0;i<1;i++){
+                    JSONObject jsonObjArr = new JSONObject();
+                    jsonObjArr.put("staff_number", (list.get(i)).getStaff_number());
+                    jsonObjArr.put("staff_name", (list.get(i)).getStaff_name());
+                    jsonObjArr.put("company_name", (list.get(i)).getSelect_company_name());
+                    jsonObjArr.put("company_id", (list.get(i)).getSelect_company_id());
+                    jsonObjArr.put("staff_phone", (list.get(i)).getStaff_phone()); 
+                    jsonObjArr.put("staff_address", (list.get(i)).getSelect_company_address()); 
+                    jsonObjArr.put("role_id", (list.get(i)).getRole_id()); 
+                    jsonObjArr.put("staff_type_cd", (list.get(i)).getTemp_str1()); 
+                    jsonObjArr.put("create_time", (list.get(i)).getCreate_time()); 
+                    array.add(jsonObjArr);
+                    jsonObjArr = null;
+                }
+                info.put("list", array);
+                array = null; 
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                log.info(ex.getMessage());
+            }
+            return info;
+        }
+
+        @Override
+        public JSONObject updateUserInfo(SystemCommonModel c) {
+            // 用户资料编辑
+            JSONObject info = new JSONObject();
+            try {  
+                    c.setSql("systemAdminDAO.updateUserInfo"); 
+                    info= systemMybatisDaoUtil.sysUpdateData(c.getSql(), c);
+                    if(!"2".equals(info.get("res").toString())){
+                         TransactionAspectSupport.currentTransactionStatus()
+                            .setRollbackOnly(); 
+                                return info;
+                    }
+                    // 变更组织
+                    c.setSql("systemAdminDAO.updateUserComp"); 
+                    info = systemMybatisDaoUtil.sysUpdateData(c.getSql(), c);
+                    if(!"2".equals(info.get("res").toString())){
+                         TransactionAspectSupport.currentTransactionStatus()
+                            .setRollbackOnly(); 
+                                return info;
+                    }
+                    //变更角色
+                    c.setSql("systemAdminDAO.updateUserRole"); 
+                    info = systemMybatisDaoUtil.sysUpdateData(c.getSql(), c);
+                    if(!"2".equals(info.get("res").toString())){
+                         TransactionAspectSupport.currentTransactionStatus()
+                            .setRollbackOnly(); 
+                                return info;
+                    } 
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            return info;
+        }
 
 }

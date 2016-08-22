@@ -173,7 +173,7 @@ from company a where fdid = #{fdid}
 	(select rq.version_time  from  role2function2qrylevel rq   where  rq.role_id = rl.fdid and rq.function_id = fr.fdid ) temp_str2, 
 	(select sa.staff_name  from  role2function2qrylevel rq,staff sa   where  rq.role_id = rl.fdid and rq.function_id = fr.fdid and sa.fdid = rq.operator )   staff_name,rownum pageno
 		from roles rl ,role2function rf ,functions fr
-		where rl.fdid = rf.role_id  and rf.function_id = fr.fdid  and fr.func_level = '3' and rf.btn_cd = 'view' and fr.fdid not like '1%'
+		where rl.fdid = rf.role_id  and rf.function_id = fr.fdid  and fr.func_level = '3' and rf.btn_cd = 'view' 
    		<if test="role_id !='-9'">
   				and   rl.fdid   = #{role_id}   
   		</if> 
@@ -196,4 +196,68 @@ from company a where fdid = #{fdid}
        	insert into role2function2qrylevel (fdid,role_id,function_id,level_code,version_time,operator) values (
 		#{fdid},#{role_id},#{func_id},#{item_type},to_date(#{create_time},'yyyy-mm-dd hh24:mi'),#{staff_id})
        	</insert>
+ 	 <!-- 新建用户资料 -->
+ 	 <insert id="createNewSysUser"   parameterType = "com.bw.fit.common.models.SystemCommonModel" >
+ 	 insert into staff (fdid,staff_number,staff_name,phone,address,passwd,isdeleted,state,staff_type_cd,create_time,version_time,creator,operator) values (
+		#{fdid},#{staff_number},#{staff_name},#{staff_phone},#{select_company_address},'E10ADC3949BA59ABBE56E057F20F883E','0','2',#{temp_str2},
+		to_date(#{create_time},'yyyy-mm-dd hh24:mi'),to_date(#{create_time},'yyyy-mm-dd hh24:mi'),#{staff_id},#{staff_id})
+ 	 </insert>
+ 	 <!-- 建立用户与角色关系 -->
+ 	 <insert id="createStaff2Role"  parameterType = "com.bw.fit.common.models.SystemCommonModel" >
+ 	 insert into staff2roles (fdid,staff_id,role_id,isdeleted,create_time,version_time,creator,operator) values (
+		#{temp_str1},#{fdid},#{role_id},'0',to_date(#{create_time},'yyyy-mm-dd hh24:mi'),to_date(#{create_time},'yyyy-mm-dd hh24:mi'),#{staff_id},#{staff_id})
+ 	 </insert>
+ 	 <!-- 建立用户与组织关系 -->
+ 	 <insert id="createStaff2Company"  parameterType = "com.bw.fit.common.models.SystemCommonModel" >
+ 	 insert into staff2company (staff_id,company_id) values (#{fdid},#{select_company_id})
+ 	 </insert>
+       	<!-- 用户列表 -->
+       	<select id="qryAllUserInfoList"    parameterType = "com.bw.fit.common.models.SystemCommonModel"  resultType="com.bw.fit.common.models.SystemCommonModel">
+ 	 select * from (
+        select sf.fdid ,sf.staff_number,sf.staff_name,sf.phone staff_phone,sf.address select_company_address,rl.role_name,cp.company_name  select_company_name,rownum pageno
+from staff sf ,company cp,staff2company sc,staff2roles sr,roles rl
+where sf.fdid = sc.staff_id and sc.company_id = cp.fdid 
+and sf.fdid = sr.staff_id and sr.role_id = rl.fdid   and sf.isdeleted = '0'
+   		<if test="role_id !='-9'">
+  				and   rl.fdid   = #{role_id}   
+  		</if> 
+  		<if test="temp_str1 !='-9'">
+  				and   sf.staff_name  like  '%'||#{temp_str1}||'%'   
+  		</if>
+  		<if test="select_company_id !='-9'"> 
+  			and cp.fdid  in
+  			<foreach item="item" index="index" collection="temp_list" open="(" separator="," close=")">  
+  					#{item}  
+ 			</foreach>   
+  		</if> 
+ 			order by sf.fdid asc 
+  		)  cc where 1=1    		
+ 		 <if test="end_num !='-9'">
+  				<![CDATA[  and cc.pageno > #{start_num} and cc.pageno<= #{end_num} ]]>
+  		</if>       	
+       	</select>
+      <!-- 删除用户 -->
+      <update id="deleteUserInfo"    parameterType = "com.bw.fit.common.models.SystemCommonModel" >
+      update staff set isdeleted = '1',version_time=to_date(#{create_time},'yyyy-mm-dd hh24:mi:ss'),operator=#{staff_id}  where fdid = #{fdid}
+      </update>
+      <!-- 获取用户资料 -->
+      <select id="getThisUserInfo"    parameterType = "com.bw.fit.common.models.SystemCommonModel"  resultType="com.bw.fit.common.models.SystemCommonModel">
+ 			      select staff_number,staff_name ,company_name select_company_name ,cp.fdid select_company_id,sf.phone staff_phone,sf.address select_company_address ,rl.fdid role_id ,sf.staff_type_cd temp_str1 ,sf.create_time
+from staff sf,staff2company sc,company cp,staff2roles sr,roles rl 
+where sf.fdid = sc.staff_id and sc.company_id = cp.fdid and sf.fdid = sr.staff_id 
+and sr.role_id = rl.fdid and sf.fdid = #{fdid}
+      </select>
+      <!-- 用户资料编辑 -->
+      <update id="updateUserInfo"   parameterType = "com.bw.fit.common.models.SystemCommonModel" >
+      update staff set staff_number =#{staff_number},staff_name = #{staff_name},phone=#{staff_phone},address=#{select_company_address},
+      staff_type_cd = #{temp_str2} where fdid = #{fdid} 
+      </update>
+      <!-- 用户变更组织 -->
+      <update id="updateUserComp"   parameterType = "com.bw.fit.common.models.SystemCommonModel" >
+      update staff2company set company_id =#{select_company_id} where staff_id = #{fdid}
+      </update>
+      <!-- 用户变更角色 -->
+      <update id="updateUserRole"   parameterType = "com.bw.fit.common.models.SystemCommonModel" >
+      update staff2roles set role_id =#{role_id} where staff_id = #{fdid}
+      </update>
 </mapper>

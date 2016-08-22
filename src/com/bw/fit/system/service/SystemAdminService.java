@@ -30,6 +30,10 @@ public interface SystemAdminService {
     public JSONObject giveThisRoleFuntions(SystemCommonModel c);
     public JSONObject qryRoleRelatFuncInfoList(SystemCommonModel c);
     public JSONObject saveRoleFuncLevelInfo(SystemCommonModel c);
-    
+    public JSONObject createNewSysUser(SystemCommonModel c);
+    public JSONObject qryAllUserInfoList(SystemCommonModel c);
+    public JSONObject deleteUserInfo(SystemCommonModel c);
+    public JSONObject getThisUserInfo(SystemCommonModel c);
+    public JSONObject updateUserInfo(SystemCommonModel c);
     
 }

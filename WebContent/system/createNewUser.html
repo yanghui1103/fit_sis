@@ -19,78 +19,71 @@ $(document).ready(function(){
 });
 
 baidu(document).on('click', '#save101', function() {	 
-	var createUser_user_cd = $("#createUser_user_cd").val()=="" ?"-9":$("#createUser_user_cd").val();
-	var createUser_user_name = $("#createUser_user_name").val()=="" ?"-9":$("#createUser_user_name").val();
-	var createUser_org_name = $("#createUser_org_name").val()==""?"-9":$("#createUser_org_name").val();
-	var createUser_org_id = $("#createUser_org_id").val()==""?"-9":$("#createUser_org_id").val();
-	var createUser_phone = $("#createUser_phone").val()=="" ?"-9":$("#createUser_phone").val();
-	var createUser_fixedphone = $("#createUser_fixedphone").val()==""?"-9":$("#createUser_fixedphone").val();
-	var createUser_address = $("#createUser_address").val()=="" ?"-9":$("#createUser_address").val();
-	var createUser_role_cd = $("#createUser_role_cd").val()==""?"-9":$("#createUser_role_cd").val();
-	var createUser_entry_time = $("#createUser_entry_time").val()==""?"-9":$("#createUser_entry_time").val();
-	var createUser_type_cd = $("#createUser_type_cd").val()==""?"-9":$("#createUser_type_cd").val();
-	 var array = new Array(createUser_user_cd, createUser_user_name,createUser_org_name,
-			 createUser_org_id, createUser_phone,createUser_fixedphone,
-			 createUser_address, createUser_role_cd,createUser_entry_time,createUser_type_cd);  
-
-		createJsonAndAjax(
-				'createNewSysUser.action',
-				array,
-				dealCreateUserMsg,'JSON'
-	    );
+		alertMsg.confirm("是否确认新增该用户！", {
+			 okCall: function(){
+				 if($("#createUser_role_cd",navTab.getCurrentPanel()).val() =="-9"){
+					 alertMsg.info("请选择角色");return ;
+				 }
+				 if($("#createUser_type_cd",navTab.getCurrentPanel()).val() =="-9"){
+					 alertMsg.info("请选择人员类型");return ;
+				 }
+				 createJsonAndPost2Java('createNewSysUser.action',$("#createUForm", navTab.getCurrentPanel()),dealCreateUserMsg,'JSON',false) ;
+			 },
+			 cancelCall : function() {}
+			});		
 	});
 	function dealCreateUserMsg(data){
-		alertToUserMsg(data);		
+		alertToPageMsg(data);		
 	}
 </script>
 </head>
 <div class="pageContent">
 
 <ul id="errorlist"></ul>
-	<form method="post" action=""  id=createUserForm class="pageForm required-validate">
+	<form method="post" action=""  id=createUForm class="pageForm required-validate">
 		<div class="pageFormContent" layoutH="56">
 			<p>
 				<label>登录名：</label>
-				<input id="createUser_user_cd" type="text" size="20"  style="float:left"  class="required" alt="请输入登录名"/>
+				<input id="createUser_user_cd" name="createUser_user_cd" ename="登录名" type="text" size="20"  style="float:left"  class="required charSmall"  alt="请输入登录名"/>
 			</p>
 			<p>
 				<label>用户名称：</label>
-				<input id="createUser_user_name" class="required"  style="float:left"  type="text" size="20"  alt="请输入用户名称"/>
+				<input id="createUser_user_name" name="createUser_user_name"  ename="用户名称" style="float:left"  class="required chinese"   type="text" size="20"  alt="请输入用户名称"/>
 			</p>
 			<p>
 				<label>机构名称：</label>
-				<input type="text"  id="createUser_org_name"   style="float:left"  class="required" readonly name="orgLookup.orgName" value="" suggestFields="orgNum,orgName"   lookupGroup="orgLookup" />
-				<a class="btnLook" style="float:left" href="system/orgStructure_qry.jsp?custom_org_function_id=101&select_org_multi=0&select_cascade=''&unselect_cascade=''" lookupGroup="orgLookup">查找带回</a>		
+				<input type="text"  id="createUser_org_name"  ename="机构"  style="float:left"  class=" " readonly name="orgLookup.orgName" value="" suggestFields="orgNum,orgName"   lookupGroup="orgLookup" />
+				<a class="btnLook" style="float:left" href="system/orgStructure_qry.jsp?custom_org_function_id=101&select_org_multi=1&select_cascade=''&unselect_cascade=''" lookupGroup="orgLookup">查找带回</a>		
 			</p>
 			<p>
 				<label>部门编号：</label>
-				<input type="text"  class="required"   style="float:left"  readonly="readonly"  id="createUser_org_id" name="orgLookup.id" />
+				<input type="text"      style="float:left"  readonly="readonly"  id="createUser_org_id" name="orgLookup.id" />
 			</p>
 			<p>
 				<label>电话号码：</label>
-				<input id="createUser_phone" class="digits"  style="float:left"  type="text" size="20" alt="请输入11位数字"/>
+				<input id="createUser_phone" ename='电话号码' name="createUser_phone" class="number"  style="float:left"  type="text" size="20" alt="请输入11位数字"/>
 			</p>
 			<p>
 				<label>固定电话：</label>
-				<input id="createUser_fixedphone" class="digits"  style="float:left"  type="text" size="20" alt="请输入11位数字"/>
+				<input id="createUser_fixedphone" name="createUser_fixedphone" ename="固定电话" class="number"  style="float:left"  type="text" size="20" alt="请输入11位数字"/>
 			</p>
 			<p>
 				<label>地址编码：</label>
-				<input type="text" id=createUser_address   style="float:left"  size="20" />
+				<input type="text"  id=createUser_address   name="createUser_address"  ename="地址编码"  class="number"   style="float:left"  size="20" />
 			</p>
 						<p>
 				<label>角色：</label>
-				<select id="createUser_role_cd" class="required   "   > 
+				<select id="createUser_role_cd" class="required"   name="createUser_role_cd" > 
 				</select>
 			</p>
 			<p>
 				<label>人员类型：</label>
-				<select id="createUser_type_cd" class="required  "  style="float:left" > 
+				<select id="createUser_type_cd"  name="createUser_type_cd"   style="float:left" > 
 				</select>
 			</p> 
 				<p>
 				<label>入职时间：</label>
-				<input id=createUser_entry_time  type="text" class="date required "  style="float:left"  readonly="true" />
+				<input id=createUser_entry_time  name="createUser_entry_time" type="text" class="date required "  style="float:left"  readonly="true" />
 			</p>
 		</div>
 		<div id="createUserSubBar" class="formBar">
