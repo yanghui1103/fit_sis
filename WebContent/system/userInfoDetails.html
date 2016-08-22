@@ -44,7 +44,7 @@ baidu(document).on('click', '#save112', function() {
 		var allUserId = $("input[name=allUserId]:checked").val();
 		$("#editUser_id").val(allUserId);
 		var array = new Array(allUserId);  
-			createJsonAndAjax(
+		createJsonAndAjaxNew(
 					'getThisUserInfo.action',
 					array,
 					function(data){ 
@@ -54,16 +54,16 @@ baidu(document).on('click', '#save112', function() {
 						}
 						var jsonArr = data.list;
 						var create_time = jsonArr[0].create_time;
-						$("#editUser_user_cd").val(jsonArr[0].staff_number );
-						$("#editUser_user_name").val(jsonArr[0].staff_name );
-						$("#editUser_org_name").val(jsonArr[0].company_name );
-						$("#editUser_org_id").val(jsonArr[0].company_id );
-						$("#editUser_phone").val(jsonArr[0].staff_phone );
-						$("#editUser_address").val(jsonArr[0].staff_address );  
-						$("#editUser_role_cd").val(jsonArr[0].role_id );
-						$("#editUser_type_cd").val(jsonArr[0].staff_type_cd ); 
-						$("#editUser_entry_time").val(create_time.substring(0,10) );
-					},'JSON'
+						$("#editUser_user_cd",navTab.getCurrentPanel()).val(jsonArr[0].staff_number );
+						$("#editUser_user_name",navTab.getCurrentPanel()).val(jsonArr[0].staff_name );
+						$("#editUser_org_name",navTab.getCurrentPanel()).val(jsonArr[0].company_name );
+						$("#editUser_org_id",navTab.getCurrentPanel()).val(jsonArr[0].company_id );
+						$("#editUser_phone",navTab.getCurrentPanel()).val(jsonArr[0].staff_phone );
+						$("#editUser_address",navTab.getCurrentPanel()).val(jsonArr[0].staff_address );     
+						$("#editUser_role_cd",navTab.getCurrentPanel() ).val(jsonArr[0].role_id); 
+						$("#editUser_type_cd",navTab.getCurrentPanel() ).val(jsonArr[0].staff_type_cd);  
+						$("#editUser_entry_time",navTab.getCurrentPanel()).val(create_time.substring(0,10) );
+					},'JSON',true
 		    );
 	}
 </script>
@@ -100,12 +100,12 @@ baidu(document).on('click', '#save112', function() {
 			</p>
 						<p>
 				<label>角色：</label>
-				<select style="float:right" id="editUser_role_cd" class="required  "> 
+				<select   id="editUser_role_cd" class="required"> 
 				</select>
 			</p>
 			<p>
 				<label>人员类型：</label>
-				<select  style="float:right" id="editUser_type_cd" class="required  "> 
+				<select    id="editUser_type_cd" class="required"> 
 				</select>
 			</p> 
 				<p>
