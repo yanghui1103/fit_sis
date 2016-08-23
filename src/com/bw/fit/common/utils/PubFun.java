@@ -8,6 +8,8 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -287,5 +289,19 @@ public class PubFun {
         // 就可以将字符串转化为JsonObject（jsonsample）
        //  JSONObject obj = (JSONObject) JSONValue.parse( json.toString() );
         return json.toString() ;
+    }
+    public static List getAllDateBetweenDays(Calendar start,Calendar end){
+        Long startTIme = start.getTimeInMillis();  
+        Long endTime = end.getTimeInMillis();        
+        Long oneDay = 1000 * 60 * 60 * 24l;  
+        List list = new ArrayList();
+        Long time = startTIme;  
+        while (time <= endTime) {  
+            Date d = new Date(time);  
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");  
+            list.add(df.format(d));  
+            time += oneDay;  
+        }  
+        return list ;
     }
 }

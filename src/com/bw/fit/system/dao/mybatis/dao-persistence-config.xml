@@ -9,6 +9,7 @@
        <setting name="defaultExecutorType" value="SIMPLE" />
     </settings> 
     <mappers> 
-         <mapper resource="com/bw/fit/system/dao/mybatis/SystemMybatisConf.xml"  />         
+         <mapper resource="com/bw/fit/system/dao/mybatis/SystemMybatisConf.xml"  />
+         <mapper resource="com/bw/fit/sis/dao/mybatis/SisMybatisConf.xml"  />     
     </mappers>
 </configuration>

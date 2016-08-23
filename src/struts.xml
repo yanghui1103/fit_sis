@@ -48,4 +48,5 @@
 	</package>
 	
 	<include file="com/bw/fit/system/struts/confs/systemStrutsConf.xml"  /> 
+	<include file="com/bw/fit/sis/struts/confs/sisStrutsConf.xml"  /> 
 </struts>  

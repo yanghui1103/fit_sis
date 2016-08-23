@@ -3,7 +3,7 @@
         "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"  
         "http://struts.apache.org/dtds/struts-2.0.dtd">  
 <struts> 
-	<package   name="struts_system"  extends="struts-default"> <!--   extends="authInterceptor,nologinInterceptor,struts-default" -->
+	<package   name="struts_system"    extends="authInterceptor,nologinInterceptor,struts-default" >
 		<action name="userLoginStyleStaff" class="systemAction"  method="userLoginStyleStaff">
 			<result name="SUCCESS">homepage.jsp</result>
 			<result name="FAIL">index.jsp</result>
