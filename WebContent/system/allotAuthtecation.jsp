@@ -45,6 +45,10 @@ $('#treeAuth').click(function(){
     });
     function dealAfter(data){
     	alertToUserMsg(data,function(data){ 
+    		var res = data.res ;
+    		if(res=="1"){
+    			$("#giveRole_role_cd", navTab.getCurrentPanel()).val("-9");
+    		}
     	}); 
     }
 </script>
