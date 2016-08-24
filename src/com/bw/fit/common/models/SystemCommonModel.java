@@ -81,12 +81,18 @@ public class SystemCommonModel {
     private String rpt_cycle_end ;
     private String rpt_cycle_state ;  
     private String rpt_month_count ;
+    private String cycle_name;
     
     
     
     
     
-    
+    public String getCycle_name() {
+        return cycle_name;
+    }
+    public void setCycle_name(String cycle_name) {
+        this.cycle_name = cycle_name;
+    }
     public String getStaff_phone() {
         return staff_phone;
     }
