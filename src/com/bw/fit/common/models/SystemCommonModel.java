@@ -67,13 +67,17 @@ public class SystemCommonModel {
     private String rpt_date; 
     private String card_id; 
     private String person_name; 
+    private String person_phone;     
     private String person_gender; 
+    private String person_nation; 
+    private String person_orgin; 
     private String person_unit; 
     private String person_unit_type; 
     private String person_minzu; 
+    private String first_time; 
+    private String person_state; 
     private String rpt_start; 
-    private String rpt_end; 
-    private String person_state ;
+    private String rpt_end;  
     private String person_type ;
     private String rpt_type ;
     private String rpt_cycle; // 申报周期
@@ -87,6 +91,33 @@ public class SystemCommonModel {
     
     
     
+    
+    
+    
+    public String getFirst_time() {
+        return first_time;
+    }
+    public void setFirst_time(String first_time) {
+        this.first_time = first_time;
+    }
+    public String getPerson_nation() {
+        return person_nation;
+    }
+    public void setPerson_nation(String person_nation) {
+        this.person_nation = person_nation;
+    }
+    public String getPerson_orgin() {
+        return person_orgin;
+    }
+    public void setPerson_orgin(String person_orgin) {
+        this.person_orgin = person_orgin;
+    }
+    public String getPerson_phone() {
+        return person_phone;
+    }
+    public void setPerson_phone(String person_phone) {
+        this.person_phone = person_phone;
+    }
     public String getCycle_name() {
         return cycle_name;
     }
