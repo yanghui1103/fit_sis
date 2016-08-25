@@ -7,7 +7,9 @@ import com.bw.fit.sis.service.impl.SisServiceImpl;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -341,11 +343,16 @@ public class SisAdminAction extends BaseAction{
                 c.setPerson_phone(((JSONObject)array.get(i)).get("value").toString());
             } 
         }    
-        c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")).getStaff_id());
-        c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());  
+        c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")).getStaff_id()); 
         try {
+            String f_id = PubFun.getUUID()  ;
             Writer wr = response.getWriter();
             TaskService taskService = (TaskService)getBean("taskService");    
+            RuntimeService runtimeService = (RuntimeService)getBean("runtimeService");   
+            Map<String, Object> p = new HashMap<String, Object>();    
+            // 开始流程  
+            p.put("flow_id", f_id);
+            runtimeService.startProcessInstanceByKey("myProcess", p);
             List<Task> tasks = taskService.createTaskQuery().taskAssignee("role1").list();  
             if(tasks.size()<1){
                 info.put("res", "1");
@@ -356,7 +363,7 @@ public class SisAdminAction extends BaseAction{
             for (Task task : tasks) {
                 if ("node1".equals(task.getTaskDefinitionKey())) {                
                     // 设置填报人单位编码记录在节点  
-                    taskService.setVariable(task.getId(), "fdid", PubFun.getUUID()  ); 
+                    taskService.setVariable(task.getId(), "fdid", f_id ); 
                     taskService.setVariable(task.getId(), "card_id",  c.getCard_id()  );   
                     taskService.setVariable(task.getId(), "gender",  c.getPerson_gender()  );    
                     taskService.setVariable(task.getId(), "nation",  c.getPerson_nation()  );   
@@ -390,6 +397,102 @@ public class SisAdminAction extends BaseAction{
         } 
     }
     /***
+     * 修改申报记录
+     */
+    public String updatePersonRptRecord(){
+        JSONObject info = new JSONObject();
+        response.setContentType("text/plain;charset=UTF-8");
+        SystemCommonModel c = new SystemCommonModel();
+        String str =  (request.getParameter("context")) ; 
+        JSONArray array  = (JSONArray) JSONValue.parse(str);  
+        for(int i=0;i<array.size();i++){
+            if("card_id".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setCard_id(((JSONObject)array.get(i)).get("value").toString());
+            }else if("person_name".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setPerson_name(((JSONObject)array.get(i)).get("value").toString());
+            }else if("fdid".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setFdid(((JSONObject)array.get(i)).get("value").toString());
+            }  else if("gender".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setPerson_gender(((JSONObject)array.get(i)).get("value").toString());
+            }  else if("phone".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setPerson_phone(((JSONObject)array.get(i)).get("value").toString());
+            }  else if("first_date".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setFirst_time(((JSONObject)array.get(i)).get("value").toString());
+            }  else if("state".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setPerson_state(((JSONObject)array.get(i)).get("value").toString());
+            } else if("nation".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setPerson_nation(((JSONObject)array.get(i)).get("value").toString());
+            } else if("origin".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setPerson_orgin(((JSONObject)array.get(i)).get("value").toString());
+            } else if("unit_type".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setPerson_unit_type(((JSONObject)array.get(i)).get("value").toString());
+            } else if("unit_name".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setPerson_unit(((JSONObject)array.get(i)).get("value").toString());
+            } else if("pay_start".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setRpt_start(((JSONObject)array.get(i)).get("value").toString());
+            } else if("pay_end".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setRpt_end(((JSONObject)array.get(i)).get("value").toString());
+            } else if("person_type".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setPerson_type(((JSONObject)array.get(i)).get("value").toString());
+            } else if("sub_cycle".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setRpt_cycle(((JSONObject)array.get(i)).get("value").toString());
+            } else if("sub_type".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setRpt_type(((JSONObject)array.get(i)).get("value").toString());
+            }  else if("first_date".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setFirst_time(((JSONObject)array.get(i)).get("value").toString());
+            }  else if("phone".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                c.setPerson_phone(((JSONObject)array.get(i)).get("value").toString());
+            } 
+        }    
+        c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")).getStaff_id()); 
+        try {
+            String f_id = PubFun.getUUID()  ;
+            Writer wr = response.getWriter();
+            TaskService taskService = (TaskService)getBean("taskService");    
+            List<Task> tasks = taskService.createTaskQuery()  .processVariableValueEquals("flow_id", c.getFdid()) .taskAssignee("role1").list();  
+            if(tasks.size()<1){
+                info.put("res", "1");
+                info.put("msg","修改失败，或记录已不存在");
+                wr.write(info.toJSONString());
+                wr.close();
+            }            
+            for (Task task : tasks) {
+                if ("node1".equals(task.getTaskDefinitionKey())) {                
+                    // 设置填报人单位编码记录在节点  
+                    taskService.setVariable(task.getId(), "fdid", f_id ); 
+                    taskService.setVariable(task.getId(), "card_id",  c.getCard_id()  );   
+                    taskService.setVariable(task.getId(), "gender",  c.getPerson_gender()  );    
+                    taskService.setVariable(task.getId(), "nation",  c.getPerson_nation()  );   
+                    taskService.setVariable(task.getId(), "person_name", c.getPerson_name()  );   
+                    taskService.setVariable(task.getId(), "origin",  c.getPerson_orgin()  ); 
+                    taskService.setVariable(task.getId(), "unit_type",  c.getPerson_unit_type()  ); 
+                    taskService.setVariable(task.getId(), "unit_name", c.getPerson_unit()  ); 
+                    taskService.setVariable(task.getId(), "pay_start",  c.getRpt_start()  ); 
+                    taskService.setVariable(task.getId(), "pay_end", c.getRpt_end() ); 
+                    taskService.setVariable(task.getId(), "person_type",  c.getPerson_type() ); 
+                    taskService.setVariable(task.getId(), "sub_cycle",  c.getRpt_cycle()  ); 
+                    taskService.setVariable(task.getId(), "sub_type",  c.getRpt_type()  ); 
+                    taskService.setVariable(task.getId(), "first_date", c.getFirst_time()  ); 
+                    taskService.setVariable(task.getId(), "person_phone",  c.getPerson_phone() );                     
+                    taskService.setVariable(task.getId(), "creator", c.getStaff_id()  ); 
+                    taskService.setVariable(task.getId(), "create_time",  PubFun.getSysDate()  );                     
+                    taskService.setVariable(task.getId(), "pass1",  "2"  );  // 修改继续下一审核环节                                        
+                    // 节点任务结束  
+                    taskService.complete(task.getId());   
+                    info.put("res", "2");
+                    info.put("msg","修改成功");
+                    wr.write(info.toJSONString());
+                    wr.close();
+                }  
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace(); 
+        }finally{
+            return null ;
+        } 
+    }
+    /***
      * 初审
      */
     public String firstRptAudit(){
@@ -410,17 +513,17 @@ public class SisAdminAction extends BaseAction{
         try {
             Writer wr = response.getWriter();
             TaskService taskService = (TaskService)getBean("taskService");    
-            List<Task> tasks = taskService.createTaskQuery().taskAssignee("role2").list();  
+            List<Task> tasks = taskService.createTaskQuery()
+                    .processVariableValueEquals("flow_id", c.getFdid())  .taskAssignee("role2").list();  
             if(tasks.size()<1){
                 info.put("res", "1");
-                info.put("msg","初审失败，请联系系统管理员");
+                info.put("msg","初审失败，审批记录已不存在");
                 wr.write(info.toJSONString());
                 wr.close();
             }            
             for (Task task : tasks) {
                 if ("node2".equals(task.getTaskDefinitionKey())) {                
-                    // 设置填报人单位编码记录在节点  
-                    taskService.setVariable(task.getId(), "fdid", c.getFdid());                
+                    // 设置填报人单位编码记录在节点                
                     taskService.setVariable(task.getId(), "pass2", c.getTemp_str1()  );  // 录入，或修改继续下一审核环节     
                     taskService.setVariable(task.getId(), "pass2_reason", c.getTemp_str2()  );                                     
                     // 节点任务结束  
@@ -459,17 +562,16 @@ public class SisAdminAction extends BaseAction{
         try {
             Writer wr = response.getWriter();
             TaskService taskService = (TaskService)getBean("taskService");    
-            List<Task> tasks = taskService.createTaskQuery().taskAssignee("role3").list();  
+            List<Task> tasks = taskService.createTaskQuery() .processVariableValueEquals("flow_id", c.getFdid()).taskAssignee("role3").list();  
             if(tasks.size()<1){
                 info.put("res", "1");
-                info.put("msg","复审失败，请联系系统管理员");
+                info.put("msg","复审失败，审批记录已不存在");
                 wr.write(info.toJSONString());
                 wr.close();
             }            
             for (Task task : tasks) {
                 if ("node3".equals(task.getTaskDefinitionKey())) {                
-                    // 设置填报人单位编码记录在节点  
-                    taskService.setVariable(task.getId(), "fdid", c.getFdid());                
+                    // 设置填报人单位编码记录在节点             
                     taskService.setVariable(task.getId(), "pass3", c.getTemp_str1()  );  // 录入，或修改继续下一审核环节     
                     taskService.setVariable(task.getId(), "pass3_reason", c.getTemp_str2()  );                                     
                     // 节点任务结束  
@@ -506,17 +608,16 @@ public class SisAdminAction extends BaseAction{
         try {
             Writer wr = response.getWriter();
             TaskService taskService = (TaskService)getBean("taskService");    
-            List<Task> tasks = taskService.createTaskQuery().taskAssignee("role1").list();  
+            List<Task> tasks = taskService.createTaskQuery() .processVariableValueEquals("flow_id", c.getFdid()).taskAssignee("role1").list();  
             if(tasks.size()<1){
                 info.put("res", "1");
-                info.put("msg","作废失败，请联系系统管理员");
+                info.put("msg","作废失败，记录已不存在");
                 wr.write(info.toJSONString());
                 wr.close();
             }            
             for (Task task : tasks) {
                 if ("node1".equals(task.getTaskDefinitionKey())) {                
-                    // 设置填报人单位编码记录在节点  
-                    taskService.setVariable(task.getId(), "fdid", c.getFdid() );                     
+                    // 设置填报人单位编码记录在节点                    
                     taskService.setVariable(task.getId(), "pass1",  "1"  );  // 作废                                     
                     // 节点任务结束  
                     taskService.complete(task.getId());   

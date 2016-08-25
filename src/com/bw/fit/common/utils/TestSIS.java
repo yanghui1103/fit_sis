@@ -72,7 +72,7 @@ public class TestSIS {
                     taskService.setVariable(task.getId(), "create_time",  "2016-09-09 12:12:12"  ); 
                     
                     taskService.setVariable(task.getId(), "pass1",  "2"  ); 
-                                        
+                    
                     // 节点任务结束  
                     taskService.complete(task.getId());  
                     System.out  
