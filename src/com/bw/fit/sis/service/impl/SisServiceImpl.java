@@ -306,4 +306,10 @@ public class SisServiceImpl implements SisService {
         return info;
     }
 
+    @Override
+    public JSONObject createPersonRptRecord(SystemCommonModel c) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

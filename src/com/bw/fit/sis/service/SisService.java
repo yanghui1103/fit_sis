@@ -14,4 +14,5 @@ public interface SisService {
     public JSONObject createRole2SubType(SystemCommonModel c);
     public JSONObject getPsnBaseInfo(SystemCommonModel c);
     public JSONObject changePsnBaseInfo(SystemCommonModel c);
+    public JSONObject createPersonRptRecord(SystemCommonModel c);
 }

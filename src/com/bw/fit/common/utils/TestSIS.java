@@ -67,8 +67,7 @@ public class TestSIS {
                     taskService.setVariable(task.getId(), "sub_cycle",  "201601"  ); 
                     taskService.setVariable(task.getId(), "sub_type",  "S01"  ); 
                     taskService.setVariable(task.getId(), "first_date",  "2015-03-04"  ); 
-                    taskService.setVariable(task.getId(), "person_phone",  "18904772110"  ); 
-                    
+                    taskService.setVariable(task.getId(), "person_phone",  "18904772110"  );  
                     taskService.setVariable(task.getId(), "creator",  "w323489sd7889sdf78df"  ); 
                     taskService.setVariable(task.getId(), "create_time",  "2016-09-09 12:12:12"  ); 
                     
