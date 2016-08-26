@@ -312,4 +312,92 @@ public class SisServiceImpl implements SisService {
         return null;
     }
 
+    @Override
+    public JSONObject getCustomValueByOther(SystemCommonModel c) {
+        // TODO Auto-generated method stub
+        JSONObject info = new JSONObject();  
+        if("ROLE2SUBTYPE".equalsIgnoreCase(c.getTemp_str1())){
+
+            c.setSql("sisAdminDAO.getRptValueByStaff"); 
+            List<SystemCommonModel> list = sisMybatisDaoUtil.getListData( c.getSql(), c); 
+            if(list.size()<1){
+                info.put("res", "1");
+                info.put("msg","无数据");
+                info.put("pageNum","0");
+                info.put("tatol", "0");
+                return info ;
+            }else{
+                info.put("res", "2");
+                info.put("msg","执行成功"); 
+            }
+            JSONArray array = new JSONArray();
+            for(int i=0;i<list.size();i++){
+                JSONObject jsonObjArr = new JSONObject(); 
+                jsonObjArr.put("id", (list.get(i)).getTemp_str1());
+                jsonObjArr.put("name", (list.get(i)).getTemp_str2()); 
+                array.add(jsonObjArr);
+                jsonObjArr = null;
+            }
+            info.put("list", array);
+            array = null; 
+        }else if("Company2SubCycle".equalsIgnoreCase(c.getTemp_str1())){
+            c.setSql("sisAdminDAO.getCompany2SubCycle"); 
+            List<SystemCommonModel> list = sisMybatisDaoUtil.getListData( c.getSql(), c); 
+            if(list.size()<1){
+                info.put("res", "1");
+                info.put("msg","无数据");
+                info.put("pageNum","0");
+                info.put("tatol", "0");
+                return info ;
+            }else{
+                info.put("res", "2");
+                info.put("msg","执行成功"); 
+            }
+            JSONArray array = new JSONArray();
+            for(int i=0;i<list.size();i++){
+                JSONObject jsonObjArr = new JSONObject(); 
+                jsonObjArr.put("id", (list.get(i)).getTemp_str1());
+                jsonObjArr.put("name", (list.get(i)).getTemp_str2()); 
+                array.add(jsonObjArr);
+                jsonObjArr = null;
+            }
+            info.put("list", array);
+            array = null; 
+            
+        }
+        return info;
+    }
+
+    @Override
+    public JSONObject createOldPersonRptRecond(SystemCommonModel c) {
+        // TODO Auto-generated method stub
+        JSONObject info = new JSONObject();  
+        c.setFdid(getUUID());
+        c.setCreate_time(getSysDate());
+        c.setSql("sisAdminDAO.getExistsPsn");
+        List<SystemCommonModel> list = sisMybatisDaoUtil.getListData(c.getSql(), c);
+        if(list.size()>0){ //那么只保存记录即可
+            c.setSql("sisAdminDAO.createOldPersonRptRecond"); 
+            info = sisMybatisDaoUtil.sysUpdateData(c.getSql(), c);
+            if("1".equals(info.get("res").toString())){
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
+                return info ;
+            } 
+        }else{
+            c.setSql("sisAdminDAO.createPersonInfo"); 
+            info = sisMybatisDaoUtil.sysUpdateData(c.getSql(), c);
+            if("1".equals(info.get("res").toString())){
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
+                return info ;
+            } 
+            c.setSql("sisAdminDAO.createOldPersonRptRecond"); 
+            info = sisMybatisDaoUtil.sysUpdateData(c.getSql(), c);
+            if("1".equals(info.get("res").toString())){
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
+                return info ;
+            } 
+        }
+    return info;
+    }
+
 }

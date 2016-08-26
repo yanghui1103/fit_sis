@@ -634,4 +634,84 @@ public class SisAdminAction extends BaseAction{
             return null ;
         } 
     }
+    /***
+     * 根据别的信息得出码表信息
+     * 例如 根据工号id，查询出拥有的申报类型，
+     * 或根据工号查询他所在机构拥有的申报周期
+     */
+    public String getCustomValueByOther(){
+        try {
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            JSONObject obj = (JSONObject) JSONValue.parse(str);
+            JSONArray array = (JSONArray) obj.get("content");
+            String param1 = (String) (((JSONObject) array.get(0)).get("param1")); 
+            SystemCommonModel c = new SystemCommonModel();  
+            c.setTemp_str1(param1);
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")) .getStaff_id());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
+            JSONObject objItem = ((SisServiceImpl) getBean("sisServiceImpl"))
+                    .getCustomValueByOther(c);
+            wr.write(objItem.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }        
+        return null ;
+    }
+    /***
+     * createOldPersonRptRecond
+     * 创建旧申报记录
+     */
+    public String createOldPersonRptRecond(){
+        try {
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            SystemCommonModel c = new SystemCommonModel();  
+            JSONArray array  = (JSONArray) JSONValue.parse(str);  
+            for(int i=0;i<array.size();i++){
+                if("card_id".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setCard_id(((JSONObject)array.get(i)).get("value").toString());
+                }else if("person_name".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_name(((JSONObject)array.get(i)).get("value").toString());
+                } else if("gender".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_gender(((JSONObject)array.get(i)).get("value").toString());
+                }    else if("nation".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_nation(((JSONObject)array.get(i)).get("value").toString());
+                }else if("phone".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_phone(((JSONObject)array.get(i)).get("value").toString());
+                }   else if("origin".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_orgin(((JSONObject)array.get(i)).get("value").toString());
+                } else if("first_date".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setFirst_time(((JSONObject)array.get(i)).get("value").toString());
+                } else if("sub_cycle".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setRpt_cycle(((JSONObject)array.get(i)).get("value").toString());
+                } else if("rpt_type".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setRpt_type(((JSONObject)array.get(i)).get("value").toString());
+                } else if("start_date".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setRpt_start(((JSONObject)array.get(i)).get("value").toString());
+                } else if("end_date".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setRpt_end(((JSONObject)array.get(i)).get("value").toString());
+                }   else if("unit_type".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_unit_type(((JSONObject)array.get(i)).get("value").toString());
+                }   else if("unit_name".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_unit(((JSONObject)array.get(i)).get("value").toString());
+                }  
+            }    
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")).getStaff_id()); 
+            c.setStaff_company_id(((LoginUser) session.getAttribute("LoginUser")).getOrg_cd());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
+            JSONObject objItem = ((SisServiceImpl) getBean("sisServiceImpl"))
+                    .createOldPersonRptRecond(c);
+            wr.write(objItem.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }                
+        return null ;
+    }
 }

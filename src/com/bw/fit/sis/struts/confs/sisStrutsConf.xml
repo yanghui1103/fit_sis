@@ -3,7 +3,7 @@
         "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"  
         "http://struts.apache.org/dtds/struts-2.0.dtd">  
 <struts> 
-	<package   name="struts_sis"    extends="authInterceptor,nologinInterceptor,struts-default" > 
+	<package   name="struts_sis"      extends="authInterceptor,nologinInterceptor,struts-default"  > 
 		<action name="createSubCycle"    class="sisAdminAction"   method="createSubCycle" />
 		<action name="qryAllCycleInfoList"  class="sisAdminAction"   method="qryAllCycleInfoList" />
 		<action name="deleteSubCycle"    class="sisAdminAction"   method="deleteSubCycle" />
@@ -14,5 +14,9 @@
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 		</action>
 		<action name="changePsnBaseInfo"  class="sisAdminAction"   method="changePsnBaseInfo" />
+		<action name="getCustomValueByOther"  class="sisAdminAction"   method="getCustomValueByOther" >
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<action name="createOldPersonRptRecond"   class="sisAdminAction"   method="createOldPersonRptRecond" />
 	</package>
 </struts>  

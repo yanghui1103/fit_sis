@@ -85,4 +85,33 @@ a.create_time from rpt_person  a where card_id = #{card_id}
 		update rpt_person  set person_name=#{person_name},phone=#{person_phone},gender=#{person_gender},first_time=to_date(#{first_time},'yyyy-MM-dd'),
 state = #{person_state} where card_id = #{card_id}
 		</update>
+		<!-- 获取该用户拥有的申报类型 -->
+		<select id="getRptValueByStaff" parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+         	select  si.fdid temp_str1,si.item_name temp_str2  
+from staff st,  staff2roles sr,   roles rr,role2sub_type rt,sys_item si  where 
+st.fdid = sr.staff_id and sr.role_id = rr.fdid and rr.fdid = rt.role_id and rt.type_cd = si.fdid and si.itype = 'SUB_TYPE' and 
+st.fdid = #{staff_id}
+		</select>
+		<select id="getCompany2SubCycle"  parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+         	select sl.fdid temp_str1,sl.cycle_name temp_str2
+from staff st,staff2company sc,sub_cycle sl
+where st.fdid = sc.staff_id and sc.company_id = sl.org_id and sl.isdeleted='0' and sl.state='0' and st.fdid = #{staff_id}         	
+         	</select>
+         	<!-- 查看这个身份证号码是否已经存在 -->
+         	<select id="getExistsPsn"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+           select * from rpt_person where card_id = #{card_id}
+         	</select>
+         	<!-- 新增申报人申报记录 -->
+         	<insert id="createOldPersonRptRecond"  parameterType="com.bw.fit.common.models.SystemCommonModel" 	>
+         	insert into rpt_reconds (fdid,person_name,card_id,unit_type,unit_name,pay_start,pay_end,sub_cycle,rpt_type,isdeleted,create_time,version_time,creator)
+values (#{fdid},#{person_name},#{card_id},#{person_unit_type},#{person_unit},
+ #{rpt_start} , #{rpt_end} ,#{rpt_cycle},#{rpt_type},'0',
+to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss'),to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss'),#{staff_id} )
+         	</insert>
+         	<!-- 新增申报人基础资料 -->
+         	<insert id="createPersonInfo"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	>
+         	insert into rpt_person (card_id,person_name,phone,gender,nation,orgin,first_time,state,create_company,creator,create_time,version_time)
+values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nation},#{person_orgin}, #{first_time},'2',
+#{staff_company_id} ,#{staff_id},to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss'),to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss') )
+         	</insert>
 </mapper>

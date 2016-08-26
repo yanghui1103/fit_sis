@@ -34,6 +34,17 @@ baidu(document).on('click', '#getInfo', function() {
 		 arr[i] = "-9";		 
 	}arr[0] = $("#card_id", navTab.getCurrentPanel()).val() ;
 	createJsonAndAjaxNew("getPsnBaseInfo.action", arr,function(data){
+		if(data.res!="2"){
+
+			$("#person_name", navTab.getCurrentPanel()).val( "");
+			$("#gender", navTab.getCurrentPanel()).val( "-9");
+			$("#nation", navTab.getCurrentPanel()).val( "");
+			$("#orgin", navTab.getCurrentPanel()).val( "");
+			$("#phone", navTab.getCurrentPanel()).val("" );
+			$("#first_date", navTab.getCurrentPanel()).val( "");
+			$("#state", navTab.getCurrentPanel()).val("-9"); 
+			alertMsg.info("系统中不存在此人信息");return ;
+		}
 		var json = data.list ;
 		$("#person_name", navTab.getCurrentPanel()).val(json[0].person_name);
 		$("#gender", navTab.getCurrentPanel()).val(json[0].person_gender);

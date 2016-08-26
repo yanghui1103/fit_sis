@@ -83,6 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	src="common/js/date.js"></script>
 <script type="text/javascript" src="common/js/tangram-min.js"></script>
 <script type="text/javascript" src="common/js/dwz_common.js"></script>
+<script type="text/javascript" src="common/js/fitsis_common.js"></script>
 <script type="text/javascript" src="common/js/baiduTemplate.js"></script>
 <style>
     body{position: relative;height: 1000px;}

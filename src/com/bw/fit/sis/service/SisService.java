@@ -15,4 +15,6 @@ public interface SisService {
     public JSONObject getPsnBaseInfo(SystemCommonModel c);
     public JSONObject changePsnBaseInfo(SystemCommonModel c);
     public JSONObject createPersonRptRecord(SystemCommonModel c);
+    public JSONObject getCustomValueByOther(SystemCommonModel c);
+    public JSONObject createOldPersonRptRecond(SystemCommonModel c);
 }
