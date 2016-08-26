@@ -385,7 +385,7 @@ public class SisServiceImpl implements SisService {
             } 
         }else{
             c.setSql("sisAdminDAO.createPersonInfo"); 
-            info = sisMybatisDaoUtil.sysUpdateData(c.getSql(), c);
+            info = sisMybatisDaoUtil.sysInsertData(c.getSql(), c);
             if("1".equals(info.get("res").toString())){
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
                 return info ;

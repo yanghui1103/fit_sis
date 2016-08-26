@@ -100,6 +100,9 @@
       insert into company (fdid,company_name ,address,state,isdeleted,company_type_cd,parent_company_id,create_time,version_time,creator,operator) values (
 	#{fdid},#{staff_company_name},#{temp_str1},'2','0',#{temp_str2},#{staff_parent_company_id},to_date(#{create_time},'yyyy-mm-dd hh24:mi:ss'),to_date(#{create_time},'yyyy-mm-dd hh24:mi:ss'),#{staff_id},#{staff_id})
       </insert>
+      <select id="getHasChild"  parameterType = "com.bw.fit.common.models.SystemCommonModel"  resultType="com.bw.fit.common.models.SystemCommonModel">
+		      select * from company a where a.parent_company_id =#{staff_parent_company_id}
+      </select>
       <!-- 获取该机构的子机构的最大编码 加1 -->
       <select id="getChildOrgMaxFdID"  parameterType = "com.bw.fit.common.models.SystemCommonModel"  resultType="com.bw.fit.common.models.SystemCommonModel">
 		      select max(fdid)+1 fdid from company a where a.parent_company_id =#{staff_parent_company_id}

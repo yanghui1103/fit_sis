@@ -10,7 +10,7 @@ $(function(){
 	for(var i in arr.length){
 		 arr[i] = "-9";		 
 	}	 arr[0] = "COMP_TYPE"; 
-	 takeTypeDataList($("#create_uporg_type"),"getSysItems.action","1", arr);	 
+	 takeTypeDataList($("#create_uporg_type",navTab.getCurrentPanel()),"getSysItems.action","1", arr);	 
 	
 	var orgAllId = $("input[name=orgAllId]:checked").val() ;
 	var array = new Array(60);

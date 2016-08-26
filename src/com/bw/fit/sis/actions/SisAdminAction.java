@@ -683,7 +683,7 @@ public class SisAdminAction extends BaseAction{
                     c.setPerson_nation(((JSONObject)array.get(i)).get("value").toString());
                 }else if("phone".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
                     c.setPerson_phone(((JSONObject)array.get(i)).get("value").toString());
-                }   else if("origin".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                }   else if("orgin".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
                     c.setPerson_orgin(((JSONObject)array.get(i)).get("value").toString());
                 } else if("first_date".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
                     c.setFirst_time(((JSONObject)array.get(i)).get("value").toString());

@@ -103,6 +103,18 @@ public class SisMybatisDaoUtil {
         return obj ;
 	}
 
+    public JSONObject sysInsertData(String sql, Object param)  {
+        JSONObject obj = new JSONObject();
+        int res = sqlSessionTemplate.insert(sql, param);
+        if(res<1){
+            obj.put("res", "1");
+            obj.put("msg","执行失败");
+            return obj ;
+        }
+        obj.put("res", "2");
+        obj.put("msg","执行成功");
+        return obj ;
+    }
 	public JSONObject sysDeleteData(String sql, Object param) {
         JSONObject obj = new JSONObject();
         int res = sqlSessionTemplate.delete(sql, param);

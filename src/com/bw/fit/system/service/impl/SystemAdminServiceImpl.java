@@ -540,10 +540,12 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         try {
             c.setCreate_time(getSysDate()); 
             // 获取该机构的子机构的最大编码加1
+            c.setSql("systemAdminDAO.getHasChild"); 
+            List<SystemCommonModel> list0= systemMybatisDaoUtil.getListData(c.getSql(), c); 
 
             c.setSql("systemAdminDAO.getChildOrgMaxFdID"); 
             List<SystemCommonModel> list= systemMybatisDaoUtil.getListData(c.getSql(), c); 
-            if(list.size()>0){
+            if(list0.size()>0){
                 c.setFdid(list.get(0).getFdid());
             }else{
                 c.setFdid(c.getStaff_parent_company_id()+"01");

@@ -27,7 +27,7 @@
 		select * from ( select fdid,cycle_name,to_char(start_date,'yyyy-MM-dd') start_date, to_char(end_date,'yyyy-MM-dd') end_date,to_char(create_time,'yyyy-MM-dd hh24:mi:ss') create_time,
 (select staff_name from staff where fdid = a.creator) temp_str1,
 (select company_name from company a where a.fdid = org_id) select_company_name,
-(case a.state when '2' then '已开启' when '1' then '已关闭' else '其他' end) temp_str3 ,rownum pageno from sub_cycle a where 1=1
+(case a.state when '2' then '已开启' when '1' then '已关闭' else '其他' end) temp_str3 ,rownum pageno from sub_cycle a where 1=1 and isdeleted='0'
  		 <if test="cycle_name !='-9'">
   				and   cycle_name  like  '%'||#{cycle_name}||'%'   
  		 </if> 
@@ -111,7 +111,7 @@ to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss'),to_date(#{create_time},'yyyy-MM-
          	<!-- 新增申报人基础资料 -->
          	<insert id="createPersonInfo"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	>
          	insert into rpt_person (card_id,person_name,phone,gender,nation,orgin,first_time,state,create_company,creator,create_time,version_time)
-values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nation},#{person_orgin}, #{first_time},'2',
+values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nation},#{person_orgin}, to_date(#{first_time},'yyyy-MM-dd') ,'2',
 #{staff_company_id} ,#{staff_id},to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss'),to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss') )
          	</insert>
 </mapper>
