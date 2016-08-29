@@ -272,4 +272,13 @@ and sr.role_id = rl.fdid and sf.fdid = #{fdid}
  			select fileid fdid,a.filename temp_str1,create_time,(select staff_name from staff where fdid = a.creator) staff_name,'' temp_str2 ,beforename temp_str3
  from attachment  a where a.foreign_id = #{temp_str1}       	
        	</select>
+     <!-- 建立外键与附件关联 -->
+      <insert id="createForeignAndAttachmentRelation"    parameterType = "com.bw.fit.common.models.SystemCommonModel" >
+      INSERT INTO attachment VALUES (
+	#{fdid},#{temp_str1},#{temp_str2},'-9',#{temp_str3},#{staff_id},to_date(#{create_time},'yyyy-mm-dd hh24:mi:ss'),'2')
+      </insert>
+      <!-- 删除附件关系 -->
+      <delete id="deleteAttachmentFile"   parameterType = "com.bw.fit.common.models.SystemCommonModel" >
+       delete from attachment where fileid = #{fdid}
+      </delete>
 </mapper>

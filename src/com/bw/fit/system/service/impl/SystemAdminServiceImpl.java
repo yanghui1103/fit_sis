@@ -1105,4 +1105,31 @@ public class SystemAdminServiceImpl implements SystemAdminService {
             return info;
         }
 
+        @Override
+        public JSONObject createForeignAndAttachmentRelation(SystemCommonModel c) {
+            // TODO Auto-generated method stub
+            JSONObject info = new JSONObject();
+            try {
+                c.setCreate_time(getSysDate());
+                c.setFdid(getUUID());
+                c.setSql("systemAdminDAO.createForeignAndAttachmentRelation"); 
+                info = systemMybatisDaoUtil.sysUpdateData(c.getSql(), c); 
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            return info;
+        }
+
+        @Override
+        public JSONObject deleteAttachmentFile(SystemCommonModel c) {
+            // TODO Auto-generated method stub
+            JSONObject info = new JSONObject();
+            try {                
+                c.setSql("systemAdminDAO.deleteAttachmentFile"); 
+                info = systemMybatisDaoUtil.sysDeleteData(c.getSql(), c); 
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            return info;
+        }
 }

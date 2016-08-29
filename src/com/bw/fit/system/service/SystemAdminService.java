@@ -36,5 +36,7 @@ public interface SystemAdminService {
     public JSONObject getThisUserInfo(SystemCommonModel c);
     public JSONObject updateUserInfo(SystemCommonModel c);
     public JSONObject getFileListByForeginId(SystemCommonModel c);
+    public JSONObject createForeignAndAttachmentRelation(SystemCommonModel c);
+    public JSONObject deleteAttachmentFile(SystemCommonModel c);
     
 }

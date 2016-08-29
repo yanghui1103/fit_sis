@@ -14,6 +14,7 @@
 		<bean id="noLoginInterceptor"  class="com.bw.fit.system.struts.interceptors.NologinInterceptor"  scope="prototype" />
 		<bean id="authenticationInterceptor"  class="com.bw.fit.system.struts.interceptors.AuthInterceptor"  scope="prototype" />
 		
+		<bean id="fileAction"  class="com.bw.fit.system.actions.FileAction"  scope="prototype" />
 		<bean id="systemAction"  class="com.bw.fit.system.actions.SystemAction"  scope="prototype" />
 		<bean id="systemAdminServiceImpl"  class="com.bw.fit.system.service.impl.SystemAdminServiceImpl"   scope="singleton" />
 		<bean id="systemMybatisDaoUtil"  class="com.bw.fit.system.dao.utils.SystemMybatisDaoUtil"  scope="singleton"   />

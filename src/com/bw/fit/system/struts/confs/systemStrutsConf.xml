@@ -153,7 +153,7 @@
 		</action>	
 	</package>
 	<package name="struts_fileUpLoad" extends="json-default">
-		<action name="fileUploadAction" class="com.bw.fit.common.actions.FileAction">
+		<action name="fileUploadAction" class="fileAction">
 		<interceptor-ref name="defaultStack"></interceptor-ref>
 			<result type="json" name="success">
 				<param name="contentType">

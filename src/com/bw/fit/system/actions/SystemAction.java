@@ -783,4 +783,56 @@ public class SystemAction extends BaseAction{
         
         return null ;
     }
+    /**
+     * 附件与外键进行关联
+     */
+    public String createForeignAndAttachmentRelation() throws Exception {
+        HttpSession session = request.getSession(false);  
+        response.setContentType("text/plain;charset=UTF-8");
+        Writer wr = response.getWriter();
+        String str =  (request.getParameter("context")) ; 
+        JSONObject obj = (JSONObject) JSONValue.parse(str);
+        JSONArray array = (JSONArray) obj.get("content");
+        String param1 = (String) (((JSONObject) array.get(0)).get("param1"));       
+        SystemCommonModel c = new SystemCommonModel();  
+        c.setFdid(getUUID());
+        c.setTemp_str1(param1);  
+        c.setTemp_str2( (String) (((JSONObject) array.get(0)).get("param2")));
+        c.setTemp_str3( (String) (((JSONObject) array.get(0)).get("param3")));
+        c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
+                .getStaff_id());
+        JSONObject objItem = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                .createForeignAndAttachmentRelation(c);
+        log.info((objItem.toJSONString()));
+        wr.write(objItem.toJSONString());
+        wr.close();
+        
+        return null ;
+        
+    }
+    /**
+     * 删除附件
+     */
+    public String deleteAttachmentFile()  throws Exception {
+        HttpSession session = request.getSession(false);  
+        response.setContentType("text/plain;charset=UTF-8");
+        Writer wr = response.getWriter();
+        String str =  (request.getParameter("context")) ; 
+        JSONObject obj = (JSONObject) JSONValue.parse(str);
+        JSONArray array = (JSONArray) obj.get("content");
+        String param1 = (String) (((JSONObject) array.get(0)).get("param1"));       
+        SystemCommonModel c = new SystemCommonModel();   
+        c.setFdid(param1);   
+        c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
+                .getStaff_id());
+        c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName()); 
+        JSONObject objItem = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                .deleteAttachmentFile(c);
+        log.info((objItem.toJSONString()));
+        wr.write(objItem.toJSONString());
+        wr.close();
+        
+        return null ;
+        
+    }
 }

@@ -132,14 +132,14 @@ function alertToUserMsg(json,deal){
 // 文件上传
 function ajaxFileUpload(foregin_id)
 { 
-	$("#loading")
+/*	$("#loading")
 	.ajaxStart(function(){
 		$(this).show();
 	})//开始上传文件时显示一个图片
 	.ajaxComplete(function(){
 		$(this).hide();
 	});//文件上传完成将图片隐藏起来
-	
+	*/
 	$.ajaxFileUpload
 	(
 		{
@@ -575,7 +575,7 @@ function createJsonAndAjaxNew(action, array,dealAfter,dataFormat,async_val) {
 	eJson = JSON.stringify(eJson); 
 	var args = {"context" : eJson};	
 	$.ajax({url:action, type:"POST",data:args,dataType:dataFormat,async:async_val,success: function(data) {
-		dealAfter(data)
+		dealAfter(data);
 	}
 	});
 }

@@ -7,8 +7,7 @@
 <script type="text/javascript">
 var foregin_id = "<%=request.getParameter("foregin_id")%>";
 var isRead = "<%=request.getParameter("isRead")%>";
-$(function(){  
-	
+$(function(){   
 	initUserInfoList( $("#table2") ,foregin_id);
 	$("#"+foregin_id+"Div").find("button").eq(1).click(function(){		
 		if(isRead == '1'){alertMsg.info("无权限");return ;} 
@@ -33,15 +32,15 @@ function dealDeleteAttachmentFile(data){
 	alertToUserMsg(data);
 }
 function initUserInfoList(obj,foregin_id){ 
-	obj.empty();
 	//把本级机构及以下机构的人员查询出来
 	var array = new Array(foregin_id );   
-	createJsonAndAjax('getFileListByForeginId.action', array, dealInitList,
-			'JSON');	
+	createJsonAndAjaxNew('getFileListByForeginId.action', array, dealInitList,
+			'JSON',false  );	
 }	
-function dealInitList(data){ 
+function dealInitList(data){  
 	if (data.res == "2") { 
 		var jsonArr = data.list;  
+		 $("#table2").empty();
 		for (var i = 0; i < jsonArr.length; i++) {
 			var $tr = $("<tr  target=sid_user rel=" + (i + 1) + " >");
 			$tr.append($("<td width=5%>").html("<input type=radio name=fileAllId value='"+replaceF9ValToUnknown(jsonArr[i].fdid)+","+replaceF9ValToUnknown(jsonArr[i].filename)+"'/>"));
@@ -54,19 +53,16 @@ function dealInitList(data){
 			},
 			function(){
 				$(this).removeClass("hover selected");
-			});
+			});			 
 			 $("#table2").append($tr);
 		}
 	}
+	return ;
 }
 </script>
 </head>
 <body>
 <div id="<%=request.getParameter("foregin_id")%>Div"   class="pageContent">
-		<div class="formBar"  >
-    	 	<img src="system/loading.gif" id="loading" style="display: none;">
-			<input type="file" id="file" name="file" /> 
-		</div>
 	 <table width="40%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
 						<td>
