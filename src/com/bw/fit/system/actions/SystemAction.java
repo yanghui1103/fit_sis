@@ -760,4 +760,27 @@ public class SystemAction extends BaseAction{
         
         return null ;
     }
+    /**
+     * 根据外键查询关联的附件
+     */
+    public String getFileListByForeginId()   throws Exception {
+        HttpSession session = request.getSession(false);  
+        response.setContentType("text/plain;charset=UTF-8");
+        Writer wr = response.getWriter();
+        String str =  (request.getParameter("context")) ; 
+        JSONObject obj = (JSONObject) JSONValue.parse(str);
+        JSONArray array = (JSONArray) obj.get("content");
+        String param1 = (String) (((JSONObject) array.get(0)).get("param1"));       
+        SystemCommonModel c = new SystemCommonModel();  
+        c.setTemp_str1(param1);  
+        c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
+                .getStaff_id());
+        JSONObject objItem = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
+                .getFileListByForeginId(c);
+        log.info((objItem.toJSONString()));
+        wr.write(objItem.toJSONString());
+        wr.close();
+        
+        return null ;
+    }
 }

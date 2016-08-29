@@ -1068,4 +1068,41 @@ public class SystemAdminServiceImpl implements SystemAdminService {
             return info;
         }
 
+        @Override
+        public JSONObject getFileListByForeginId(SystemCommonModel c) {
+            // TODO Auto-generated method stub
+            JSONObject info = new JSONObject();
+            try {
+                c.setSql("systemAdminDAO.getFileListByForeginId");
+                List<SystemCommonModel> list = systemMybatisDaoUtil.getListData(
+                        c.getSql(), c); 
+                if(list.size()<1){
+                    info.put("res", "1");
+                    info.put("msg","无数据"); 
+                    return info ;
+                }else{
+                    info.put("res", "2");
+                    info.put("msg","执行成功"); 
+                }
+                JSONArray array = new JSONArray();
+                for(int i=0;i<list.size();i++){
+                    JSONObject jsonObjArr = new JSONObject();
+                    jsonObjArr.put("fdid", (list.get(i)).getFdid());
+                    jsonObjArr.put("filename", (list.get(i)).getTemp_str1());
+                    jsonObjArr.put("create_time", (list.get(i)).getCreate_time());
+                    jsonObjArr.put("staff_name", (list.get(i)).getStaff_name());
+                    jsonObjArr.put("temp_str2", (list.get(i)).getTemp_str2()); 
+                    jsonObjArr.put("before_name", (list.get(i)).getTemp_str3()); 
+                    array.add(jsonObjArr);
+                    jsonObjArr = null;
+                }
+                info.put("list", array);
+                array = null; 
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                log.info(ex.getMessage());
+            }
+            return info;
+        }
+
 }

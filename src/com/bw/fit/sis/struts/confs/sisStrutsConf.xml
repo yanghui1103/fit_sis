@@ -18,5 +18,8 @@
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 		</action>
 		<action name="createOldPersonRptRecond"   class="sisAdminAction"   method="createOldPersonRptRecond" />
+		<action name="createThisPersonRptRecond"   class="sisAdminAction"   method="createThisPersonRptRecond" />
+
+		
 	</package>
 </struts>  

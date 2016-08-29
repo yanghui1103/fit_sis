@@ -5,9 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
+import org.activiti.engine.FormService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
+import org.activiti.engine.task.Task;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.simple.JSONArray;
@@ -400,4 +406,100 @@ public class SisServiceImpl implements SisService {
     return info;
     }
 
+    @Override
+    public JSONObject getExistsPsn(SystemCommonModel c) {
+        // TODO Auto-generated method stub
+        //如果这个人已经存在，那么申报人基础资料不予保存
+        JSONObject info = new JSONObject();  
+        c.setFdid(getUUID());
+        c.setCreate_time(getSysDate());
+        c.setSql("sisAdminDAO.getExistsPsn");
+        List<SystemCommonModel> list = sisMybatisDaoUtil.getListData(c.getSql(), c);
+        if(list.size()>0){ //那么只保存记录即可
+            info.put("res", "2");
+            info.put("msg","已存在");
+            return info ;
+        }else{
+            info.put("res", "1");
+            info.put("msg","不存在");
+            return info;
+        } 
+    }
+
+    @Override
+    public JSONObject luruNewRptFlow(SystemCommonModel c,RuntimeService runtimeService, FormService formService, TaskService taskService) {
+        // TODO Auto-generated method stub
+        Map<String, Object> p = new HashMap<String, Object>();    
+        // 开始流程  
+        p.put("flow_id", c.getFdid());
+        runtimeService.startProcessInstanceByKey("myProcess", p);
+        // query kermit's tasks;  
+        List<Task> tasks = taskService.createTaskQuery().taskAssignee("role1").list();  
+        for (Task task : tasks) {  
+            if ("node1".equals(task.getTaskDefinitionKey())) {                 // 设置填报人单位编码记录在节点  
+                taskService.setVariable(task.getId(), "fdid", c.getFdid()  ); 
+                taskService.setVariable(task.getId(), "card_id",  c.getCard_id() );   
+                taskService.setVariable(task.getId(), "person_name",  c.getPerson_name() );   
+                taskService.setVariable(task.getId(), "unit_type",  c.getPerson_unit_type() ); 
+                taskService.setVariable(task.getId(), "unit_name", c.getPerson_unit() ); 
+                taskService.setVariable(task.getId(), "pay_start", c.getRpt_start()  ); 
+                taskService.setVariable(task.getId(), "pay_end",  c.getRpt_end() );  
+                taskService.setVariable(task.getId(), "sub_cycle",  c.getRpt_cycle()  ); 
+                taskService.setVariable(task.getId(), "rpt_type",  c.getRpt_type()  );  
+                taskService.setVariable(task.getId(), "person_phone",  c.getPerson_phone() );  
+                taskService.setVariable(task.getId(), "creator",  c.getStaff_id() ); 
+                taskService.setVariable(task.getId(), "create_time",  c.getCreate_time()  );                 
+                taskService.setVariable(task.getId(), "pass1",  "2"  );                 
+                // 节点任务结束  
+                taskService.complete(task.getId());  
+                log.info("录入申报信息:card :"+c.getCard_id());  
+            }  
+        }
+        JSONObject info = new JSONObject();  
+        info.put("res", "2");
+        info.put("msg", "执行成功");
+        return info ;
+    }
+
+    @Override
+    public JSONObject luruNewPsnAndHisRptFlow(SystemCommonModel c,RuntimeService runtimeService, FormService formService, TaskService taskService) {
+        // TODO Auto-generated method stub
+        // 这个人的资料不存在，那么就新建
+        JSONObject info = new JSONObject();  
+        c.setSql("sisAdminDAO.createPersonInfo"); 
+        info = sisMybatisDaoUtil.sysInsertData(c.getSql(), c);
+        if("1".equals(info.get("res").toString())){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
+            return info ;
+        } 
+        Map<String, Object> p = new HashMap<String, Object>();    
+        // 开始流程  
+        p.put("flow_id", c.getFdid());
+        runtimeService.startProcessInstanceByKey("myProcess", p);
+        // query kermit's tasks;  
+        List<Task> tasks = taskService.createTaskQuery().taskAssignee("role1").list();  
+        for (Task task : tasks) {  
+            if ("node1".equals(task.getTaskDefinitionKey())) {                 // 设置填报人单位编码记录在节点  
+                taskService.setVariable(task.getId(), "fdid", c.getFdid()  ); 
+                taskService.setVariable(task.getId(), "card_id",  c.getCard_id() );   
+                taskService.setVariable(task.getId(), "person_name",  c.getPerson_name() );   
+                taskService.setVariable(task.getId(), "unit_type",  c.getPerson_unit_type() ); 
+                taskService.setVariable(task.getId(), "unit_name", c.getPerson_unit() ); 
+                taskService.setVariable(task.getId(), "pay_start", c.getRpt_start()  ); 
+                taskService.setVariable(task.getId(), "pay_end",  c.getRpt_end() );  
+                taskService.setVariable(task.getId(), "sub_cycle",  c.getRpt_cycle()  ); 
+                taskService.setVariable(task.getId(), "rpt_type",  c.getRpt_type()  );  
+                taskService.setVariable(task.getId(), "person_phone",  c.getPerson_phone() );  
+                taskService.setVariable(task.getId(), "creator",  c.getStaff_id() ); 
+                taskService.setVariable(task.getId(), "create_time",  c.getCreate_time()  );                 
+                taskService.setVariable(task.getId(), "pass1",  "2"  );                 
+                // 节点任务结束  
+                taskService.complete(task.getId());  
+                log.info("录入申报信息:card :"+c.getCard_id());  
+            }  
+        }
+        info.put("res", "2");
+        info.put("msg", "执行成功");
+        return info ; 
+    }
 }

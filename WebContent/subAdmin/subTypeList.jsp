@@ -31,6 +31,9 @@ function dealAfter(data){
 		}else{ 
 			var array = new Array($("#role_id", navTab.getCurrentPanel()).val());
 			createJsonAndAjaxNew("getRoleDeSubType.action", array,function(data){
+				if(data.res!="2"){
+					 return ;
+				}
 				var json = data.list ;
 				for(var j =0;j<json.length;j++){
 					 $("#type_cd[value='"+json[j].sub_type_cd+"']").attr("checked","checked");

@@ -95,7 +95,7 @@ st.fdid = #{staff_id}
 		<select id="getCompany2SubCycle"  parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
          	select sl.fdid temp_str1,sl.cycle_name temp_str2
 from staff st,staff2company sc,sub_cycle sl
-where st.fdid = sc.staff_id and sc.company_id = sl.org_id and sl.isdeleted='0' and sl.state='0' and st.fdid = #{staff_id}         	
+where st.fdid = sc.staff_id and sc.company_id = sl.org_id and sl.isdeleted='0' and sl.state='2' and st.fdid = #{staff_id}         	
          	</select>
          	<!-- 查看这个身份证号码是否已经存在 -->
          	<select id="getExistsPsn"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">

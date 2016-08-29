@@ -267,4 +267,9 @@ and sr.role_id = rl.fdid and sf.fdid = #{fdid}
       <update id="updateUserRole"   parameterType = "com.bw.fit.common.models.SystemCommonModel" >
       update staff2roles set role_id =#{role_id} where staff_id = #{fdid}
       </update>
+       	<!-- 根据外键查询关联附件信息 -->
+       	<select id="getFileListByForeginId"    parameterType = "com.bw.fit.common.models.SystemCommonModel"  resultType="com.bw.fit.common.models.SystemCommonModel">
+ 			select fileid fdid,a.filename temp_str1,create_time,(select staff_name from staff where fdid = a.creator) staff_name,'' temp_str2 ,beforename temp_str3
+ from attachment  a where a.foreign_id = #{temp_str1}       	
+       	</select>
 </mapper>

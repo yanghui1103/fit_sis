@@ -32,11 +32,11 @@ public class TestSIS {
         RepositoryService repositoryService = processEngine  
                 .getRepositoryService();  
         repositoryService.createDeployment()  
-                .addClasspathResource("MyProcess1.bpmn").deploy();  
+                .addClasspathResource("sisProcess.bpmn.xml").deploy();  
         
         processEngine.getProcessEngineConfiguration().getJobExecutor().start();
 
-          taskNode1(runtimeService, formService, taskService,repositoryService);  
+          //taskNode1(runtimeService, formService, taskService,repositoryService);  
 
         taskNode2(runtimeService, formService, taskService);  
         processEngine.getProcessEngineConfiguration().getJobExecutor().shutdown();
@@ -86,7 +86,7 @@ public class TestSIS {
             FormService formService, TaskService taskService) {   
         List<Task> tasks2 = taskService.createTaskQuery()  
                 .taskAssignee("role2")  
-                .processVariableValueEquals("id", "100")  
+               .processVariableValueEquals("flow_id", "88449950cbed462e88bd36464136d2c8")  
                 .processDefinitionKey("myProcess").list();   
         System.out.println("task2数"+tasks2.size());
     }
