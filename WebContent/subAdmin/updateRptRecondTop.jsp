@@ -57,11 +57,21 @@ $('#getPhoto', navTab.getCurrentPanel()).click( function() {
 	$(".ahrefCss").attr("href","system/attachmentPage.jsp?isRead=0&foregin_id="+flow_id+"  ");	
 	$(".ahrefCss").trigger("click"); 
 }); 
-//确认审核-初审
-$("#auditFirst", navTab.getCurrentPanel()).click( function() {	   
-	alertMsg.confirm("是否确认对此记录进行初审确认?", {
+//确认修改,立即进入初审
+$("#saveToNext", navTab.getCurrentPanel()).click( function() {	   
+	alertMsg.confirm("是否确认对此记录修改?", {
 		 okCall: function(){ 
 			 createJsonAndPost2Java('checkRpt.action',$("#createForm", navTab.getCurrentPanel()),function(data){
+				 alertToPageMsg(data);		
+			 },'JSON',false) ;
+		 },
+		 cancelCall : function() {}
+		});		
+}); 
+$("#deleteRt", navTab.getCurrentPanel()).click( function() {	   
+	alertMsg.confirm("是否确认对此记录作废?", {
+		 okCall: function(){ 
+			 createJsonAndPost2Java('deleteRptRecond.action',$("#createForm", navTab.getCurrentPanel()),function(data){
 				 alertToPageMsg(data);		
 			 },'JSON',false) ;
 		 },
@@ -74,7 +84,7 @@ $("#auditFirst", navTab.getCurrentPanel()).click( function() {
 
 	<div class="pageContent">
 	<form method="post" action=""  id=createForm class="pageForm required-validate">
-		<div class="pageFormContent" layoutH="116">
+		<div class="pageFormContent" layoutH="56">
 			<p>
 				<label>申报人姓名：</label>
 				<input   id="person_name" name="person_name"   class="required" type="text"    style="float:left"   readonly    />
@@ -135,16 +145,7 @@ $("#auditFirst", navTab.getCurrentPanel()).click( function() {
 		<input   type="hidden"   id="pass_type"  name="pass_type"  value="1" />
 		<button id="getPhoto"   type="button" >查看附件</button>
 		</p>
-		</div>
-		<div class="pageFormContent"> 
-		<div class="divider"></div>	
-		<p><label>审核结果：</label>		
-				<select id="check_result"  name="check_result"    style="float:left" > 
-				</select>
-		</p>
-		<p><label>审核备注：</label>		
-		<input  type="text"  maxlength=15  id="check_info"  name=check_info/>
-		</p>
+		</div> 
 		</form>
 </div> 	
 
@@ -153,7 +154,8 @@ $("#auditFirst", navTab.getCurrentPanel()).click( function() {
 		</div>
 		
 		<div class="formBar" id="subBar">
-		<button type=button id="auditFirst">审核确认</button>
+		<button type=button id="saveToNext">修改确认</button>
+		<button type=button id="deleteRt">作废确认</button>
 		</div>
 </body>
 </html>

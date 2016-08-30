@@ -130,7 +130,7 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
        (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='rpt_type'  ) rpt_type, 
        (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='sub_cycle'  ) rpt_cycle,rownum pageno
   FROM ACT_RU_TASK A ,staff2roles sr  ,sys_item si
-  where 1=1   and a.assignee_ = si.itype and si.fdid = sr.role_id and si.itype = 'CHECKER1' and sr.staff_id = #{staff_id} ) cc
+  where 1=1   and a.assignee_ = si.itype and si.fdid = sr.role_id and si.itype = #{temp_str3} and sr.staff_id = #{staff_id} ) cc
   where 1=1 
   			<if test="person_name !='-9'">
  		 		and  cc.person_name like '%'||#{person_name}||'%'  
@@ -145,10 +145,10 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
  			</foreach>    
  		 </if>
   			<if test="rpt_type !='-9'">
- 		 		and  cc.rpt_type like '%'||#{rpt_type}||'%'  
+ 		 		and  cc.rpt_type =  #{rpt_type} 
  		 </if>
   			<if test="rpt_cycle !='-9'">
- 		 		and  cc.rpt_cycle like '%'||#{rpt_cycle}||'%'  
+ 		 		and  cc.rpt_cycle =#{rpt_cycle}  
  		 </if>		
  		 <if test="end_num !='-9'">
   				<![CDATA[  and cc.pageno > #{start_num} and cc.pageno<= #{end_num} ]]>
@@ -178,4 +178,10 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
          	 <select id="getPhotoByFdid"    parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
          	  select a.filename temp_str2,foreign_id fdid from attachment a where a.foreign_id = #{fdid}
          	  </select>
+         	  <!-- 补贴拨款 -->
+        <insert id="grantFinanceToPsn"    parameterType="com.bw.fit.common.models.SystemCommonModel" >
+        insert into rpt_reconds (fdid,person_name,card_id,unit_type,unit_name,pay_start,pay_end,sub_cycle,rpt_type,flow_id,isdeleted,create_time,version_time) values 
+(#{fdid},#{person_name},#{card_id},#{person_unit_type},#{person_unit},#{rpt_start},#{rpt_end},#{rpt_cycle},
+#{rpt_type},#{flow_id},'0',to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss'),to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss'))
+        </insert> 	  
 </mapper>

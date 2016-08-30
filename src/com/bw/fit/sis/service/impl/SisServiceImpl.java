@@ -434,7 +434,7 @@ public class SisServiceImpl implements SisService {
         p.put("flow_id", c.getFdid());
         runtimeService.startProcessInstanceByKey("myProcess", p);
         // query kermit's tasks;  
-        List<Task> tasks = taskService.createTaskQuery().taskAssignee("creator").list();  
+        List<Task> tasks = taskService.createTaskQuery().processVariableValueEquals("flow_id", c.getFdid()).taskAssignee("creator").list();  
         for (Task task : tasks) {  
             if ("node1".equals(task.getTaskDefinitionKey())) {                 // 设置填报人单位编码记录在节点  
                 taskService.setVariable(task.getId(), "fdid", c.getFdid()  ); 
@@ -478,7 +478,7 @@ public class SisServiceImpl implements SisService {
         p.put("flow_id", c.getFdid());
         runtimeService.startProcessInstanceByKey("myProcess", p);
         // query kermit's tasks;  
-        List<Task> tasks = taskService.createTaskQuery().taskAssignee("creator").list();  
+        List<Task> tasks = taskService.createTaskQuery().processVariableValueEquals("flow_id", c.getFdid()).taskAssignee("creator").list();  
         for (Task task : tasks) {  
             if ("node1".equals(task.getTaskDefinitionKey())) {                 // 设置填报人单位编码记录在节点  
                 taskService.setVariable(task.getId(), "fdid", c.getFdid()  ); 
@@ -564,6 +564,7 @@ public class SisServiceImpl implements SisService {
     public JSONObject getThisCheckInfoAll(SystemCommonModel c) {
         // TODO Auto-generated method stub
         JSONObject info = new JSONObject();
+        info.put("fdid",c.getFdid() );
         try { 
             c.setSql("sisAdminDAO.getCardInfoByFlowId");
             List<SystemCommonModel> list = sisMybatisDaoUtil.getListData(
@@ -653,5 +654,143 @@ public class SisServiceImpl implements SisService {
         }
         
         return info;   
+    }
+    
+
+    @Override
+    public JSONObject checkRpt(SystemCommonModel c,RuntimeService runtimeService, FormService formService, TaskService taskService) {
+        // TODO Auto-generated method stub 
+        // query kermit's tasks;  
+        JSONObject info = new JSONObject();  
+        List<Task> tasks = taskService.createTaskQuery().processVariableValueEquals("flow_id", c.getFdid()).taskAssignee("CHECKER1").list();  
+        if(tasks.size()<1){
+            info.put("res", "1");
+            info.put("msg", "任务不存在");
+            return info ;
+        }
+        for (Task task : tasks) {  
+            if ("node2".equals(task.getTaskDefinitionKey())) {                 // 设置填报人单位编码记录在节点  
+                taskService.setVariable(task.getId(), "fdid", c.getFdid()  );  
+                if("YES".equalsIgnoreCase(c.getCheck_result())){
+                    taskService.setVariable(task.getId(), "pass2",  "2"  ); 
+                    taskService.setVariable(task.getId(), "pass2_code",  c.getCheck_result()  ); 
+                    taskService.setVariable(task.getId(), "pass2_info",  c.getCheck_info()  );                     
+                }else{
+                    taskService.setVariable(task.getId(), "pass2",  "1"  );  
+                    taskService.setVariable(task.getId(), "pass2_code", c.getCheck_result()  ); 
+                    taskService.setVariable(task.getId(), "pass2_info",  c.getCheck_info()  );  
+                }
+                // 节点任务结束  
+                taskService.complete(task.getId());   
+            }  
+        }
+        info.put("res", "2");
+        info.put("msg", "初审成功");
+        return info ;
+    }
+    
+
+    @Override
+    public JSONObject checkRptSecond(SystemCommonModel c,RuntimeService runtimeService, FormService formService, TaskService taskService) {
+        // TODO Auto-generated method stub 
+        // query kermit's tasks;  
+        JSONObject info = new JSONObject();  
+        List<Task> tasks = taskService.createTaskQuery().processVariableValueEquals("flow_id", c.getFdid()).taskAssignee("CHECKER2").list();  
+        if(tasks.size()<1){
+            info.put("res", "1");
+            info.put("msg", "任务不存在");
+            return info ;
+        }
+        for (Task task : tasks) {  
+            if ("node3".equals(task.getTaskDefinitionKey())) {                 // 设置填报人单位编码记录在节点  
+                taskService.setVariable(task.getId(), "fdid", c.getFdid()  );  
+                if("YES".equalsIgnoreCase(c.getCheck_result())){
+                    taskService.setVariable(task.getId(), "pass3",  "2"  ); 
+                    taskService.setVariable(task.getId(), "pass3_code",  c.getCheck_result()  ); 
+                    taskService.setVariable(task.getId(), "pass3_info",  c.getCheck_info()  );                     
+                }else{
+                    taskService.setVariable(task.getId(), "pass3",  "1"  );  
+                    taskService.setVariable(task.getId(), "pass3_code", c.getCheck_result()  ); 
+                    taskService.setVariable(task.getId(), "pass3_info",  c.getCheck_info()  );  
+                }
+                // 节点任务结束  
+                taskService.complete(task.getId());   
+            }  
+        }
+        info.put("res", "2");
+        info.put("msg", "复审成功");
+        return info ;
+    }
+
+    @Override
+    public JSONObject deleteRptRecond(SystemCommonModel c, RuntimeService runtimeService, FormService formService,
+            TaskService taskService) {
+        // TODO Auto-generated method stub
+        JSONObject info = new JSONObject();  
+        List<Task> tasks = taskService.createTaskQuery().processVariableValueEquals("flow_id", c.getFdid()).taskAssignee("creator").list();  
+        if(tasks.size()<1){
+            info.put("res", "1");
+            info.put("msg", "任务不存在");
+            return info ;
+        }
+        for (Task task : tasks) {  
+            if ("node1".equals(task.getTaskDefinitionKey())) {                 // 设置填报人单位编码记录在节点  
+                taskService.setVariable(task.getId(), "fdid", c.getFdid()  );   
+                taskService.setVariable(task.getId(), "pass1",  "1"  );    
+                // 节点任务结束  
+                taskService.complete(task.getId());   
+            }  
+        }
+        info.put("res", "2");
+        info.put("msg", "申报记录作废成功");
+        return info ;
+    }
+      
+    @Override
+    public JSONObject grantFinanceToPsn(SystemCommonModel c, RuntimeService runtimeService, FormService formService,
+            TaskService taskService)  {
+        // TODO Auto-generated method stub
+        JSONObject info = new JSONObject();  
+        List<String> ls = new ArrayList<String>();
+        String[] arr = c.getTemp_str1().split(",");
+        for(int i=0;i<arr.length;i++){
+            ls.add(arr[i]);
+        }
+        c.setTemp_list(ls);
+        c.setSql("sisAdminDAO.qryWaitCheckRecordList");
+        List<SystemCommonModel> list = sisMybatisDaoUtil.getListData(
+                c.getSql(), c); 
+        if(list.size()<1){
+            info.put("res", "1");
+            info.put("msg", "无数据需拨款");
+            return info ;
+        }
+        for(int k=0;k<list.size();k++){
+            List<Task> tasks = taskService.createTaskQuery().processVariableValueEquals("flow_id", list.get(k).getFdid()).taskAssignee("finance").list();  
+            for (Task task : tasks) {  
+                if ("node4".equals(task.getTaskDefinitionKey())) {                 // 财务拨款通过 
+                    taskService.setVariable(task.getId(), "fdid", c.getFdid()  );   
+                    taskService.setVariable(task.getId(), "pass4",  "2"  );    
+                    // 节点任务结束  
+                    taskService.complete(task.getId());   
+                    // 与此同时，将这条记录归档          
+                    SystemCommonModel c2 = new SystemCommonModel();
+                    c2.setPerson_name(taskService.getVariable(task.getId(), "person_name").toString());
+                    c2.setCard_id(taskService.getVariable(task.getId(), "card_id").toString());
+                    c2.setPerson_unit_type(taskService.getVariable(task.getId(), "unit_type").toString());
+                    c2.setPerson_unit(taskService.getVariable(task.getId(), "unit_name").toString());
+                    c2.setRpt_start(taskService.getVariable(task.getId(), "pay_start").toString());
+                    c2.setRpt_end(taskService.getVariable(task.getId(), "pay_end").toString());
+                    c2.setRpt_cycle(taskService.getVariable(task.getId(), "sub_cycle").toString());
+                    c2.setRpt_type(taskService.getVariable(task.getId(), "rpt_type").toString());
+                    c2.setFlow_id(taskService.getVariable(task.getId(), "fdid").toString());
+                    c2.setFdid(getUUID());
+                    c2.setCreate_time(getSysDate());
+                    c2.setSql("sisAdminDAO.grantFinanceToPsn");
+                    info = sisMybatisDaoUtil.sysInsertData(c2.getSql(), c2);
+                }  
+            }
+        }
+        return info;
     }
 }

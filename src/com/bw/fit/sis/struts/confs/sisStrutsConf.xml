@@ -21,6 +21,11 @@
 		<action name="createThisPersonRptRecond"   class="sisAdminAction"   method="createThisPersonRptRecond" />
 		<action name="qryWaitCheckRecordList"   class="sisAdminAction"   method="qryWaitCheckRecordList" />
 		<action name="getThisCheckInfoAll"   class="sisAdminAction"   method="getThisCheckInfoAll" />
+		<action name="checkRpt"   class="sisAdminAction"   method="checkRpt" />
+		<action name="deleteRptRecond"    class="sisAdminAction"   method="deleteRptRecond" >
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<action name="grantFinanceToPsn"   class="sisAdminAction"   method="grantFinanceToPsn" />
 		
 
 		

@@ -13,7 +13,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${pass2 == '2'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow7" sourceRef="exclusivegateway2" targetRef="node1">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${pass1 == '1'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${pass2 == '1'}]]></conditionExpression>
     </sequenceFlow>
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow8" sourceRef="node3" targetRef="exclusivegateway3"></sequenceFlow>

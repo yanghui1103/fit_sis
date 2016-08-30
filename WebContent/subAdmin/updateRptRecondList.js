@@ -2,7 +2,7 @@
 var num =0;
 var total = 20;   //每页记录数 
 
-baidu(document).on('click', '#qry300', function() {
+baidu(document).on('click', '#qry207', function() {
 	initCycleList($("#allDiv", navTab.getCurrentPanel()).find("tbody"),"0"); 	
 });
 function initCycleList(obj,num){ 
@@ -14,7 +14,7 @@ function initCycleList(obj,num){
 	if(org_id =="-9"){
 		alertMsg.info("请选择机构");return ;
 	}
-	 var array = new Array(person_name,card_id,org_id,rpt_type,sub_cycle, num*total + "", (num*total + total)+"",total+"" ,'CHECKER1');   
+	 var array = new Array(person_name,card_id,org_id,rpt_type,sub_cycle, num*total + "", (num*total + total)+"",total+"" ,'creator');   
 	 createJsonAndAjaxNew('qryWaitCheckRecordList.action', array, function(data){
 		initPageSelectList($("#PageNo", navTab.getCurrentPanel()),data.pageNum,$("#Tatol", navTab.getCurrentPanel()),data.tatol,num);	 
 		var $tbody =  obj ;

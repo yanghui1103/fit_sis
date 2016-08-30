@@ -25,4 +25,10 @@ public interface SisService {
     public  JSONObject luruNewPsnAndHisRptFlow(SystemCommonModel c,RuntimeService runtimeService,FormService formService, TaskService taskService) ;
     public JSONObject qryWaitCheckRecordList(SystemCommonModel c);
     public JSONObject getThisCheckInfoAll(SystemCommonModel c);
+    public  JSONObject checkRpt(SystemCommonModel c,RuntimeService runtimeService,FormService formService, TaskService taskService) ;
+    public  JSONObject checkRptSecond(SystemCommonModel c,RuntimeService runtimeService,FormService formService, TaskService taskService) ;
+    public  JSONObject deleteRptRecond(SystemCommonModel c,RuntimeService runtimeService,FormService formService, TaskService taskService) ;
+    public JSONObject grantFinanceToPsn(SystemCommonModel c, RuntimeService runtimeService, FormService formService,
+            TaskService taskService) ;
+    
 }

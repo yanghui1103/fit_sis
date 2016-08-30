@@ -2,10 +2,10 @@
 var num =0;
 var total = 20;   //每页记录数 
 
-baidu(document).on('click', '#qry300', function() {
-	initCycleList($("#allDiv", navTab.getCurrentPanel()).find("tbody"),"0"); 	
+baidu(document).on('click', '#qry301', function() {
+	initCycleList2($("#allDiv", navTab.getCurrentPanel()).find("tbody"),"0"); 	
 });
-function initCycleList(obj,num){ 
+function initCycleList2(obj,num){ 
 	var person_name = $("#person_name", navTab.getCurrentPanel()).val() == "" ? "-9" : $("#person_name", navTab.getCurrentPanel()).val();
 	var card_id = $("#card_id", navTab.getCurrentPanel()).val() == "" ? "-9" : $("#card_id", navTab.getCurrentPanel()).val();  
 	var org_id = $("#org_id", navTab.getCurrentPanel()).val() == "" ? "-9" : $("#org_id", navTab.getCurrentPanel()).val();  
@@ -14,7 +14,7 @@ function initCycleList(obj,num){
 	if(org_id =="-9"){
 		alertMsg.info("请选择机构");return ;
 	}
-	 var array = new Array(person_name,card_id,org_id,rpt_type,sub_cycle, num*total + "", (num*total + total)+"",total+"" ,'CHECKER1');   
+	 var array = new Array(person_name,card_id,org_id,rpt_type,sub_cycle, num*total + "", (num*total + total)+"",total+"",'CHECKER2' );   
 	 createJsonAndAjaxNew('qryWaitCheckRecordList.action', array, function(data){
 		initPageSelectList($("#PageNo", navTab.getCurrentPanel()),data.pageNum,$("#Tatol", navTab.getCurrentPanel()),data.tatol,num);	 
 		var $tbody =  obj ;
@@ -47,8 +47,7 @@ function initCycleList(obj,num){
 }
 
 
-
 $("#PageNo", navTab.getCurrentPanel()).change(function(){	
 	num = $("#PageNo", navTab.getCurrentPanel()).val();
-	initCycleList($("#allDiv", navTab.getCurrentPanel()).find("tbody"),num+""); 
+	initCycleList2($("#allDiv", navTab.getCurrentPanel()).find("tbody"),num+""); 
 });

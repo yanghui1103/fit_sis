@@ -59,6 +59,7 @@ public class SystemCommonModel {
      */
     private String task_id ;
     private String proc_inst_id ;
+    private String flow_id ;
     private int temp_int1;
     private int temp_int2;
     private int temp_int3;
@@ -88,6 +89,8 @@ public class SystemCommonModel {
     private String rpt_cycle_state ;  
     private String rpt_month_count ;
     private String cycle_name;
+    private String check_result ;
+    private String check_info ;
     
     
     
@@ -96,6 +99,24 @@ public class SystemCommonModel {
     
     
     
+    public String getFlow_id() {
+        return flow_id;
+    }
+    public void setFlow_id(String flow_id) {
+        this.flow_id = flow_id;
+    }
+    public String getCheck_result() {
+        return check_result;
+    }
+    public void setCheck_result(String check_result) {
+        this.check_result = check_result;
+    }
+    public String getCheck_info() {
+        return check_info;
+    }
+    public void setCheck_info(String check_info) {
+        this.check_info = check_info;
+    }
     public String getTask_id() {
         return task_id;
     }

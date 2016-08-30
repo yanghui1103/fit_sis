@@ -43,7 +43,8 @@ function dealInitCheckTopPage(data){
 	$("#rpt_type",navTab.getCurrentPanel()).val(json[0].rpt_type);
 	$("#sub_cycle",navTab.getCurrentPanel()).val(json[0].sub_cycle);
 	$("#start_date",navTab.getCurrentPanel()).val(json[0].pay_start);
-	$("#end_date",navTab.getCurrentPanel()).val(json[0].pay_end);   
+	$("#end_date",navTab.getCurrentPanel()).val(json[0].pay_end);  
+	
 	data.photo_list ;
 	$("#flow_id",navTab.getCurrentPanel()).val(data.fdid);
 	$("#fdid",navTab.getCurrentPanel()).val(data.fdid);
@@ -132,7 +133,7 @@ $("#auditFirst", navTab.getCurrentPanel()).click( function() {
 			</p><p>
 		<input   type="hidden"   id="fdid"  name="fdid"  />
 		<input   type="hidden"   id="flow_id"  name="flow_id"  />
-		<input   type="hidden"   id="pass_type"  name="pass_type"  value="1" />
+		<input   type="hidden"   id="pass_type"  name="pass_type"  value="2" />
 		<button id="getPhoto"   type="button" >查看附件</button>
 		</p>
 		</div>
