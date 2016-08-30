@@ -31,13 +31,13 @@ $(function(){
 	// 图片渲染控件
 	$('.fancybox',$.pdialog.getCurrent()).fancybox();
 
-	initAttachmentList();
+	// initAttachmentList();
 });
 function initAttachmentList(){
 	var array = new Array();  
 	array[0] = foregin_id ;  
 	createJsonAndAjaxNew('getFileListByForeginId.action', array, dealInitList,
-			'JSON',false  );	
+			'JSON',true  );	
 }
 function dealInitList(data){ 
 	 $("#attach_list",$.pdialog.getCurrent() ).empty();
