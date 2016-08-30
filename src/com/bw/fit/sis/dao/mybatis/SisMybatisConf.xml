@@ -77,7 +77,7 @@
 		<select id="getPsnBaseInfo"  parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
     select a.person_name person_name ,a.phone person_phone,a.gender person_gender,a.nation person_nation,a.orgin person_orgin,to_char(a.first_time,'yyyy-MM-dd') first_time,a.state person_state,
 (select company_name from company where fdid = a.create_company) select_company_name,
-(select staff_name from staff where fdid = a.creator) staff_name ,
+(select staff_name from staff where fdid = a.creator) staff_name ,card_id ,
 a.create_time from rpt_person  a where card_id = #{card_id}   
 		</select>
 		<!-- 修改申报人基础信息 -->
@@ -125,7 +125,8 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
        (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='pay_end'  ) end_date,
        (select st.staff_name from  act_hi_varinst ,staff st where proc_inst_id_ = a.proc_inst_id_ and name_ ='creator' and st.fdid=text_   ) staff_name,
        (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='create_time'  ) create_time,
-       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='create_company'  ) staff_company_id , 
+       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='create_company'  ) staff_company_id ,
+       (select cp.company_name from  act_hi_varinst ,company cp where proc_inst_id_ = a.proc_inst_id_ and name_ ='create_company' and cp.fdid = text_  ) staff_company_name , 
        (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='rpt_type'  ) rpt_type, 
        (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='sub_cycle'  ) rpt_cycle,rownum pageno
   FROM ACT_RU_TASK A ,staff2roles sr  ,sys_item si
@@ -153,4 +154,28 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
   				<![CDATA[  and cc.pageno > #{start_num} and cc.pageno<= #{end_num} ]]>
   		</if>      
          	</select>
+         	<!-- 根据flowid查询该申报人身份证号码 -->
+         	<select id="getCardInfoByFlowId"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+         	  select text_  card_id from act_hi_varinst av where   av.name_ ='card_id' and av.proc_inst_id_ =#{temp_str1}
+         	  </select>
+         	 <!-- 根据acitivi内部流程编码查询，这个流程记录里的数据 -->
+         	 <select id="getThisCheckInfoAll"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+         	   SELECT 
+       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='fdid'  ) fdid,
+       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='person_name'  ) person_name,
+       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='card_id'  ) card_id,
+       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='pay_start'  ) start_date,
+       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='pay_end'  ) end_date,
+       (select st.staff_name from  act_hi_varinst ,staff st where proc_inst_id_ = a.proc_inst_id_ and name_ ='creator' and st.fdid=text_   ) staff_name,
+       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='create_time'  ) create_time,
+       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='create_company'  ) staff_company_id , 
+       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='rpt_type'  ) rpt_type, 
+       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='sub_cycle'  ) rpt_cycle ,
+       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='unit_type'  ) person_unit_type ,
+       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='unit_name'  ) person_unit 
+  FROM ACT_RU_TASK A   where A.PROC_INST_ID_ =#{temp_str1}
+         	 </select> 
+         	 <select id="getPhotoByFdid"    parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+         	  select a.filename temp_str2,foreign_id fdid from attachment a where a.foreign_id = #{fdid}
+         	  </select>
 </mapper>

@@ -531,7 +531,8 @@ public class SisServiceImpl implements SisService {
             }
             JSONArray array = new JSONArray();
             for(int i=0;i<list.size();i++){
-                JSONObject jsonObjArr = new JSONObject();
+                JSONObject jsonObjArr = new JSONObject(); 
+                jsonObjArr.put("proc_inst_id", (list.get(i)).getProc_inst_id());
                 jsonObjArr.put("fdid", (list.get(i)).getFdid());
                 jsonObjArr.put("person_name", (list.get(i)).getPerson_name());
                 jsonObjArr.put("card_id", (list.get(i)).getCard_id()); 
@@ -539,6 +540,7 @@ public class SisServiceImpl implements SisService {
                 jsonObjArr.put("end_date", (list.get(i)).getEnd_date());
                 jsonObjArr.put("creator", (list.get(i)).getStaff_name()); 
                 jsonObjArr.put("create_time", (list.get(i)).getCreate_time()); 
+                jsonObjArr.put("staff_company_name", (list.get(i)).getStaff_company_name()); 
                 array.add(jsonObjArr);
                 jsonObjArr = null;
             }
@@ -563,14 +565,93 @@ public class SisServiceImpl implements SisService {
         // TODO Auto-generated method stub
         JSONObject info = new JSONObject();
         try { 
-            c.setSql("sisAdminDAO.getThisCheckInfoAll");
+            c.setSql("sisAdminDAO.getCardInfoByFlowId");
             List<SystemCommonModel> list = sisMybatisDaoUtil.getListData(
                     c.getSql(), c); 
-             
+             if(list.size()<1){
+                 info.put("res","1");
+                 info.put("msg", "流程中,此人不存在");
+                 return info ;
+             }
+             c.setCard_id(list.get(0).getCard_id());
+             c.setSql("sisAdminDAO.getPsnBaseInfo");
+             List<SystemCommonModel> list2 = sisMybatisDaoUtil.getListData(
+                     c.getSql(), c);  // 这样就把基础资料拿出来了
+
+             if(list2.size()<1){
+                 info.put("res","1");
+                 info.put("msg", "此人不存在");
+                 return info ;
+             }
+
+             JSONArray array = new JSONArray();
+             for(int i=0;i<list2.size();i++){
+                 JSONObject jsonObjArr = new JSONObject();
+                 jsonObjArr.put("person_name", (list2.get(i)).getPerson_name());
+                 jsonObjArr.put("card_id", (list2.get(i)).getCard_id());
+                 jsonObjArr.put("person_phone", (list2.get(i)).getPerson_phone());
+                 jsonObjArr.put("person_gender", (list2.get(i)).getPerson_gender());
+                 jsonObjArr.put("person_nation", (list2.get(i)).getPerson_nation());
+                 jsonObjArr.put("person_orgin", (list2.get(i)).getPerson_orgin());
+                 jsonObjArr.put("first_time", (list2.get(i)).getFirst_time());
+                 jsonObjArr.put("person_state", (list2.get(i)).getPerson_state()); 
+                 jsonObjArr.put("select_company_name", (list2.get(i)).getSelect_company_name()); 
+                 jsonObjArr.put("create_time", (list2.get(i)).getCreate_time()); 
+                 jsonObjArr.put("staff_name", (list2.get(i)).getStaff_name()); 
+                 array.add(jsonObjArr);
+                 jsonObjArr = null;
+             }
+             info.put("binfo_list", array);
+             array = null; 
+             array = new JSONArray();
+             // 然后把申报记录的数据拿出来
+             c.setSql("sisAdminDAO.getThisCheckInfoAll");
+             List<SystemCommonModel> list3 = sisMybatisDaoUtil.getListData(
+                     c.getSql(), c);  // 这样就把基础资料拿出来了
+             if(list3.size()<1){
+                 info.put("res","1");
+                 info.put("msg", "此人申报记录已不在初审环节");
+                 return info ;
+             }
+             for(int i=0;i<list3.size();i++){
+                 JSONObject jsonObjArr = new JSONObject();
+                 jsonObjArr.put("pay_start", (list3.get(i)).getStart_date());
+                 jsonObjArr.put("pay_end", (list3.get(i)).getEnd_date());
+                 jsonObjArr.put("unit_type", (list3.get(i)).getPerson_unit_type());
+                 jsonObjArr.put("unit_name", (list3.get(i)).getPerson_unit());
+                 jsonObjArr.put("rpt_type", (list3.get(i)).getRpt_type());
+                 jsonObjArr.put("sub_cycle", (list3.get(i)).getRpt_cycle()); 
+                 array.add(jsonObjArr);
+                 jsonObjArr = null;
+             }
+             info.put("flow_list", array);
+             array = null; 
+             array = new JSONArray();
+             // 最后把图片附件加入
+             c.setSql("sisAdminDAO.getPhotoByFdid");
+             List<SystemCommonModel> list4 = sisMybatisDaoUtil.getListData(
+                     c.getSql(), c);   
+             if(list4.size()<1){
+                 info.put("res","2"); 
+                 info.put("msg", "此人申报记录中图片未知");
+                 return info ;
+             }
+             for(int i=0;i<list4.size();i++){
+                 JSONObject jsonObjArr = new JSONObject();
+                 jsonObjArr.put("photo_after_name", (list4.get(i)).getTemp_str2()); 
+                 jsonObjArr.put("flow_id", (list4.get(i)).getFdid()); 
+                 array.add(jsonObjArr);
+                 jsonObjArr = null;
+             }
+             info.put("photo_list", array);
+             array = null; 
+             info.put("res","2"); 
+             info.put("msg", "查询成功");
         } catch (Exception ex) {
             ex.printStackTrace();
             log.info(ex.getMessage());
         }
+        
         return info;   
     }
 }

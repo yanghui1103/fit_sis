@@ -57,6 +57,8 @@ public class SystemCommonModel {
      * 以上是系统设置通用字段
      * 下面是业务部分字段
      */
+    private String task_id ;
+    private String proc_inst_id ;
     private int temp_int1;
     private int temp_int2;
     private int temp_int3;
@@ -94,6 +96,18 @@ public class SystemCommonModel {
     
     
     
+    public String getTask_id() {
+        return task_id;
+    }
+    public void setTask_id(String task_id) {
+        this.task_id = task_id;
+    }
+    public String getProc_inst_id() {
+        return proc_inst_id;
+    }
+    public void setProc_inst_id(String proc_inst_id) {
+        this.proc_inst_id = proc_inst_id;
+    }
     public String getFirst_time() {
         return first_time;
     }

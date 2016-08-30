@@ -827,7 +827,9 @@ public class SisAdminAction extends BaseAction{
             JSONArray array = (JSONArray) obj.get("content");
             String param1 = (String) (((JSONObject) array.get(0)).get("param1")); 
             SystemCommonModel c = new SystemCommonModel();  
-            c.setFdid(param1); 
+            String[] array2 = param1.split(",");
+            c.setFdid(array2[0]); 
+            c.setTemp_str1(array2[1]);
             c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")) .getStaff_id());
             c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
             JSONObject objItem = ((SisServiceImpl) getBean("sisServiceImpl")).getThisCheckInfoAll(c);
