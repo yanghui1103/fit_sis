@@ -61,27 +61,27 @@ $('#getPhoto', navTab.getCurrentPanel()).click( function() {
 		<div class="pageFormContent" layoutH="56">
 			<p>
 				<label>申报人姓名：</label>
-				<input   id="person_name" name="person_name"   class="required" type="text"    style="float:left"   readonly   />
+				<input   id="person_name" name="person_name"   class="required" type="text"    style="float:left"       />
 			</p>  
 			<p>
 				<label>身份证号码：</label>
-				<input   id="card_id" name="card_id"   class="required" type="text"    style="float:left"   readonly   />
+				<input   id="card_id" name="card_id"   class="required" type="text"    style="float:left"       />
 			</p> 
 			<p>
 				<label>申报人性别：</label>
-				<input   id="gender" name="gender"   class="required" type="text"    style="float:left"   readonly   />
+				<input   id="gender" name="gender"   class="required" type="text"    style="float:left"       />
 			</p>   
 			<p>
 				<label>出生日期：</label>
-				<input   id="birchday" name="birchday"   class="required" type="text"    style="float:left"   readonly   />
+				<input   id="birchday" name="birchday"   class="required" type="text"    style="float:left"       />
 			</p>   
 			<p>
 				<label>民族：</label>
-				<input   id="nation" name="nation"   class="required" type="text"    style="float:left"   readonly   />
+				<input   id="nation" name="nation"   class="required" type="text"    style="float:left"       />
 			</p>   
 			<p>
 				<label>签发机构：</label>
-				<input   id="orgin" name="orgin"   class="required" type="text"    style="float:left"   readonly   />
+				<input   id="orgin" name="orgin"   class="required" type="text"    style="float:left"       />
 			</p>    
 			<p>
 				<label>联系电话：</label>

@@ -82,7 +82,7 @@
         <property name="history" value="full"/>  
  		<!--  <property name="databaseSchema" value="ACT"/> -->  <!-- 先drop-create，然后改成false后，把dataSchema注释掉 -->
  		
- 		<property name="deploymentResources"    value="classpath:sisProcess.bpmn.xml" /> 
+ 		<property name="deploymentResources"    value="classpath:sisProcess.bpmn" /> 
 	</bean>
 
 	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean" 	scope="singleton">

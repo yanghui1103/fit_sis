@@ -114,4 +114,43 @@ to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss'),to_date(#{create_time},'yyyy-MM-
 values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nation},#{person_orgin}, to_date(#{first_time},'yyyy-MM-dd') ,'2',
 #{staff_company_id} ,#{staff_id},to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss'),to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss') )
          	</insert>
+         	<!-- 根据角色，机构等查询待审核列表 -->
+         	<select id="qryWaitCheckRecordList"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+         	    select cc.* from (    SELECT A.ID_ AS TASK_ID,
+       A.PROC_INST_ID_ PROC_INST_ID, 
+       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='fdid'  ) fdid,
+       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='person_name'  ) person_name,
+       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='card_id'  ) card_id,
+       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='pay_start'  ) start_date,
+       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='pay_end'  ) end_date,
+       (select st.staff_name from  act_hi_varinst ,staff st where proc_inst_id_ = a.proc_inst_id_ and name_ ='creator' and st.fdid=text_   ) staff_name,
+       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='create_time'  ) create_time,
+       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='create_company'  ) staff_company_id , 
+       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='rpt_type'  ) rpt_type, 
+       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='sub_cycle'  ) rpt_cycle,rownum pageno
+  FROM ACT_RU_TASK A ,staff2roles sr  ,sys_item si
+  where 1=1   and a.assignee_ = si.itype and si.fdid = sr.role_id and si.itype = 'CHECKER1' and sr.staff_id = #{staff_id} ) cc
+  where 1=1 
+  			<if test="person_name !='-9'">
+ 		 		and  cc.person_name like '%'||#{person_name}||'%'  
+ 		 </if>
+  			<if test="card_id !='-9'">
+ 		 		and  cc.card_id like '%'||#{card_id}||'%'  
+ 		 </if>
+ 		 <if test="temp_str1 !='-9'">
+ 		 and cc.staff_company_id  in
+  			<foreach item="item" index="index" collection="temp_list" open="(" separator="," close=")">  
+  					#{item}  
+ 			</foreach>    
+ 		 </if>
+  			<if test="rpt_type !='-9'">
+ 		 		and  cc.rpt_type like '%'||#{rpt_type}||'%'  
+ 		 </if>
+  			<if test="rpt_cycle !='-9'">
+ 		 		and  cc.rpt_cycle like '%'||#{rpt_cycle}||'%'  
+ 		 </if>		
+ 		 <if test="end_num !='-9'">
+  				<![CDATA[  and cc.pageno > #{start_num} and cc.pageno<= #{end_num} ]]>
+  		</if>      
+         	</select>
 </mapper>

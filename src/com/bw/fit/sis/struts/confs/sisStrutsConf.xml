@@ -19,6 +19,9 @@
 		</action>
 		<action name="createOldPersonRptRecond"   class="sisAdminAction"   method="createOldPersonRptRecond" />
 		<action name="createThisPersonRptRecond"   class="sisAdminAction"   method="createThisPersonRptRecond" />
+		<action name="qryWaitCheckRecordList"   class="sisAdminAction"   method="qryWaitCheckRecordList" />
+		<action name="getThisCheckInfoAll"   class="sisAdminAction"   method="getThisCheckInfoAll" />
+		
 
 		
 	</package>

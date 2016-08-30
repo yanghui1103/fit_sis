@@ -23,4 +23,6 @@ public interface SisService {
     public JSONObject getExistsPsn(SystemCommonModel c);
     public  JSONObject luruNewRptFlow(SystemCommonModel c,RuntimeService runtimeService,FormService formService, TaskService taskService) ;
     public  JSONObject luruNewPsnAndHisRptFlow(SystemCommonModel c,RuntimeService runtimeService,FormService formService, TaskService taskService) ;
+    public JSONObject qryWaitCheckRecordList(SystemCommonModel c);
+    public JSONObject getThisCheckInfoAll(SystemCommonModel c);
 }

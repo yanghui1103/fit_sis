@@ -2,13 +2,13 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="myProcess" name="myProcess" isExecutable="true">
     <startEvent id="startevent1" name="Start"></startEvent>
-    <userTask id="node1" name="录入" activiti:assignee="role1"></userTask>
+    <userTask id="node1" name="录入" activiti:assignee="creator"></userTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="node1"></sequenceFlow>
-    <userTask id="node2" name="初审" activiti:assignee="role2"></userTask>
+    <userTask id="node2" name="初审" activiti:assignee="CHECKER1"></userTask>
     <endEvent id="endevent1" name="End"></endEvent>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow5" sourceRef="node2" targetRef="exclusivegateway2"></sequenceFlow>
-    <userTask id="node3" name="复审" activiti:assignee="role3"></userTask>
+    <userTask id="node3" name="复审" activiti:assignee="CHECKER2"></userTask>
     <sequenceFlow id="flow6" sourceRef="exclusivegateway2" targetRef="node3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${pass2 == '2'}]]></conditionExpression>
     </sequenceFlow>
@@ -17,7 +17,7 @@
     </sequenceFlow>
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow8" sourceRef="node3" targetRef="exclusivegateway3"></sequenceFlow>
-    <userTask id="node4" name="拨款" activiti:assignee="role4"></userTask>
+    <userTask id="node4" name="拨款" activiti:assignee="finance"></userTask>
     <sequenceFlow id="flow9" sourceRef="exclusivegateway3" targetRef="node4">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${pass3 == '2'}]]></conditionExpression>
     </sequenceFlow>

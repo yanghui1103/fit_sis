@@ -434,7 +434,7 @@ public class SisServiceImpl implements SisService {
         p.put("flow_id", c.getFdid());
         runtimeService.startProcessInstanceByKey("myProcess", p);
         // query kermit's tasks;  
-        List<Task> tasks = taskService.createTaskQuery().taskAssignee("role1").list();  
+        List<Task> tasks = taskService.createTaskQuery().taskAssignee("creator").list();  
         for (Task task : tasks) {  
             if ("node1".equals(task.getTaskDefinitionKey())) {                 // 设置填报人单位编码记录在节点  
                 taskService.setVariable(task.getId(), "fdid", c.getFdid()  ); 
@@ -448,6 +448,7 @@ public class SisServiceImpl implements SisService {
                 taskService.setVariable(task.getId(), "rpt_type",  c.getRpt_type()  );  
                 taskService.setVariable(task.getId(), "person_phone",  c.getPerson_phone() );  
                 taskService.setVariable(task.getId(), "creator",  c.getStaff_id() ); 
+                taskService.setVariable(task.getId(), "create_company",  c.getStaff_company_id() ); 
                 taskService.setVariable(task.getId(), "create_time",  c.getCreate_time()  );                 
                 taskService.setVariable(task.getId(), "pass1",  "2"  );                 
                 // 节点任务结束  
@@ -477,7 +478,7 @@ public class SisServiceImpl implements SisService {
         p.put("flow_id", c.getFdid());
         runtimeService.startProcessInstanceByKey("myProcess", p);
         // query kermit's tasks;  
-        List<Task> tasks = taskService.createTaskQuery().taskAssignee("role1").list();  
+        List<Task> tasks = taskService.createTaskQuery().taskAssignee("creator").list();  
         for (Task task : tasks) {  
             if ("node1".equals(task.getTaskDefinitionKey())) {                 // 设置填报人单位编码记录在节点  
                 taskService.setVariable(task.getId(), "fdid", c.getFdid()  ); 
@@ -491,6 +492,7 @@ public class SisServiceImpl implements SisService {
                 taskService.setVariable(task.getId(), "rpt_type",  c.getRpt_type()  );  
                 taskService.setVariable(task.getId(), "person_phone",  c.getPerson_phone() );  
                 taskService.setVariable(task.getId(), "creator",  c.getStaff_id() ); 
+                taskService.setVariable(task.getId(), "create_company",  c.getStaff_company_id() ); 
                 taskService.setVariable(task.getId(), "create_time",  c.getCreate_time()  );                 
                 taskService.setVariable(task.getId(), "pass1",  "2"  );                 
                 // 节点任务结束  
@@ -501,5 +503,74 @@ public class SisServiceImpl implements SisService {
         info.put("res", "2");
         info.put("msg", "执行成功");
         return info ; 
+    }
+
+    @Override
+    public JSONObject qryWaitCheckRecordList(SystemCommonModel c) {
+        // TODO Auto-generated method stub
+        JSONObject info = new JSONObject();
+        try {
+            List<String> ls = new ArrayList<String>();
+            String[] arr = c.getTemp_str1().split(",");
+            for(int i=0;i<arr.length;i++){
+                ls.add(arr[i]);
+            }
+            c.setTemp_list(ls);
+            c.setSql("sisAdminDAO.qryWaitCheckRecordList");
+            List<SystemCommonModel> list = sisMybatisDaoUtil.getListData(
+                    c.getSql(), c); 
+            if(list.size()<1){
+                info.put("res", "1");
+                info.put("msg","无数据");
+                info.put("pageNum","0");
+                info.put("tatol", "0");
+                return info ;
+            }else{
+                info.put("res", "2");
+                info.put("msg","执行成功"); 
+            }
+            JSONArray array = new JSONArray();
+            for(int i=0;i<list.size();i++){
+                JSONObject jsonObjArr = new JSONObject();
+                jsonObjArr.put("fdid", (list.get(i)).getFdid());
+                jsonObjArr.put("person_name", (list.get(i)).getPerson_name());
+                jsonObjArr.put("card_id", (list.get(i)).getCard_id()); 
+                jsonObjArr.put("start_date", (list.get(i)).getStart_date());
+                jsonObjArr.put("end_date", (list.get(i)).getEnd_date());
+                jsonObjArr.put("creator", (list.get(i)).getStaff_name()); 
+                jsonObjArr.put("create_time", (list.get(i)).getCreate_time()); 
+                array.add(jsonObjArr);
+                jsonObjArr = null;
+            }
+            info.put("list", array);
+            array = null;
+            c.setEnd_num("-9");
+            List<SystemCommonModel> list_total = sisMybatisDaoUtil.getListData(
+                    c.getSql(), c); 
+            info.put("pageNum", 
+                    getPageTatolNum(list_total.size(),
+                            Integer.valueOf(c.getRecord_tatol())));
+            info.put("tatol", list_total.size());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.info(ex.getMessage());
+        }
+        return info;   
+    }
+
+    @Override
+    public JSONObject getThisCheckInfoAll(SystemCommonModel c) {
+        // TODO Auto-generated method stub
+        JSONObject info = new JSONObject();
+        try { 
+            c.setSql("sisAdminDAO.getThisCheckInfoAll");
+            List<SystemCommonModel> list = sisMybatisDaoUtil.getListData(
+                    c.getSql(), c); 
+             
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.info(ex.getMessage());
+        }
+        return info;   
     }
 }
