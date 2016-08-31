@@ -54,7 +54,7 @@ function dealInitCheckTopPage(data){
 $('#getPhoto', navTab.getCurrentPanel()).click( function() {	   
 	var flow_id = $("#flow_id",navTab.getCurrentPanel()).val();  
 	if(flow_id=="") {alertMsg.info("无图片附件");return ;} 
-	$(".ahrefCss").attr("href","system/attachmentPage.jsp?isRead=0&foregin_id="+flow_id+"  ");	
+	$(".ahrefCss").attr("href","system/attachmentPage.jsp?isRead=0&foregin_id="+flow_id+"");	
 	$(".ahrefCss").trigger("click"); 
 }); 
 //确认修改,立即进入初审

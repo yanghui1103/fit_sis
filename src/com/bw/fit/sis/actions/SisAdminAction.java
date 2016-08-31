@@ -933,7 +933,6 @@ public class SisAdminAction extends BaseAction{
             String param1 = (String) (((JSONObject) array.get(0)).get("param1")); 
             SystemCommonModel c = new SystemCommonModel();   
             
-
             c.setPerson_name(param1);
             c.setCard_id((String) (((JSONObject) array.get(0)).get("param2")));
             c.setTemp_str1((String) (((JSONObject) array.get(0)).get("param3")));

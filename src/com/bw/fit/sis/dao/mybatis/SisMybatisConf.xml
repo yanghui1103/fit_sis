@@ -180,8 +180,8 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
          	  </select>
          	  <!-- 补贴拨款 -->
         <insert id="grantFinanceToPsn"    parameterType="com.bw.fit.common.models.SystemCommonModel" >
-        insert into rpt_reconds (fdid,person_name,card_id,unit_type,unit_name,pay_start,pay_end,sub_cycle,rpt_type,flow_id,isdeleted,create_time,version_time) values 
-(#{fdid},#{person_name},#{card_id},#{person_unit_type},#{person_unit},#{rpt_start},#{rpt_end},#{rpt_cycle},
-#{rpt_type},#{flow_id},'0',to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss'),to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss'))
+        insert into rpt_reconds (fdid,person_name,card_id,unit_type,unit_name,pay_start,pay_end,sub_cycle,rpt_type,flow_id,isdeleted,create_time,version_time,creator,remark) values 
+	(#{fdid},#{person_name},#{card_id},#{person_unit_type},#{person_unit},#{rpt_start},#{rpt_end},#{rpt_cycle},
+	#{rpt_type},#{flow_id},'0',to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss'),to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss'),#{staff_id},'GUIDANG')
         </insert> 	  
 </mapper>

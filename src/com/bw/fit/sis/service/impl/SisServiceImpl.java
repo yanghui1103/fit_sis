@@ -410,9 +410,7 @@ public class SisServiceImpl implements SisService {
     public JSONObject getExistsPsn(SystemCommonModel c) {
         // TODO Auto-generated method stub
         //如果这个人已经存在，那么申报人基础资料不予保存
-        JSONObject info = new JSONObject();  
-        c.setFdid(getUUID());
-        c.setCreate_time(getSysDate());
+        JSONObject info = new JSONObject();    
         c.setSql("sisAdminDAO.getExistsPsn");
         List<SystemCommonModel> list = sisMybatisDaoUtil.getListData(c.getSql(), c);
         if(list.size()>0){ //那么只保存记录即可
@@ -770,9 +768,8 @@ public class SisServiceImpl implements SisService {
             for (Task task : tasks) {  
                 if ("node4".equals(task.getTaskDefinitionKey())) {                 // 财务拨款通过 
                     taskService.setVariable(task.getId(), "fdid", c.getFdid()  );   
-                    taskService.setVariable(task.getId(), "pass4",  "2"  );    
-                    // 节点任务结束  
-                    taskService.complete(task.getId());   
+                    taskService.setVariable(task.getId(), "pass4",  "2"  ); 
+
                     // 与此同时，将这条记录归档          
                     SystemCommonModel c2 = new SystemCommonModel();
                     c2.setPerson_name(taskService.getVariable(task.getId(), "person_name").toString());
@@ -783,11 +780,14 @@ public class SisServiceImpl implements SisService {
                     c2.setRpt_end(taskService.getVariable(task.getId(), "pay_end").toString());
                     c2.setRpt_cycle(taskService.getVariable(task.getId(), "sub_cycle").toString());
                     c2.setRpt_type(taskService.getVariable(task.getId(), "rpt_type").toString());
-                    c2.setFlow_id(taskService.getVariable(task.getId(), "fdid").toString());
+                    c2.setFlow_id(taskService.getVariable(task.getId(), "flow_id").toString());
                     c2.setFdid(getUUID());
-                    c2.setCreate_time(getSysDate());
+                    c2.setCreate_time(getSysDate()); 
+                    c2.setStaff_id(c.getStaff_id());
                     c2.setSql("sisAdminDAO.grantFinanceToPsn");
                     info = sisMybatisDaoUtil.sysInsertData(c2.getSql(), c2);
+                    // 节点任务结束  
+                    taskService.complete(task.getId());   
                 }  
             }
         }

@@ -274,7 +274,7 @@ and sr.role_id = rl.fdid and sf.fdid = #{fdid}
        	</select>
      <!-- 建立外键与附件关联 -->
       <insert id="createForeignAndAttachmentRelation"    parameterType = "com.bw.fit.common.models.SystemCommonModel" >
-      INSERT INTO attachment VALUES (
+      INSERT INTO attachment (fileid,foreign_id,filename,filesize,beforename,creator,create_time,state) VALUES (
 	#{fdid},#{temp_str1},#{temp_str2},'-9',#{temp_str3},#{staff_id},to_date(#{create_time},'yyyy-mm-dd hh24:mi:ss'),'2')
       </insert>
       <!-- 删除附件关系 -->

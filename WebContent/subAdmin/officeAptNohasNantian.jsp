@@ -5,7 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
-$(document).ready(function(){
+$(document).ready(function(){	
+	var hide_id = $("#hide_id", navTab.getCurrentPanel()).val();
+	 $("#flow_id", navTab.getCurrentPanel()).val(hide_id);
 	var arr = new Array(60);
 	for(var i in arr.length){
 		 arr[i] = "-9";		 
@@ -25,7 +27,7 @@ $(document).ready(function(){
 
 
 // 保存申报信息
-baidu(document).on('click', '#save205', function() {	 
+baidu(document).on('click', '#save205', function() {	  
 	 var card_id = $("#card_id",navTab.getCurrentPanel()).val();
 	 var gender = $("#gender",navTab.getCurrentPanel()).val();
 	 var rpt_type = $("#rpt_type",navTab.getCurrentPanel()).val(); 
@@ -49,8 +51,9 @@ baidu(document).on('click', '#save205', function() {
 //获取附件页 
 $('#getPhoto', navTab.getCurrentPanel()).click( function() {	  
 	var flow_id = $("#flow_id",navTab.getCurrentPanel()).val(); 
+	alert(flow_id);
 	if(flow_id=="") {return ;}
-	$(".ahrefCss").attr("href","system/attachmentPage.jsp?isRead=0&foregin_id="+flow_id+"  ");	
+	$(".ahrefCss").attr("href","system/attachmentPage.jsp?isRead=0&foregin_id="+flow_id+"");	
 	$(".ahrefCss").trigger("click"); 
 }); 
 </script>
@@ -116,7 +119,8 @@ $('#getPhoto', navTab.getCurrentPanel()).click( function() {
 				<label>票据缴费结束月份：</label>
 				<input id=end_date ename="结束日期"  name="end_date" type="text" class="date required "   datefmt='yyyyMM' style="float:left"  readonly="true" />
 			</p><p>
-		<input   type="hidden"   id="flow_id"  name="flow_id" value="<%=PubFun.getUUID() %>" />
+		<input   type="hidden"   id="flow_id"  name="flow_id"  />
+		<input   type="hidden"   id="hide_id"   value="<%=PubFun.getUUID() %>" />
 		<button id="getPhoto"   type="button" >上传附件</button>
 		</p>
 		</form>

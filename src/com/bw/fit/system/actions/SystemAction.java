@@ -772,7 +772,7 @@ public class SystemAction extends BaseAction{
         JSONArray array = (JSONArray) obj.get("content");
         String param1 = (String) (((JSONObject) array.get(0)).get("param1"));       
         SystemCommonModel c = new SystemCommonModel();  
-        c.setTemp_str1(param1);  
+        c.setTemp_str1(param1.trim());  
         c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
                 .getStaff_id());
         JSONObject objItem = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
@@ -802,8 +802,7 @@ public class SystemAction extends BaseAction{
         c.setStaff_id(((LoginUser) session.getAttribute("LoginUser"))
                 .getStaff_id());
         JSONObject objItem = ((SystemAdminServiceImpl) getBean("systemAdminServiceImpl"))
-                .createForeignAndAttachmentRelation(c);
-        log.info((objItem.toJSONString()));
+                .createForeignAndAttachmentRelation(c); 
         wr.write(objItem.toJSONString());
         wr.close();
         

@@ -30,8 +30,7 @@ var isRead ='<%=request.getParameter("isRead")%>' ;
 $(function(){   
 	// 图片渲染控件
 	$('.fancybox',$.pdialog.getCurrent()).fancybox();
-
-	// initAttachmentList();
+    initAttachmentList();
 });
 function initAttachmentList(){
 	var array = new Array();  

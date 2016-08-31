@@ -160,8 +160,8 @@ function ajaxFileUpload(foregin_id)
 						// var ttDom = AjaxExchangeBackXMLDataByXML('createForeignAndAttachmentRelation.action',edom);   
 						
 						 var array = new Array(foregin_id, data.message ,data.beforeName );   
-							createJsonAndAjax('createForeignAndAttachmentRelation.action', array, dealUploadList,
-									'JSON');	
+						 createJsonAndAjaxNew('createForeignAndAttachmentRelation.action', array, dealUploadList,
+									'JSON',true);	
 					}
 				}
 			},
