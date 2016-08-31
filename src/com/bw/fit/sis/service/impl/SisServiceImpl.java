@@ -887,4 +887,21 @@ public class SisServiceImpl implements SisService {
         }
         return info;
     }
+
+    @Override
+    public JSONObject checkPsnRpting(SystemCommonModel c) {
+        // TODO Auto-generated method stub 
+        JSONObject info = new JSONObject();
+        c.setSql("sisAdminDAO.checkPsnRpting"); 
+        List<SystemCommonModel> list =  sisMybatisDaoUtil.getListData( c.getSql(), c);
+        if(list.size()<1){
+            info.put("res", "2");
+            info.put("msg","无数据,可以继续申报"); 
+            return info ;
+        }else{
+            info.put("res", "1");
+            info.put("msg","此人有正在申报中的记录，故不得重复申报");  
+        }
+        return info;
+    }
 }

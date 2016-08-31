@@ -299,10 +299,12 @@ public class SisAdminAction extends BaseAction{
     /****
      * createPersonRptRecord
      * 单笔，录入申报记录
+     * @throws Exception 
      */
-    public String createPersonRptRecord(){ 
+    public String createPersonRptRecord() throws Exception{ 
         JSONObject info = new JSONObject();
         response.setContentType("text/plain;charset=UTF-8");
+        Writer wr = response.getWriter();
         SystemCommonModel c = new SystemCommonModel();
         String str =  (request.getParameter("context")) ; 
         JSONArray array  = (JSONArray) JSONValue.parse(str);  
@@ -343,10 +345,24 @@ public class SisAdminAction extends BaseAction{
                 c.setPerson_phone(((JSONObject)array.get(i)).get("value").toString());
             } 
         }    
+        /**
+         * start:这个人是否有正在申报中的记录,如果有就跳出去
+         */
+        // c.setSql("sisAdminDAO.checkPsnRpting");
+        JSONObject info3 = new JSONObject();
+        info3  = ((SisServiceImpl) getBean("sisServiceImpl"))
+                .checkPsnRpting(c);
+        if(!"2".equals(info3.get("res"))){
+            wr.write(info3.toJSONString());
+            wr.close();
+            return null ;
+        }
+        /*
+         * end
+         */
         c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")).getStaff_id()); 
         try {
             String f_id = PubFun.getUUID()  ;
-            Writer wr = response.getWriter();
             TaskService taskService = (TaskService)getBean("taskService");    
             RuntimeService runtimeService = (RuntimeService)getBean("runtimeService");   
             Map<String, Object> p = new HashMap<String, Object>();    
@@ -754,6 +770,24 @@ public class SisAdminAction extends BaseAction{
                     c.setFdid(((JSONObject)array.get(i)).get("value").toString());
                 }  
             }    
+            
+
+            /**
+             * start:这个人是否有正在申报中的记录,如果有就跳出去
+             */
+            // c.setSql("sisAdminDAO.checkPsnRpting");
+            JSONObject info3 = new JSONObject();
+            info3  = ((SisServiceImpl) getBean("sisServiceImpl"))
+                    .checkPsnRpting(c);
+            if(!"2".equals(info3.get("res"))){
+                wr.write(info3.toJSONString());
+                wr.close();
+                return null ;
+            }
+            /*
+             * end
+             */
+            
             c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")).getStaff_id()); 
             c.setStaff_company_id(((LoginUser) session.getAttribute("LoginUser")).getOrg_cd());
             c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());

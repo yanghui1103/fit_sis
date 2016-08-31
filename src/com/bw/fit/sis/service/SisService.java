@@ -32,5 +32,6 @@ public interface SisService {
             TaskService taskService) ;
     public JSONObject qryRptedRecordList(SystemCommonModel c);
     public JSONObject getPersonRptedInfo(SystemCommonModel c);
+    public JSONObject checkPsnRpting(SystemCommonModel c);
     
 }
