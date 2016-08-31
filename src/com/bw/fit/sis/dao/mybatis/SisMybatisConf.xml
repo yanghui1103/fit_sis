@@ -213,4 +213,15 @@ where rp.card_id = rr.card_id  ) cc where 1=1
  			</foreach>    
  		 </if>
          </select>
+         <select id="getPersonRptedLeiYues"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+         select sum(months_between( to_date(pay_end,'yyyyMM'),to_date(pay_start,'yyyyMM') ) +1) temp_int1 
+ from rpt_person rp ,rpt_reconds rr
+ where rp.card_id = rr.card_id and rr.isdeleted ='0'    and rp.card_id = #{card_id}         
+         </select>
+         <!-- 获取人员类型等信息 -->
+         <select  id="getPersonRptedJMess"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+        select  rp.person_name ,rp.first_time ,substr(to_char(rp.first_time,'yyyy-MM-dd'),1,4) - (substr(rp.card_id,7,4) ) temp_str2,rp.gender person_gender,
+rp.state temp_str3,(select item_name from sys_item where fdid= rp.state and itype='RPTERSTATE') temp_str1
+ from rpt_person rp  where rp.card_id = #{card_id}
+         </select>
 </mapper>

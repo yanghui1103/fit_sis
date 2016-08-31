@@ -27,6 +27,7 @@
 		</action>
 		<action name="grantFinanceToPsn"   class="sisAdminAction"   method="grantFinanceToPsn" />
 		<action name="qryRptedRecordList"   class="sisAdminAction"   method="qryRptedRecordList" />
+		<action name="getPersonRptedInfo"   class="sisAdminAction"   method="getPersonRptedInfo" />
 		
 
 		

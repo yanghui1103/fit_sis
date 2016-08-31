@@ -848,4 +848,43 @@ public class SisServiceImpl implements SisService {
         }
         return info;   
     }
+
+    @Override
+    public JSONObject getPersonRptedInfo(SystemCommonModel c) {
+        // TODO Auto-generated method stub 
+        JSONObject info = new JSONObject();
+        c.setSql("sisAdminDAO.getPersonRptedLeiYues"); 
+        List<SystemCommonModel> list =  sisMybatisDaoUtil.getListData( c.getSql(), c);
+        if(list.size()<1){
+            info.put("res", "1");
+            info.put("msg","无数据"); 
+            return info ;
+        }else{
+            JSONArray array = new JSONArray(); 
+            JSONObject jsonObjArr = new JSONObject();  
+            c.setSql("sisAdminDAO.getPersonRptedJMess");  
+            List<SystemCommonModel>   list2 = new ArrayList<SystemCommonModel>();
+            list2 =  sisMybatisDaoUtil.getListData( c.getSql(), c);   
+            if(list2.size()<1){
+                info.put("res", "1");
+                info.put("msg","无数据"); 
+                return info ;
+            }
+            info.put("res", "2");
+            info.put("msg","执行成功"); 
+            jsonObjArr.put("yueshu", (list.get(0)).getTemp_int1()); 
+            jsonObjArr.put("person_name", (list2.get(0)).getPerson_name()); 
+            jsonObjArr.put("first_time", (list2.get(0)).getFirst_time()); 
+            jsonObjArr.put("first_zhousui", (list2.get(0)).getTemp_str2()); 
+            jsonObjArr.put("gender", (list2.get(0)).getPerson_gender()); 
+            jsonObjArr.put("state_code", (list2.get(0)).getTemp_str3()); 
+            jsonObjArr.put("state", (list2.get(0)).getTemp_str1());             
+            
+            array.add(jsonObjArr);
+            jsonObjArr = null; 
+        info.put("list", array);
+        array = null;
+        }
+        return info;
+    }
 }

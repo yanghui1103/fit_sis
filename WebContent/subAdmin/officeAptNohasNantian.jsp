@@ -23,6 +23,7 @@ $(document).ready(function(){
 });
   $('#getCardInfo',navTab.getCurrentPanel()).click(function() {	 
 	alert("999");
+	$('#getPersonInfo', navTab.getCurrentPanel()).trigger("click");
 });
 
 
@@ -55,6 +56,46 @@ $('#getPhoto', navTab.getCurrentPanel()).click( function() {
 	$(".ahrefCss").attr("href","system/attachmentPage.jsp?isRead=0&foregin_id="+flow_id+"");	
 	$(".ahrefCss").trigger("click"); 
 }); 
+
+$('#getPersonInfo', navTab.getCurrentPanel()).click( function() {	  
+	var card_id = $("#card_id",navTab.getCurrentPanel()).val();   
+	if(card_id==""){alertMsg.error("请刷身份证卡片,并点击读取按钮");return ;}
+	var array = new Array(card_id) ;
+	createJsonAndAjaxNew('getPersonRptedInfo.action', array,function(data){
+		 if(data.res!="2"){
+			 alertMsg.info("系统中不存在此人申领概况");
+			 // 如果是新来的人员,那么首先校验他年龄是否符合
+			 checkNewPerson();
+			 return ;
+		 } 
+		 var json = data.list ;   
+		 if(json[0].state_code !="2"){
+			 $("#card_id",navTab.getCurrentPanel()).val("");
+			 alertMsg.info(json[0].state); 
+		 }  
+		 var array = getPersonTypeName(json[0].first_zhousui,json[0].gender) ; 
+		 if(array[0] == "-9"){
+			 $("#card_id",navTab.getCurrentPanel()).val("");
+			 alertMsg.info(array[1]); 
+		 } 
+			$(".rptedInfos").attr("href","subAdmin/rpterGaikuangInfos.jsp?card_id="+card_id+"");	
+			$(".rptedInfos").trigger("click"); 
+	 },'JSON',true) ;
+}); 
+
+function checkNewPerson(){
+	var myDate = new Date(); 
+	var year = myDate.getFullYear();  
+	var card_id = $("#card_id",navTab.getCurrentPanel()).val();   
+	var gender = $("#gender",navTab.getCurrentPanel()).val();   
+	var age  = (year -  card_id.substr(6,4));
+
+	 var array = getPersonTypeName(age,gender) ; 
+	 if(array[0] == "-9"){
+		 $("#card_id",navTab.getCurrentPanel()).val("");
+		 alertMsg.info(array[1]); 
+	 } 
+}
 </script>
 </head>
 <body>
@@ -67,11 +108,15 @@ $('#getPhoto', navTab.getCurrentPanel()).click( function() {
 			</p>  
 			<p>
 				<label>身份证号码：</label>
-				<input   id="card_id" name="card_id"   class="required" type="text"    style="float:left"       />
+				<input   id="card_id" name="card_id"   class="required" type="text"   maxlength=18  style="float:left"       />
 			</p> 
 			<p>
-				<label>申报人性别：</label>
-				<input   id="gender" name="gender"   class="required" type="text"    style="float:left"       />
+				<label>申报人性别：</label> 
+				<select id="gender"  name="gender"   style="float:left" > 
+				<option value="-9">请选择</option>
+				<option value="0">女</option>
+				<option value="1">男</option>
+				</select>
 			</p>   
 			<p>
 				<label>出生日期：</label>
@@ -89,7 +134,8 @@ $('#getPhoto', navTab.getCurrentPanel()).click( function() {
 				<label>联系电话：</label>
 				<input   id="phone" name="phone"   class="required" type="text"    style="float:left" maxlength=12      />
 			</p>  
-		<div><input type="button"  id="getCardInfo"  value="读取身份证卡信息"/></div>
+		<div><input type="button"  id="getCardInfo"  value="读取身份证卡信息"/>
+		<input type="button"  id="getPersonInfo"  value="系统中信息"/></div>
 		<div class="divider"></div>	
 		<p>
 				<label>就业单位名称：</label>
@@ -126,7 +172,8 @@ $('#getPhoto', navTab.getCurrentPanel()).click( function() {
 </div> 	
 
 		<div   style="display:none;">
-		<a class="button ahrefCss"  target="dialog" rel="dlg_page10" mask="true" title="附件"><span>附件2</span></a> 
+		<a class="button ahrefCss"  target="dialog" rel="dlg_page10" mask="true" title="附件"><span>附件</span></a> 
+		<a class="button rptedInfos"  target="dialog" rel="dlg_page13" mask="true" title="申领概况"><span>申领概况</span></a> 
 		</div>
 		
 		<div class="formBar" id="subBar">

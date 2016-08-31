@@ -31,5 +31,6 @@ public interface SisService {
     public JSONObject grantFinanceToPsn(SystemCommonModel c, RuntimeService runtimeService, FormService formService,
             TaskService taskService) ;
     public JSONObject qryRptedRecordList(SystemCommonModel c);
+    public JSONObject getPersonRptedInfo(SystemCommonModel c);
     
 }
