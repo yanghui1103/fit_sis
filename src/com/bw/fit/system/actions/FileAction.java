@@ -1,8 +1,11 @@
 package com.bw.fit.system.actions;
 import static com.bw.fit.common.utils.PubFun.*;
+
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -96,7 +99,9 @@ public class FileAction extends ActionSupport {
                     !this.getFileFileName().endsWith(".GIF")&&
                     !this.getFileFileName().endsWith(".gif")&&
                     !this.getFileFileName().endsWith(".jpg")&&
-                    !this.getFileFileName().endsWith(".JPG")){
+                    !this.getFileFileName().endsWith(".JPG")&&
+                    !this.getFileFileName().endsWith(".jpeg")&&
+                    !this.getFileFileName().endsWith(".JPEG")){
 				message="1";
 				error="文件被禁止上传！,格式不符，只容许传图片文件";
 				return ERROR;
@@ -110,8 +115,12 @@ public class FileAction extends ActionSupport {
 			while ((length = inputStream.read(buf)) != -1) {
 				outputStream.write(buf, 0, length);
 			}
-			inputStream.close();
-			outputStream.flush();
+
+            inputStream.close();
+            outputStream.flush();
+            // 与此同时写入一个绝对路径的文件夹下
+            createOtherPath("/opt/app/uploadfiles_bak",afterFileName,f);
+//			createOtherPath("d://uploadfiles_bak",afterFileName,f);					
 		} catch (Exception e) {
 			e.printStackTrace();
 			message = "1";
@@ -122,4 +131,21 @@ public class FileAction extends ActionSupport {
 		return SUCCESS;
 	}
 
+	/***
+	 * 把进入系统的附件  放入另一个绝对路径的另一个
+	 * 文件夹下
+	 * @throws Exception 
+	 */
+	public void createOtherPath(String newPath ,String afterFileName,File f ) throws Exception{    
+        String toPathFile = newPath +"/"+ afterFileName; 
+        FileInputStream inputStream = new FileInputStream(f);
+        FileOutputStream outputStream = new FileOutputStream(toPathFile);
+        byte[] buf = new byte[1024];
+        int length = 0;
+        while ((length = inputStream.read(buf)) != -1) {
+            outputStream.write(buf, 0, length);
+        } 
+        inputStream.close();
+        outputStream.flush();
+	}
 }

@@ -184,4 +184,33 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
 	(#{fdid},#{person_name},#{card_id},#{person_unit_type},#{person_unit},#{rpt_start},#{rpt_end},#{rpt_cycle},
 	#{rpt_type},#{flow_id},'0',to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss'),to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss'),#{staff_id},'GUIDANG')
         </insert> 	  
+        <!-- 补贴，且归档的记录 -->
+        <select id="qryRptedRecordList"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+        select * from ( select rp.person_name ,rr.card_id,rr.pay_start rpt_start , rr.pay_end rpt_end,
+months_between( to_date(pay_end,'yyyyMM'),to_date(pay_start,'yyyyMM') ) +1 temp_int1,
+(select staff_name from staff where fdid = rr.creator) staff_name ,rr.create_time,
+(select company_name from company cp,staff2company sc where cp.fdid = sc.company_id and sc.staff_id = rr.creator) staff_company_name,
+(select fdid from company cp,staff2company sc where cp.fdid = sc.company_id and sc.staff_id = rr.creator) staff_company_id,rr.flow_id
+,rpt_type,sub_cycle
+from rpt_person rp,rpt_reconds rr 
+where rp.card_id = rr.card_id  ) cc where 1=1 
+  			<if test="person_name !='-9'">
+			and person_name like '%'||#{person_name}||'%'	
+			</if> 
+  			<if test="card_id !='-9'">
+			and card_id like '%'||#{card_id}||'%'	
+			</if> 
+  			<if test="rpt_type !='-9'">
+			and rpt_type = #{rpt_type} 
+			</if> 
+  			<if test="rpt_cycle !='-9'">
+			and sub_cycle = #{rpt_cycle} 
+			</if> 
+ 		 <if test="temp_str1 !='-9'">
+ 		 and cc.staff_company_id  in
+  			<foreach item="item" index="index" collection="temp_list" open="(" separator="," close=")">  
+  					#{item}  
+ 			</foreach>    
+ 		 </if>
+         </select>
 </mapper>

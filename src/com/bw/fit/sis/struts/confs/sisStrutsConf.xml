@@ -26,6 +26,7 @@
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 		</action>
 		<action name="grantFinanceToPsn"   class="sisAdminAction"   method="grantFinanceToPsn" />
+		<action name="qryRptedRecordList"   class="sisAdminAction"   method="qryRptedRecordList" />
 		
 
 		
