@@ -1027,26 +1027,37 @@ public class SisServiceImpl implements SisService {
                    c.getSql(), c);   
            // 添加表格数据
            for(int i =0;i<list4.size();i++){
-               HSSFRow rowi = sheet.createRow(3+i+1); 
-                   HSSFCell cell00 = rowi.createCell(i);  
-                   cell00.setCellValue(list4.get(i).getPerson_name());     
-                   cell00.setCellValue(list4.get(i).getPerson_name());     
-                   cell00.setCellValue(list4.get(i).getPerson_name());     
-                   cell00.setCellValue(list4.get(i).getPerson_name());     
-                   cell00.setCellValue(list4.get(i).getPerson_name());     
-                   cell00.setCellValue(list4.get(i).getPerson_name());     
-                   cell00.setCellValue(list4.get(i).getPerson_name());     
-                   cell00.setCellValue(list4.get(i).getPerson_name());     
-                   cell00.setCellValue(list4.get(i).getPerson_name());     
-                   cell00.setCellValue(list4.get(i).getPerson_name());     
-                   cell00.setCellValue(list4.get(i).getPerson_name());     
-                   cell00.setCellValue(list4.get(i).getPerson_name());     
-                   cell00.setCellValue(list4.get(i).getPerson_name());     
-                   cell00.setCellValue(list4.get(i).getPerson_name());     
-                   cell00.setCellValue(list4.get(i).getPerson_name());     
-                   cell00.setCellValue(list4.get(i).getPerson_name());     
-                   cell00.setCellValue(list4.get(i).getPerson_name());     
-                   cell00.setCellValue(list4.get(i).getPerson_name());     
+               HSSFRow rowi = sheet.createRow(3+i+1);  
+               rowi.createCell(0).setCellValue(list4.get(i).getPerson_name());     
+               rowi.createCell(1).setCellValue(list4.get(i).getCard_id());     
+               rowi.createCell(2).setCellValue(list4.get(i).getPerson_gender());     
+               rowi.createCell(3).setCellValue(list4.get(i).getPerson_phone());     
+               rowi.createCell(4).setCellValue(list4.get(i).getPerson_nation());     
+               rowi.createCell(5).setCellValue(list4.get(i).getPerson_orgin());     
+               rowi.createCell(6).setCellValue(list4.get(i).getFirst_time());     
+               rowi.createCell(7).setCellValue(list4.get(i).getRpt_start());     
+               rowi.createCell(8).setCellValue(list4.get(i).getRpt_end());     
+               rowi.createCell(9).setCellValue(list4.get(i).getPerson_unit_type());    
+               rowi.createCell(10).setCellValue(list4.get(i).getPerson_unit());     
+               rowi.createCell(11).setCellValue(list4.get(i).getRpt_type());     
+               rowi.createCell(12).setCellValue(list4.get(i).getRpt_cycle());      
+               String[] array = getPersonTypeName((Integer.valueOf(list4.get(i).getPerson_first_age())), (list4.get(i).getPerson_gender())) ;
+               rowi.createCell(13).setCellValue(array[1]);     
+               SystemCommonModel cc = new SystemCommonModel();
+               cc.setCard_id(list4.get(i).getCard_id());
+               cc.setSql("sisAdminDAO.getExistsRptedRcd");
+               List ls = sisMybatisDaoUtil.getListData(cc.getSql(), cc);
+               if(ls.size()>0){
+                   cc.setSql("sisAdminDAO.getPersonRptedLeiYues");
+                   SystemCommonModel ct = (SystemCommonModel)sisMybatisDaoUtil.getOneData(cc.getSql(), cc);
+                   rowi.createCell(14).setCellValue(ct.getTemp_int1());     
+                   ct=null ;cc=null;
+               }else{
+                   rowi.createCell(14).setCellValue("0");     
+               }
+               rowi.createCell(15).setCellValue(list4.get(i).getStaff_name());    
+               rowi.createCell(16).setCellValue(list4.get(i).getStaff_company_name());     
+               rowi.createCell(17).setCellValue(list4.get(i).getCreate_time());      
            }
 //           
            String file_name=getUUID() + ".xls"; 

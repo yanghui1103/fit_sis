@@ -41,10 +41,10 @@ function dealDaoRpt(data){
 				<input type="hidden"    readonly="readonly"   style="float:left"  id="org_id" name="orgLookup.id" />
 			</td>  <td>
 				<label>补贴类型：</label>
-				<select id="rpt_type"  name="rpt_type"   style="float:left" > 
+				<select id="rpt_type"  name="rpt_type"    style="float:left" > 
 			</select></td><td>
 				<label>申报周期：</label>
-				<select id="sub_cycle"  name="sub_cycle"   style="float:left" > 
+				<select id="sub_cycle"  name="sub_cycle"      style="float:left" > 
 			</select></td></tr>
 			</table>
 	<div class="subBar" id="subBar">  

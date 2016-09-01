@@ -304,4 +304,31 @@ public class PubFun {
         }  
         return list ;
     }
+    
+
+/***
+ * 计算人员类型
+ */
+public static String[] getPersonTypeName(int age,String gender){
+    String[] array = new String[2] ;
+    if(gender =="0"){
+        if(age >=40 && age <45){
+            array[0] = "101";array[1]="距退休年龄超5年人员";
+            return array ;
+        }else if(age >=45 && age <=50){
+            array[0] = "102";array[1]="距退休年龄不足5年人员";
+            return array ;
+        }
+    }else  {
+            if(age >=50 && age <55){
+                array[0] = "101";array[1]="距退休年龄超5年人员";
+                return array ;
+            }else if(age >=55 && age <=60){
+                array[0] = "102";array[1]="距退休年龄不足5年人员";
+                return array ;
+            }
+        }
+       array[0]="-9";array[1]="年龄不符合";
+       return array ;
+}
 }

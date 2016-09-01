@@ -238,22 +238,16 @@ rp.state temp_str3,(select item_name from sys_item where fdid= rp.state and ityp
           select rp.person_name ,rp.card_id ,(case when gender ='1' then '男' when gender='0' then '女' else '未知' end) person_gender,
 rp.phone person_phone,rp.nation person_nation,rp.orgin person_orgin ,to_char(rp.first_time,'yyyy-MM-dd') first_time,
 rr.pay_start rpt_start,rr.pay_end rpt_end,
-(select item_name from sys_item where fdid = rr.unit_type and itype='UNIT_TYPE'  ) unit_type,
-rr.unit_name,
-(select item_name from sys_item where fdid = rr.unit_type and itype='SUB_TYPE'  ) rpt_type,
-(select item_name from sys_item where fdid = rr.unit_type and itype='SUBCYCLE'  ) rpt_cycle, '', '0' temp_int1,
-st.staff_name,cp.company_name,rr.create_time
+(select item_name from sys_item where fdid = rr.unit_type and itype='UNIT_TYPE'  ) person_unit_type,
+rr.unit_name person_unit,
+(select item_name from sys_item where fdid = rr.rpt_type and itype='SUB_TYPE'  ) rpt_type,
+(select cycle_name from sub_cycle where fdid = rr.sub_cycle  )  rpt_cycle,  substr(to_char(rp.first_time,'yyyy'),0,4)-substr(rr.card_id,7,4)  person_first_age, '0' temp_int1,
+st.staff_name,cp.company_name staff_company_name,rr.create_time
 from rpt_person rp,rpt_reconds rr,staff st,staff2company sc,company cp
 where rp.card_id = rr.card_id and rr.creator = st.fdid and sc.staff_id = st.fdid and cp.fdid = sc.company_id 
   and rr.isdeleted='0'  
   			<if test="select_company_id !='-9'">
 		and sc.company_id like #{select_company_id}||'%'
-		</if>
-  			<if test="rpt_type !='-9'">
-		and rr.rpt_type = #{rpt_type} 
-		</if>
-  			<if test="rpt_cycle !='-9'">
-		and rr.sub_cycle = #{rpt_cycle} 
 		</if>
          </select>
 </mapper>

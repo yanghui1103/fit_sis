@@ -26,18 +26,18 @@ function getPersonTypeName(age,gender){
 	var array = new Array();
 	if(gender =='0'){
 		if(age >=40 && age <45){
-			array[0] = '101';array[1]="距退休年龄超5年人员"
+			array[0] = '101';array[1]="距退休年龄超5年人员";
 			return array ;
 		}else if(age >=45 && age <=50){
-			array[0] = '102';array[1]="距退休年龄不足5年人员"
+			array[0] = '102';array[1]="距退休年龄不足5年人员";
 			return array ;
 		}
 	}else  {
 			if(age >=50 && age <55){
-				array[0] = '101';array[1]="距退休年龄超5年人员"
+				array[0] = '101';array[1]="距退休年龄超5年人员";
 				return array ;
 			}else if(age >=55 && age <=60){
-				array[0] = '102';array[1]="距退休年龄不足5年人员"
+				array[0] = '102';array[1]="距退休年龄不足5年人员";
 				return array ;
 			}
 		}

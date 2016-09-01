@@ -78,6 +78,7 @@ public class SystemCommonModel {
     private String person_unit_type; 
     private String person_minzu; 
     private String first_time; 
+    private String person_first_age ;
     private String person_state; 
     private String rpt_start; 
     private String rpt_end;  
@@ -99,6 +100,12 @@ public class SystemCommonModel {
     
     
     
+    public String getPerson_first_age() {
+        return person_first_age;
+    }
+    public void setPerson_first_age(String person_first_age) {
+        this.person_first_age = person_first_age;
+    }
     public String getFlow_id() {
         return flow_id;
     }
