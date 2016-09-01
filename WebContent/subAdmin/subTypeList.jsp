@@ -31,6 +31,7 @@ function dealAfter(data){
 		}else{ 
 			var array = new Array($("#role_id", navTab.getCurrentPanel()).val());
 			createJsonAndAjaxNew("getRoleDeSubType.action", array,function(data){
+				 $("#type_cd", navTab.getCurrentPanel()).attr("checked",false);
 				if(data.res!="2"){
 					 return ;
 				}
@@ -63,11 +64,31 @@ baidu(document).on('click', '#save202', function() {
 				<label>角色：</label>
 				<select id="role_id"  name="role_id"   style="float:left" > 
 				</select>
-			</p>   
+			</p>      
 			<p>
-			<input type=checkbox id="type_cd"  name="type_cd"  value="101" /><span>类1</span>
-			<input type=checkbox id="type_cd"  name="type_cd"  value="102" /><span>类2</span>
-			<input type=checkbox id="type_cd"  name="type_cd"  value="103" /><span>类3</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="101" /><span>测试类型1</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="102" /><span>测试类型2</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="104" /><span>测试类型4</span>
+			</p>
+			<p>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="DS01" /><span>4050人员东胜</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="DS02" /><span>城镇残疾人东胜</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="DS03" /><span>零就业家庭成员东胜</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="DS04" /><span>低保城镇失业人员东胜</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="DS05" /><span>失地农民东胜</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="DS06" /><span>连续失业一年大龄人员东胜</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="DS07" /><span>高校毕业大于3年未就业蒙古族或贫困户人员东胜</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="DS08" /><span>高校毕业一年未就业人员东胜</span>
+			</p>
+			<p>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="ZQ01" /><span>4050人员准旗</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="ZQ02" /><span>城镇残疾人准旗</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="ZQ03" /><span>类3准旗</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="ZQ04" /><span>低保城镇失业人员准旗</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="ZQ05" /><span>失地农民准旗</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="ZQ06" /><span>连续失业一年大龄人员准旗</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="ZQ07" /><span>高校毕业大于3年未就业蒙古族或贫困户人员准旗</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="ZQ08" /><span>高校毕业一年未就业人员准旗</span>
 			</p>
 		</div>
 		</form>

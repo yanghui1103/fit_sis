@@ -1,6 +1,8 @@
 package com.bw.fit.sis.service.impl; 
 import static com.bw.fit.common.utils.PubFun.*;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,6 +18,10 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.util.CellRangeAddress;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.Font;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +58,7 @@ public class SisServiceImpl implements SisService {
             }
             c.setCreate_time(getSysDate());
             String[] array = c.getTemp_str1().split(",");
+            c.setTemp_str2(getUUID());
             for(int i=0;i<array.length;i++){
                 c.setFdid(getUUID());
                 c.setTemp_str3(array[i]);
@@ -852,7 +859,21 @@ public class SisServiceImpl implements SisService {
     @Override
     public JSONObject getPersonRptedInfo(SystemCommonModel c) {
         // TODO Auto-generated method stub 
-        JSONObject info = new JSONObject();
+        JSONObject info = new JSONObject();        
+                c.setSql("sisAdminDAO.getExistsPsn"); 
+                List<SystemCommonModel> ls =    sisMybatisDaoUtil.getListData( c.getSql(), c);
+       if(ls.size()<1){
+                    info.put("res", "1");
+                    info.put("msg","系统不存在此人,故不申领历史信息"); 
+                    return info ;
+                }        
+       c.setSql("sisAdminDAO.getExistsRptedRcd");
+         ls =    sisMybatisDaoUtil.getListData( c.getSql(), c);
+                if(ls.size()<1){
+                             info.put("res", "1");
+                             info.put("msg","系统不存在此人的申领记录信息"); 
+                             return info ;
+                         }             
         c.setSql("sisAdminDAO.getPersonRptedLeiYues"); 
         List<SystemCommonModel> list =  sisMybatisDaoUtil.getListData( c.getSql(), c);
         if(list.size()<1){
@@ -903,5 +924,143 @@ public class SisServiceImpl implements SisService {
             info.put("msg","此人有正在申报中的记录，故不得重复申报");  
         }
         return info;
+    }
+
+    @Override
+    public JSONObject updateRptRecond(SystemCommonModel c, RuntimeService runtimeService, FormService formService,
+            TaskService taskService) { 
+        // query kermit's tasks;  
+        List<Task> tasks = taskService.createTaskQuery().processVariableValueEquals("flow_id", c.getFdid()).taskAssignee("creator").list();  
+        for (Task task : tasks) {
+            if ("node1".equals(task.getTaskDefinitionKey())) {                 // 设置填报人单位编码记录在节点  
+                taskService.setVariable(task.getId(), "fdid", c.getFdid()  ); 
+                taskService.setVariable(task.getId(), "card_id",  c.getCard_id() );   
+                taskService.setVariable(task.getId(), "person_name",  c.getPerson_name() );   
+                taskService.setVariable(task.getId(), "unit_type",  c.getPerson_unit_type() ); 
+                taskService.setVariable(task.getId(), "unit_name", c.getPerson_unit() ); 
+                taskService.setVariable(task.getId(), "pay_start", c.getRpt_start()  ); 
+                taskService.setVariable(task.getId(), "pay_end",  c.getRpt_end() );  
+                taskService.setVariable(task.getId(), "sub_cycle",  c.getRpt_cycle()  ); 
+                taskService.setVariable(task.getId(), "rpt_type",  c.getRpt_type()  );  
+                taskService.setVariable(task.getId(), "person_phone",  c.getPerson_phone() );  
+                taskService.setVariable(task.getId(), "creator",  c.getStaff_id() ); 
+                taskService.setVariable(task.getId(), "create_company",  c.getStaff_company_id() ); 
+                taskService.setVariable(task.getId(), "create_time",  c.getCreate_time()  );                 
+                taskService.setVariable(task.getId(), "pass1",  "2"  );                 
+                // 节点任务结束  
+                taskService.complete(task.getId());  
+                log.info("修改申报信息:card :"+c.getCard_id());  
+            }  
+        }
+        JSONObject info = new JSONObject();  
+        info.put("res", "2");
+        info.put("msg", "执行成功");
+        return info ;
+    }
+
+    @Override
+    public JSONObject rptOfficeApplyedReport(SystemCommonModel c, String path) {
+        // TODO Auto-generated method stub
+        JSONObject info = new JSONObject();  
+        HSSFWorkbook wb=new HSSFWorkbook();  //创建一个excell文件
+        HSSFSheet sheet=wb.createSheet("补贴统计表");       //创建一个excell的sheet
+        HSSFCellStyle style = wb.createCellStyle();  
+        // 设置居中样式 
+        Font font = wb.createFont();  
+        HSSFCellStyle styles = wb.createCellStyle();  
+        // 设置居中样式 
+        Font fonts = wb.createFont();  
+        font.setFontName("微软雅黑"); 
+        font.setFontHeight((short) 200);  
+        HSSFRow row = sheet.createRow((int) 0);  
+        font.setColor(HSSFColor.BLACK.index);  
+        font.setBoldweight(Font.BOLDWEIGHT_NORMAL); // 粗体           
+        font.setFontHeightInPoints((short) 14);
+        style.setFont(font);   
+        style.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 水平居中  
+        style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); // 垂直居中  
+        style.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
+        style.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
+        style.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
+        style.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
+        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//水平居中
+        sheet.setColumnWidth( 0,  4000);   //设置列宽
+        sheet.addMergedRegion(new CellRangeAddress(0, 1, 0, 9));   
+        sheet.addMergedRegion(new CellRangeAddress(2, 2, 0, 9));    
+           // 创建第一行
+           HSSFRow row0 = sheet.createRow(0);//创建第一行 
+           HSSFRow row1 = sheet.createRow(2);//创建第一行 
+           // 设置行高
+           row0.setHeight((short) 500);                 //设置行高
+           // 创建第一列
+           HSSFCell cell0 = row0.createCell(0);      //创建一行中的一个单元格  
+           cell0.setCellValue(String.valueOf(new HSSFRichTextString("补贴统计表")));//单元格内容
+           cell0.setCellStyle(style);   
+            fonts = font ;
+            fonts.setFontHeightInPoints((short) 10);
+            styles = style ;
+            styles.setFont(fonts);
+
+           // 第二列
+           HSSFCell cell1 = row1.createCell(0);      //创建一行中的一个单元格  
+           cell1.setCellValue(String.valueOf(new HSSFRichTextString("统计周期:")));//单元格内容
+           HSSFRow row2 = sheet.createRow(3);
+           row2.setHeight((short) 750);
+           String[] excelHeader = { "申报人姓名", "申报人身份证号码", "性别" , "联系电话" ,"民族", "签发单位", "初次申报日期" ,"票据开始月份","票据结束月份"
+                   ,"就业单位类型","就业单位","申报类型","申报周期","申报人类型","已享受月数","录入人员","录入机构","录入时间" };   
+               // 单元格列宽  
+               int[] excelHeaderWidth = { 120,120,120,120,120,120,120,120,120, 
+                       120,120,120,120,120,120,120,120,120}; 
+        // 设置列宽度（像素）  
+           for (int i = 0; i < excelHeaderWidth.length; i++) {  
+               sheet.setColumnWidth(i, 45 * excelHeaderWidth[i]);  
+           }   
+           // 添加表格头  
+           for (int i = 0; i < excelHeader.length; i++) {  
+               HSSFCell cell = row2.createCell(i);  
+               cell.setCellValue(excelHeader[i]);  
+               cell.setCellStyle(style);  
+           }  
+
+           c.setSql("sisAdminDAO.rptOfficeApplyedReport");
+           List<SystemCommonModel> list4 = sisMybatisDaoUtil.getListData(
+                   c.getSql(), c);   
+           // 添加表格数据
+           for(int i =0;i<list4.size();i++){
+               HSSFRow rowi = sheet.createRow(3+i+1); 
+                   HSSFCell cell00 = rowi.createCell(i);  
+                   cell00.setCellValue(list4.get(i).getPerson_name());     
+                   cell00.setCellValue(list4.get(i).getPerson_name());     
+                   cell00.setCellValue(list4.get(i).getPerson_name());     
+                   cell00.setCellValue(list4.get(i).getPerson_name());     
+                   cell00.setCellValue(list4.get(i).getPerson_name());     
+                   cell00.setCellValue(list4.get(i).getPerson_name());     
+                   cell00.setCellValue(list4.get(i).getPerson_name());     
+                   cell00.setCellValue(list4.get(i).getPerson_name());     
+                   cell00.setCellValue(list4.get(i).getPerson_name());     
+                   cell00.setCellValue(list4.get(i).getPerson_name());     
+                   cell00.setCellValue(list4.get(i).getPerson_name());     
+                   cell00.setCellValue(list4.get(i).getPerson_name());     
+                   cell00.setCellValue(list4.get(i).getPerson_name());     
+                   cell00.setCellValue(list4.get(i).getPerson_name());     
+                   cell00.setCellValue(list4.get(i).getPerson_name());     
+                   cell00.setCellValue(list4.get(i).getPerson_name());     
+                   cell00.setCellValue(list4.get(i).getPerson_name());     
+                   cell00.setCellValue(list4.get(i).getPerson_name());     
+           }
+//           
+           String file_name=getUUID() + ".xls"; 
+           String uploadPath = path ;
+           try {
+               OutputStream out = new FileOutputStream(uploadPath + "//"+file_name); //获取输出流
+               wb.write(out);                               //将输出流与excell关联输出
+               out.flush();
+               out.close();                            //关闭输出流
+               info.put("res", "2");
+               info.put("msg", file_name); 
+           }catch (Exception e){
+               e.printStackTrace(); 
+           }  
+           return info ;
     }
 }

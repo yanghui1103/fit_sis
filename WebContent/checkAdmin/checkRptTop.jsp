@@ -9,15 +9,15 @@ $(function(){
 	var arr = new Array(60);
 	for(var i in arr.length){
 		 arr[i] = "-9";		 
-	} 
-	 arr[0] = "ROLE2SUBTYPE"; 
-	 takeCustomValueByOther($("#rpt_type",navTab.getCurrentPanel()),"getCustomValueByOther.action","1", arr);	
+	}  
+	 arr[0] = "SUB_TYPE"; 
+	 takeTypeDataList($("#rpt_type",navTab.getCurrentPanel()),"getSysItems.action","1", arr);	
 	 arr[0] = "UNIT_TYPE"; 
 	 takeTypeDataList($("#unit_type",navTab.getCurrentPanel()),"getSysItems.action","1", arr);	
 	 arr[0] = "CHECKRT"; 
 	 takeTypeDataList($("#check_result",navTab.getCurrentPanel()),"getSysItems.action","1", arr);	
-	 arr[0] = "Company2SubCycle"; 
-	 takeCustomValueByOther($("#sub_cycle",navTab.getCurrentPanel()),"getCustomValueByOther.action","1", arr);	
+	 arr[0] = "SUBCYCLE"; 
+	 takeTypeDataList($("#sub_cycle",navTab.getCurrentPanel()),"getSysItems.action","1", arr);	 
 	 
 	var allJlId = $("input[name='allJlId']:checked").val();
 	if($("input[name='allJlId']:checked").length <1){
@@ -54,7 +54,7 @@ function dealInitCheckTopPage(data){
 $('#getPhoto', navTab.getCurrentPanel()).click( function() {	   
 	var flow_id = $("#flow_id",navTab.getCurrentPanel()).val();  
 	if(flow_id=="") {alertMsg.info("无图片附件");return ;} 
-	$(".ahrefCss").attr("href","system/attachmentPage.jsp?isRead=0&foregin_id="+flow_id+"");	
+	$(".ahrefCss").attr("href","system/attachmentPage.jsp?isRead=1&foregin_id="+flow_id+"");	
 	$(".ahrefCss").trigger("click"); 
 }); 
 //确认审核-初审
@@ -68,6 +68,48 @@ $("#auditFirst", navTab.getCurrentPanel()).click( function() {
 		 cancelCall : function() {}
 		});		
 }); 
+
+
+
+$('#getPersonInfo', navTab.getCurrentPanel()).click( function() {	  
+	var card_id = $("#card_id",navTab.getCurrentPanel()).val();   
+	if(card_id==""){alertMsg.error("身份证信息不存在");return ;}
+	var array = new Array(card_id) ;
+	createJsonAndAjaxNew('getPersonRptedInfo.action', array,function(data){
+		 if(data.res!="2"){
+			 alertMsg.info(data.msg);
+			 // 如果是新来的人员,那么首先校验他年龄是否符合
+			 checkNewPerson();
+			 return ;
+		 } 
+		 var json = data.list ;   
+		 if(json[0].state_code !="2"){
+			 $("#card_id",navTab.getCurrentPanel()).val("");
+			 alertMsg.info(json[0].state); 
+		 }  
+		 var array = getPersonTypeName(json[0].first_zhousui,json[0].gender) ; 
+		 if(array[0] == "-9"){
+			 $("#card_id",navTab.getCurrentPanel()).val("");
+			 alertMsg.info(array[1]); 
+		 } 
+			$(".rptedInfos").attr("href","subAdmin/rpterGaikuangInfos.jsp?card_id="+card_id+"");	
+			$(".rptedInfos").trigger("click"); 
+	 },'JSON',true) ;
+}); 
+
+function checkNewPerson(){
+	var myDate = new Date(); 
+	var year = myDate.getFullYear();  
+	var card_id = $("#card_id",navTab.getCurrentPanel()).val();   
+	var gender = $("#gender",navTab.getCurrentPanel()).val();   
+	var age  = (year -  card_id.substr(6,4));
+
+	 var array = getPersonTypeName(age,gender) ; 
+	 if(array[0] == "-9"){
+		 $("#card_id",navTab.getCurrentPanel()).val("");
+		 alertMsg.info(array[1]); 
+	 } 
+}
 </script>
 </head>
 <body>
@@ -134,6 +176,7 @@ $("#auditFirst", navTab.getCurrentPanel()).click( function() {
 		<input   type="hidden"   id="flow_id"  name="flow_id"  />
 		<input   type="hidden"   id="pass_type"  name="pass_type"  value="1" />
 		<button id="getPhoto"   type="button" >查看附件</button>
+		<input type="button"  id="getPersonInfo"  value="申领概况"/>
 		</p>
 		</div>
 		<div class="pageFormContent"> 
@@ -149,7 +192,8 @@ $("#auditFirst", navTab.getCurrentPanel()).click( function() {
 </div> 	
 
 		<div   style="display:none;">
-		<a class="button ahrefCss"  target="dialog" rel="dlg_page101" mask="true" title="附件"><span>附件</span></a> 
+		<a class="button ahrefCss"  target="dialog" rel="dlg_page101" mask="true" title="附件"><span>附件</span></a>  
+		<a class="button rptedInfos"  target="dialog" rel="dlg_page103" mask="true" title="申领概况"><span>申领概况</span></a> 
 		</div>
 		
 		<div class="formBar" id="subBar">

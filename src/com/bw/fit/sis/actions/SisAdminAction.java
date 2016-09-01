@@ -920,6 +920,70 @@ public class SisAdminAction extends BaseAction{
         return null ;
     }
     /***
+     * 修改申报记录
+     * 办事点
+     */
+    public String updateRptRecond(){
+        try {
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            SystemCommonModel c = new SystemCommonModel();  
+            JSONArray array  = (JSONArray) JSONValue.parse(str);  
+            for(int i=0;i<array.size();i++){
+                if("card_id".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setCard_id(((JSONObject)array.get(i)).get("value").toString());
+                }else if("person_name".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_name(((JSONObject)array.get(i)).get("value").toString());
+                } else if("gender".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_gender(((JSONObject)array.get(i)).get("value").toString());
+                }    else if("nation".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_nation(((JSONObject)array.get(i)).get("value").toString());
+                }else if("phone".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_phone(((JSONObject)array.get(i)).get("value").toString());
+                }   else if("orgin".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_orgin(((JSONObject)array.get(i)).get("value").toString());
+                }  else if("sub_cycle".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setRpt_cycle(((JSONObject)array.get(i)).get("value").toString());
+                } else if("rpt_type".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setRpt_type(((JSONObject)array.get(i)).get("value").toString());
+                } else if("start_date".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setRpt_start(((JSONObject)array.get(i)).get("value").toString());
+                } else if("end_date".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setRpt_end(((JSONObject)array.get(i)).get("value").toString());
+                }   else if("unit_type".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_unit_type(((JSONObject)array.get(i)).get("value").toString());
+                }   else if("unit_name".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_unit(((JSONObject)array.get(i)).get("value").toString());
+                }   else if("flow_id".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setFdid(((JSONObject)array.get(i)).get("value").toString());
+                }  
+            }    
+            
+ 
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")).getStaff_id()); 
+            c.setStaff_company_id(((LoginUser) session.getAttribute("LoginUser")).getOrg_cd());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
+            JSONObject objItem = ((SisServiceImpl) getBean("sisServiceImpl"))
+                    .getExistsPsn(c);
+            RuntimeService runtimeService = (RuntimeService) getBean("runtimeService");   
+            FormService formService = (FormService) getBean("formService");   
+            TaskService taskService = (TaskService) getBean("taskService");  
+            c.setCreate_time(PubFun.getSysDate());
+            c.setFirst_time(PubFun.getTruncSysDate()); 
+            // 只修改申报数据
+                objItem = ((SisServiceImpl) getBean("sisServiceImpl")). updateRptRecond(c,runtimeService, formService, taskService);
+             
+            wr.write(objItem.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }                
+        
+        return null ;
+    }
+    /***
      * 作废这条申报记录
      */
     public String deleteRptRecond(){
@@ -1044,6 +1108,33 @@ public class SisAdminAction extends BaseAction{
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        
+        return null ;
+    }
+    /**
+     * 生成补贴报表
+     */
+    public String rptOfficeApplyedReport(){
+        try {
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            JSONObject obj = (JSONObject) JSONValue.parse(str);
+            JSONArray array = (JSONArray) obj.get("content");
+            String param1 = (String) (((JSONObject) array.get(0)).get("param1")); 
+            SystemCommonModel c = new SystemCommonModel();               
+            c.setSelect_company_id(param1);            
+            c.setRpt_type((String) (((JSONObject) array.get(0)).get("param2")));            
+            c.setRpt_cycle((String) (((JSONObject) array.get(0)).get("param3"))); 
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")) .getStaff_id());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
+            JSONObject objItem = ((SisServiceImpl) getBean("sisServiceImpl")).rptOfficeApplyedReport(c, ServletActionContext.getServletContext().getRealPath("/uploadfiles"));
+            wr.write(objItem.toJSONString());
+            wr.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } 
         
         return null ;
     }

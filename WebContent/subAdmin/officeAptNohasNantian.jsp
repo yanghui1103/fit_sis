@@ -63,7 +63,7 @@ $('#getPersonInfo', navTab.getCurrentPanel()).click( function() {
 	var array = new Array(card_id) ;
 	createJsonAndAjaxNew('getPersonRptedInfo.action', array,function(data){
 		 if(data.res!="2"){
-			 alertMsg.info("系统中不存在此人申领概况");
+			 alertMsg.info("系统中不存在此人申领概况"); 
 			 // 如果是新来的人员,那么首先校验他年龄是否符合
 			 checkNewPerson();
 			 return ;

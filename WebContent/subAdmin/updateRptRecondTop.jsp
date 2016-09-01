@@ -61,7 +61,7 @@ $('#getPhoto', navTab.getCurrentPanel()).click( function() {
 $("#saveToNext", navTab.getCurrentPanel()).click( function() {	   
 	alertMsg.confirm("是否确认对此记录修改?", {
 		 okCall: function(){ 
-			 createJsonAndPost2Java('checkRpt.action',$("#createForm", navTab.getCurrentPanel()),function(data){
+			 createJsonAndPost2Java('updateRptRecond.action',$("#createForm", navTab.getCurrentPanel()),function(data){
 				 alertToPageMsg(data);		
 			 },'JSON',false) ;
 		 },
@@ -115,30 +115,30 @@ $("#deleteRt", navTab.getCurrentPanel()).click( function() {
 		<div class="divider"></div>	
 		<p>
 				<label>就业单位名称：</label>
-				<input   id="unit_name" name="unit_name"   class="required" type="text"   readonly  style="float:left"  maxlength=20     />
+				<input   id="unit_name" name="unit_name"   class="required" type="text"      style="float:left"  maxlength=20     />
 			</p>  
 		<p>
 				<label>就业单位类型：</label>				
-				<select id="unit_type"  name="unit_type" disabled   style="float:left" > 
+				<select id="unit_type"  name="unit_type"     style="float:left" > 
 				</select>
 			</p>  
 		<p>
 				<label>补贴类型：</label>				
-				<select id="rpt_type"  name="rpt_type"  disabled style="float:left" > 
+				<select id="rpt_type"  name="rpt_type"    style="float:left" > 
 				</select>
 			</p> 
 		<p>
 				<label>申报周期：</label>				
-				<select id="sub_cycle"  name="sub_cycle"  disabled style="float:left" > 
+				<select id="sub_cycle"  name="sub_cycle"    style="float:left" > 
 				</select>
 			</p>   
 				<p>
 				<label>票据缴费开始月份：</label>
-				<input id=start_date ename="开始日期" name="start_date" type="text" class="date required "  disabled datefmt='yyyyMM' style="float:left"  readonly="true" />
+				<input id=start_date ename="开始日期" name="start_date" type="text" class="date required "    datefmt='yyyyMM' style="float:left"  readonly="true" />
 			</p>
 				<p>
 				<label>票据缴费结束月份：</label>
-				<input id=end_date ename="结束日期"  name="end_date" type="text" class="date required " disabled  datefmt='yyyyMM' style="float:left"  readonly="true" />
+				<input id=end_date ename="结束日期"  name="end_date" type="text" class="date required "    datefmt='yyyyMM' style="float:left"  readonly="true" />
 			</p><p>
 		<input   type="hidden"   id="fdid"  name="fdid"  />
 		<input   type="hidden"   id="flow_id"  name="flow_id"  />

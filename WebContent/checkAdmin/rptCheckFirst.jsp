@@ -13,9 +13,9 @@ $(document).ready(function(){
 	}arr[0] = "300";arr[1] = "navTab"; 
 	renderBtnsToDiv( $("#subBar", navTab.getCurrentPanel())  ,'getAuthorityBtnsByThisUser.action',arr);
 	 arr[0] = "ROLE2SUBTYPE"; 
-	 takeCustomValueByOther($("#rpt_type",navTab.getCurrentPanel()),"getCustomValueByOther.action","1", arr);	
+	 takeCustomValueByOther($("#rpt_type",navTab.getCurrentPanel()),"getCustomValueByOther.action","0", arr);	
 	 arr[0] = "Company2SubCycle"; 
-	 takeCustomValueByOther($("#sub_cycle",navTab.getCurrentPanel()),"getCustomValueByOther.action","1", arr);	
+	 takeCustomValueByOther($("#sub_cycle",navTab.getCurrentPanel()),"getCustomValueByOther.action","0", arr);	
 });
 
 </script>

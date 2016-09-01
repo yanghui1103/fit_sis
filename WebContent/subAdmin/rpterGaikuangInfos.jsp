@@ -11,7 +11,9 @@ $(function(){
 	var array = new Array(card_id) ;
 	createJsonAndAjaxNew('getPersonRptedInfo.action', array,function(data){
 		 if(data.res!="2"){
-			 alertMsg.info("系统中不存在此人申领概况");
+			 alertMsg.info(data.msg);
+			 var ajaxbg = $("#background,#progressBar");
+				ajaxbg.hide();
 			 return ;
 		 }
 		 var json = data.list ;  
@@ -23,7 +25,7 @@ $(function(){
 		 $("#state", $.pdialog.getCurrent()).val(json[0].state_code); 
 		 var array = getPersonTypeName(json[0].first_zhousui,json[0].gender) ; 
 		 $("#person_type", $.pdialog.getCurrent()).val(array[1]); 
-	 },'JSON',true) ;
+	 },'JSON',true ) ;
 	
 });
 </script>

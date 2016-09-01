@@ -12,9 +12,9 @@
 	</select> 
 	<!-- 新建申报周期 -->
 	<insert id="createSubCycle" parameterType="com.bw.fit.common.models.SystemCommonModel">
-	insert into sub_cycle (fdid,cycle_name,org_id,start_date,end_date,isdeleted,state,create_time,version_time,creator)
+	insert into sub_cycle (fdid,cycle_name,org_id,start_date,end_date,isdeleted,state,create_time,version_time,creator,cycle_code)
 	values (#{fdid},#{temp_str2},#{temp_str3},to_date(#{start_date},'yyyy-mm-dd'),to_date(#{end_date},'yyyy-mm-dd'),
-	'0','2',to_date(#{create_time},'yyyy-mm-dd hh24:mi:ss'),to_date(#{create_time},'yyyy-mm-dd hh24:mi:ss'),#{staff_id})
+	'0','2',to_date(#{create_time},'yyyy-mm-dd hh24:mi:ss'),to_date(#{create_time},'yyyy-mm-dd hh24:mi:ss'),#{staff_id},#{temp_str2})
 	</insert>
 	<select id="checkCompanyExisteSubCycle" parameterType="com.bw.fit.common.models.SystemCommonModel"
 		resultType="com.bw.fit.common.models.SystemCommonModel">
@@ -100,6 +100,10 @@ where st.fdid = sc.staff_id and sc.company_id = sl.org_id and sl.isdeleted='0' a
          	<!-- 查看这个身份证号码是否已经存在 -->
          	<select id="getExistsPsn"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
            select * from rpt_person where card_id = #{card_id}
+         	</select>
+         	<!-- 查看这个身份证号码是否存在补贴过的历史 -->
+         	<select id="getExistsRptedRcd"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+           select * from rpt_reconds where isdeleted='0' and  card_id = #{card_id}
          	</select>
          	<!-- 新增申报人申报记录 -->
          	<insert id="createOldPersonRptRecond"  parameterType="com.bw.fit.common.models.SystemCommonModel" 	>
@@ -228,5 +232,28 @@ rp.state temp_str3,(select item_name from sys_item where fdid= rp.state and ityp
          <select id="checkPsnRpting"  parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
         select  av.id_ temp_str1 from act_ru_task av ,  act_hi_varinst av2 
 		where av.proc_inst_id_ = av2.proc_inst_id_ and av2.name_ ='card_id' and av2.text_=#{card_id}
+         </select>
+         <!-- 补贴报表 -->
+         <select id="rptOfficeApplyedReport"  parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+          select rp.person_name ,rp.card_id ,(case when gender ='1' then '男' when gender='0' then '女' else '未知' end) person_gender,
+rp.phone person_phone,rp.nation person_nation,rp.orgin person_orgin ,to_char(rp.first_time,'yyyy-MM-dd') first_time,
+rr.pay_start rpt_start,rr.pay_end rpt_end,
+(select item_name from sys_item where fdid = rr.unit_type and itype='UNIT_TYPE'  ) unit_type,
+rr.unit_name,
+(select item_name from sys_item where fdid = rr.unit_type and itype='SUB_TYPE'  ) rpt_type,
+(select item_name from sys_item where fdid = rr.unit_type and itype='SUBCYCLE'  ) rpt_cycle, '', '0' temp_int1,
+st.staff_name,cp.company_name,rr.create_time
+from rpt_person rp,rpt_reconds rr,staff st,staff2company sc,company cp
+where rp.card_id = rr.card_id and rr.creator = st.fdid and sc.staff_id = st.fdid and cp.fdid = sc.company_id 
+  and rr.isdeleted='0'  
+  			<if test="select_company_id !='-9'">
+		and sc.company_id like #{select_company_id}||'%'
+		</if>
+  			<if test="rpt_type !='-9'">
+		and rr.rpt_type = #{rpt_type} 
+		</if>
+  			<if test="rpt_cycle !='-9'">
+		and rr.sub_cycle = #{rpt_cycle} 
+		</if>
          </select>
 </mapper>

@@ -33,5 +33,7 @@ public interface SisService {
     public JSONObject qryRptedRecordList(SystemCommonModel c);
     public JSONObject getPersonRptedInfo(SystemCommonModel c);
     public JSONObject checkPsnRpting(SystemCommonModel c);
+    public  JSONObject updateRptRecond(SystemCommonModel c,RuntimeService runtimeService,FormService formService, TaskService taskService) ;
+    public JSONObject rptOfficeApplyedReport(SystemCommonModel c,String path) ;
     
 }
