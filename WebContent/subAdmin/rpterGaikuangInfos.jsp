@@ -23,10 +23,14 @@ $(function(){
 		 $("#gender", $.pdialog.getCurrent()).val(json[0].gender);
 		 $("#person_state", $.pdialog.getCurrent()).val(json[0].state);
 		 $("#state", $.pdialog.getCurrent()).val(json[0].state_code); 
+		 $("#rpted_months", $.pdialog.getCurrent()).val(json[0].yueshu);
 		 var array = getPersonTypeName(json[0].first_zhousui,json[0].gender) ; 
 		 $("#person_type", $.pdialog.getCurrent()).val(array[1]); 
-	 },'JSON',true ) ;
-	
+		 
+		 var max_months = getMaxMonthsByCard(card_id,json[0].gender,json[0].first_zhousui,array[0]) ;
+		 $("#can_months", $.pdialog.getCurrent()).val(max_months); 
+		 
+	 },'JSON',true ) ; 
 });
 </script>
 </head>
@@ -63,6 +67,14 @@ $(function(){
 				<label>人员状态：</label>
 				<input   id="person_state"    type="text"    style="float:left"   readonly    />
 				<input  type="hidden"  id="state" />
+			</p>  
+			<p>
+				<label>已补总月数：</label>
+				<input   id="rpted_months"    type="text"    style="float:left"   readonly    />
+			</p>  
+			<p>
+				<label>最长可享受总月数(无断补情况)：</label>
+				<input   id="can_months"    type="text"    style="float:left"   readonly    />
 			</p>  
 		</div> 
 	</form>

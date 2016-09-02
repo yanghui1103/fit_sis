@@ -434,6 +434,12 @@ public class SisServiceImpl implements SisService {
     @Override
     public JSONObject luruNewRptFlow(SystemCommonModel c,RuntimeService runtimeService, FormService formService, TaskService taskService) {
         // TODO Auto-generated method stub
+        JSONObject info = new JSONObject();  
+        if("-9".equals(c.getCard_id()) ||"".equals(c.getCard_id()) ){
+            info.put("res", "1");
+            info.put("msg", "身份证卡号不得空");
+            return info ;
+        }
         Map<String, Object> p = new HashMap<String, Object>();    
         // 开始流程  
         p.put("flow_id", c.getFdid());
@@ -461,7 +467,6 @@ public class SisServiceImpl implements SisService {
                 log.info("录入申报信息:card :"+c.getCard_id());  
             }  
         }
-        JSONObject info = new JSONObject();  
         info.put("res", "2");
         info.put("msg", "执行成功");
         return info ;
@@ -472,6 +477,11 @@ public class SisServiceImpl implements SisService {
         // TODO Auto-generated method stub
         // 这个人的资料不存在，那么就新建
         JSONObject info = new JSONObject();  
+        if("-9".equals(c.getCard_id()) ||"".equals(c.getCard_id()) ){
+            info.put("res", "1");
+            info.put("msg", "身份证卡号不得空");
+            return info ;
+        }
         c.setSql("sisAdminDAO.createPersonInfo"); 
         info = sisMybatisDaoUtil.sysInsertData(c.getSql(), c);
         if("1".equals(info.get("res").toString())){

@@ -4,8 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="subAdmin/officeAptNohasNantian.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){	
+	Init();
 	var hide_id = $("#hide_id", navTab.getCurrentPanel()).val();
 	 $("#flow_id", navTab.getCurrentPanel()).val(hide_id);
 	var arr = new Array(60);
@@ -21,9 +23,9 @@ $(document).ready(function(){
 	 arr[0] = "Company2SubCycle"; 
 	 takeCustomValueByOther($("#sub_cycle",navTab.getCurrentPanel()),"getCustomValueByOther.action","1", arr);	
 });
-  $('#getCardInfo',navTab.getCurrentPanel()).click(function() {	 
-	alert("999");
-	$('#getPersonInfo', navTab.getCurrentPanel()).trigger("click");
+  $('#getCardInfo',navTab.getCurrentPanel()).click(function() {	   	  
+	readCard();
+	 $('#getPersonInfo', navTab.getCurrentPanel()).trigger("click");
 });
 
 
@@ -34,6 +36,7 @@ baidu(document).on('click', '#save205', function() {
 	 var rpt_type = $("#rpt_type",navTab.getCurrentPanel()).val(); 
 	 var sub_cycle = $("#sub_cycle",navTab.getCurrentPanel()).val(); 
 	 var unit_type = $("#unit_type",navTab.getCurrentPanel()).val(); 
+	 $("#person_gender",navTab.getCurrentPanel()).val(gender);
 	 if(card_id.length!=18){alertMsg.info("身份证号码应该为18位");return ;}
 	 if(gender=="-9"){alertMsg.info("请选择申报人性别");return ;}
 	 if(rpt_type=="-9"){alertMsg.info("请选择申报类型");return ;}
@@ -64,20 +67,15 @@ $('#getPersonInfo', navTab.getCurrentPanel()).click( function() {
 	createJsonAndAjaxNew('getPersonRptedInfo.action', array,function(data){
 		 if(data.res!="2"){
 			 alertMsg.info("系统中不存在此人申领概况"); 
-			 // 如果是新来的人员,那么首先校验他年龄是否符合
-			 checkNewPerson();
+			 // 如果是新来的人员,那么首先校验他年龄是否符合，可能有高校毕业生所以不做下面这事了
+			 // checkNewPerson();
 			 return ;
 		 } 
 		 var json = data.list ;   
 		 if(json[0].state_code !="2"){
 			 $("#card_id",navTab.getCurrentPanel()).val("");
 			 alertMsg.info(json[0].state); 
-		 }  
-		 var array = getPersonTypeName(json[0].first_zhousui,json[0].gender) ; 
-		 if(array[0] == "-9"){
-			 $("#card_id",navTab.getCurrentPanel()).val("");
-			 alertMsg.info(array[1]); 
-		 } 
+		 }   
 			$(".rptedInfos").attr("href","subAdmin/rpterGaikuangInfos.jsp?card_id="+card_id+"");	
 			$(".rptedInfos").trigger("click"); 
 	 },'JSON',true) ;
@@ -94,48 +92,62 @@ function checkNewPerson(){
 	 if(array[0] == "-9"){
 		 $("#card_id",navTab.getCurrentPanel()).val("");
 		 alertMsg.info(array[1]); 
+		 return false ;
 	 } 
+	 return true ;
 }
 </script>
 </head>
 <body>
 	<div class="pageContent">
+	
+  <object id="CardReader1" codebase="applyAdmin/FirstActivex.cab#version=1,0,3,1" classid="CLSID:F225795B-A882-4FBA-934C-805E1B2FBD1B" >
+	<param name="_Version" value="65536"/>
+	<param name="_ExtentX" value="2646"/>
+	<param name="_ExtentY" value="1323"/>
+	<param name="_StockProps" value="0"/>
+	<param name="port" value="串口1"/>
+	<param name="PhotoPath" value=""/>
+	<param name="ActivityLFrom" value=""/>
+	<param name="ActivityLTo" value="" />
+	</object> 
 	<form method="post" action=""  id=createForm class="pageForm required-validate">
 		<div class="pageFormContent" layoutH="56">
 			<p>
 				<label>申报人姓名：</label>
-				<input   id="person_name" name="person_name"   class="required" type="text"    style="float:left"       />
+				<input   id="person_name" name="person_name"   class="required" type="text"    style="float:left"   readonly  />
 			</p>  
 			<p>
 				<label>身份证号码：</label>
-				<input   id="card_id" name="card_id"   class="required" type="text"   maxlength=18  style="float:left"       />
+				<input   id="card_id" name="card_id"   class="required" type="text"   maxlength=18  style="float:left"  readonly     />
 			</p> 
 			<p>
 				<label>申报人性别：</label> 
-				<select id="gender"  name="gender"   style="float:left" > 
+				<select id="gender"  name="gender"  disabled  style="float:left" > 
 				<option value="-9">请选择</option>
 				<option value="0">女</option>
 				<option value="1">男</option>
 				</select>
+				<input  type="hidden"  id="person_gender" name="person_gender"/>
 			</p>   
 			<p>
 				<label>出生日期：</label>
-				<input   id="birchday" name="birchday"   class="required" type="text"    style="float:left"       />
+				<input   id="birchday" name="birchday"   class="required" type="text"    style="float:left"     readonly  />
 			</p>   
 			<p>
 				<label>民族：</label>
-				<input   id="nation" name="nation"   class="required" type="text"    style="float:left"       />
+				<input   id="nation" name="nation"   class="required" type="text"    style="float:left"   readonly    />
 			</p>   
 			<p>
 				<label>签发机构：</label>
-				<input   id="orgin" name="orgin"   class="required" type="text"    style="float:left"       />
+				<input   id="orgin" name="orgin"   class="required" type="text"    style="float:left"  readonly     />
 			</p>    
 			<p>
 				<label>联系电话：</label>
 				<input   id="phone" name="phone"   class="required" type="text"    style="float:left" maxlength=12      />
 			</p>  
 		<div><input type="button"  id="getCardInfo"  value="读取身份证卡信息"/>
-		<input type="button"  id="getPersonInfo"  value="系统中信息"/></div>
+		<input type="button"  id="getPersonInfo"  value="申领概况"/></div>
 		<div class="divider"></div>	
 		<p>
 				<label>就业单位名称：</label>

@@ -45,3 +45,18 @@ function getPersonTypeName(age,gender){
 	   return array ;
 }
  
+// 获取可以享受的最长月数(无不断情况)
+function getMaxMonthsByCard(card_id,gender,zhousui,p_type){
+	var ling_yue = card_id.substr(10,2) ;
+	if(gender =="0" &&p_type =="101" ){
+		return (45 - zhousui +1) *12 +ling_yue ;
+	}else if(gender =="0" &&p_type =="102" ){
+		return (50 - zhousui +1) *12 +ling_yue ;
+	}else if(gender =="1" &&p_type =="101" ){
+		return (55 - zhousui +1) *12 + ling_yue;
+	}else if(gender =="0" &&p_type =="102" ){
+		return (60 - zhousui +1) *12+ling_yue ;
+	}else {
+		return "0";
+	}
+}
