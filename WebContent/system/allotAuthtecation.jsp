@@ -58,7 +58,7 @@ $('#treeAuth').click(function(){
 <div class="pageFormContent"   >
 			<p>
 				<label>待选角色：</label>
-				<select name="giveRole_role_cd" id="giveRole_role_cd" class="required  combox"  >
+				<select name="giveRole_role_cd" id="giveRole_role_cd" class="required"  >
 				</select>
 			</p>
 			<p>

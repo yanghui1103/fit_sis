@@ -101,7 +101,7 @@ function checkNewPerson(){
 <body>
 	<div class="pageContent">
 	
-  <object id="CardReader1" codebase="applyAdmin/FirstActivex.cab#version=1,0,3,1" classid="CLSID:F225795B-A882-4FBA-934C-805E1B2FBD1B" >
+  <object id="CardReader1" codebase="subAdmin/FirstActivex.cab#version=1,0,3,1" classid="CLSID:F225795B-A882-4FBA-934C-805E1B2FBD1B" >
 	<param name="_Version" value="65536"/>
 	<param name="_ExtentX" value="2646"/>
 	<param name="_ExtentY" value="1323"/>
@@ -119,7 +119,7 @@ function checkNewPerson(){
 			</p>  
 			<p>
 				<label>身份证号码：</label>
-				<input   id="card_id" name="card_id"   class="required" type="text"   maxlength=18  style="float:left"  readonly     />
+				<input   id="card_id" name="card_id"   class="required" type="text"   maxlength=18  style="float:left"        />
 			</p> 
 			<p>
 				<label>申报人性别：</label> 

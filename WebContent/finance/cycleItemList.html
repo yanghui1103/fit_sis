@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<script type="text/javascript"  >
+$(document).ready(function(){	 
+	var arr = new Array(60);
+	for(var i in arr.length){
+		 arr[i] = "-9";		 
+	}
+	 arr[0] = "Company2SubCycle"; 
+	 takeCustomValueByOther($("#sub_cycle", $.pdialog.getCurrent()),"getCustomValueByOther.action","1", arr);	
+});
+$("#submit_tc_item", $.pdialog.getCurrent()).click(function(){
+	
+	alertMsg.info("正在开发当中...");
+});
+</script>
+</head>
+<body>
+	<div><select id="sub_cycle" multiple="multiple"  size=10> 
+	</select></div>
+		<div class=formBar ><ul>
+		<li><div class=buttonActive><div class=buttonContent><button type=button  id = "submit_tc_item" >确认</button></div></div></li>
+		</ul></div>
+</body>
+</html>

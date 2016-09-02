@@ -52,9 +52,7 @@
 				</ul>
 			</div>
 		</div>
-		<div id="login_footer">
-			<a href="http://se.360.cn/">360浏览器</a>或<a
-				href="http://dl.pconline.com.cn/html_2/1/104/id=49581&pn=0.html">IE</a>及以上版本浏览器
+		<div id="login_footer">IE11浏览器
 		</div>
 	</div>
 </body>

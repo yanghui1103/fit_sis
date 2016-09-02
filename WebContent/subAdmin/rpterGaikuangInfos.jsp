@@ -18,7 +18,7 @@ $(function(){
 		 }
 		 var json = data.list ;  
 		 $("#person_name", $.pdialog.getCurrent()).val(json[0].person_name);
-		 $("#first_date", $.pdialog.getCurrent()).val(json[0].first_time);
+		 $("#first_date", $.pdialog.getCurrent()).val(json[0].first_time.substr(0,10));
 		 $("#person_age", $.pdialog.getCurrent()).val(json[0].first_zhousui);
 		 $("#gender", $.pdialog.getCurrent()).val(json[0].gender);
 		 $("#person_state", $.pdialog.getCurrent()).val(json[0].state);
