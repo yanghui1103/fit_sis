@@ -772,7 +772,7 @@ public class SisServiceImpl implements SisService {
             ls.add(arr[i]);
         }
         c.setTemp_list(ls);
-        c.setSql("sisAdminDAO.qryWaitCheckRecordList");
+        c.setSql("sisAdminDAO.qryWaitCheckRecordListFinance");
         List<SystemCommonModel> list = sisMybatisDaoUtil.getListData(
                 c.getSql(), c); 
         if(list.size()<1){

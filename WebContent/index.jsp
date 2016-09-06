@@ -52,7 +52,7 @@
 				</ul>
 			</div>
 		</div>
-		<div id="login_footer">IE11浏览器
+		<div id="login_footer">平台技术支撑：博为科技有限责任公司负责0477-2244534
 		</div>
 	</div>
 </body>
