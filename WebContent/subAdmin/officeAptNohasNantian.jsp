@@ -66,7 +66,7 @@ $('#getPersonInfo', navTab.getCurrentPanel()).click( function() {
 	var array = new Array(card_id) ;
 	createJsonAndAjaxNew('getPersonRptedInfo.action', array,function(data){
 		 if(data.res!="2"){
-			 alertMsg.info("系统中不存在此人申领概况"); 
+			 alertMsg.info(data.msg); 
 			 // 如果是新来的人员,那么首先校验他年龄是否符合，可能有高校毕业生所以不做下面这事了
 			 // checkNewPerson();
 			 return ;
@@ -119,7 +119,7 @@ function checkNewPerson(){
 			</p>  
 			<p>
 				<label>身份证号码：</label>
-				<input   id="card_id" name="card_id"   class="required" type="text"   maxlength=18  style="float:left"        />
+				<input   id="card_id" name="card_id"   class="required" type="text"   maxlength=18  style="float:left"    readonly    />
 			</p> 
 			<p>
 				<label>申报人性别：</label> 
