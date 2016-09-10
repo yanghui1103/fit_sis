@@ -66,7 +66,7 @@ $('#getPhoto', navTab.getCurrentPanel()).click( function() {
 }); 
 //确认审核-初审
 $("#auditFirst", navTab.getCurrentPanel()).click( function() {	   
-	alertMsg.confirm("是否确认对此记录进行初审确认?", {
+	alertMsg.confirm("是否确认对此记录进行复审确认?", {
 		 okCall: function(){ 
 			 createJsonAndPost2Java('checkRpt.action',$("#createForm", navTab.getCurrentPanel()),function(data){
 				 alertToPageMsg(data);		
@@ -192,7 +192,7 @@ function checkNewPerson(){
 				</select>
 		</p>
 		<p><label>审核备注：</label>		
-		<input  type="text"  maxlength=15  id="check_info"  name=check_info/>
+		<input  type="text"  maxlength=15  id="check_info"  name="check_info"       />
 		</p>
 		</form>
 </div> 	

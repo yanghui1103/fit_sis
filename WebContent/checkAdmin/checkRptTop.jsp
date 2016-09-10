@@ -190,7 +190,7 @@ function checkNewPerson(){
 				</select>
 		</p>
 		<p><label>审核备注：</label>		
-		<input  type="text"  maxlength=15  id="check_info"  name=check_info/>
+		<input  type="text"  maxlength=15  id="check_info"  name="check_info"  />
 		</p>
 		</form>
 </div> 	

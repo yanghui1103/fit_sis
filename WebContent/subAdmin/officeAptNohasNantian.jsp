@@ -115,15 +115,15 @@ function checkNewPerson(){
 		<div class="pageFormContent" layoutH="56">
 			<p>
 				<label>申报人姓名：</label>
-				<input   id="person_name" name="person_name"   class="required" type="text"    style="float:left"   readonly  />
+				<input   id="person_name" name="person_name"   class="required" type="text"    style="float:left"     />
 			</p>  
 			<p>
 				<label>身份证号码：</label>
-				<input   id="card_id" name="card_id"   class="required" type="text"   maxlength=18  style="float:left"    readonly    />
+				<input   id="card_id" name="card_id"   class="required" type="text"   maxlength=18  style="float:left"        />
 			</p> 
 			<p>
 				<label>申报人性别：</label> 
-				<select id="gender"  name="gender"  disabled  style="float:left" > 
+				<select id="gender"  name="gender"     style="float:left" > 
 				<option value="-9">请选择</option>
 				<option value="0">女</option>
 				<option value="1">男</option>
@@ -132,15 +132,15 @@ function checkNewPerson(){
 			</p>   
 			<p>
 				<label>出生日期：</label>
-				<input   id="birchday" name="birchday"   class="required" type="text"    style="float:left"     readonly  />
+				<input   id="birchday" name="birchday"   class="required" type="text"    style="float:left"       />
 			</p>   
 			<p>
 				<label>民族：</label>
-				<input   id="nation" name="nation"   class="required" type="text"    style="float:left"   readonly    />
+				<input   id="nation" name="nation"   class="required" type="text"    style="float:left"       />
 			</p>   
 			<p>
 				<label>签发机构：</label>
-				<input   id="orgin" name="orgin"   class="required" type="text"    style="float:left"  readonly     />
+				<input   id="orgin" name="orgin"   class="required" type="text"    style="float:left"       />
 			</p>    
 			<p>
 				<label>联系电话：</label>
@@ -170,11 +170,11 @@ function checkNewPerson(){
 			</p>   
 				<p>
 				<label>票据缴费开始月份：</label>
-				<input id=start_date ename="开始日期" name="start_date" type="text" class="date required "  datefmt='yyyyMM' style="float:left"  readonly="true" />
+				<input id=start_date ename="开始日期" name="start_date" type="text" class="date required "  datefmt='yyyyMM' style="float:left"  ="true" />
 			</p>
 				<p>
 				<label>票据缴费结束月份：</label>
-				<input id=end_date ename="结束日期"  name="end_date" type="text" class="date required "   datefmt='yyyyMM' style="float:left"  readonly="true" />
+				<input id=end_date ename="结束日期"  name="end_date" type="text" class="date required "   datefmt='yyyyMM' style="float:left"  ="true" />
 			</p><p>
 		<input   type="hidden"   id="flow_id"  name="flow_id"  />
 		<input   type="hidden"   id="hide_id"   value="<%=PubFun.getUUID() %>" />
