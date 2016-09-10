@@ -48,7 +48,12 @@ function dealInitCheckTopPage(data){
 	$("#flow_id",navTab.getCurrentPanel()).val(data.fdid);
 	$("#fdid",navTab.getCurrentPanel()).val(data.fdid);
 }
-
+$('#getHis', navTab.getCurrentPanel()).click( function() {	   
+	var flow_id = $("#flow_id",navTab.getCurrentPanel()).val();  
+	if(flow_id=="") {alertMsg.info("流程id无效");return ;} 
+	$(".checkHis").attr("href","checkAdmin/checkHistory.jsp?flow_id="+flow_id+"");	
+	$(".checkHis").trigger("click"); 
+}); 
 
 //获取附件页 
 $('#getPhoto', navTab.getCurrentPanel()).click( function() {	   
@@ -175,6 +180,7 @@ function checkNewPerson(){
 		<input   type="hidden"   id="pass_type"  name="pass_type"  value="1" />
 		<button id="getPhoto"   type="button" >查看附件</button>
 		<input type="button"  id="getPersonInfo"  value="申领概况"/>
+		<button id="getHis"   type="button" >审核历史</button>
 		</p>
 		</div>
 		<div class="pageFormContent"> 
@@ -190,6 +196,7 @@ function checkNewPerson(){
 </div> 	
 
 		<div   style="display:none;">
+		<a class="button checkHis"  target="dialog" rel="dlg_page111" mask="true" title="审核历史"></a>  
 		<a class="button ahrefCss"  target="dialog" rel="dlg_page101" mask="true" title="附件"><span>附件</span></a>  
 		<a class="button rptedInfos"  target="dialog" rel="dlg_page103" mask="true" title="申领概况"><span>申领概况</span></a> 
 		</div>

@@ -291,4 +291,18 @@ where rp.card_id = rr.card_id and rr.creator = st.fdid and sc.staff_id = st.fdid
 		and sc.company_id like #{select_company_id}||'%'
 		</if>
          </select>
+         <!-- 获取审核历史 -->
+         <select id="getCheckHistory"  parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+          select   a1.id_ fdid,a2.text_ temp_str1  ,to_char(a2.create_time_,'yyyy-MM-dd hh24:mi:ss') create_time ,'初审' temp_str2
+from act_hi_varinst a1,act_hi_varinst a2  
+where a1.proc_inst_id_ = a2.proc_inst_id_   
+ and a1.name_ ='flow_id' and a2.name_ ='pass2_info'   
+  and a1.proc_inst_id_ =#{flow_id}
+  union all 
+ select   a1.id_ fdid,a2.text_ temp_str1  ,to_char(a2.create_time_,'yyyy-MM-dd hh24:mi:ss') create_time ,'复审' temp_str2
+from act_hi_varinst a1,act_hi_varinst a2  
+where a1.proc_inst_id_ = a2.proc_inst_id_   
+ and a1.name_ ='flow_id' and a2.name_ ='pass3_info'   
+  and a1.proc_inst_id_ =#{flow_id}  order by create_time desc          
+         </select>
 </mapper>

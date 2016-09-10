@@ -30,6 +30,7 @@
 		<action name="qryRptedRecordList"   class="sisAdminAction"   method="qryRptedRecordList" />
 		<action name="getPersonRptedInfo"   class="sisAdminAction"   method="getPersonRptedInfo" />
 		<action name="rptOfficeApplyedReport"   class="sisAdminAction"   method="rptOfficeApplyedReport" />
+		<action name="getCheckHistory"   class="sisAdminAction"   method="getCheckHistory" />
 		
 
 		

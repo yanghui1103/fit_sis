@@ -1084,4 +1084,38 @@ public class SisServiceImpl implements SisService {
            }  
            return info ;
     }
+
+    @Override
+    public JSONObject getCheckHistory(SystemCommonModel c) {
+        // TODO Auto-generated method stub
+        JSONObject info = new JSONObject();
+        try { 
+            c.setSql("sisAdminDAO.getCheckHistory");
+            List<SystemCommonModel> list = sisMybatisDaoUtil.getListData(
+                    c.getSql(), c); 
+            if(list.size()<1){
+                info.put("res", "1");
+                info.put("msg","无数据"); 
+                return info ;
+            }else{
+                info.put("res", "2");
+                info.put("msg","执行成功"); 
+            }
+            JSONArray array = new JSONArray();
+            for(int i=0;i<list.size();i++){
+                JSONObject jsonObjArr = new JSONObject();
+                jsonObjArr.put("node_name", (list.get(i)).getTemp_str2());
+                jsonObjArr.put("node_remark", (list.get(i)).getTemp_str1()); 
+                jsonObjArr.put("create_time", (list.get(i)).getCreate_time()); 
+                array.add(jsonObjArr);
+                jsonObjArr = null;
+            }
+            info.put("list", array);
+            array = null; 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.info(ex.getMessage());
+        }
+        return info;    
+    }
 }
