@@ -37,7 +37,7 @@ function dealInitCheckTopPage(data){
 	$("#gender",navTab.getCurrentPanel()).val(json[0].person_gender);
 	$("#nation",navTab.getCurrentPanel()).val(json[0].person_nation);
 	$("#first_date",navTab.getCurrentPanel()).val(json[0].first_time); 
-	json = data.flow_list ; 
+	json = data.flow_list ;  
 	$("#unit_name",navTab.getCurrentPanel()).val(json[0].unit_name);
 	$("#unit_type",navTab.getCurrentPanel()).val(json[0].unit_type);
 	$("#rpt_type",navTab.getCurrentPanel()).val(json[0].rpt_type);

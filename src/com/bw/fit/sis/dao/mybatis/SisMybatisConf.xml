@@ -215,7 +215,8 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
        (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='create_time'  ) create_time,
        (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='create_company'  ) staff_company_id , 
        (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='rpt_type'  ) rpt_type, 
-       (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='sub_cycle'  ) rpt_cycle ,
+       (select sc.cycle_code from  act_hi_varinst,sub_cycle sc where sc.fdid =text_ and  proc_inst_id_ = a.proc_inst_id_ and name_ ='sub_cycle'  ) rpt_cycle ,
+       (select text_ from  act_hi_varinst    where    proc_inst_id_ = a.proc_inst_id_ and name_ ='sub_cycle'  ) temp_str3 ,
        (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='unit_type'  ) person_unit_type ,
        (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='unit_name'  ) person_unit 
   FROM ACT_RU_TASK A   where A.PROC_INST_ID_ =#{temp_str1}

@@ -41,7 +41,7 @@ function dealInitCheckTopPage(data){
 	$("#unit_name",navTab.getCurrentPanel()).val(json[0].unit_name);
 	$("#unit_type",navTab.getCurrentPanel()).val(json[0].unit_type);
 	$("#rpt_type",navTab.getCurrentPanel()).val(json[0].rpt_type);
-	$("#sub_cycle",navTab.getCurrentPanel()).val(json[0].sub_cycle);
+	$("#sub_cycle",navTab.getCurrentPanel()).val(json[0].my_sub_cycle);
 	$("#start_date",navTab.getCurrentPanel()).val(json[0].pay_start);
 	$("#end_date",navTab.getCurrentPanel()).val(json[0].pay_end);   
 	data.photo_list ;
