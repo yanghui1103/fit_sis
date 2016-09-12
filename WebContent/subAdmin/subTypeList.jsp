@@ -81,9 +81,19 @@ baidu(document).on('click', '#save202', function() {
 			<input type=checkbox id="type_cd"  name="type_cd"  value="DS08" /><span>高校毕业一年未就业人员东胜</span>
 			</p>
 			<p>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="SQ01" /><span>4050人员市</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="SQ02" /><span>城镇残疾人市</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="SQ03" /><span>零就业家庭成员市</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="SQ04" /><span>低保城镇失业人员市</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="SQ05" /><span>失地农民市</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="SQ06" /><span>连续失业一年大龄人员市</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="SQ07" /><span>高校毕业大于3年未就业蒙古族或贫困户人员市</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="SQ08" /><span>高校毕业一年未就业人员市</span>
+			</p>
+			<p>
 			<input type=checkbox id="type_cd"  name="type_cd"  value="ZQ01" /><span>4050人员准旗</span>
 			<input type=checkbox id="type_cd"  name="type_cd"  value="ZQ02" /><span>城镇残疾人准旗</span>
-			<input type=checkbox id="type_cd"  name="type_cd"  value="ZQ03" /><span>类3准旗</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="ZQ03" /><span>零就业家庭成员准旗</span>
 			<input type=checkbox id="type_cd"  name="type_cd"  value="ZQ04" /><span>低保城镇失业人员准旗</span>
 			<input type=checkbox id="type_cd"  name="type_cd"  value="ZQ05" /><span>失地农民准旗</span>
 			<input type=checkbox id="type_cd"  name="type_cd"  value="ZQ06" /><span>连续失业一年大龄人员准旗</span>
