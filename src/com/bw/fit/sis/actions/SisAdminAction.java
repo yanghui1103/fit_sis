@@ -57,7 +57,7 @@ public class SisAdminAction extends BaseAction{
             JSONArray array  = (JSONArray) JSONValue.parse(str); 
             for(int i=0;i<array.size();i++){
                 if("cycle_name".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
-                    c.setTemp_str2(((JSONObject)array.get(i)).get("value").toString());
+                    c.setRpt_cycle(((JSONObject)array.get(i)).get("value").toString());
                 }else if("orgLookup.id".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
                     c.setTemp_str1(((JSONObject)array.get(i)).get("value").toString());
                 }else if("start_date".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){

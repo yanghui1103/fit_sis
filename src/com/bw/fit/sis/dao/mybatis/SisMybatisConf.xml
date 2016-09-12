@@ -13,7 +13,7 @@
 	<!-- 新建申报周期 -->
 	<insert id="createSubCycle" parameterType="com.bw.fit.common.models.SystemCommonModel">
 	insert into sub_cycle (fdid,cycle_name,org_id,start_date,end_date,isdeleted,state,create_time,version_time,creator,cycle_code)
-	values (#{fdid},#{temp_str2},#{temp_str3},to_date(#{start_date},'yyyy-mm-dd'),to_date(#{end_date},'yyyy-mm-dd'),
+	values (#{fdid},#{rpt_cycle},#{temp_str3},to_date(#{start_date},'yyyy-mm-dd'),to_date(#{end_date},'yyyy-mm-dd'),
 	'0','2',to_date(#{create_time},'yyyy-mm-dd hh24:mi:ss'),to_date(#{create_time},'yyyy-mm-dd hh24:mi:ss'),#{staff_id},#{temp_str2})
 	</insert>
 	<select id="checkCompanyExisteSubCycle" parameterType="com.bw.fit.common.models.SystemCommonModel"
