@@ -26,6 +26,32 @@ $(document).ready(function(){
   $('#getCardInfo',navTab.getCurrentPanel()).click(function() {	   	  
 	readCard();
 	 $('#getPersonInfo', navTab.getCurrentPanel()).trigger("click");
+	 // 获取人员类型
+	 var card_id = $("#card_id",navTab.getCurrentPanel()).val();
+	 var array = new Array(card_id) ;
+	 createJsonAndAjaxNew('getPsnBaseInfo.action', array, function(data){ 
+		 if(data.res=="2"){
+			 var json = data.list ;
+			 var first_date = json[0].first_time;
+			 var person_gender = json[0].person_gender;
+			 first_date = first_date.substring(0,4);
+			 var birst = card_id.substring(6,10); 
+			 var age =  parseInt(first_date) - parseInt(birst) ; 
+			 var ss = getPersonTypeName(age,person_gender);
+			 $("#p_type",navTab.getCurrentPanel()).val("");
+			 $("#p_type",navTab.getCurrentPanel()).val(ss[1]);
+		 }else{
+			 // 如果是新人
+			 var person_gender = $("#gender",navTab.getCurrentPanel()).val();
+			 var date=new Date;
+			 var year=date.getFullYear(); 
+			 var birst = card_id.substring(6,10);
+			 var age =   parseInt(year) - parseInt(birst);
+			 var ss = getPersonTypeName(age,person_gender);
+			 $("#p_type",navTab.getCurrentPanel()).val("");
+			 $("#p_type",navTab.getCurrentPanel()).val(ss[1]);
+		 }
+	 },'JSON',false ) ;
 });
 
 
@@ -119,11 +145,11 @@ function checkNewPerson(){
 			</p>  
 			<p>
 				<label>身份证号码：</label>
-				<input   id="card_id" name="card_id"   class="required" type="text"   maxlength=18  style="float:left"      readonly      />
+				<input   id="card_id" name="card_id"   class="required" type="text"   maxlength=18  style="float:left"  readonly   />
 			</p> 
 			<p>
 				<label>申报人性别：</label> 
-				<select id="gender"  name="gender"     style="float:left" disabled > 
+				<select id="gender"  name="gender"     style="float:left"  disabled  > 
 				<option value="-9">请选择</option>
 				<option value="0">女</option>
 				<option value="1">男</option>
@@ -144,7 +170,11 @@ function checkNewPerson(){
 			</p>    
 			<p>
 				<label>联系电话：</label>
-				<input   id="phone" name="phone"   class="required" type="text"    style="float:left" maxlength=12      readonly    />
+				<input   id="phone" name="phone"   class="required" type="text"    style="float:left" maxlength=12           />
+			</p>     
+			<p>
+				<label>人员类型：</label>
+				<input   id="p_type" name="p_type"   class="required" type="text"    style="float:left" maxlength=12      readonly    />
 			</p>  
 		<div><input type="button"  id="getCardInfo"  value="读取身份证卡信息"/>
 		<input type="button"  id="getPersonInfo"  value="申领概况"/></div>

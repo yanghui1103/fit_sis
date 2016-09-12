@@ -41,7 +41,7 @@ function getPersonTypeName(age,gender){
 				return array ;
 			}
 		}
-	   array[0]="-9";array[1]="年龄不符合";
+	   array[0]="-9";array[1]="年龄不符合，高校毕业一年未就业毕业生除外";
 	   return array ;
 }
  
@@ -50,11 +50,11 @@ function getMaxMonthsByCard(card_id,gender,zhousui,p_type){
 	var ling_yue = card_id.substr(10,2) ;
 	ling_yue = parseInt(ling_yue);
 	if(gender =="0" &&p_type =="101" ){
-		return (45 - zhousui +1) *12 +ling_yue ;
+		return "36" ;
 	}else if(gender =="0" &&p_type =="102" ){
 		return (50 - zhousui +1) *12 +ling_yue ;
 	}else if(gender =="1" &&p_type =="101" ){
-		return (55 - zhousui +1) *12 + ling_yue;
+		return "36" ;
 	}else if(gender =="0" &&p_type =="102" ){
 		return (60 - zhousui +1) *12+ling_yue ;
 	}else {
