@@ -45,31 +45,60 @@ public class SisMybatisDaoUtil {
 	 * @param param
 	 * @return
 	 */
-	 public Document getTheCheckResault(SystemCommonModel c) {
-		Document document = DocumentHelper.createDocument();
+	 public JSONObject getTheCheckResault(SystemCommonModel c) {
+	        JSONObject info = new JSONObject();
 		try {
-			Connection conn = sqlSessionTemplate.getConnection();
-			Element rootR = document.addElement("root");
+			Connection conn = sqlSessionTemplate.getConnection(); 
 			if (conn == null) {
-				rootR.addElement("res").addText("1");
-				rootR.addElement("msg").addText("数据库连接失败，请联系系统管理员");
-				return document;
+			    info.put("res", "1");
+				info.put("msg","数据库连接失败，请联系系统管理员");
+				return info;
 			}
 
 			CallableStatement proc = null;
 			proc = conn
-					.prepareCall("call BUSINESS_RULE_CHECK.bussiness_admin_check_enter(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-			 
-			proc.registerOutParameter(13, java.sql.Types.VARCHAR);
-			proc.registerOutParameter(14, java.sql.Types.VARCHAR);
-
+					.prepareCall("call BUSINESS_RULE_CHECK.bussiness_admin_check_enter(?,?,?,?,?,"
+					        + "?,?,?,?,?,"
+					        + "?,?,?,?,?,"
+					        + "?,?,?,?,?,"
+					        + "?,?,?,?,?,"
+					        + "?,?)");
+			proc.setString(1, c.getAction_name());
+            proc.setString(2, c.getSelect_company_id());
+            proc.setString(3, c.getRpt_date());
+            proc.setString(4, c.getRole_id());
+            proc.setString(5, c.getSql());
+            proc.setString(6, c.getStaff_id());
+            proc.setString(7, c.getStaff_company_id());
+            proc.setString(8, c.getStaff_number());
+            proc.setString(9, c.getFdid());
+            proc.setString(10, c.getStaff_name());
+            proc.setString(11, c.getCard_id());
+            proc.setString(12, c.getPerson_gender());
+            proc.setString(13, c.getPerson_phone());
+            proc.setString(14, c.getPerson_unit_type());
+            proc.setString(15, c.getRpt_type());
+            proc.setString(16, c.getRpt_cycle());
+            proc.setString(17, c.getRpt_start());
+            proc.setString(18, c.getRpt_end());
+            proc.setString(19, c.getPerson_nation());
+            proc.setString(20, c.getPerson_state());
+            proc.setString(21, c.getFirst_time());
+            proc.setString(22, c.getTemp_str1());
+            proc.setString(23, c.getTemp_str2());
+            proc.setString(24, c.getTemp_str3());
+            proc.setString(25, c.getPerson_first_age());
+			proc.registerOutParameter(26, java.sql.Types.VARCHAR);
+			proc.registerOutParameter(27, java.sql.Types.VARCHAR);
 			proc.execute(); 
-			proc.close();
-			conn.close();
+
+            info.put("res", proc.getString(26));
+            info.put("msg", proc.getString(27));
+			proc.close(); 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		return document;
+		return info;
 	} 
 	/*
 	 * 得到一个数据 yangh
@@ -92,6 +121,10 @@ public class SisMybatisDaoUtil {
 	 */
 	public JSONObject sysUpdateData(String sql, Object param)  {
         JSONObject obj = new JSONObject();
+        JSONObject o = getTheCheckResault((SystemCommonModel)param) ;
+	    if(!"2".equals(o.get("res"))){ 
+            return o ;
+	    }
 	    int res = sqlSessionTemplate.update(sql, param);
 	    if(res<1){
 	        obj.put("res", "1");
@@ -105,6 +138,10 @@ public class SisMybatisDaoUtil {
 
     public JSONObject sysInsertData(String sql, Object param)  {
         JSONObject obj = new JSONObject();
+        JSONObject o = getTheCheckResault((SystemCommonModel)param) ;
+        if(!"2".equals(o.get("res"))){ 
+            return o ;
+        }
         int res = sqlSessionTemplate.insert(sql, param);
         if(res<1){
             obj.put("res", "1");
@@ -117,6 +154,10 @@ public class SisMybatisDaoUtil {
     }
 	public JSONObject sysDeleteData(String sql, Object param) {
         JSONObject obj = new JSONObject();
+        JSONObject o = getTheCheckResault((SystemCommonModel)param) ;
+        if(!"2".equals(o.get("res"))){ 
+            return o ;
+        }
         int res = sqlSessionTemplate.delete(sql, param);
         if(res<1){
             obj.put("res", "1");

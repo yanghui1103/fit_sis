@@ -921,8 +921,12 @@ public class SisServiceImpl implements SisService {
 
     @Override
     public JSONObject checkPsnRpting(SystemCommonModel c) {
-        // TODO Auto-generated method stub 
+        // TODO Auto-generated method stub         
         JSONObject info = new JSONObject();
+        JSONObject info1 = sisMybatisDaoUtil.getTheCheckResault(c);
+        if(!"2".equals(info1.get("res"))){
+            return info1 ;
+        }
         c.setSql("sisAdminDAO.checkPsnRpting"); 
         List<SystemCommonModel> list =  sisMybatisDaoUtil.getListData( c.getSql(), c);
         if(list.size()<1){

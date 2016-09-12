@@ -115,43 +115,43 @@ function checkNewPerson(){
 		<div class="pageFormContent" layoutH="56">
 			<p>
 				<label>申报人姓名：</label>
-				<input   id="person_name" name="person_name"   class="required" type="text"    style="float:left"     />
+				<input   id="person_name" name="person_name"   class="required" type="text"    style="float:left"  readonly   />
 			</p>  
 			<p>
 				<label>身份证号码：</label>
-				<input   id="card_id" name="card_id"   class="required" type="text"   maxlength=18  style="float:left"        />
+				<input   id="card_id" name="card_id"   class="required" type="text"   maxlength=18  style="float:left"      readonly      />
 			</p> 
 			<p>
 				<label>申报人性别：</label> 
-				<select id="gender"  name="gender"     style="float:left" > 
+				<select id="gender"  name="gender"     style="float:left" disabled > 
 				<option value="-9">请选择</option>
 				<option value="0">女</option>
 				<option value="1">男</option>
 				</select>
-				<input  type="hidden"  id="person_gender" name="person_gender"/>
+				<input  type="hidden"  id="person_gender" name="person_gender"   readonly  />
 			</p>   
 			<p>
 				<label>出生日期：</label>
-				<input   id="birchday" name="birchday"   class="required" type="text"    style="float:left"       />
+				<input   id="birchday" name="birchday"   class="required" type="text"    style="float:left"      readonly     />
 			</p>   
 			<p>
 				<label>民族：</label>
-				<input   id="nation" name="nation"   class="required" type="text"    style="float:left"       />
+				<input   id="nation" name="nation"   class="required" type="text"    style="float:left"       readonly    />
 			</p>   
 			<p>
 				<label>签发机构：</label>
-				<input   id="orgin" name="orgin"   class="required" type="text"    style="float:left"       />
+				<input   id="orgin" name="orgin"   class="required" type="text"    style="float:left"     readonly      />
 			</p>    
 			<p>
 				<label>联系电话：</label>
-				<input   id="phone" name="phone"   class="required" type="text"    style="float:left" maxlength=12      />
+				<input   id="phone" name="phone"   class="required" type="text"    style="float:left" maxlength=12      readonly    />
 			</p>  
 		<div><input type="button"  id="getCardInfo"  value="读取身份证卡信息"/>
 		<input type="button"  id="getPersonInfo"  value="申领概况"/></div>
 		<div class="divider"></div>	
 		<p>
 				<label>就业单位名称：</label>
-				<input   id="unit_name" name="unit_name"   class="required" type="text"    style="float:left"  maxlength=20     />
+				<input   id="unit_name" name="unit_name"   class="required" type="text"    style="float:left"  maxlength=20         />
 			</p>  
 		<p>
 				<label>就业单位类型：</label>				
