@@ -31,7 +31,7 @@ $(document).ready(function(){
 			<td>
 				<label>机构：</label>
 				<input type="text"  id="org_name"  ename="机构"   style="float:left"  readonly name="orgLookup.orgName" value="" suggestFields="orgNum,orgName"   lookupGroup="orgLookup" />
-				<a   style="float:left"  class="btnLook" href="system/orgStructure_qry.jsp?custom_org_function_id=300&select_org_multi=1&select_cascade=''&unselect_cascade=''"   lookupGroup="orgLookup">查找带回</a>		
+				<a   style="float:left"  class="btnLook" href="system/orgStructure_qry.jsp?custom_org_function_id=300&select_org_multi=1&select_cascade='ps'&unselect_cascade=''"   lookupGroup="orgLookup">查找带回</a>		
 				<input type="hidden"    readonly="readonly"   style="float:left"  id="org_id" name="orgLookup.id" />
 			</td>  
 			</tr>
