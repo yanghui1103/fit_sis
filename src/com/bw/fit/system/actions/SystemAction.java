@@ -38,9 +38,7 @@ public class SystemAction extends BaseAction{
      * @return
      */
     public String userLoginStyleStaff(){        
-        try {
-            HttpSession session = request.getSession(false); 
-            if(session==null || (LoginUser)session.getAttribute("LoginUser")==null  ){ 
+        try { 
                 SystemCommonModel c = new SystemCommonModel();
                 c.setStaff_number(request.getParameter("j_username"));
                 c.setPasswd(request.getParameter("j_password"));
@@ -69,8 +67,7 @@ public class SystemAction extends BaseAction{
                     return "SUCCESS" ;
                 }else{
                     return "FAIL" ;
-                }
-            }
+                } 
         } catch (Exception e) {
             // TODO Auto-generated catch block
             log.info(e.getLocalizedMessage());
