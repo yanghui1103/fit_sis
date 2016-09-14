@@ -868,6 +868,57 @@ public class SisServiceImpl implements SisService {
     }
 
     @Override
+    public JSONObject qryRptingRecordList(SystemCommonModel c) {
+        // TODO Auto-generated method stub
+        JSONObject info = new JSONObject();
+        try {
+            List<String> ls = new ArrayList<String>();
+            String[] arr = c.getTemp_str1().split(",");
+            for(int i=0;i<arr.length;i++){
+                ls.add(arr[i]);
+            }
+            c.setTemp_list(ls);
+            c.setSql("sisAdminDAO.qryRptingRecordList");
+            List<SystemCommonModel> list = sisMybatisDaoUtil.getListData(
+                    c.getSql(), c); 
+            if(list.size()<1){
+                info.put("res", "1");
+                info.put("msg","无数据");
+                info.put("pageNum","0");
+                info.put("tatol", "0");
+                return info ;
+            }else{
+                info.put("res", "2");
+                info.put("msg","执行成功"); 
+            }
+            JSONArray array = new JSONArray();
+            for(int i=0;i<list.size();i++){
+                JSONObject jsonObjArr = new JSONObject();
+                jsonObjArr.put("person_name", (list.get(i)).getPerson_name());
+                jsonObjArr.put("card_id", (list.get(i)).getCard_id());  
+                jsonObjArr.put("staff_name", (list.get(i)).getStaff_name());
+                jsonObjArr.put("create_time", (list.get(i)).getCreate_time()); 
+                jsonObjArr.put("flow_id", (list.get(i)).getFlow_id()); 
+                jsonObjArr.put("staff_company_name", (list.get(i)).getStaff_company_name()); 
+                array.add(jsonObjArr);
+                jsonObjArr = null;
+            }
+            info.put("list", array);
+            array = null;
+            c.setEnd_num("-9");
+            List<SystemCommonModel> list_total = sisMybatisDaoUtil.getListData(
+                    c.getSql(), c); 
+            info.put("pageNum", 
+                    getPageTatolNum(list_total.size(),
+                            Integer.valueOf(c.getRecord_tatol())));
+            info.put("tatol", list_total.size());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.info(ex.getMessage());
+        }
+        return info;   
+    }
+    @Override
     public JSONObject getPersonRptedInfo(SystemCommonModel c) {
         // TODO Auto-generated method stub 
         JSONObject info = new JSONObject();        

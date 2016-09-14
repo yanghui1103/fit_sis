@@ -36,5 +36,5 @@ public interface SisService {
     public  JSONObject updateRptRecond(SystemCommonModel c,RuntimeService runtimeService,FormService formService, TaskService taskService) ;
     public JSONObject rptOfficeApplyedReport(SystemCommonModel c,String path) ;
     public JSONObject getCheckHistory(SystemCommonModel c);
-    
+    public JSONObject qryRptingRecordList(SystemCommonModel c);
 }

@@ -229,7 +229,20 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
         insert into rpt_reconds (fdid,person_name,card_id,unit_type,unit_name,pay_start,pay_end,sub_cycle,rpt_type,flow_id,isdeleted,create_time,version_time,creator,remark) values 
 	(#{fdid},#{person_name},#{card_id},#{person_unit_type},#{person_unit},#{rpt_start},#{rpt_end},#{rpt_cycle},
 	#{rpt_type},#{flow_id},'0',to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss'),to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss'),#{staff_id},'GUIDANG')
-        </insert> 	  
+        </insert> 	 
+        <select id="qryRptingRecordList"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+		select b.text_ flow_id,c.text_ card_id,(select person_name from rpt_person where card_id = c.text_  ) person_name,
+(select staff_name from staff where fdid = d.text_) staff_name,
+(select company_name from company cp,staff2company sc where cp.fdid = sc.company_id and sc.staff_id = d.text_) staff_company_name,
+to_char(a.create_time_,'yyyy-MM-dd hh24:mi:ss') create_time
+ from act_hi_varinst a ,act_hi_varinst b ,act_hi_varinst c,act_hi_varinst d
+where 1=1 and a.proc_inst_id_ = b.proc_inst_id_ and c.proc_inst_id_ = b.proc_inst_id_ 
+and c.name_ ='card_id' and d.proc_inst_id_ = b.proc_inst_id_ and d.name_ = 'creator'
+   and b.name_ ='flow_id' 
+  			<if test="card_id !='-9'">
+			and a.text_   like '%'||#{card_id}||'%'	
+			</if> 
+	   </select>
         <!-- 补贴，且归档的记录 -->
         <select id="qryRptedRecordList"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
         select * from ( select rp.person_name ,rr.card_id,rr.pay_start rpt_start , rr.pay_end rpt_end,

@@ -1085,6 +1085,37 @@ public class SisAdminAction extends BaseAction{
         }
         return null ;
     }
+    /***
+     * qryRptingRecordList
+     * 查询正在申报的人员
+     */
+    public String qryRptingRecordList(){
+        try {
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            JSONObject obj = (JSONObject) JSONValue.parse(str);
+            JSONArray array = (JSONArray) obj.get("content");
+            String param1 = (String) (((JSONObject) array.get(0)).get("param1")); 
+            SystemCommonModel c = new SystemCommonModel();               
+            c.setPerson_name(param1);
+            c.setCard_id((String) (((JSONObject) array.get(0)).get("param2")));
+            c.setTemp_str1((String) (((JSONObject) array.get(0)).get("param3")));
+            c.setRpt_type((String) (((JSONObject) array.get(0)).get("param4")));
+            c.setRpt_cycle((String) (((JSONObject) array.get(0)).get("param5"))); 
+            c.setTotal_reords((String) (((JSONObject) array.get(0)).get("param8")));
+            c.setRecord_tatol(c.getTotal_reords()); 
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")) .getStaff_id());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
+            JSONObject objItem = ((SisServiceImpl) getBean("sisServiceImpl")).qryRptingRecordList(c);
+            wr.write(objItem.toJSONString());
+            wr.close(); 
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null ;
+    }
     /****
      * 查询这个人的
      * 申领概况
