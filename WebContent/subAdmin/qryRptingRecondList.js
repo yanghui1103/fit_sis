@@ -24,7 +24,9 @@ function initRptedList(obj,num){
 	var org_id = $("#org_id", navTab.getCurrentPanel()).val() == "" ? "-9" : $("#org_id", navTab.getCurrentPanel()).val();  
 	var rpt_type = $("#rpt_type", navTab.getCurrentPanel()).val() == "" ? "-9" : $("#rpt_type", navTab.getCurrentPanel()).val();  
 	var sub_cycle = $("#sub_cycle", navTab.getCurrentPanel()).val() == "" ? "-9" : $("#sub_cycle", navTab.getCurrentPanel()).val();  
-
+	if(card_id =="-9"){
+		alertMsg.info("请输入身份证号码");return ;
+	}
 	 var array = new Array(person_name,card_id,org_id,rpt_type,sub_cycle, num*total + "", (num*total + total)+"",total+""  );   
 	 createJsonAndAjaxNew('qryRptingRecordList.action', array, function(data){
 		initPageSelectList($("#PageNo", navTab.getCurrentPanel()),data.pageNum,$("#Tatol", navTab.getCurrentPanel()),data.tatol,num);	 
@@ -34,12 +36,13 @@ function initRptedList(obj,num){
 			var jsonArr = data.list;
 			for (var i = 0; i < jsonArr.length; i++) {
 				var $tr = $("<tr  target=sid_user rel=" + (i + 1) + " >");
-				$tr.append($("<td width=3%>").html("<input type=radio name=allRptedId value='"+(jsonArr[i].flow_id ) + "'/>"));
+				$tr.append($("<td width=3%>").html("<input type=radio name=recId value='"+jsonArr[i].flow_id  + ","+jsonArr[i].proc_inst_id +"'/>"));
 				$tr.append($("<td width=15%>").html(replaceF9ValToUnknown(jsonArr[i].person_name)));
 				$tr.append($("<td width=15%>").html(replaceF9ValToUnknown(jsonArr[i].card_id)));  
 				$tr.append($("<td width=10%>").html(replaceF9ValToUnknown(jsonArr[i].staff_name)));
 				$tr.append($("<td width=10%>").html(replaceF9ValToUnknown(jsonArr[i].staff_company_name)));
 				$tr.append($("<td width=15%>").html(replaceF9ValToUnknown(jsonArr[i].create_time)));
+				$tr.append($("<td width=10%>").html(replaceF9ValToUnknown(jsonArr[i].now_node)));
 				$tr.hover(function(){
 					$(this).addClass("hover selected");
 				},

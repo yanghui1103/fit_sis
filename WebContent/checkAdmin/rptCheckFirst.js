@@ -21,7 +21,7 @@ function initCycleList(obj,num){
 		$tbody.find("tr").remove();		
 		if (data.res == "2") {
 			var jsonArr = data.list;
-			for (var i = 0; i < jsonArr.length; i++) {
+			for (var i = 0; i < jsonArr.length; i++) { 
 				var $tr = $("<tr  target=sid_user rel=" + (i + 1) + " >");
 				$tr.append($("<td width=5%>").html("<input type=radio name=allJlId value='"+(jsonArr[i].fdid ) +","+jsonArr[i].proc_inst_id +"'/>"));
 				$tr.append($("<td width=15%>").html(replaceF9ValToUnknown(jsonArr[i].person_name)));

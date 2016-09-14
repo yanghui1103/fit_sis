@@ -899,7 +899,9 @@ public class SisServiceImpl implements SisService {
                 jsonObjArr.put("staff_name", (list.get(i)).getStaff_name());
                 jsonObjArr.put("create_time", (list.get(i)).getCreate_time()); 
                 jsonObjArr.put("flow_id", (list.get(i)).getFlow_id()); 
+                jsonObjArr.put("proc_inst_id", (list.get(i).getProc_inst_id())); 
                 jsonObjArr.put("staff_company_name", (list.get(i)).getStaff_company_name()); 
+                jsonObjArr.put("now_node", (list.get(i)).getTemp_str1()); 
                 array.add(jsonObjArr);
                 jsonObjArr = null;
             }
