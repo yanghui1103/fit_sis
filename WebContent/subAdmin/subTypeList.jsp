@@ -57,19 +57,22 @@ baidu(document).on('click', '#save202', function() {
 </script>
 </head>
 <body>
-	<div class="pageContent">
-	<form method="post" action=""  id=createForm class="pageForm required-validate">
-		<div class="pageFormContent" layoutH="56">
+	<div class="pageContent"> 
+		<div  class="pageContent "   defH="40">
 			<p>
 				<label>角色：</label>
 				<select id="role_id"  name="role_id"   style="float:left" > 
 				</select>
 			</p>      
+		 </div>
+		 <div  class="panel "   defH="40">	
 			<p>
 			<input type=checkbox id="type_cd"  name="type_cd"  value="101" /><span>测试类型1</span>
 			<input type=checkbox id="type_cd"  name="type_cd"  value="102" /><span>测试类型2</span>
 			<input type=checkbox id="type_cd"  name="type_cd"  value="104" /><span>测试类型4</span>
-			</p>
+			</p>   
+		 </div>
+		 <div  class="panel "   defH="40">	
 			<p>
 			<input type=checkbox id="type_cd"  name="type_cd"  value="DS01" /><span>4050人员东胜</span>
 			<input type=checkbox id="type_cd"  name="type_cd"  value="DS02" /><span>城镇残疾人东胜</span>
@@ -79,7 +82,9 @@ baidu(document).on('click', '#save202', function() {
 			<input type=checkbox id="type_cd"  name="type_cd"  value="DS06" /><span>连续失业一年大龄人员东胜</span>
 			<input type=checkbox id="type_cd"  name="type_cd"  value="DS07" /><span>高校毕业大于3年未就业蒙古族或贫困户人员东胜</span>
 			<input type=checkbox id="type_cd"  name="type_cd"  value="DS08" /><span>高校毕业一年未就业人员东胜</span>
-			</p>
+			</p>   
+		 </div>
+		 <div  class="panel "   defH="40">	
 			<p>
 			<input type=checkbox id="type_cd"  name="type_cd"  value="SQ01" /><span>4050人员市</span>
 			<input type=checkbox id="type_cd"  name="type_cd"  value="SQ02" /><span>城镇残疾人市</span>
@@ -89,7 +94,9 @@ baidu(document).on('click', '#save202', function() {
 			<input type=checkbox id="type_cd"  name="type_cd"  value="SQ06" /><span>连续失业一年大龄人员市</span>
 			<input type=checkbox id="type_cd"  name="type_cd"  value="SQ07" /><span>高校毕业大于3年未就业蒙古族或贫困户人员市</span>
 			<input type=checkbox id="type_cd"  name="type_cd"  value="SQ08" /><span>高校毕业一年未就业人员市</span>
-			</p>
+			</p>   
+		 </div>
+		 <div  class="panel "   defH="40">	
 			<p>
 			<input type=checkbox id="type_cd"  name="type_cd"  value="ZQ01" /><span>4050人员准旗</span>
 			<input type=checkbox id="type_cd"  name="type_cd"  value="ZQ02" /><span>城镇残疾人准旗</span>
@@ -100,8 +107,7 @@ baidu(document).on('click', '#save202', function() {
 			<input type=checkbox id="type_cd"  name="type_cd"  value="ZQ07" /><span>高校毕业大于3年未就业蒙古族或贫困户人员准旗</span>
 			<input type=checkbox id="type_cd"  name="type_cd"  value="ZQ08" /><span>高校毕业一年未就业人员准旗</span>
 			</p>
-		</div>
-		</form>
+		</div> 
 				
 		<input type="hidden" id="staff_id" readonly value="<%=((LoginUser)session.getAttribute("LoginUser")).getStaff_id() %>"  />
 		<div class="subBar" id="subBar">
