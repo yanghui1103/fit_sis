@@ -37,4 +37,5 @@ public interface SisService {
     public JSONObject rptOfficeApplyedReport(SystemCommonModel c,String path) ;
     public JSONObject getCheckHistory(SystemCommonModel c);
     public JSONObject qryRptingRecordList(SystemCommonModel c);
+    public JSONObject getAllRptingSituation(SystemCommonModel c);
 }

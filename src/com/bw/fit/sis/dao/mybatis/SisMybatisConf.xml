@@ -306,6 +306,9 @@ where rp.card_id = rr.card_id and rr.creator = st.fdid and sc.staff_id = st.fdid
   			<if test="select_company_id !='-9'">
 		and sc.company_id like #{select_company_id}||'%'
 		</if>
+  			<if test="rpt_cycle !='-9'">
+  			and  rr.sub_cycle = #{rpt_cycle}
+  			</if>
          </select>
          <!-- 获取审核历史 -->
          <select id="getCheckHistory"  parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
@@ -321,4 +324,33 @@ where a1.proc_inst_id_ = a2.proc_inst_id_
  and a1.name_ ='flow_id' and a2.name_ ='pass3_info'   
   and a1.text_ =#{flow_id}  order by create_time desc          
          </select>
+         <!-- 总申报人数(cycle) -->
+        <select id="getCycleRptingPsnCnt"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+        select count(1) temp_int1
+from act_hi_varinst  ah ,act_ru_task ta,act_hi_varinst ah2,sub_cycle sc where ta.proc_inst_id_ = ah.proc_inst_id_ and ah.proc_inst_id_ = ah2.proc_inst_id_ and
+ah.name_ = 'card_id' and ah2.name_ ='sub_cycle'  and ta.assignee_ in ('creator','CHECKER1','CHECKER2','finance')  and ah2.text_ = sc.fdid  
+and sc.cycle_code =  #{rpt_cycle}  
+        </select> 
+        <!-- 初审人数 -->
+        <select id="getCycleFCheckPsnCnt"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+        select count(1) temp_int1
+from act_hi_varinst  ah ,act_ru_task ta,act_hi_varinst ah2 ,sub_cycle sc  where ta.proc_inst_id_ = ah.proc_inst_id_ and ah.proc_inst_id_ = ah2.proc_inst_id_ and
+ah.name_ = 'card_id' and ah2.name_ ='sub_cycle'  and ta.assignee_ in ('CHECKER1')  and ah2.text_ = sc.fdid  
+and sc.cycle_code =  #{rpt_cycle}  
+        </select>
+                <!--复审人数 -->
+        <select id="getCycleSCheckPsnCnt"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+        select count(1) temp_int1
+from act_hi_varinst  ah ,act_ru_task ta,act_hi_varinst ah2 ,sub_cycle sc  where ta.proc_inst_id_ = ah.proc_inst_id_ and ah.proc_inst_id_ = ah2.proc_inst_id_ and
+ah.name_ = 'card_id' and ah2.name_ ='sub_cycle'  and ta.assignee_ in ( 'CHECKER2' )  and ah2.text_ = sc.fdid  
+and sc.cycle_code =  #{rpt_cycle}  
+        </select>        
+       <!--已经补贴归档人数cycle -->
+        <select id="getCycleRptedPsnCnt"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+        select count(distinct card_id) temp_int1 
+ 		from rpt_reconds a,sub_cycle sc where sc.fdid = a.sub_cycle and a.isdeleted='0' and  sc.cycle_code = #{rpt_cycle}
+        </select>
+        <select id="getCycleName"    parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+       select cycle_name from sub_cycle a where a.cycle_code = #{rpt_cycle}
+       </select>
 </mapper>

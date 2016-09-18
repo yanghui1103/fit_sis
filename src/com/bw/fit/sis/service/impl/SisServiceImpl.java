@@ -1176,4 +1176,44 @@ public class SisServiceImpl implements SisService {
         }
         return info;    
     }
+    @Override
+    public JSONObject getAllRptingSituation(SystemCommonModel c) {
+        // TODO Auto-generated method stub
+        JSONObject info = new JSONObject();
+        try { 
+            c.setSql("sisAdminDAO.getCycleRptingPsnCnt");
+            List<SystemCommonModel> list1 = sisMybatisDaoUtil.getListData( c.getSql(), c);  
+            c.setSql("sisAdminDAO.getCycleRptedPsnCnt");
+            List<SystemCommonModel> list2 = sisMybatisDaoUtil.getListData( c.getSql(), c);   
+            c.setSql("sisAdminDAO.getCycleFCheckPsnCnt");
+            List<SystemCommonModel> list3 = sisMybatisDaoUtil.getListData( c.getSql(), c);   
+            c.setSql("sisAdminDAO.getCycleSCheckPsnCnt");
+            List<SystemCommonModel> list4 = sisMybatisDaoUtil.getListData( c.getSql(), c);  
+            
+
+            c.setSql("sisAdminDAO.getCycleName");
+            List<SystemCommonModel> list5 = sisMybatisDaoUtil.getListData( c.getSql(), c);  
+            JSONArray array = new JSONArray(); 
+                JSONObject jsonObjArr = new JSONObject();            
+                jsonObjArr.put("rpting_person_cnt",  list1.get(0).getTemp_int1()+list2.get(0).getTemp_int1());     
+                jsonObjArr.put("f_check_cnt", list3.get(0).getTemp_int1());    
+                jsonObjArr.put("s_check_cnt",  list4.get(0).getTemp_int1());    
+                jsonObjArr.put("rpted_cnt",  list2.get(0).getTemp_int1()); 
+                jsonObjArr.put("item_name",  list5.get(0).getCycle_name());
+                
+                
+                jsonObjArr.put("color1",     "#0000FF");
+                jsonObjArr.put("color2",     "#FF3030");
+                jsonObjArr.put("color3",     "#FFD700");
+                jsonObjArr.put("color4",     "#GDD100");
+                array.add(jsonObjArr);
+                jsonObjArr = null; 
+            info.put("list", array);
+            array = null; 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.info(ex.getMessage());
+        }
+        return info;    
+    }
 }

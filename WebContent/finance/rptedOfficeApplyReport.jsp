@@ -15,9 +15,7 @@ $(document).ready(function(){
 	for(var i in arr.length){
 		 arr[i] = "-9";		 
 	}arr[0] = "401";arr[1] = "navTab"; 
-	renderBtnsToDiv( $("#subBar", navTab.getCurrentPanel())  ,'getAuthorityBtnsByThisUser.action',arr);
-	 arr[0] = "ROLE2SUBTYPE"; 
-	 takeCustomValueByOther($("#rpt_type", navTab.getCurrentPanel()),"getCustomValueByOther.action","0", arr);	
+	renderBtnsToDiv( $("#subBar", navTab.getCurrentPanel())  ,'getAuthorityBtnsByThisUser.action',arr); 
 	 arr[0] = "Company2SubCycle"; 
 	 takeCustomValueByOther($("#sub_cycle",navTab.getCurrentPanel()),"getCustomValueByOther.action","0", arr);	
 });
@@ -39,10 +37,8 @@ function dealDaoRpt(data){
 				<input type="text"  id="org_name"  ename="机构"   style="float:left"  readonly name="orgLookup.orgName" value="" suggestFields="orgNum,orgName"   lookupGroup="orgLookup" />
 				<a   style="float:left"  class="btnLook" href="system/orgStructure_qry.jsp?custom_org_function_id=401&select_org_multi=0&select_cascade=''&unselect_cascade=''"   lookupGroup="orgLookup">查找带回</a>		
 				<input type="hidden"    readonly="readonly"   style="float:left"  id="org_id" name="orgLookup.id" />
-			</td>  <td>
-				<label>补贴类型：</label>
-				<select id="rpt_type"  name="rpt_type"    style="float:left" > 
-			</select></td><td>
+			</td>  
+			<td>
 				<label>申报周期：</label>
 				<select id="sub_cycle"  name="sub_cycle"      style="float:left" > 
 			</select></td></tr>

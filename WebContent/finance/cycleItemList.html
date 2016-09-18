@@ -10,15 +10,94 @@ $(document).ready(function(){
 	}
 	 arr[0] = "Company2SubCycle"; 
 	 takeCustomValueByOther($("#sub_cycle", $.pdialog.getCurrent()),"getCustomValueByOther.action","1", arr);	
+// 	 arr[0] = "SUBCYCLE"; 
+// 	 takeTypeDataList($("#sub_cycle", $.pdialog.getCurrent()),"getSysItems.action","0", arr);	
 });
 $("#submit_tc_item", $.pdialog.getCurrent()).click(function(){
-	
-	alertMsg.info("正在开发当中...");
+	var sub_cycle = $("#sub_cycle", $.pdialog.getCurrent()).val() ;
+	if(sub_cycle=="" || sub_cycle == undefined){
+		alertMsg.info("请选择申报周期");return ;
+	}
+	var array = new Array(1); array[0] = sub_cycle ;
+	createJsonAndAjaxNew('getAllRptingSituation.action', array, function(data){
+		// begin  
+           var chart;
+            var chartData = data.list ; 
+                // SERIAL CHART 
+                chart = new AmCharts.AmSerialChart();
+                chart.dataProvider = chartData;
+                chart.categoryField = "item_name"; 
+                // the following two lines makes chart 3D
+                chart.depth3D = 20;
+                chart.angle = 30; // add click listener
+               //  chart.addListener("clickGraphItem", handleClick);
+
+                // AXES
+                // category
+                var categoryAxis = chart.categoryAxis; 
+                categoryAxis.dashLength = 5;
+                categoryAxis.gridCount = chartData.length;
+                categoryAxis.gridPosition = "start";
+
+                // value
+                var valueAxis = new AmCharts.ValueAxis();
+                valueAxis.title = "";
+                valueAxis.dashLength = 10;
+                chart.addValueAxis(valueAxis);
+
+                // GRAPH
+                var graph = new AmCharts.AmGraph();
+                graph.valueField = "rpting_person_cnt";
+                graph.colorField = "color1";
+                graph.balloonText = "<span style='font-size:14px'>申报人数:<b>[[value]]</b></span>";
+                graph.type = "column";
+                graph.lineAlpha = 0;
+                graph.fillAlphas = 1;
+                chart.addGraph(graph); 
+                var graph2 = new AmCharts.AmGraph();
+                graph2.valueField = "f_check_cnt";
+                graph2.colorField = "color2";
+                graph2.balloonText = "<span style='font-size:14px'>处于初审人数: <b>[[value]]</b></span>";
+                graph2.type = "column";
+                graph2.lineAlpha = 0;
+                graph2.fillAlphas = 1;
+                chart.addGraph(graph2);
+
+                var graph3 = new AmCharts.AmGraph();
+                graph3.valueField = "s_check_cnt";
+                graph3.colorField = "color3";
+                graph3.balloonText = "<span style='font-size:14px'>处于复审人数:<b>[[value]]</b></span>";
+                graph3.type = "column";
+                graph3.lineAlpha = 0;
+                graph3.fillAlphas = 1;
+                chart.addGraph(graph3);
+
+                var graph4 = new AmCharts.AmGraph();
+                graph4.valueField = "rpted_cnt";
+                graph4.colorField = "color4";
+                graph4.balloonText = "<span style='font-size:14px'>补贴人数:<b>[[value]]</b></span>";
+                graph4.type = "column";
+                graph4.lineAlpha = 0;
+                graph4.fillAlphas = 1;
+                chart.addGraph(graph4);
+                // CURSOR
+                var chartCursor = new AmCharts.ChartCursor();
+                chartCursor.cursorAlpha = 0;
+                chartCursor.zoomable = false;
+                chartCursor.categoryBalloonEnabled = false;
+                chart.addChartCursor(chartCursor);
+
+                chart.creditsPosition = "top";
+                // WRITE
+                chart.write("chartdiv");
+                $.pdialog.closeCurrent();
+		//  over
+	},'JSON',false);
 });
 </script>
 </head>
 <body>
-	<div><select id="sub_cycle" multiple="multiple"  size=10> 
+	<div><select id="sub_cycle"  size=10> 
 	</select></div>
 		<div class=formBar ><ul>
 		<li><div class=buttonActive><div class=buttonContent><button type=button  id = "submit_tc_item" >确认</button></div></div></li>

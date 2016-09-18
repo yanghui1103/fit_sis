@@ -32,6 +32,7 @@
 		<action name="getPersonRptedInfo"   class="sisAdminAction"   method="getPersonRptedInfo" />
 		<action name="rptOfficeApplyedReport"   class="sisAdminAction"   method="rptOfficeApplyedReport" />
 		<action name="getCheckHistory"   class="sisAdminAction"   method="getCheckHistory" />
+		<action name="getAllRptingSituation"   class="sisAdminAction"   method="getAllRptingSituation" />
 		
 
 		
