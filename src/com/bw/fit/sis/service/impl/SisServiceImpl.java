@@ -844,6 +844,7 @@ public class SisServiceImpl implements SisService {
                 jsonObjArr.put("rpt_start", (list.get(i)).getRpt_start());
                 jsonObjArr.put("rpt_end", (list.get(i)).getRpt_end());
                 jsonObjArr.put("yueshu", (list.get(i)).getTemp_int1());
+                jsonObjArr.put("rpt_type", (list.get(i)).getRpt_type());
                 jsonObjArr.put("staff_name", (list.get(i)).getStaff_name());
                 jsonObjArr.put("create_time", (list.get(i)).getCreate_time()); 
                 jsonObjArr.put("flow_id", (list.get(i)).getFlow_id()); 

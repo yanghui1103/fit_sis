@@ -34,11 +34,12 @@ function initRptedList(obj,num){
 			for (var i = 0; i < jsonArr.length; i++) {
 				var $tr = $("<tr  target=sid_user rel=" + (i + 1) + " >");
 				$tr.append($("<td width=3%>").html("<input type=radio name=allRptedId value='"+(jsonArr[i].flow_id ) + "'/>"));
-				$tr.append($("<td width=15%>").html(replaceF9ValToUnknown(jsonArr[i].person_name)));
+				$tr.append($("<td width=10%>").html(replaceF9ValToUnknown(jsonArr[i].person_name)));
 				$tr.append($("<td width=15%>").html(replaceF9ValToUnknown(jsonArr[i].card_id))); 
 				$tr.append($("<td width=10%>").html(replaceF9ValToUnknown(jsonArr[i].rpt_start)));
 				$tr.append($("<td width=10%>").html(replaceF9ValToUnknown(jsonArr[i].rpt_end)));
 				$tr.append($("<td width=5%>").html(replaceF9ValToUnknown(jsonArr[i].yueshu)));
+				$tr.append($("<td width=10%>").html(replaceF9ValToUnknown(jsonArr[i].rpt_type)));
 				$tr.append($("<td width=10%>").html(replaceF9ValToUnknown(jsonArr[i].staff_name)));
 				$tr.append($("<td width=10%>").html(replaceF9ValToUnknown(jsonArr[i].staff_company_name)));
 				$tr.append($("<td width=15%>").html(replaceF9ValToUnknown(jsonArr[i].create_time)));

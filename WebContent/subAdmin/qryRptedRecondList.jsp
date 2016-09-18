@@ -44,11 +44,12 @@
 			<thead>
 				<tr>
 					<th width=3%></th>
-					<th width=15%>申报人姓名</th>
+					<th width=10%>申报人姓名</th>
 					<th width=15%>身份证号码</th> 
 					<th width=10%>票据开始月份</th>
 					<th width=10%>票据开始月份</th>
 					<th width=5%>补贴月数</th>
+					<th width=10%>申报类型</th>
 					<th width=10%>录入员</th>
 					<th width=10%>录入机构</th>
 					<th width=15%>录入时间</th>
