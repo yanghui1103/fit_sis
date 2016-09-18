@@ -2,14 +2,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<script type="text/javascript"  src="common/js/dwz_common.js" ></script>
+<script type="text/javascript"  src="common/js/fitsis_common.js" ></script>
+<script src="js/Chart.js" type="text/javascript"></script>
 <script type="text/javascript"  >
 $(document).ready(function(){	 
 	var arr = new Array(60);
 	for(var i in arr.length){
 		 arr[i] = "-9";		 
 	}
-	 arr[0] = "Company2SubCycle"; 
-	 takeCustomValueByOther($("#sub_cycle", $.pdialog.getCurrent()),"getCustomValueByOther.action","1", arr);	
+	 arr[0] = "SUBCYCLE"; 
+	 takeTypeDataList($("#sub_cycle",$.pdialog.getCurrent()),"getSysItems.action","0", arr);	 
 // 	 arr[0] = "SUBCYCLE"; 
 // 	 takeTypeDataList($("#sub_cycle", $.pdialog.getCurrent()),"getSysItems.action","0", arr);	
 });
