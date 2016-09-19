@@ -252,7 +252,7 @@ months_between( to_date(pay_end,'yyyyMM'),to_date(pay_start,'yyyyMM') ) +1 temp_
 (select staff_name from staff where fdid = rr.creator) staff_name ,rr.create_time,
 (select company_name from company cp,staff2company sc where cp.fdid = sc.company_id and sc.staff_id = rr.creator) staff_company_name,
 (select fdid from company cp,staff2company sc where cp.fdid = sc.company_id and sc.staff_id = rr.creator) staff_company_id,rr.flow_id
-, (select item_name from sys_item where fdid =rpt_type )  rpt_type,sub_cycle
+, (select item_name from sys_item where fdid =rpt_type )  rpt_type,sub_cycle ,rr.rpt_type rpt_type_code
 from rpt_person rp,rpt_reconds rr 
 where rp.card_id = rr.card_id  ) cc where 1=1 
   			<if test="person_name !='-9'">
@@ -262,7 +262,7 @@ where rp.card_id = rr.card_id  ) cc where 1=1
 			and card_id like '%'||#{card_id}||'%'	
 			</if> 
   			<if test="rpt_type !='-9'">
-			and rpt_type = #{rpt_type} 
+			and cc.rpt_type_code = #{rpt_type} 
 			</if> 
   			<if test="rpt_cycle !='-9'">
 			and sub_cycle = #{rpt_cycle} 
