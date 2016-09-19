@@ -311,11 +311,11 @@ public class SisServiceImpl implements SisService {
         // TODO Auto-generated method stub
         JSONObject info = new JSONObject();  
             c.setSql("sisAdminDAO.changePsnBaseInfo"); 
-            info = sisMybatisDaoUtil.sysDeleteData(c.getSql(), c);
+            info = sisMybatisDaoUtil.sysUpdateData(c.getSql(), c);
             if("1".equals(info.get("res").toString())){
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
                 return info ;
-            } 
+            }
         return info;
     }
 

@@ -746,6 +746,7 @@ public class SisAdminAction extends BaseAction{
                     c.setCard_id(((JSONObject)array.get(i)).get("value").toString());
                 }else if("person_name".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
                     c.setPerson_name(((JSONObject)array.get(i)).get("value").toString());
+                    c.setTemp_str1(((JSONObject)array.get(i)).get("value").toString());
                 } else if("person_gender".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
                     c.setPerson_gender(((JSONObject)array.get(i)).get("value").toString());
                 }    else if("nation".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
