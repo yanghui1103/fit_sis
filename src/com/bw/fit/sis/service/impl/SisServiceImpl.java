@@ -1273,6 +1273,7 @@ public class SisServiceImpl implements SisService {
                     }  
                     // 
                     SystemCommonModel c2 = new SystemCommonModel();   
+                    c2.setFdid(getUUID());
                     c2.setTemp_str1(c.getFlow_id());  
                     c2.setTemp_str2(array[i]);
                     c2.setTemp_str3(array[i]);

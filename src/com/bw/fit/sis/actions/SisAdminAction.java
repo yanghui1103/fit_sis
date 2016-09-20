@@ -1238,6 +1238,8 @@ public class SisAdminAction extends BaseAction{
             SystemCommonModel c = new SystemCommonModel();               
             c.setFlow_id(param1);
             c.setTemp_str1((String) (((JSONObject) array.get(0)).get("param2")));
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")) .getStaff_id());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
             JSONObject objItem = ((SisServiceImpl) getBean("sisServiceImpl")).uploadNTPhotos(c,request,path,(String) (((JSONObject) array.get(0)).get("param3")));
            String  new_path = ServletActionContext.getServletContext()   
                        .getRealPath("\\uploadfiles\\"); 

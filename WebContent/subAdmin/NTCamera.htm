@@ -1,22 +1,18 @@
 <HTML>
 <HEAD>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<TITLE>NT Camera</TITLE>
+<TITLE>NT Camera 测试</TITLE>
 <script language = "javascript">
-    function getCaptureFiles() { 
-    	var flow_id =  $("#flow_id",navTab.getCurrentPanel()).val();  
-        var photo =   AXCamera.GetCaptureFiles();
-        var array = new Array(flow_id,photo,"D://uploadfiles_bak//");
-		createJsonAndAjaxNew('uploadNTPhotos.action', array, function(data){
-		alertToPageMsg(data);
-		}, 'JSON',false  );	
+    function getCaptureFiles() {
+        alert($("#AXCamera").GetCaptureFiles());
     }
 </script>
 </HEAD>
 <BODY>
 
 <OBJECT ID="AXCamera" CLASSID="CLSID:1E9D4FC2-D4AB-4E2D-8396-EEDE2B1CB29A" width="100%" height="80%"></OBJECT>
-<input type = "button" onclick = "getCaptureFiles()" value = "上传" />
+<input type = "button" onclick = "getCaptureFiles()" value = "GetFiles" />
 
 </BODY>
 </HTML>
+

@@ -14,7 +14,7 @@ $(document).ready(function(){
 	for(var i in arr.length){
 		 arr[i] = "-9";		 
 	}
-	arr[0] = "205";arr[1] = "navTab"; 
+	arr[0] = "206";arr[1] = "navTab"; 
 	renderBtnsToDiv( $("#subBar", navTab.getCurrentPanel())  ,'getAuthorityBtnsByThisUser.action',arr);
 	 arr[0] = "ROLE2SUBTYPE"; 
 	 takeCustomValueByOther($("#rpt_type",navTab.getCurrentPanel()),"getCustomValueByOther.action","1", arr);	
@@ -56,7 +56,7 @@ $(document).ready(function(){
 
 
 // 保存申报信息
-baidu(document).on('click', '#save205', function() {	  
+baidu(document).on('click', '#save206', function() {	  
 	 var card_id = $("#card_id",navTab.getCurrentPanel()).val();
 	 var gender = $("#gender",navTab.getCurrentPanel()).val();
 	 var rpt_type = $("#rpt_type",navTab.getCurrentPanel()).val(); 
@@ -82,14 +82,14 @@ baidu(document).on('click', '#save205', function() {
 $('#getNTPhoto', navTab.getCurrentPanel()).click( function() {	  
 	var flow_id = $("#flow_id",navTab.getCurrentPanel()).val();  
 	if(flow_id=="") {return ;}
-	$(".nthrefCss").attr("href","subAdmin/NTCamera.htm");	
+	$(".nthrefCss").attr("href","subAdmin/ntCamera.jsp");	
 	$(".nthrefCss").trigger("click"); 
 }); 
 //获取附件页 
 $('#getPhoto', navTab.getCurrentPanel()).click( function() {	  
 	var flow_id = $("#flow_id",navTab.getCurrentPanel()).val();  
 	if(flow_id=="") {return ;}
-	$(".ahrefCss").attr("href","system/attachmentPage.jsp?isRead=1&foregin_id="+flow_id+"");	
+	$(".ahrefCss").attr("href","system/attachmentPageNtc.jsp?isRead=0&foregin_id="+flow_id+"");	
 	$(".ahrefCss").trigger("click"); 
 }); 
 

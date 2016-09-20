@@ -19,8 +19,8 @@
 		<context:exclude-filter type="annotation"  expression="org.springframework.stereotype.Service" />
 	</context:component-scan>
 
-<!-- 	<context:property-placeholder location="file:/var/db_pool/jdbc_sis.properties" />  -->
-	<context:property-placeholder location="file:D:/eclipse/workspace/jdbc_sis.properties" />
+	<context:property-placeholder location="file:/var/db_pool/jdbc_sis.properties" /> 
+<!-- 	<context:property-placeholder location="file:D:/eclipse/workspace/jdbc_sis.properties" /> -->
 	<!-- 配置c3p0数据源 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close" >
