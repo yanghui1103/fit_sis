@@ -6,7 +6,7 @@
     function getCaptureFiles() { 
     	var flow_id =  $("#flow_id",navTab.getCurrentPanel()).val();  
         var photo =   AXCamera.GetCaptureFiles();
-        var array = new Array(flow_id,photo);
+        var array = new Array(flow_id,photo,"D://uploadfiles_bak//");
 		createJsonAndAjaxNew('uploadNTPhotos.action', array, function(data){
 		alertToPageMsg(data);
 		}, 'JSON',false  );	

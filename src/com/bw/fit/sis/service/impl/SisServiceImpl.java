@@ -1224,10 +1224,10 @@ public class SisServiceImpl implements SisService {
     }
 
     @Override
-    public JSONObject uploadNTPhotos(SystemCommonModel c, HttpServletRequest request,String path) {
+    public JSONObject uploadNTPhotos(SystemCommonModel c, HttpServletRequest request,String path,String toPath) {
         JSONObject info = new JSONObject();
-        // String new_path = "/opt/app/uploadfiles_bak" ;
-        String new_path ="d://uploadfiles_bak//" ;         
+        // String new_path = "/opt/app/uploadfiles_bak/" ;
+        String new_path =toPath ;    
         try {
             int byteread = 0; 
             InputStream in = null;  
@@ -1272,8 +1272,7 @@ public class SisServiceImpl implements SisService {
                         out.write(buffer, 0, byteread);  
                     }  
                     // 
-                    SystemCommonModel c2 = new SystemCommonModel();  
-                    c2.setFdid(getUUID());
+                    SystemCommonModel c2 = new SystemCommonModel();   
                     c2.setTemp_str1(c.getFlow_id());  
                     c2.setTemp_str2(array[i]);
                     c2.setTemp_str3(array[i]);

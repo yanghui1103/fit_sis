@@ -89,7 +89,7 @@ $('#getNTPhoto', navTab.getCurrentPanel()).click( function() {
 $('#getPhoto', navTab.getCurrentPanel()).click( function() {	  
 	var flow_id = $("#flow_id",navTab.getCurrentPanel()).val();  
 	if(flow_id=="") {return ;}
-	$(".ahrefCss").attr("href","system/attachmentPage.jsp?isRead=0&foregin_id="+flow_id+"");	
+	$(".ahrefCss").attr("href","system/attachmentPage.jsp?isRead=1&foregin_id="+flow_id+"");	
 	$(".ahrefCss").trigger("click"); 
 }); 
 
