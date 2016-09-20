@@ -1,6 +1,7 @@
 package com.bw.fit.sis.actions;
 
 import static com.bw.fit.common.utils.PubFun.buildJSON;
+import static com.bw.fit.common.utils.PubFun.getUUID;
 
 import com.bw.fit.sis.service.impl.SisServiceImpl;
 
@@ -22,6 +23,9 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
 import org.activiti.spring.ProcessEngineFactoryBean;
+import org.apache.commons.fileupload.DiskFileUpload;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
@@ -1218,5 +1222,35 @@ public class SisAdminAction extends BaseAction{
             e.printStackTrace();
         } 
         return null ; 
+    }
+    /**
+     * 高拍仪上传图
+     */
+    public String uploadNTPhotos(){
+        String path = "" ;
+        try {
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            JSONObject obj = (JSONObject) JSONValue.parse(str);
+            JSONArray array = (JSONArray) obj.get("content");
+            String param1 = (String) (((JSONObject) array.get(0)).get("param1")); 
+            SystemCommonModel c = new SystemCommonModel();               
+            c.setFlow_id(param1);
+            c.setTemp_str1((String) (((JSONObject) array.get(0)).get("param2")));
+            JSONObject objItem = ((SisServiceImpl) getBean("sisServiceImpl")).uploadNTPhotos(c,request,path);
+           String  new_path = ServletActionContext.getServletContext()   
+                       .getRealPath("\\uploadfiles\\"); 
+            objItem = ((SisServiceImpl) getBean("sisServiceImpl")).uploadNTPhotos2(c,request,path,new_path);
+            
+            
+            // 建立关联关系
+            wr.write(objItem.toJSONString());
+            wr.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }             
+        return null ;
     }
 }

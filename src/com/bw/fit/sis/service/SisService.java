@@ -1,5 +1,7 @@
 package com.bw.fit.sis.service;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.activiti.engine.FormService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -38,4 +40,6 @@ public interface SisService {
     public JSONObject getCheckHistory(SystemCommonModel c);
     public JSONObject qryRptingRecordList(SystemCommonModel c);
     public JSONObject getAllRptingSituation(SystemCommonModel c);
+    public JSONObject uploadNTPhotos(SystemCommonModel c,HttpServletRequest request,String path);
+    public JSONObject uploadNTPhotos2(SystemCommonModel c,HttpServletRequest request,String path,String new_path);
 }

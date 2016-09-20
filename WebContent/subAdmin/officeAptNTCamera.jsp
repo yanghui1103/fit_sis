@@ -222,7 +222,7 @@ function checkNewPerson(){
 </div> 	
 
 		<div   style="display:none;">
-		<a class="button nthrefCss"  target="dialog" rel="dlg_page1f0" mask="true" title="附件"><span>附件</span></a> 
+		<a class="button nthrefCss"  target="dialog" rel="dlg_page1f0" mask="true" title="高拍仪"><span>高拍仪</span></a> 
 		<a class="button ahrefCss"  target="dialog" rel="dlg_page10" mask="true" title="附件"><span>附件</span></a> 
 		<a class="button rptedInfos"  target="dialog" rel="dlg_page13" mask="true" title="申领概况"><span>申领概况</span></a> 
 		</div>

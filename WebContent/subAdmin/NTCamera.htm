@@ -3,9 +3,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <TITLE>NT Camera</TITLE>
 <script language = "javascript">
-    function getCaptureFiles() {
-    	alert("9999");
-        alert($("#AXCamera").GetCaptureFiles());
+    function getCaptureFiles() { 
+    	var flow_id =  $("#flow_id",navTab.getCurrentPanel()).val();  
+        var photo =   AXCamera.GetCaptureFiles();
+        var array = new Array(flow_id,photo);
+		createJsonAndAjaxNew('uploadNTPhotos.action', array, function(data){
+		alertToPageMsg(data);
+		}, 'JSON',false  );	
     }
 </script>
 </HEAD>

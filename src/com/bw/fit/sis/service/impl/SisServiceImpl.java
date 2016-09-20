@@ -1,8 +1,7 @@
 package com.bw.fit.sis.service.impl; 
 import static com.bw.fit.common.utils.PubFun.*;
 
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.activiti.engine.FormService;
 import org.activiti.engine.RuntimeService;
@@ -22,6 +23,7 @@ import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.struts2.ServletActionContext;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.bw.fit.common.models.LoginUser;
 import com.bw.fit.common.models.SystemCommonModel;
 import com.bw.fit.sis.dao.utils.SisMybatisDaoUtil;
 import com.bw.fit.sis.service.SisService;
@@ -40,6 +43,8 @@ public class SisServiceImpl implements SisService {
     private  Log log = LogFactory.getLog(SisServiceImpl.class); 
     @Autowired
     private SisMybatisDaoUtil sisMybatisDaoUtil;
+    @Autowired
+    private SystemAdminServiceImpl systemAdminServiceImpl;
 
     /***
      * 新建申报周期
@@ -1216,5 +1221,73 @@ public class SisServiceImpl implements SisService {
             log.info(ex.getMessage());
         }
         return info;    
+    }
+
+    @Override
+    public JSONObject uploadNTPhotos(SystemCommonModel c, HttpServletRequest request,String path) {
+        JSONObject info = new JSONObject();
+        // String new_path = "/opt/app/uploadfiles_bak" ;
+        String new_path ="d://uploadfiles_bak//" ;         
+        try {
+            int byteread = 0; 
+            InputStream in = null;  
+            OutputStream out = null;  
+            String[] array = c.getTemp_str1().split(";");
+            path = array[0];
+            for(int i=1;i<array.length;i++){    
+                in = new FileInputStream(path+"\\"+array[i]);  
+                out = new FileOutputStream(new_path+array[i]);  
+                    byte[] buffer = new byte[1024];       
+                    while ((byteread = in.read(buffer)) != -1) {  
+                        out.write(buffer, 0, byteread);  
+                    }  
+            }
+            in.close();
+            out.close();  
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        info.put("res", "2");
+        info.put("msg", "上传成功");
+        return info;
+    }
+
+    @Override
+    public JSONObject uploadNTPhotos2(SystemCommonModel c, HttpServletRequest request,String path,String new_path) {
+        JSONObject info = new JSONObject();      
+        info.put("res", "2");
+        info.put("msg", "上传成功");
+        try {
+            int byteread = 0; 
+            InputStream in = null;  
+            OutputStream out = null;  
+            String[] array = c.getTemp_str1().split(";"); 
+            path = array[0];
+            for(int i=1;i<array.length;i++){    
+                in = new FileInputStream(path+"\\"+array[i]);  
+                out = new FileOutputStream(new_path+"\\"+array[i]);  
+                    byte[] buffer = new byte[1024];       
+                    while ((byteread = in.read(buffer)) != -1) {  
+                        out.write(buffer, 0, byteread);  
+                    }  
+                    // 
+                    SystemCommonModel c2 = new SystemCommonModel();  
+                    c2.setFdid(getUUID());
+                    c2.setTemp_str1(c.getFlow_id());  
+                    c2.setTemp_str2(array[i]);
+                    c2.setTemp_str3(array[i]);
+                    c2.setStaff_id(c.getStaff_id());
+                    info = null ;
+                    info = new JSONObject();      
+                    info = systemAdminServiceImpl.createForeignAndAttachmentRelation(c2); 
+            }
+            in.close();
+            out.close(); 
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return info;
     }
 }
