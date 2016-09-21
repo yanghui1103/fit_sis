@@ -1235,10 +1235,16 @@ public class SisServiceImpl implements SisService {
             path = photo_path ;
             File file = new File(path);    
             File[] array = file.listFiles();   
+            if(array.length<1){
+                info.put("res", "1");
+                info.put("msg","无文件可上传");
+                return info ;
+            }
             for(int i=0;i<array.length;i++){
                 if(array[i].isFile()){
+                    String afterName = replaceNtStrToUid(array[i].getName());
                 in = new FileInputStream(path+"\\"+array[i].getName());  
-                out = new FileOutputStream(new_path+array[i].getName());  
+                out = new FileOutputStream(new_path+"\\"+ afterName);  
                     byte[] buffer = new byte[1024];       
                     while ((byteread = in.read(buffer)) != -1) {  
                         out.write(buffer, 0, byteread);  
@@ -1269,10 +1275,16 @@ public class SisServiceImpl implements SisService {
             path = photo_path ;
             File file = new File(path);    
             File[] array = file.listFiles();   
+            if(array.length<1){
+                info.put("res", "1");
+                info.put("msg","无文件可上传");
+                return info ;
+            }
             for(int i=0;i<array.length;i++){
                 if(array[i].isFile()){
-                in = new FileInputStream(path+"\\"+array[i].getName());  
-                out = new FileOutputStream(new_path+array[i].getName());  
+                    String afterName = replaceNtStrToUid(array[i].getName());
+                    in = new FileInputStream(path+"\\"+array[i].getName());  
+                    out = new FileOutputStream(new_path+"\\"+ afterName);  
                     byte[] buffer = new byte[1024];       
                     while ((byteread = in.read(buffer)) != -1) {  
                         out.write(buffer, 0, byteread);  
@@ -1281,12 +1293,13 @@ public class SisServiceImpl implements SisService {
                     SystemCommonModel c2 = new SystemCommonModel();   
                     c2.setFdid(getUUID());
                     c2.setTemp_str1(c.getFlow_id());  
-                    c2.setTemp_str2(array[i].getName());
+                    c2.setTemp_str2(afterName);
                     c2.setTemp_str3(array[i].getName());
                     c2.setStaff_id(c.getStaff_id());
                     info = null ;
                     info = new JSONObject();      
                     info = systemAdminServiceImpl.createForeignAndAttachmentRelation(c2); 
+                    array[i].delete();
                 }
             }
             in.close();

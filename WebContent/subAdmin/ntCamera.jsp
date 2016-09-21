@@ -8,7 +8,7 @@
     function getCaptureFiles() {
     	var flow_id =  $("#flow_id",navTab.getCurrentPanel()).val();  
      	var photo =  "D://NTCamera//bmp" ;  
-     	var array = new Array(flow_id,photo,"/opt/app/uploadfiles_bak");
+     	var array = new Array(flow_id,photo,"d://uploadfiles_bak//");
 		createJsonAndAjaxNew('uploadNTPhotosNew.action', array, function(data){
 		alertToPageMsg(data);
 		}, 'JSON',false  );	

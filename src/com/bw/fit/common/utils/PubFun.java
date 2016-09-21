@@ -331,4 +331,9 @@ public static String[] getPersonTypeName(int age,String gender){
        array[0]="-9";array[1]="年龄不符合";
        return array ;
 }
+    public static String replaceNtStrToUid(String s){
+    String ss = s.substring(0, s.indexOf(".")) ;
+    return  (s.replaceAll(ss, getUUID()));
+    
+    }
 }
