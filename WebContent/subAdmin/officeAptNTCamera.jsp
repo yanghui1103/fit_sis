@@ -82,7 +82,7 @@ baidu(document).on('click', '#save206', function() {
 $('#getNTPhoto', navTab.getCurrentPanel()).click( function() {	  
 	var flow_id = $("#flow_id",navTab.getCurrentPanel()).val();  
 	if(flow_id=="") {return ;}
-	$(".nthrefCss").attr("href","subAdmin/ntCamera.jsp");	
+	$(".nthrefCss").attr("href","subAdmin/CapWeb.htm");	
 	$(".nthrefCss").trigger("click"); 
 }); 
 //获取附件页 
@@ -216,13 +216,13 @@ function checkNewPerson(){
 		<input   type="hidden"   id="flow_id"  name="flow_id"  />
 		<input   type="hidden"   id="hide_id"   value="<%=PubFun.getUUID() %>" />
 		<button id="getPhoto"   type="button" >附件列表</button>
-		<button id="getNTPhoto"   type="button" >拍摄上传</button>
+<!-- 		<button id="getNTPhoto"   type="button" >拍摄上传</button> -->
 		</p>
 		</form>
 </div> 	
 
 		<div   style="display:none;">
-		<a class="button nthrefCss"  target="dialog" rel="dlg_page1f0" mask="true" title="高拍仪"><span>高拍仪</span></a> 
+		<a class="button nthrefCss"  target="navTab" rel="dlg_page1f0" mask="true" title="高拍仪"><span>高拍仪</span></a> 
 		<a class="button ahrefCss"  target="dialog" rel="dlg_page10" mask="true" title="附件"><span>附件</span></a> 
 		<a class="button rptedInfos"  target="dialog" rel="dlg_page13" mask="true" title="申领概况"><span>申领概况</span></a> 
 		</div>

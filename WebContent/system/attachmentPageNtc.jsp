@@ -87,9 +87,9 @@ $("#deleteFileCss",$.pdialog.getCurrent() ).click(function(){
 </head>
 <body>
 <div  class="pageContent">  
-		<div class="formBar"   style="display: none;">
-    	 	<img src="system/loading.gif" id="loading">
-			<input type="file" id="file" name="file" /> 
+		<div class="formBar"   >
+    	 	<img src="system/loading.gif" id="loading" style="display: none;">
+			<input type="file" id="file" name="file" multiple="multiple"  /> 
 		</div>
 	 <table width="40%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
@@ -98,7 +98,8 @@ $("#deleteFileCss",$.pdialog.getCurrent() ).click(function(){
 						if(s.equals("0")){
 						    %>
 						<div class="button"><div class="buttonContent" id="deleteFileCss"><button>删除</button></div></div>
-						    <% 
+							<div class="button"><div class="buttonContent"  id="upFileCss"><button>上传</button></div></div>
+					    <% 
 						}
 						%>
 						
