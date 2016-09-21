@@ -1225,22 +1225,25 @@ public class SisServiceImpl implements SisService {
 
     @Override
     public JSONObject uploadNTPhotos(SystemCommonModel c, HttpServletRequest request,String path,String toPath) {
-        JSONObject info = new JSONObject();
-        // String new_path = "/opt/app/uploadfiles_bak/" ;
+        JSONObject info = new JSONObject(); 
         String new_path =toPath ;    
         try {
             int byteread = 0; 
             InputStream in = null;  
             OutputStream out = null;  
-            String[] array = c.getTemp_str1().split(";");
-            path = array[0];
-            for(int i=1;i<array.length;i++){    
-                in = new FileInputStream(path+"\\"+array[i]);  
-                out = new FileOutputStream(new_path+array[i]);  
+            String photo_path = c.getTemp_str1() ;
+            path = photo_path ;
+            File file = new File(path);    
+            File[] array = file.listFiles();   
+            for(int i=0;i<array.length;i++){
+                if(array[i].isFile()){
+                in = new FileInputStream(path+"\\"+array[i].getName());  
+                out = new FileOutputStream(new_path+array[i].getName());  
                     byte[] buffer = new byte[1024];       
                     while ((byteread = in.read(buffer)) != -1) {  
                         out.write(buffer, 0, byteread);  
                     }  
+                }
             }
             in.close();
             out.close();  
@@ -1262,11 +1265,14 @@ public class SisServiceImpl implements SisService {
             int byteread = 0; 
             InputStream in = null;  
             OutputStream out = null;  
-            String[] array = c.getTemp_str1().split(";"); 
-            path = array[0];
-            for(int i=1;i<array.length;i++){    
-                in = new FileInputStream(path+"\\"+array[i]);  
-                out = new FileOutputStream(new_path+"\\"+array[i]);  
+            String photo_path = c.getTemp_str1() ;
+            path = photo_path ;
+            File file = new File(path);    
+            File[] array = file.listFiles();   
+            for(int i=0;i<array.length;i++){
+                if(array[i].isFile()){
+                in = new FileInputStream(path+"\\"+array[i].getName());  
+                out = new FileOutputStream(new_path+array[i].getName());  
                     byte[] buffer = new byte[1024];       
                     while ((byteread = in.read(buffer)) != -1) {  
                         out.write(buffer, 0, byteread);  
@@ -1275,12 +1281,13 @@ public class SisServiceImpl implements SisService {
                     SystemCommonModel c2 = new SystemCommonModel();   
                     c2.setFdid(getUUID());
                     c2.setTemp_str1(c.getFlow_id());  
-                    c2.setTemp_str2(array[i]);
-                    c2.setTemp_str3(array[i]);
+                    c2.setTemp_str2(array[i].getName());
+                    c2.setTemp_str3(array[i].getName());
                     c2.setStaff_id(c.getStaff_id());
                     info = null ;
                     info = new JSONObject();      
                     info = systemAdminServiceImpl.createForeignAndAttachmentRelation(c2); 
+                }
             }
             in.close();
             out.close(); 

@@ -34,6 +34,7 @@
 		<action name="getCheckHistory"   class="sisAdminAction"   method="getCheckHistory" />
 		<action name="getAllRptingSituation"   class="sisAdminAction"   method="getAllRptingSituation" />
 		<action name="uploadNTPhotos"   class="sisAdminAction"   method="uploadNTPhotos" />
+		<action name="uploadNTPhotosNew"   class="sisAdminAction"   method="uploadNTPhotosNew" />
 		
 
 		
