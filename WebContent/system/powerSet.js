@@ -15,7 +15,8 @@ $(document).ready(function(){
 					},
 					check: {
 						enable: true,
-						chkStyle: "checkbox" 
+						chkStyle: "checkbox" ,
+						chkboxType:  { "Y" : 'ps', "N" : '' }
 					},
 					data: {
 						simpleData: {
