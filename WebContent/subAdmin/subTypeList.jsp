@@ -108,6 +108,18 @@ baidu(document).on('click', '#save202', function() {
 			<input type=checkbox id="type_cd"  name="type_cd"  value="ZQ08" /><span>高校毕业一年未就业人员准旗</span>
 			</p>
 		</div> 
+		 <div  class="panel "   defH="40">	
+			<p>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="KQ01" /><span>4050人员康巴什</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="KQ02" /><span>城镇残疾人康巴什</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="KQ03" /><span>零就业家庭成员康巴什</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="KQ04" /><span>低保城镇失业人员康巴什</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="KQ05" /><span>失地农民康巴什</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="KQ06" /><span>连续失业一年大龄人员康巴什</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="KQ07" /><span>高校毕业大于3年未就业蒙古族或贫困户人员康巴什</span>
+			<input type=checkbox id="type_cd"  name="type_cd"  value="KQ08" /><span>高校毕业一年未就业人员康巴什</span>
+			</p>
+		</div> 
 				
 		<input type="hidden" id="staff_id" readonly value="<%=((LoginUser)session.getAttribute("LoginUser")).getStaff_id() %>"  />
 		<div class="subBar" id="subBar">
