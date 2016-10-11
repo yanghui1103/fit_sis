@@ -39,7 +39,7 @@
  		 </if>
  		 )  cc where 1=1    		
  		 <if test="end_num !='-9'">
-  				<![CDATA[  and cc.pageno > #{start_num} and cc.pageno<= #{end_num} ]]>
+  				<![CDATA[  and cc.pageno >= #{start_num} and cc.pageno< #{end_num} ]]>
   		</if>      
 		</select>
 		<!-- 删除申报周期 -->
@@ -135,7 +135,9 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
        (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='sub_cycle'  ) rpt_cycle,rownum pageno
   FROM ACT_RU_TASK A ,staff2roles sr  ,sys_item si
   where 1=1   and a.assignee_ = si.itype and si.fdid = sr.role_id and si.itype = #{temp_str3} and sr.staff_id = #{staff_id}
-  
+  	 <if test="card_id !='-9'">
+  			and (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='card_id'  )  like '%'||#{card_id}||'%'  
+  	</if>
  		 <if test="temp_str1 !='-9'">
  		 and   (select text_ from  act_hi_varinst where proc_inst_id_ = a.proc_inst_id_ and name_ ='create_company'  )  in
   			<foreach item="item" index="index" collection="temp_list" open="(" separator="," close=")">  
@@ -158,7 +160,7 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
  		 		and  cc.rpt_cycle =#{rpt_cycle}  
  		 </if>		
  		 <if test="end_num !='-9'">
-  				<![CDATA[  and cc.pageno > #{start_num} and cc.pageno<= #{end_num} ]]>
+  				<![CDATA[  and cc.pageno >= #{start_num} and cc.pageno< #{end_num} ]]>
   		</if>      
          	</select>
          	<!-- 用于待补贴的列表 -->         	
@@ -199,7 +201,7 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
  		 		and  sc.cycle_code =#{rpt_cycle}  
  		 </if>		
  		 <if test="end_num !='-9'">
-  				<![CDATA[  and cc.pageno > #{start_num} and cc.pageno<= #{end_num} ]]>
+  				<![CDATA[  and cc.pageno >= #{start_num} and cc.pageno< #{end_num} ]]>
   		</if>      
          	</select>
          	<!-- 根据flowid查询该申报人身份证号码 -->
