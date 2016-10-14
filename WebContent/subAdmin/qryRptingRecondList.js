@@ -24,8 +24,8 @@ function initRptedList(obj,num){
 	var org_id = $("#org_id", navTab.getCurrentPanel()).val() == "" ? "-9" : $("#org_id", navTab.getCurrentPanel()).val();  
 	var rpt_type = $("#rpt_type", navTab.getCurrentPanel()).val() == "" ? "-9" : $("#rpt_type", navTab.getCurrentPanel()).val();  
 	var sub_cycle = $("#sub_cycle", navTab.getCurrentPanel()).val() == "" ? "-9" : $("#sub_cycle", navTab.getCurrentPanel()).val();  
-	if(card_id =="-9"){
-		alertMsg.info("请输入身份证号码");return ;
+	if(org_id =="-9"){
+		alertMsg.info("请选择机构");return ;
 	}
 	 var array = new Array(person_name,card_id,org_id,rpt_type,sub_cycle, num*total + "", (num*total + total)+"",total+""  );   
 	 createJsonAndAjaxNew('qryRptingRecordList.action', array, function(data){

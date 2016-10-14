@@ -39,7 +39,7 @@
  		 </if>
  		 )  cc where 1=1    		
  		 <if test="end_num !='-9'">
-  				<![CDATA[  and cc.pageno >= #{start_num} and cc.pageno< #{end_num} ]]>
+  				<![CDATA[  and cc.pageno > #{start_num} and cc.pageno<= #{end_num} ]]>
   		</if>      
 		</select>
 		<!-- 删除申报周期 -->
@@ -160,7 +160,7 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
  		 		and  cc.rpt_cycle =#{rpt_cycle}  
  		 </if>		
  		 <if test="end_num !='-9'">
-  				<![CDATA[  and cc.pageno >= #{start_num} and cc.pageno< #{end_num} ]]>
+  				<![CDATA[  and cc.pageno >#{start_num} and cc.pageno<=  #{end_num} ]]>
   		</if>      
          	</select>
          	<!-- 用于待补贴的列表 -->         	
@@ -201,7 +201,7 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
  		 		and  sc.cycle_code =#{rpt_cycle}  
  		 </if>		
  		 <if test="end_num !='-9'">
-  				<![CDATA[  and cc.pageno >= #{start_num} and cc.pageno< #{end_num} ]]>
+  				<![CDATA[  and cc.pageno > #{start_num} and cc.pageno<= #{end_num} ]]>
   		</if>      
          	</select>
          	<!-- 根据flowid查询该申报人身份证号码 -->
@@ -236,16 +236,27 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
 	#{rpt_type},#{flow_id},'0',to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss'),to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss'),#{staff_id},'GUIDANG')
         </insert> 	 
         <select id="qryRptingRecordList"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
-		  select b.text_ flow_id,c.text_ card_id,(select person_name from rpt_person where card_id = c.text_  ) person_name,
-(select staff_name from staff where fdid = d.text_) staff_name,
+		select * from (    select b.text_ flow_id,c.text_ card_id,(select person_name from rpt_person where card_id = c.text_  ) person_name,
+(select staff_name from staff where fdid = d.text_) staff_name,dd.text_ staff_company_id,
 (select company_name from company cp,staff2company sc where cp.fdid = sc.company_id and sc.staff_id = d.text_) staff_company_name,
-to_char(b.create_time_,'yyyy-MM-dd hh24:mi:ss') create_time,b.proc_inst_id_  proc_inst_id  ,ta.name_ temp_str1
- from  act_hi_varinst b ,act_hi_varinst c,act_hi_varinst d,act_ru_task ta
+to_char(b.create_time_,'yyyy-MM-dd hh24:mi:ss') create_time,b.proc_inst_id_  proc_inst_id  ,ta.name_ temp_str1,rownum pageno
+ from  act_hi_varinst b ,act_hi_varinst c,act_hi_varinst d,act_ru_task ta ,act_hi_varinst dd 
 where 1=1   and c.proc_inst_id_ = b.proc_inst_id_  and b.proc_inst_id_ = ta.proc_inst_id_
-and c.name_ ='card_id'  and d.proc_inst_id_ = b.proc_inst_id_ and d.name_ = 'creator'    and b.name_ ='flow_id'  
+and dd.proc_inst_id_ = c.proc_inst_id_ and dd.name_='create_company'
+and c.name_ ='card_id'  and d.proc_inst_id_ = b.proc_inst_id_ and d.name_ = 'creator'    and b.name_ ='flow_id' 
   			<if test="card_id !='-9'">
 			and  c.text_   like '%'||#{card_id}||'%'	
 			</if> 
+ 		 <if test="temp_str1 !='-9'">
+ 		 and dd.text_  in
+  			<foreach item="item" index="index" collection="temp_list" open="(" separator="," close=")">  
+  					#{item}  
+ 			</foreach>    
+ 		 </if>
+ 		 ) cc where 1=1 
+ 		 <if test="end_num !='-9'">
+  				<![CDATA[  and cc.pageno > #{start_num} and cc.pageno<= #{end_num} ]]>
+  		</if>      
 	   </select>
         <!-- 补贴，且归档的记录 -->
         <select id="qryRptedRecordList"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">

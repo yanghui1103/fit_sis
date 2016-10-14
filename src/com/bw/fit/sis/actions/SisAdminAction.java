@@ -1108,6 +1108,8 @@ public class SisAdminAction extends BaseAction{
             c.setTemp_str1((String) (((JSONObject) array.get(0)).get("param3")));
             c.setRpt_type((String) (((JSONObject) array.get(0)).get("param4")));
             c.setRpt_cycle((String) (((JSONObject) array.get(0)).get("param5"))); 
+            c.setStart_num((String) (((JSONObject) array.get(0)).get("param6")));
+            c.setEnd_num((String) (((JSONObject) array.get(0)).get("param7")));
             c.setTotal_reords((String) (((JSONObject) array.get(0)).get("param8")));
             c.setRecord_tatol(c.getTotal_reords()); 
             c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")) .getStaff_id());

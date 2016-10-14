@@ -8,20 +8,19 @@
 </head>
 <body>
 <div class="pageFormContent"> 
-	<p><label>身份证号码：</label> <input id="card_id" type="text"    class="required"
+	<p><label>身份证号码：</label> <input id="card_id" type="text"    
 			size="20" /></p>
+	<p><label>机构：</label> 	
+				<input type="text"  id="org_name"  ename="机构"   style="float:left"  readonly name="orgLookup.orgName" value="" suggestFields="orgNum,orgName"   lookupGroup="orgLookup" />
+				<a   style="float:left"  class="btnLook" href="system/orgStructure_qry.jsp?custom_org_function_id=208&select_org_multi=1&select_cascade='ps'&unselect_cascade='ps'"   lookupGroup="orgLookup">查找带回</a>		
+				<input type="hidden"    readonly="readonly"   style="float:left"  id="org_id" name="orgLookup.id" />
+	</p>
 			<div id="sssHis">
 		<table >
 			<tr>
 				<td><input id="person_name" type="hidden"
 			size="20" /></td>
-				<td></td>
-			<td>
-				<label>机构：</label>
-				<input type="text"  id="org_name"  ename="机构"   style="float:left"  readonly name="orgLookup.orgName" value="" suggestFields="orgNum,orgName"   lookupGroup="orgLookup" />
-				<a   style="float:left"  class="btnLook" href="system/orgStructure_qry.jsp?custom_org_function_id=208&select_org_multi=1&select_cascade='ps'&unselect_cascade='ps'"   lookupGroup="orgLookup">查找带回</a>		
-				<input type="hidden"    readonly="readonly"   style="float:left"  id="org_id" name="orgLookup.id" />
-			</td>  
+				<td></td> 
 			</tr> 
 			<tr><td>
 				<label>补贴类型：</label>
