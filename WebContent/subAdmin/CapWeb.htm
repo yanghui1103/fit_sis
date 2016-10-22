@@ -1,15 +1,12 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title> ÄÏÌìÅÄÉãÒÇÅÄÕÕÍøÒ³ </title>
-
-
-<script language="JavaScript">
-<!--
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title> å—å¤©æ‹æ‘„ä»ªæ‹ç…§ç½‘é¡µ </title> 
+<script language="JavaScript"> 
 function SetRotateWeb(angle) { 	
 	testocx.setRotate(angle);
 	SealCapBox.disabled     = 0;
-	MessageCtrl.value="Ðý×ª³É¹¦¡£";
+	MessageCtrl.value="æ—‹è½¬æˆåŠŸã€‚";
 }
 
 function PandaCapPlay(){
@@ -19,7 +16,7 @@ function PandaCapPlay(){
 	setRotate270.disabled	= 1;
 	SealCapBox.disabled     = 0;
 	ConfigBox.disabled	= 0;
-	MessageCtrl.value="²Ù×÷³É¹¦¡£";
+	MessageCtrl.value="æ“ä½œæˆåŠŸã€‚";
 }
 
 function jsStartPreviewProc() { 
@@ -30,7 +27,7 @@ function jsStartPreviewProc() {
 	}
 	catch(e)
 	{
-		window.alert(e);	//"¼ÓÔØDLL´íÎó£¡");
+		window.alert(e);	//"åŠ è½½DLLé”™è¯¯ï¼");
 	}
 	if (ret==0)
 	{
@@ -39,7 +36,7 @@ function jsStartPreviewProc() {
 		setRotate270.disabled	= 0;
 		SealCapBox.disabled     = 0;
 		ConfigBox.disabled		= 0;
-		MessageCtrl.value="²Ù×÷³É¹¦¡£";
+		MessageCtrl.value="æ“ä½œæˆåŠŸã€‚";
 	} else {
 		SelectBox.disabled      = 0;
 		setRotate90.disabled	= 1;
@@ -47,7 +44,7 @@ function jsStartPreviewProc() {
 		SealCapBox.disabled     = 0;	//1;
 		PreviewBox.disabled     = 1;	//0;
 		ConfigBox.disabled	= 1;
-		MessageCtrl.value="²Ù×÷Ê§°Ü¡£";
+		MessageCtrl.value="æ“ä½œå¤±è´¥ã€‚";
 	}
 }
 
@@ -58,14 +55,14 @@ function Merge(){
 	}
 	catch(e)
 	{
-		window.alert(e);	//"¼ÓÔØDLL´íÎó£¡");
+		window.alert(e);	//"åŠ è½½DLLé”™è¯¯ï¼");
 	}
 	
 	txtTraceBox.disabled    = 0;	
-	MessageCtrl.value="·µ»ØÖµ:"+ret;
+	MessageCtrl.value="è¿”å›žå€¼:"+ret;
 	if(ret==0) 
 	{		
-		MessageCtrl.value       = "²Ù×÷³É¹¦¡£";
+		MessageCtrl.value       = "æ“ä½œæˆåŠŸã€‚";
 		FileNameCtrl.value      =  testocx.cPicName;
 		var sel = document.getElementById('s3');
 		for(var x=sel.length-1;x>=0;x--)
@@ -87,14 +84,13 @@ function Merge(){
 			}
 		}
 	} else {
-		MessageCtrl.value       ="²Ù×÷Ê§°Ü¡£";
+		MessageCtrl.value       ="æ“ä½œå¤±è´¥ã€‚";
 	}
 }
 
-function SealCapWeb() { 
-	
+function SealCapWeb() {  
 	FileNameCtrl.value="";
-	if (checkbox.checked==true)
+	if ($("#checkbox").checked==true)
 	{
 		MergeBox.disabled	= 0;
 		ret=testocx.IsMerge();
@@ -102,22 +98,22 @@ function SealCapWeb() {
 	else
 	{
 		MergeBox.disabled	= 1;
-	}	
+	}	 
 	testocx.customSavePath = customTrace.value;
-	testocx.customImgName = customName.value;
+	testocx.customImgName = customName.value; 
 	try
 	{ 	
 		var format  = document.getElementById('s4').value;
-		var DPI  = document.getElementById('s5').value;
+		var DPI  = document.getElementById('s5').value; 
 		testocx.pDPI=DPI;
 		testocx.nColorSpace=0;
 		testocx.nRotateAngle=0;
-		ret=testocx.SealCap(format);
+		ret=testocx.SealCap(format); 
 		var sel = document.getElementById('s3');
 		for(var x=sel.length-1;x>=0;x--)
 		{
 			sel.options[x].removeNode(true);
-		}
+		} 
 		var inum = testocx.RefreshImgList(format);
 		var cstr="";
 		for (i=0; i<inum; i++)
@@ -130,23 +126,29 @@ function SealCapWeb() {
 		     		opt.innerText = cstr;
 		     		opt.value = i;
 			}
-		}
+		} 
 	}
 	catch(e)
 	{
-		window.alert(e);	//"¼ÓÔØDLL´íÎó£¡");
+		window.alert(e);	//"åŠ è½½DLLé”™è¯¯ï¼");
 	}
 	
 	txtTraceBox.disabled    = 0;	
-	MessageCtrl.value="·µ»ØÖµ:"+ret;
+	MessageCtrl.value="è¿”å›žå€¼:"+ret;
 	if(ret==0) 
 	{		
 		VerifyBox.disabled      = 0;
 		AddWater.disabled		= 0;
-		MessageCtrl.value       = "²Ù×÷³É¹¦¡£";
-		FileNameCtrl.value      =  testocx.cPicName;
+		MessageCtrl.value       = "æ“ä½œæˆåŠŸã€‚";
+		var txt =  testocx.cPicName ;
+		FileNameCtrl.value      = txt ;
+		$('input[type="file"]').attr("value",txt);
+// 		var WshShell=new ActiveXObject("WScript.Shell");      
+// 		document.getElementById('file').focus(); 
+// 		alert(txt);
+// 		WshShell.SendKeys(txt);   
 	} else {
-		MessageCtrl.value       ="²Ù×÷Ê§°Ü¡£";
+		MessageCtrl.value       ="æ“ä½œå¤±è´¥ã€‚";
 	}
 	
 }
@@ -155,7 +157,7 @@ function SendSealWeb() {
 	
 	if (txtTrace.value=="")
 	{
-		MessageCtrl.value=" ÇëÏÈÊäÈëURL£¡";
+		MessageCtrl.value=" è¯·å…ˆè¾“å…¥URLï¼";
 		return;
 	}
 
@@ -175,7 +177,7 @@ function SendSealWeb() {
 	}
 	catch(e)
 	{
-		window.alert(e);	//"¼ÓÔØDLL´íÎó£¡");
+		window.alert(e);	//"åŠ è½½DLLé”™è¯¯ï¼");
 	}
 	
 	txtTraceBox.disabled    = 0;
@@ -199,19 +201,19 @@ function SendSealWeb() {
 		     		opt.value = i;
 			}
 		}
-		FileNameCtrl.value="±¾µØÎÄ¼þÃû:"    +testocx.cPicName;
-		MessageCtrl.value ="²Ù×÷³É¹¦¡£";
+		FileNameCtrl.value="æœ¬åœ°æ–‡ä»¶å:"    +testocx.cPicName;
+		MessageCtrl.value ="æ“ä½œæˆåŠŸã€‚";
 	}else {
-		MessageCtrl.value ="²Ù×÷Ê§°Ü¡£";
+		MessageCtrl.value ="æ“ä½œå¤±è´¥ã€‚";
 	}
 }
 
-function JsRefreshDevList() {
+function JsRefreshDevList() { 
 	testocx.WriteLog = true;
 	var sel = document.getElementById('s1');
 	var inum = testocx.RefreshDevList();
 	var i=0;
-	var cstr=""; 
+	var cstr="";  
 	for (i=0; i<inum; i++)
 	{
 		cstr = testocx.GetDevNameByIdx(i);				
@@ -221,7 +223,7 @@ function JsRefreshDevList() {
 		     sel.options.add(opt);
 		     opt.innerText = cstr;
 		     opt.value = i;
-			 if (cstr == "Ö÷ÉãÏñÍ·(2M)")
+			 if (cstr == "ä¸»æ‘„åƒå¤´(2M)")
 			{
 				opt.selected = true;
 				testocx.SetDevNameSel(i);
@@ -252,7 +254,7 @@ function JsSelDevName() {
 	}
 	catch(e)
 	{
-		window.alert(e);	//"¼ÓÔØDLL´íÎó£¡");
+		window.alert(e);	//"åŠ è½½DLLé”™è¯¯ï¼");
 	}	
 }
 
@@ -273,13 +275,13 @@ function JsSelResolution() {
 	}
 	catch(e)
 	{
-		window.alert(e);	//"¼ÓÔØDLL´íÎó£¡");
+		window.alert(e);	//"åŠ è½½DLLé”™è¯¯ï¼");
 	}	
 }
 
 function JsRefreshResolution(){
-	var sel = document.getElementById('s2');
-	var i  = document.getElementById('s1').value;
+	var sel = $('#s2');
+	var i  = $('#s1').val() ;
 	var inum = testocx.RefreshResolution(i); 
 	var cstr="";
 	for (i=0; i<inum; i++)
@@ -288,7 +290,7 @@ function JsRefreshResolution(){
 		if (cstr!="")
 		{
 		     var opt = document.createElement("OPTION"); 
-		     sel.options.add(opt);
+		     sel.append(opt);
 		     opt.innerText = cstr;
 		     opt.value = i;
 		}
@@ -376,7 +378,7 @@ function ImgToBase64(){
 	ret = testocx.GetBase64String(testocx.cPicName);
 	if (ret==true)
 	{
-		MessageCtrl.value ="×ª»»³É¹¦£¬×Ö·û´®±£´æÔÚTempÄ¿Â¼µÄÈÕÖ¾ÎÄ¼þSealCapNtWebLog.txtÖÐ¡£";
+		MessageCtrl.value ="è½¬æ¢æˆåŠŸï¼Œå­—ç¬¦ä¸²ä¿å­˜åœ¨Tempç›®å½•çš„æ—¥å¿—æ–‡ä»¶SealCapNtWebLog.txtä¸­ã€‚";
 	}
 }
 
@@ -384,11 +386,11 @@ function jsDeleteImgByName(){
 	ret = testocx.DeleteImgByName(DeleteImgName.value);
 	if (ret == 0)
 	{
-		MessageCtrl.value ="É¾³ý³É¹¦¡£";
+		MessageCtrl.value ="åˆ é™¤æˆåŠŸã€‚";
 	}
 	else
 	{
-		MessageCtrl.value ="ÎÄ¼þ²»´æÔÚ¡£";
+		MessageCtrl.value ="æ–‡ä»¶ä¸å­˜åœ¨ã€‚";
 	}
 }
 
@@ -422,12 +424,12 @@ function JsLocalImgName(){
 function jsUploadLocalImg(){
 	if (txtTrace.value=="")
 	{
-		MessageCtrl.value=" ÇëÏÈÊäÈëURL£¡";
+		MessageCtrl.value=" è¯·å…ˆè¾“å…¥URLï¼";
 		return;
 	}
 	testocx.bShowMsgBox=false;
 	ret = testocx.UploadLocalImg(txtTrace.value);
-	MessageCtrl.value="º¯Êý·µ»ØÖµ£º"+ret+"  ·þÎñÆ÷·µ»Ø:"+testocx.HttpResponse;
+	MessageCtrl.value="å‡½æ•°è¿”å›žå€¼ï¼š"+ret+"  æœåŠ¡å™¨è¿”å›ž:"+testocx.HttpResponse;
 }
 
 function jsRemoveLocalImg(){
@@ -451,14 +453,17 @@ function jsRemoveLocalImg(){
 		     opt.value = i;
 		}
 	}
-}
-//-->
+} 
+$(function(){
+	JsRefreshDevList();
+	JsRefreshResolution();
+});
 </script>
 
 </head>
 
 
-<body onload = "JsRefreshDevList();JsRefreshResolution()">
+<body>
 
 <p>
 <object classid="clsid:1C68DF21-EFEC-4623-85E5-0C369B95F15E" width=600 height=400 hspace="3" vspace="3" id="testocx" codebase="subAdmin/SealCapNtWeb.cab#version=1,7,0,0">
@@ -468,20 +473,44 @@ function jsRemoveLocalImg(){
 
 <p>
 
-ÇëÑ¡ÔñÉãÏñÍ·£º
+<label>è¯·é€‰æ‹©æ‘„åƒå¤´ï¼š</label>
   <select name="SelectBox" size="1" id="s1" onChange="JsSelDevName()">
 </select>
 
-  <input  type="button"  name="PreviewBox" value="ÆÕÍ¨Ô¤ÀÀ(¿ÉÐý×ªÊÓÆµ)" onClick="jsStartPreviewProc()">  
-  <input  name="SealCapBox" type="button" disabled onClick="SealCapWeb()" value=" ÅÄÉã ">
+  <input  type="button"  name="PreviewBox" value="æ™®é€šé¢„è§ˆ(å¯æ—‹è½¬è§†é¢‘)" onClick="jsStartPreviewProc()">  
+  <input  name="SealCapBox" type="button"   onClick="SealCapWeb()" value=" æ‹æ‘„ ">
     <input id=FileNameCtrl name=txtControl2 readonly style="WIDTH: 600; height:19" size="18"  >
 </p>
 <div style='display:none'>
-ÇëÑ¡Ôñ·Ö±æÂÊ£º
-  <select name="SelectResolutionBox" size="1" id="s2" onChange="JsSelResolution()">
-</select>
-
-ÇëÑ¡ÔñÍ¼Æ¬Êä³ö¸ñÊ½£º
+<p>
+  <input type="button" name="setRotate90" value="é¡ºæ—¶é’ˆæ–¹å‘æ—‹è½¬90Â°" disabled onClick="SetRotateWeb(90)">
+  <input type="button" name="setRotate270" value="é€†æ—¶é’ˆæ–¹å‘æ—‹è½¬90Â°" disabled onClick="SetRotateWeb(360-90)">
+  <input  type="button"  name="ConfigBox" value="è®¾ç½®è§†é¢‘å‚æ•°" disabled onClick="ConfigCamera()">
+  <input type="checkbox" name="checkbox" id="checkbox" value="checkbox">
+  <input  type="button"  name="MergeBox" value="åˆå¹¶å›¾ç‰‡" disabled onClick="Merge()">
+  <input  name="VerifyBox" type="button" disabled id="Verify" onClick="SendSealWeb()" value="HTTPä¸Šä¼ ">
+<p>è‡ªå®šä¹‰å›¾ç‰‡ä¿å­˜è·¯å¾„:<input id=customTrace  name=customTraceBox style="WIDTH: 500; height:19" size="20" maxlength="100">
+   è‡ªå®šä¹‰å›¾ç‰‡åç§°(ä¸å«åŽç¼€):<input id=customName  name=customNameBox style="WIDTH: 100; height:19" size="20" maxlength="100">
+<p>è¯·è¾“å…¥URL:
+  <input id=txtTrace  name=txtTraceBox style="WIDTH: 500; height:19" size="20" maxlength="100">
+  <input type="checkbox" name="checkbox1" value="checkbox1"> 
+  <input  type="button"  name="Record" value="  å½•åƒ  " onClick="RecordVideo()">
+  <input  type="button"  name="AddWater" value="æ·»åŠ æ°´å°" disabled onClick="AddWaterMark()">
+</p>
+<p>æ“ä½œè¿”å›žä¿¡æ¯:
+  <input id=MessageCtrl  name=txtControl1 readonly style="WIDTH: 300; height:19" size="20"  >
+</p>
+<p>å›¾åƒæ–‡ä»¶åç§°:
+  <input  type="button"  name="ToBase64" value="  è½¬Base64å­—ç¬¦ä¸²  " onClick="ImgToBase64()">
+</p>
+<p>æ‹ç…§æ–‡ä»¶åˆ—è¡¨:
+  <select name="SelectImgBox" size="5" id="s3" style= "overflow:scroll" onChange="JsSelImgName()">
+  
+</p>
+<p>æ“ä½œè¿”å›žä¿¡æ¯:
+  <input id=MessageCtrl  name=txtControl1 readonly style="WIDTH: 300; height:19" size="20"  >
+</p>
+è¯·é€‰æ‹©å›¾ç‰‡è¾“å‡ºæ ¼å¼ï¼š
   <select name="SelectFormatBox" size="1" id="s4" onChange="JsSelFormat()">
   <option value="jpg" selected="selected">jpg</option>  
   <option value="bmp">bmp</option>  
@@ -489,100 +518,13 @@ function jsRemoveLocalImg(){
   <option value="gif">gif</option>
 </select>
 
-ÇëÑ¡ÔñÍ¼Æ¬Êä³öDPI£º
+è¯·é€‰æ‹©å›¾ç‰‡è¾“å‡ºDPIï¼š
   <select name="SelectDPIBox" size="1" id="s5">
-  <option value=0 selected="selected">Ä¬ÈÏÖµ</option>  
+  <option value=0 selected="selected">é»˜è®¤å€¼</option>  
   <option value=72>72</option>  
   <option value=200>200</option>
   <option value=300>300</option>
 </select>
-<p>
-  <input type="button" name="setRotate90" value="Ë³Ê±Õë·½ÏòÐý×ª90¡ã" disabled onClick="SetRotateWeb(90)">
-  <input type="button" name="setRotate270" value="ÄæÊ±Õë·½ÏòÐý×ª90¡ã" disabled onClick="SetRotateWeb(360-90)">
-</p>
-  <input  type="button"  name="PandaPlay" value="Ñ°±ßÄ£Ê½Ô¤ÀÀ(Ô¤ÀÀÇøÍÏ¶¯Êó±êÎªÊÖ¶¯Ñ°±ß)" onClick="PandaCapPlay()">
-  <input  type="button"  name="MtoA" value=" ×Ô¶¯Ñ°±ß " onClick="jsMtoA()">
-  <input  type="button"  name="StopCrop" value="  ¹Ø±Õ(×Ô/ÊÖ¶¯)Ñ°±ß  " onClick="jsDisCrop()">
-</p>
-  <input  type="button"  name="ConfigBox" value="ÉèÖÃÊÓÆµ²ÎÊý" disabled onClick="ConfigCamera()">
-  <input type="checkbox" name="checkbox" value="checkbox">ºÏ²¢Ä£Ê½ÅÄÕÕ
-  <input  type="button"  name="Record" value="  Â¼Ïñ  " onClick="RecordVideo()">
-  <input  type="button"  name="AddWater" value="Ìí¼ÓË®Ó¡" disabled onClick="AddWaterMark()">
-  <input  type="button"  name="MergeBox" value="ºÏ²¢Í¼Æ¬" disabled onClick="Merge()">
-  <input  name="VerifyBox" type="button" disabled id="Verify" onClick="SendSealWeb()" value="HTTPÉÏ´«">
-<p>×Ô¶¨ÒåÍ¼Æ¬±£´æÂ·¾¶:<input id=customTrace  name=customTraceBox style="WIDTH: 500; height:19" size="20" maxlength="100">
-   ×Ô¶¨ÒåÍ¼Æ¬Ãû³Æ(²»º¬ºó×º):<input id=customName  name=customNameBox style="WIDTH: 100; height:19" size="20" maxlength="100">
-<p>ÇëÊäÈëURL:
-  <input id=txtTrace  name=txtTraceBox style="WIDTH: 500; height:19" size="20" maxlength="100">
-  <input type="checkbox" name="checkbox1" value="checkbox1">ÉÏ´«³É¹¦£¬É¾³ý±¾µØÍ¼Æ¬
-</p>
-<p>²Ù×÷·µ»ØÐÅÏ¢:
-  <input id=MessageCtrl  name=txtControl1 readonly style="WIDTH: 300; height:19" size="20"  >
-</p>
-<p>Í¼ÏñÎÄ¼þÃû³Æ:
-  <input  type="button"  name="ToBase64" value="  ×ªBase64×Ö·û´®  " onClick="ImgToBase64()">
-</p>
-<p>ÅÄÕÕÎÄ¼þÁÐ±í:
-
-  <select name="SelectImgBox" size="5" id="s3" style= "overflow:scroll" onChange="JsSelImgName()">
-
-<script language="JavaScript">
-<!--
-	var format  = document.getElementById('s4').value;
-	var inum = testocx.RefreshImgList(format);
-	var i=0;
-	var cstr="";
-	var opt  = "";  
-	for (i=0; i<inum; i++)
-	{
-		opt = "<option value ='";  
-		opt+= i;
-		opt+= "'>";
-		cstr = testocx.GetImgNameByIdx(i);				
-		if (cstr!="")
-		{
-			opt+=cstr;
-			opt+="</option>";
-			document.write(opt);
-		}
-	}
-//-->
-</script>
-</select>
- <input  type="button"  name="DelImg" value="É¾³ýÕÕÆ¬" onClick="jsDeleteImg()">
- <p>
- Ö¸¶¨É¾³ý<input id=DeleteImgName name=txtControl3 style="WIDTH: 200; height:19" size="18"  >
- <input  type="button"  name="DelImgByName" value="É¾³ýÕÕÆ¬" onClick="jsDeleteImgByName()">
- <input  type="button"  name="CutScreen" value="  ½ØÍ¼  " onClick="jsScreenCut()">
-</p>
-<p>
- <input  type="button"  name="SelLocalImg" value="Ñ¡Ôñ±¾µØÍ¼Æ¬" onClick="jsSelLocalImg()">
- <select name="LocalImgBox" size="5" id="s6" style= "overflow:scroll" onChange="JsLocalImgName()">
-<script language="JavaScript">
-<!--
-	var inum = testocx.RefreshLocalImg();
-	var i=0;
-	var cstr="";
-	var opt  = "";  
-	for (i=0; i<inum; i++)
-	{
-		opt = "<option value ='";  
-		opt+= i;
-		opt+= "'>";
-		cstr = testocx.SelectedImgName(i);				
-		if (cstr!="")
-		{
-			opt+=cstr;
-			opt+="</option>";
-			document.write(opt);
-		}
-	}
-//-->
-</script>
-</select>
- <input  type="button"  name="RemoveLocalImg" value="ÒÆ³ý´ýÉÏ´«Í¼Æ¬" onClick="jsRemoveLocalImg()">
- <input  type="button"  name="UploadLocalImg" value="ÉÏ´«±¾µØÍ¼Æ¬" onClick="jsUploadLocalImg()">
-</p>
 </div>
 </body>
 

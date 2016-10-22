@@ -216,7 +216,7 @@ function checkNewPerson(){
 		<input   type="hidden"   id="flow_id"  name="flow_id"  />
 		<input   type="hidden"   id="hide_id"   value="<%=PubFun.getUUID() %>" />
 		<button id="getPhoto"   type="button" >附件列表</button>
-<!-- 		<button id="getNTPhoto"   type="button" >拍摄上传</button> -->
+<!--         <button id="getNTPhoto"   type="button" >拍摄上传</button>  -->
 		</p>
 		</form>
 </div> 	

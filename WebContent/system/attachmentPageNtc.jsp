@@ -31,6 +31,7 @@ $(function(){
 	// 图片渲染控件
 	$('.fancybox',$.pdialog.getCurrent()).fancybox();
     initAttachmentList();
+    $("#ntc_cap").load("subAdmin/CapWeb.htm");
 });
 function initAttachmentList(){
 	var array = new Array();  
@@ -87,9 +88,10 @@ $("#deleteFileCss",$.pdialog.getCurrent() ).click(function(){
 </head>
 <body>
 <div  class="pageContent">  
+		<div id="ntc_cap"></div>
 		<div class="formBar"   >
     	 	<img src="system/loading.gif" id="loading" style="display: none;">
-			<input type="file" id="file" name="file" multiple="multiple"  /> 
+			<input type="file" id="file" name="file" /> 
 		</div>
 	 <table width="40%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
