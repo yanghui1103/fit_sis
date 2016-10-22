@@ -72,7 +72,7 @@ baidu(document).on('click', '#getInfo', function() {
 			</p>
 			<p>
 				<label>性别：</label>
-				<select id="gender"  name="gender"   style="float:left" > 
+				<select id="gender"  name="gender"   style="float:left" class="combox"> 
 					<option value="-9" selected>请选择</option>
 					<option value="0">女</option>
 					<option value="1">男</option>
@@ -96,7 +96,7 @@ baidu(document).on('click', '#getInfo', function() {
 			</p>
 			<p>
 				<label>状态：</label>
-				<select id="state"  name="state"   style="float:left" > 
+				<select id="state"  name="state"   style="float:left"  class="combox"> 
 					<option value="-9" selected>请选择</option>
 					<option value="2">正常享受中</option>
 					<option value="1">暂停享受</option>

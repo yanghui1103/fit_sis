@@ -474,6 +474,8 @@ function takeTypeDataList(control,action,isSelect,array){
 		for(var i=0;i< json.length;i++){
 			control.append("<option value='"+json[i].id+"'>"+json[i].name+"</option>");
 		}
+		control.addClass("combox");
+		control.combox();
 	},  'json');
  }
 

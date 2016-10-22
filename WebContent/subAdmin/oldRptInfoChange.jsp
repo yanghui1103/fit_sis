@@ -76,7 +76,7 @@ baidu(document).on('click', '#save204', function() {
 			</p>  
 			<p>
 				<label>性别：</label>
-				<select id="gender"  name="gender"   style="float:left" > 
+				<select id="gender"  name="gender"   style="float:left"  class="combox" > 
 					<option value="-9" selected>请选择</option>
 					<option value="0">女</option>
 					<option value="1">男</option>
