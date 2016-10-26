@@ -47,7 +47,7 @@ baidu(document).on('click', '#save204', function() {
 	 var card_id = $("#card_id",navTab.getCurrentPanel()).val();
 	 var gender = $("#gender",navTab.getCurrentPanel()).val();
 	 var rpt_type = $("#rpt_type",navTab.getCurrentPanel()).val(); 
-	 if(card_id.length!=18){alertMsg.info("身份证号码应该为18位");return ;}
+	 if(card_id.length!=18||card_id.length!=15){alertMsg.info("身份证号码应该为18或15位");return ;}
 	 if(gender=="-9"){alertMsg.info("请选择申报人性别");return ;}
 	 if(rpt_type=="-9"){alertMsg.info("请选择申报类型");return ;}
 	alertMsg.confirm("是否确认录入该人的旧申报数据！", {
