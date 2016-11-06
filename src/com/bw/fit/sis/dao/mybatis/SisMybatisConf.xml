@@ -269,13 +269,13 @@ months_between( to_date(pay_end,'yyyyMM'),to_date(pay_start,'yyyyMM') ) +1 temp_
 from rpt_person rp,rpt_reconds rr 
 where rp.card_id = rr.card_id  
   			<if test="person_name !='-9'">
-			and person_name like '%'||#{person_name}||'%'	
+			and rp.person_name like '%'||#{person_name}||'%'	
 			</if> 
   			<if test="card_id !='-9'">
-			and card_id like '%'||#{card_id}||'%'	
+			and rr.card_id like '%'||#{card_id}||'%'	
 			</if> 
   			<if test="rpt_type !='-9'">
-			and rpt_type_code = #{rpt_type} 
+			and rr.rpt_type = #{rpt_type} 
 			</if> 
   			<if test="rpt_cycle !='-9'">
 			and sub_cycle = #{rpt_cycle} 
