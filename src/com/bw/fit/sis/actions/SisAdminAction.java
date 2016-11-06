@@ -1079,6 +1079,8 @@ public class SisAdminAction extends BaseAction{
             c.setRpt_cycle((String) (((JSONObject) array.get(0)).get("param5"))); 
             c.setTotal_reords((String) (((JSONObject) array.get(0)).get("param8")));
             c.setRecord_tatol(c.getTotal_reords()); 
+            c.setStart_num((String) (((JSONObject) array.get(0)).get("param6")));
+            c.setEnd_num((String) (((JSONObject) array.get(0)).get("param7")));
             c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")) .getStaff_id());
             c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
             JSONObject objItem = ((SisServiceImpl) getBean("sisServiceImpl")).qryRptedRecordList(c);
