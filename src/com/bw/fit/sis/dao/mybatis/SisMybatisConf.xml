@@ -136,6 +136,7 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
   FROM ACT_RU_TASK A ,staff2roles sr  ,sys_item si ,ACT_HI_ACTINST ah
   where 1=1   and a.assignee_ = si.itype and si.fdid = sr.role_id and si.itype = #{temp_str3} and sr.staff_id = #{staff_id}
     and a.proc_inst_id_ = ah.proc_inst_id_ 
+    and ah.id_ = (select max(id_) from ACT_HI_ACTINST aw where aw.proc_inst_id_ = a.proc_inst_id_ and aw.assignee_ ='creator' )
   	 <if test="card_id !='-9'">
   			and (select text_ from  act_hi_detail where proc_inst_id_ = a.proc_inst_id_ and name_ ='card_id'  and act_inst_id_ =ah.id_  )  like '%'||#{card_id}||'%'  
   	</if>
@@ -182,8 +183,10 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
        (select text_ from  act_hi_detail where proc_inst_id_ = a.proc_inst_id_ and name_ ='sub_cycle'  and act_inst_id_ = ah.id_  ) rpt_cycle,rownum pageno
   FROM ACT_RU_TASK A ,staff2roles sr  ,sys_item si,act_hi_actinst ah
   where 1=1   and a.assignee_ = si.itype and si.fdid = sr.role_id
-  and ah.proc_inst_id_ = a.proc_inst_id_  and si.itype = #{temp_str3} and sr.staff_id = #{staff_id} ) cc,  sub_cycle sc
-  where 1=1  and sc.fdid = cc.rpt_cycle 
+  and ah.proc_inst_id_ = a.proc_inst_id_  and si.itype = #{temp_str3} and sr.staff_id = #{staff_id}
+  and ah.id_ = (select max(id_) from ACT_HI_ACTINST aw where aw.proc_inst_id_ = a.proc_inst_id_ and aw.assignee_ ='creator' )
+   ) cc,  sub_cycle sc
+  where 1=1  and sc.fdid = cc.rpt_cycle   
   			<if test="person_name !='-9'">
  		 		and  cc.person_name like '%'||#{person_name}||'%'  
  		 </if>
@@ -249,6 +252,7 @@ and ah.proc_inst_id_ =ta.proc_inst_id_
 and dd.proc_inst_id_ = c.proc_inst_id_ and dd.name_='create_company'
 and c.name_ ='card_id'  and d.proc_inst_id_ = b.proc_inst_id_ and d.proc_inst_id_ = c.proc_inst_id_ 
 and d.name_ = 'creator'    and b.name_ ='fdid' 
+  and ah.id_ = (select max(id_) from ACT_HI_ACTINST aw where aw.proc_inst_id_ = ta.proc_inst_id_ and aw.assignee_ ='creator' )
   			<if test="card_id !='-9'">
 			and  c.text_   like '%'||#{card_id}||'%'	
 			</if> 
