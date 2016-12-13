@@ -40,6 +40,7 @@ public interface SisService {
     public JSONObject getCheckHistory(SystemCommonModel c);
     public JSONObject qryRptingRecordList(SystemCommonModel c);
     public JSONObject getAllRptingSituation(SystemCommonModel c);
+    public JSONObject qryWaitCheckRecordList_finance(SystemCommonModel c);
     public JSONObject uploadNTPhotos(SystemCommonModel c,HttpServletRequest request,String path,String toPath);
     public JSONObject uploadNTPhotos2(SystemCommonModel c,HttpServletRequest request,String path,String new_path);
 }

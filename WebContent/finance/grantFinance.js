@@ -15,7 +15,7 @@ function initCycleList6(obj,num){
 		alertMsg.info("请选择机构");return ;
 	}
 	 var array = new Array(person_name,card_id,org_id,rpt_type,sub_cycle, num*total + "", (num*total + total)+"",total+"" ,'finance');   
-	 createJsonAndAjaxNew('qryWaitCheckRecordList.action', array, function(data){
+	 createJsonAndAjaxNew('qryWaitCheckRecordList_finance.action', array, function(data){
 		initPageSelectList($("#PageNo", navTab.getCurrentPanel()),data.pageNum,$("#Tatol", navTab.getCurrentPanel()),data.tatol,num);	 
 		var $tbody =  obj ;
 		$tbody.find("tr").remove();		

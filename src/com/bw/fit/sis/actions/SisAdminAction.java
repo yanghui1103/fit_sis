@@ -854,6 +854,40 @@ public class SisAdminAction extends BaseAction{
         return null ;
     }
     /***
+     * 查询该角色，所选中的组织
+     * 下所有的财务拨款记录列表
+     */
+    public String qryWaitCheckRecordList_finance(){
+        try {
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            JSONObject obj = (JSONObject) JSONValue.parse(str);
+            JSONArray array = (JSONArray) obj.get("content");
+            String param1 = (String) (((JSONObject) array.get(0)).get("param1")); 
+            SystemCommonModel c = new SystemCommonModel();  
+            c.setPerson_name(param1);
+            c.setCard_id((String) (((JSONObject) array.get(0)).get("param2")));
+            c.setTemp_str1((String) (((JSONObject) array.get(0)).get("param3")));
+            c.setRpt_type((String) (((JSONObject) array.get(0)).get("param4")));
+            c.setRpt_cycle((String) (((JSONObject) array.get(0)).get("param5")));
+            c.setStart_num((String) (((JSONObject) array.get(0)).get("param6")));
+            c.setEnd_num((String) (((JSONObject) array.get(0)).get("param7")));
+            c.setTotal_reords((String) (((JSONObject) array.get(0)).get("param8")));
+            c.setRecord_tatol(c.getTotal_reords());
+            c.setTemp_str3((String) (((JSONObject) array.get(0)).get("param9")));
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")) .getStaff_id());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
+            JSONObject objItem = ((SisServiceImpl) getBean("sisServiceImpl")).qryWaitCheckRecordList_finance(c);
+            wr.write(objItem.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null ;
+    }
+    /***
      * 根据流程id（记录id）获取这个
      * 人这条申报记录的全部信息
      */
