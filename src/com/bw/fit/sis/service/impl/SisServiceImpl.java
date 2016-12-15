@@ -559,6 +559,7 @@ public class SisServiceImpl implements SisService {
                 jsonObjArr.put("start_date", (list.get(i)).getStart_date());
                 jsonObjArr.put("end_date", (list.get(i)).getEnd_date());
                 jsonObjArr.put("creator", (list.get(i)).getStaff_name()); 
+                jsonObjArr.put("act_inst_id", (list.get(i).getTemp_str3())); 
                 jsonObjArr.put("create_time", (list.get(i)).getCreate_time()); 
                 jsonObjArr.put("staff_company_name", (list.get(i)).getStaff_company_name()); 
                 array.add(jsonObjArr);
@@ -607,6 +608,7 @@ public class SisServiceImpl implements SisService {
             for(int i=0;i<list.size();i++){
                 JSONObject jsonObjArr = new JSONObject(); 
                 jsonObjArr.put("proc_inst_id", (list.get(i)).getProc_inst_id());
+                jsonObjArr.put("act_inst_id", (list.get(i).getTemp_str3())); 
                 jsonObjArr.put("fdid", (list.get(i)).getFdid());
                 jsonObjArr.put("person_name", (list.get(i)).getPerson_name());
                 jsonObjArr.put("card_id", (list.get(i)).getCard_id()); 
@@ -960,6 +962,7 @@ public class SisServiceImpl implements SisService {
                 jsonObjArr.put("create_time", (list.get(i)).getCreate_time()); 
                 jsonObjArr.put("flow_id", (list.get(i)).getFlow_id()); 
                 jsonObjArr.put("proc_inst_id", (list.get(i).getProc_inst_id())); 
+                jsonObjArr.put("act_inst_id", (list.get(i).getTemp_str3())); 
                 jsonObjArr.put("staff_company_name", (list.get(i)).getStaff_company_name()); 
                 jsonObjArr.put("now_node", (list.get(i)).getTemp_str1()); 
                 array.add(jsonObjArr);

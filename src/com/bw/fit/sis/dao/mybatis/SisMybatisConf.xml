@@ -133,11 +133,12 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
        (select cp.company_name from  act_hi_detail ,company cp where proc_inst_id_ = a.proc_inst_id_ and name_ ='create_company' and cp.fdid = text_   and act_inst_id_ =ah.id_  ) staff_company_name , 
        (select text_ from  act_hi_detail where proc_inst_id_ = a.proc_inst_id_ and name_ ='rpt_type'   and act_inst_id_ =ah.id_  ) rpt_type,   
       (select cycle_code from sub_cycle where fdid =  (select text_ from  act_hi_detail where proc_inst_id_ = a.proc_inst_id_ and name_ ='sub_cycle'  and act_inst_id_ =ah.id_  )) temp_str2,
-       (select text_ from  act_hi_detail where proc_inst_id_ = a.proc_inst_id_ and name_ ='sub_cycle'  and act_inst_id_ =ah.id_  ) rpt_cycle,rownum pageno
+       (select text_ from  act_hi_detail where proc_inst_id_ = a.proc_inst_id_ and name_ ='sub_cycle'  and act_inst_id_ =ah.id_  ) rpt_cycle,ah.id_ temp_str3,rownum pageno
   FROM ACT_RU_TASK A ,staff2roles sr  ,sys_item si ,ACT_HI_ACTINST ah
   where 1=1   and a.assignee_ = si.itype and si.fdid = sr.role_id and si.itype = #{temp_str3} and sr.staff_id = #{staff_id}
     and a.proc_inst_id_ = ah.proc_inst_id_ 
-    and ah.id_ = (select max(id_) from ACT_HI_ACTINST aw where aw.proc_inst_id_ = a.proc_inst_id_ and aw.assignee_ ='creator'   and end_time_ is not null)
+      and ah.id_ = (select max(id_) from ACT_HI_ACTINST aw where aw.proc_inst_id_ = a.proc_inst_id_ and aw.assignee_ ='creator'  and end_time_ is not null)
+    
   	 <if test="card_id !='-9'">
   			and (select text_ from  act_hi_detail where proc_inst_id_ = a.proc_inst_id_ and name_ ='card_id'  and act_inst_id_ =ah.id_  )  like '%'||#{card_id}||'%'  
   	</if>
@@ -165,6 +166,7 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
  		 <if test="end_num !='-9'">
   				<![CDATA[  and cc.pageno >= #{start_num} and cc.pageno<  #{end_num} ]]>
   		</if>      
+  		<!--     and ah.id_ = (select max(id_) from ACT_HI_ACTINST aw where aw.proc_inst_id_ = a.proc_inst_id_ and aw.assignee_ ='creator'   and end_time_ is not null)  -->
          	</select>         	
          	<!-- 根据角色，机构等查询待审核列表 -->
          	<select id="qryWaitCheckRecordList"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
@@ -181,11 +183,12 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
        (select cp.company_name from  act_hi_detail ,company cp where proc_inst_id_ = a.proc_inst_id_ and name_ ='create_company' and cp.fdid = text_   and act_inst_id_ =ah.id_  ) staff_company_name , 
        (select text_ from  act_hi_detail where proc_inst_id_ = a.proc_inst_id_ and name_ ='rpt_type'   and act_inst_id_ =ah.id_  ) rpt_type,   
       (select cycle_code from sub_cycle where fdid =  (select text_ from  act_hi_detail where proc_inst_id_ = a.proc_inst_id_ and name_ ='sub_cycle'  and act_inst_id_ =ah.id_  )) temp_str2,
-       (select text_ from  act_hi_detail where proc_inst_id_ = a.proc_inst_id_ and name_ ='sub_cycle'  and act_inst_id_ =ah.id_  ) rpt_cycle,rownum pageno
+       (select text_ from  act_hi_detail where proc_inst_id_ = a.proc_inst_id_ and name_ ='sub_cycle'  and act_inst_id_ =ah.id_  ) rpt_cycle,ah.id_ temp_str3,rownum pageno
   FROM ACT_RU_TASK A ,staff2roles sr  ,sys_item si ,ACT_HI_ACTINST ah
   where 1=1   and a.assignee_ = si.itype and si.fdid = sr.role_id and si.itype = #{temp_str3} and sr.staff_id = #{staff_id}
     and a.proc_inst_id_ = ah.proc_inst_id_ 
-    and ah.id_ = (select max(id_) from ACT_HI_ACTINST aw where aw.proc_inst_id_ = a.proc_inst_id_ and aw.assignee_ ='creator'   and end_time_ is not null)
+      and ah.id_ = (select max(id_) from ACT_HI_ACTINST aw where aw.proc_inst_id_ = a.proc_inst_id_ and aw.assignee_ ='creator'  and end_time_ is not null)
+    
   	 <if test="card_id !='-9'">
   			and (select text_ from  act_hi_detail where proc_inst_id_ = a.proc_inst_id_ and name_ ='card_id'  and act_inst_id_ =ah.id_  )  like '%'||#{card_id}||'%'  
   	</if>
@@ -260,7 +263,7 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
          	</select>
          	<!-- 根据flowid查询该申报人身份证号码 -->
          	<select id="getCardInfoByFlowId"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
-         	  select text_  card_id from act_hi_varinst av where   av.name_ ='card_id' and av.proc_inst_id_ =#{temp_str1}
+         	  select text_  card_id from act_hi_detail  av where   av.name_ ='card_id' and av.proc_inst_id_ =#{temp_str1} and act_inst_id_ =#{temp_str2}
          	  </select>
          	 <!-- 根据acitivi内部流程编码查询，这个流程记录里的数据 -->
          	 <select id="getThisCheckInfoAll"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
@@ -293,7 +296,7 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
 		  select * from (    select b.text_ flow_id,c.text_ card_id,(select person_name from rpt_person where card_id = c.text_  ) person_name,
 (select staff_name from staff where fdid = d.text_) staff_name,dd.text_ staff_company_id,
 (select company_name from company cp,staff2company sc where cp.fdid = sc.company_id and sc.staff_id = d.text_) staff_company_name,
-to_char(ta.create_time_,'yyyy-MM-dd hh24:mi:ss') create_time,b.proc_inst_id_  proc_inst_id  ,ta.name_ temp_str1,rownum pageno
+to_char(ta.create_time_,'yyyy-MM-dd hh24:mi:ss') create_time,b.proc_inst_id_  proc_inst_id  ,ta.name_ temp_str1,ah.id_ temp_str3,rownum pageno
  from  act_hi_detail b ,act_hi_detail c,act_hi_detail d,act_ru_task ta ,act_hi_detail dd ,act_hi_actinst ah
 where 1=1   and c.proc_inst_id_ = b.proc_inst_id_  and b.proc_inst_id_ = ta.proc_inst_id_
 and b.act_inst_id_ = c.act_inst_id_ and c.act_inst_id_ = d.act_inst_id_ and d.act_inst_id_=dd.act_inst_id_ and ah.id_ = b.act_inst_id_ 
@@ -301,7 +304,8 @@ and ah.proc_inst_id_ =ta.proc_inst_id_
 and dd.proc_inst_id_ = c.proc_inst_id_ and dd.name_='create_company'
 and c.name_ ='card_id'  and d.proc_inst_id_ = b.proc_inst_id_ and d.proc_inst_id_ = c.proc_inst_id_ 
 and d.name_ = 'creator'    and b.name_ ='fdid' 
-  and ah.id_ = (select max(id_) from ACT_HI_ACTINST aw where aw.proc_inst_id_ = ta.proc_inst_id_ and aw.assignee_ ='creator'   and end_time_ is not null)
+  and ah.id_ = (select max(id_) from ACT_HI_ACTINST aw where aw.proc_inst_id_ = c.proc_inst_id_ and aw.assignee_ ='creator'  and end_time_ is not null)
+
   			<if test="card_id !='-9'">
 			and  c.text_   like '%'||#{card_id}||'%'	
 			</if> 

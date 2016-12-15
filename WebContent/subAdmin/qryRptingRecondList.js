@@ -36,7 +36,7 @@ function initRptedList(obj,num){
 			var jsonArr = data.list;
 			for (var i = 0; i < jsonArr.length; i++) {
 				var $tr = $("<tr  target=sid_user rel=" + (i + 1) + " >");
-				$tr.append($("<td width=3%>").html("<input type=radio name=recId value='"+jsonArr[i].flow_id  + ","+jsonArr[i].proc_inst_id +"'/>"));
+				$tr.append($("<td width=3%>").html("<input type=radio name=recId value='"+jsonArr[i].flow_id  + ","+jsonArr[i].proc_inst_id +","+jsonArr[i].act_inst_id+"'/>"));
 				$tr.append($("<td width=15%>").html(replaceF9ValToUnknown(jsonArr[i].person_name)));
 				$tr.append($("<td width=15%>").html(replaceF9ValToUnknown(jsonArr[i].card_id)));  
 				$tr.append($("<td width=10%>").html(replaceF9ValToUnknown(jsonArr[i].staff_name)));
