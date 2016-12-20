@@ -64,11 +64,12 @@ $('#getPhoto', navTab.getCurrentPanel()).click( function() {
 	$(".ahrefCss").attr("href","system/attachmentPage.jsp?isRead=1&foregin_id="+flow_id+"");	
 	$(".ahrefCss").trigger("click"); 
 }); 
-//确认审核-初审
+//确认审核-复审
 $("#auditFirst", navTab.getCurrentPanel()).click( function() {	   
 	alertMsg.confirm("是否确认对此记录进行复审确认?", {
 		 okCall: function(){ 
 			 createJsonAndPost2Java('checkRpt.action',$("#createForm", navTab.getCurrentPanel()),function(data){
+				 navTab.closeCurrentTab();
 				 alertToPageMsg(data);		
 			 },'JSON',false) ;
 		 },

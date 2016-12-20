@@ -67,6 +67,7 @@ $("#auditFirst", navTab.getCurrentPanel()).click( function() {
 	alertMsg.confirm("是否确认对此记录进行初审确认?", {
 		 okCall: function(){ 
 			 createJsonAndPost2Java('checkRpt.action',$("#createForm", navTab.getCurrentPanel()),function(data){
+				 navTab.closeCurrentTab();
 				 alertToPageMsg(data);		
 			 },'JSON',false) ;
 		 },

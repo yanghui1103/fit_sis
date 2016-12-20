@@ -69,6 +69,7 @@ $("#saveToNext", navTab.getCurrentPanel()).click( function() {
 	alertMsg.confirm("是否确认对此记录修改?", {
 		 okCall: function(){ 
 			 createJsonAndPost2Java('updateRptRecond.action',$("#createForm", navTab.getCurrentPanel()),function(data){
+				 navTab.closeCurrentTab();
 				 alertToPageMsg(data);		
 			 },'JSON',false) ;
 		 },
