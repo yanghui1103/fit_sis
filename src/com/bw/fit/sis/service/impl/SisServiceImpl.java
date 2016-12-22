@@ -833,6 +833,7 @@ public class SisServiceImpl implements SisService {
         for(int i=0;i<arr.length;i++){
             ls.add(arr[i]);
         }
+        c.setFdid(getUUID());
         c.setTemp_list(ls);
         c.setSql("sisAdminDAO.qryWaitCheckRecordListFinance");
         List<SystemCommonModel> list = sisMybatisDaoUtil.getListData(
@@ -845,29 +846,34 @@ public class SisServiceImpl implements SisService {
         for(int k=0;k<list.size();k++){
             List<Task> tasks = taskService.createTaskQuery().processVariableValueEquals("flow_id", list.get(k).getFdid()).taskAssignee("finance").list();  
             for (Task task : tasks) {  
-                if ("node4".equals(task.getTaskDefinitionKey())) {                 // 财务拨款通过 
-                    taskService.setVariable(task.getId(), "fdid", c.getFdid()  );   
-                    taskService.setVariable(task.getId(), "pass4",  "2"  ); 
+                // if ("node4".equals(task.getTaskDefinitionKey())) {                 // 财务拨款通过 
+                    try {
+                        taskService.setVariable(task.getId(), "fdid", c.getFdid()  );   
+                        taskService.setVariable(task.getId(), "pass4",  "2"  ); 
 
-                    // 与此同时，将这条记录归档          
-                    SystemCommonModel c2 = new SystemCommonModel();
-                    c2.setPerson_name(taskService.getVariable(task.getId(), "person_name").toString());
-                    c2.setCard_id(taskService.getVariable(task.getId(), "card_id").toString());
-                    c2.setPerson_unit_type(taskService.getVariable(task.getId(), "unit_type").toString());
-                    c2.setPerson_unit(taskService.getVariable(task.getId(), "unit_name").toString());
-                    c2.setRpt_start(taskService.getVariable(task.getId(), "pay_start").toString());
-                    c2.setRpt_end(taskService.getVariable(task.getId(), "pay_end").toString());
-                    c2.setRpt_cycle(taskService.getVariable(task.getId(), "sub_cycle").toString());
-                    c2.setRpt_type(taskService.getVariable(task.getId(), "rpt_type").toString());
-                    c2.setFlow_id(taskService.getVariable(task.getId(), "flow_id").toString());
-                    c2.setFdid(getUUID());
-                    c2.setCreate_time(getSysDate()); 
-                    c2.setStaff_id(c.getStaff_id());
-                    c2.setSql("sisAdminDAO.grantFinanceToPsn");
-                    info = sisMybatisDaoUtil.sysInsertData(c2.getSql(), c2);
-                    // 节点任务结束  
-                    taskService.complete(task.getId());   
-                }  
+                        // 与此同时，将这条记录归档          
+                        SystemCommonModel c2 = new SystemCommonModel();
+                        c2.setPerson_name(taskService.getVariable(task.getId(), "person_name").toString());
+                        c2.setCard_id(taskService.getVariable(task.getId(), "card_id").toString());
+                        c2.setPerson_unit_type(taskService.getVariable(task.getId(), "unit_type").toString());
+                        c2.setPerson_unit(taskService.getVariable(task.getId(), "unit_name").toString());
+                        c2.setRpt_start(taskService.getVariable(task.getId(), "pay_start").toString());
+                        c2.setRpt_end(taskService.getVariable(task.getId(), "pay_end").toString());
+                        c2.setRpt_cycle(taskService.getVariable(task.getId(), "sub_cycle").toString());
+                        c2.setRpt_type(taskService.getVariable(task.getId(), "rpt_type").toString());
+                        c2.setFlow_id(taskService.getVariable(task.getId(), "flow_id").toString());
+                        c2.setFdid(getUUID());
+                        c2.setCreate_time(getSysDate()); 
+                        c2.setStaff_id(c.getStaff_id());
+                        c2.setSql("sisAdminDAO.grantFinanceToPsn");
+                        info = sisMybatisDaoUtil.sysInsertData(c2.getSql(), c2);
+                        // 节点任务结束  
+                        taskService.complete(task.getId());
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }   
+               //  }  
             }
         }
         return info;
@@ -1138,10 +1144,10 @@ public class SisServiceImpl implements SisService {
            HSSFRow row2 = sheet.createRow(3);
            row2.setHeight((short) 750);
            String[] excelHeader = { "申报人姓名", "申报人身份证号码", "性别" , "联系电话" ,"民族", "签发单位", "初次申报日期" ,"票据开始月份","票据结束月份"
-                   ,"就业单位类型","就业单位","申报类型","申报周期","申报人类型","已享受月数","录入人员","录入机构","录入时间" };   
+                   ,"就业单位类型","就业单位","申报类型","申报周期","申报人类型","初次申报周岁","录入人员","录入机构","录入时间","已享受月数" };   
                // 单元格列宽  
                int[] excelHeaderWidth = { 120,120,120,120,120,120,120,120,120, 
-                       120,120,120,120,120,120,120,120,120}; 
+                       120,120,120,120,120,120,120,120,120,120}; 
         // 设置列宽度（像素）  
            for (int i = 0; i < excelHeaderWidth.length; i++) {  
                sheet.setColumnWidth(i, 45 * excelHeaderWidth[i]);  
@@ -1186,9 +1192,11 @@ public class SisServiceImpl implements SisService {
                }else{
                    rowi.createCell(14).setCellValue("0");     
                }
+               rowi.createCell(14).setCellValue(list4.get(i).getPerson_first_age());    
                rowi.createCell(15).setCellValue(list4.get(i).getStaff_name());    
                rowi.createCell(16).setCellValue(list4.get(i).getStaff_company_name());     
-               rowi.createCell(17).setCellValue(list4.get(i).getCreate_time());      
+               rowi.createCell(17).setCellValue(list4.get(i).getCreate_time());     
+               rowi.createCell(18).setCellValue(list4.get(i).getTemp_str2());    
            }
 //           
            String file_name=getUUID() + ".xls"; 

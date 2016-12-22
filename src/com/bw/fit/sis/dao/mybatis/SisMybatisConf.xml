@@ -149,6 +149,12 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
  			</foreach>    
  		 </if>
  		 
+  			<if test="rpt_type !='-9'">
+ 		 		and    (select text_ from  act_hi_detail where proc_inst_id_ = a.proc_inst_id_ and name_ ='rpt_type'   and act_inst_id_ =ah.id_  ) =  #{rpt_type} 
+ 		 </if>
+  			<if test="rpt_cycle !='-9'">
+ 		 		and        (select cycle_code from sub_cycle where fdid =  (select text_ from  act_hi_detail where proc_inst_id_ = a.proc_inst_id_ and name_ ='sub_cycle'  and act_inst_id_ =ah.id_  )) =#{rpt_cycle}  
+ 		 </if>		
    ) cc
   where 1=1 
   			<if test="person_name !='-9'">
@@ -157,12 +163,6 @@ values (#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nati
   			<if test="card_id !='-9'">
  		 		and  cc.card_id like '%'||#{card_id}||'%'  
  		 </if>
-  			<if test="rpt_type !='-9'">
- 		 		and  cc.rpt_type =  #{rpt_type} 
- 		 </if>
-  			<if test="rpt_cycle !='-9'">
- 		 		and  cc.temp_str2 =#{rpt_cycle}  
- 		 </if>		
  		 <if test="end_num !='-9'">
   				<![CDATA[  and cc.pageno >= #{start_num} and cc.pageno<  #{end_num} ]]>
   		</if>      
@@ -378,15 +378,18 @@ rr.pay_start rpt_start,rr.pay_end rpt_end,
 rr.unit_name person_unit,
 (select item_name from sys_item where fdid = rr.rpt_type and itype='SUB_TYPE'  ) rpt_type,
 (select cycle_name from sub_cycle where fdid = rr.sub_cycle  )  rpt_cycle,  substr(to_char(rp.first_time,'yyyy'),0,4)-substr(rr.card_id,7,4)  person_first_age, '0' temp_int1,
-st.staff_name,cp.company_name staff_company_name,rr.create_time
-from rpt_person rp,rpt_reconds rr,staff st,staff2company sc,company cp
+st.staff_name,cp.company_name staff_company_name,rr.create_time,(select sum(months_between( to_date(pay_end,'yyyyMM'),to_date(pay_start,'yyyyMM') ) +1) temp_int1 
+ from rpt_person rpt ,rpt_reconds rrt 
+ where rpt.card_id = rrt.card_id and rrt.isdeleted ='0'   and  rpt.card_id = rp.card_id  
+   ) - (pay_end - pay_start +1 ) temp_str2
+from rpt_person rp,rpt_reconds rr,staff st,staff2company sc,company cp,sub_cycle sc,sub_cycle sc2,company cp2
 where rp.card_id = rr.card_id and rr.creator = st.fdid and sc.staff_id = st.fdid and cp.fdid = sc.company_id 
-  and rr.isdeleted='0'  
+  and rr.isdeleted='0'    and sc.fdid = rr.sub_cycle   and sc2.org_id = cp2.fdid and sc2.fdid = rr.sub_cycle 
   			<if test="select_company_id !='-9'">
-		and sc.company_id like #{select_company_id}||'%'
+		   and cp2.fdid  like #{select_company_id}||'%'
 		</if>
   			<if test="rpt_cycle !='-9'">
-  			and  rr.sub_cycle = #{rpt_cycle}
+  			and sc.cycle_code = #{rpt_cycle}
   			</if>
          </select>
          <!-- 获取审核历史 -->

@@ -16,8 +16,8 @@ $(document).ready(function(){
 		 arr[i] = "-9";		 
 	}arr[0] = "401";arr[1] = "navTab"; 
 	renderBtnsToDiv( $("#subBar", navTab.getCurrentPanel())  ,'getAuthorityBtnsByThisUser.action',arr); 
-	 arr[0] = "Company2SubCycle"; 
-	 takeCustomValueByOther($("#sub_cycle",navTab.getCurrentPanel()),"getCustomValueByOther.action","0", arr);	
+	arr[0] = "SUBCYCLE"; 
+	 takeTypeDataList($("#sub_cycle",navTab.getCurrentPanel()),"getSysItems.action","1", arr);	
 });
 
 function dealDaoRpt(data){  
