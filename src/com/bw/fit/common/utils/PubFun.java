@@ -311,24 +311,24 @@ public class PubFun {
  */
 public static String[] getPersonTypeName(int age,String gender){
     String[] array = new String[2] ;
-    if(gender =="0"){
-        if(age >=40 && age <45){
+    array[0]="-9";array[1]="年龄不符合";
+    if("女".equals(gender)){
+        if(age >=40 && age <=45){
             array[0] = "101";array[1]="距退休年龄超5年人员";
             return array ;
-        }else if(age >=45 && age <=50){
+        }else if(age >=46 && age <=50){
             array[0] = "102";array[1]="距退休年龄不足5年人员";
             return array ;
         }
-    }else  {
-            if(age >=50 && age <55){
+    }else  if("男".equals(gender)){
+            if(age >=50 && age <=55){
                 array[0] = "101";array[1]="距退休年龄超5年人员";
                 return array ;
-            }else if(age >=55 && age <=60){
+            }else if(age >=56 && age <=60){
                 array[0] = "102";array[1]="距退休年龄不足5年人员";
                 return array ;
             }
         }
-       array[0]="-9";array[1]="年龄不符合";
        return array ;
 }
     public static String replaceNtStrToUid(String s){

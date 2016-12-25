@@ -56,7 +56,7 @@ $(document).ready(function(){
 					<th width=15%>申报人姓名</th>
 					<th width=10%>身份证号码</th> 
 					<th width=10%>票据开始月份</th>
-					<th width=10%>票据开始月份</th>
+					<th width=10%>票据结束月份</th>
 					<th width=10%>录入员</th>
 					<th width=10%>录入机构</th>
 					<th width=15%>录入时间</th>
