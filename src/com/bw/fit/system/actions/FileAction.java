@@ -99,8 +99,10 @@ public class FileAction extends ActionSupport {
                     !this.getFileFileName().endsWith(".GIF")&&
                     !this.getFileFileName().endsWith(".gif")&&
                     !this.getFileFileName().endsWith(".jpg")&&
+                    !this.getFileFileName().endsWith(".Jpg")&&
                     !this.getFileFileName().endsWith(".JPG")&&
                     !this.getFileFileName().endsWith(".jpeg")&&
+                    !this.getFileFileName().endsWith(".Jpeg")&&
                     !this.getFileFileName().endsWith(".JPEG")){
 				message="1";
 				error="文件被禁止上传！,格式不符，只容许传图片文件";
@@ -119,8 +121,8 @@ public class FileAction extends ActionSupport {
             inputStream.close();
             outputStream.flush();
             // 与此同时写入一个绝对路径的文件夹下
-//            createOtherPath("/opt/app/uploadfiles_bak",afterFileName,f);
-			createOtherPath("d://uploadfiles_bak",afterFileName,f);					
+           createOtherPath("/opt/app/uploadfiles_bak",afterFileName,f);
+			// createOtherPath("d://uploadfiles_bak",afterFileName,f);					
 		} catch (Exception e) {
 			e.printStackTrace();
 			message = "1";

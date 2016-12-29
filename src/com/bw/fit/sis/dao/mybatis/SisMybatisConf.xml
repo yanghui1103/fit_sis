@@ -340,7 +340,7 @@ where rp.card_id = rr.card_id   and scc.fdid = rr.sub_cycle
 			and rr.rpt_type = #{rpt_type} 
 			</if> 
   			<if test="rpt_cycle !='-9'">
-			and sub_cycle = #{rpt_cycle} 
+			and scc.cycle_code = #{rpt_cycle} 
 			</if> 
  		 <if test="temp_str1 !='-9'">
  		 and (select fdid from company cp,staff2company sc where cp.fdid = sc.company_id and sc.staff_id = rr.creator)   in
@@ -350,7 +350,7 @@ where rp.card_id = rr.card_id   and scc.fdid = rr.sub_cycle
  		 </if>
  		  ) cc where 1=1 
  		 <if test="end_num !='-9'">
-  				<![CDATA[  and cc.pageno >= #{start_num} and cc.pageno< #{end_num} ]]>
+  				<![CDATA[  and cc.pageno > #{start_num} and cc.pageno<= #{end_num} ]]>
   		</if>      
          </select>
          <select id="getPersonRptedLeiYues"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
@@ -434,5 +434,18 @@ and sc.cycle_code =  #{rpt_cycle}
         </select>
         <select id="getCycleName"    parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
        select cycle_name from sub_cycle a where a.cycle_code = #{rpt_cycle}
+       </select>
+       <!-- 获取补贴过详情 -->
+        <select id="getThisApplyInfoByFlowId"    parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+       	select rp.person_name ,rp.card_id ,rp.gender person_gender,rp.nation person_minzu,rp.phone person_phone,
+		rp.first_time,rr.pay_start rpt_start, rr.pay_end rpt_end,rr.unit_type person_unit_type, rr.unit_name person_unit,
+		rr.rpt_type,rr.sub_cycle rpt_cycle ,rr.flow_id  fdid
+		from  rpt_person rp,rpt_reconds rr 
+		where rp.card_id = rr.card_id and rr.isdeleted ='0'
+		and rr.flow_id = #{flow_id}
+       </select>
+       <!-- 流程ID是否存在 -->
+       <select id="getExisteCntByFlowId"    parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+         select  *  from rpt_reconds where flow_id =  #{flow_id}
        </select>
 </mapper>

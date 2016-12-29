@@ -43,4 +43,5 @@ public interface SisService {
     public JSONObject qryWaitCheckRecordList_finance(SystemCommonModel c);
     public JSONObject uploadNTPhotos(SystemCommonModel c,HttpServletRequest request,String path,String toPath);
     public JSONObject uploadNTPhotos2(SystemCommonModel c,HttpServletRequest request,String path,String new_path);
+    public JSONObject getThisApplyInfoByFlowId(SystemCommonModel c);
 }

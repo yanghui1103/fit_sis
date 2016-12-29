@@ -1375,4 +1375,57 @@ public class SisServiceImpl implements SisService {
         }
         return info;
     }
+
+    @Override
+    public JSONObject getThisApplyInfoByFlowId(SystemCommonModel c) {
+        // 根据流程id获取该人领取信息
+        JSONObject info = new JSONObject();
+        try { 
+            c.setSql("sisAdminDAO.getExisteCntByFlowId");
+            List<SystemCommonModel> list = sisMybatisDaoUtil.getListData(
+                    c.getSql(), c); 
+            if(list.size()<1){
+                info.put("res", "1");
+                info.put("msg","无数据，或因是旧数据"); 
+                return info ;
+            }
+            c.setSql("sisAdminDAO.getThisApplyInfoByFlowId");
+            list = sisMybatisDaoUtil.getListData(
+                    c.getSql(), c); 
+            if(list.size()<1){
+                info.put("res", "1");
+                info.put("msg","无数据"); 
+                return info ;
+            }else{
+                info.put("res", "2");
+                info.put("msg","执行成功"); 
+            }
+            JSONArray array = new JSONArray();
+            for(int i=0;i<1;i++){
+                JSONObject jsonObjArr = new JSONObject();
+                jsonObjArr.put("person_name", (list.get(i)).getPerson_name());
+                jsonObjArr.put("card_id", (list.get(i)).getCard_id());
+                jsonObjArr.put("gender", (list.get(i)).getPerson_gender());
+                jsonObjArr.put("minzu", (list.get(i)).getPerson_minzu());
+                jsonObjArr.put("phone", (list.get(i)).getPerson_phone());
+                jsonObjArr.put("first_date", (list.get(i)).getFirst_time());
+                
+                jsonObjArr.put("pay_start", (list.get(i)).getRpt_start());
+                jsonObjArr.put("pay_end", (list.get(i)).getRpt_end());
+                jsonObjArr.put("unit_type", (list.get(i)).getPerson_unit_type());
+                jsonObjArr.put("unit_name", (list.get(i)).getPerson_unit());
+                jsonObjArr.put("rpt_type", (list.get(i)).getRpt_type());
+                jsonObjArr.put("sub_cycle", (list.get(i)).getRpt_cycle()); 
+                jsonObjArr.put("fdid", (list.get(i)).getFdid()); 
+                array.add(jsonObjArr);
+                jsonObjArr = null;
+            }
+            info.put("list", array);
+            array = null; 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.info(ex.getMessage());
+        }
+        return info;    
+    }
 }

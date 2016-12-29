@@ -116,7 +116,14 @@ $(document).on('click', '#save104', function() {
 		return ;
 	}
 	var arr = new Array($("#giveRole_role_cd", navTab.getCurrentPanel()).val(),ids);
-	createJsonAndAjaxNew("giveThisRoleFuntions.action", arr,dealGiveAuthMsg,'json',true); 
+	
+	//确认分配
+	alertMsg.confirm("是否确认分配权限！", {
+		 okCall: function(){ 
+				createJsonAndAjaxNew("giveThisRoleFuntions.action", arr,dealGiveAuthMsg,'json',true); 
+		 },
+		 cancelCall : function() {}
+		});		
 });
 
 

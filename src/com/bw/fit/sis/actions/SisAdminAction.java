@@ -1327,4 +1327,29 @@ public class SisAdminAction extends BaseAction{
         }             
         return null ;
     }
+    /**
+     * 
+     */
+    public String getThisApplyInfoByFlowId(){
+        try {
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            JSONObject obj = (JSONObject) JSONValue.parse(str);
+            JSONArray array = (JSONArray) obj.get("content");
+            String param1 = (String) (((JSONObject) array.get(0)).get("param1")); 
+            SystemCommonModel c = new SystemCommonModel();               
+            c.setFlow_id(param1); 
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")) .getStaff_id());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
+            JSONObject objItem = ((SisServiceImpl) getBean("sisServiceImpl")).getThisApplyInfoByFlowId(c);
+            // 建立关联关系
+            wr.write(objItem.toJSONString());
+            wr.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }             
+        return null ;
+    }
 }

@@ -36,8 +36,9 @@
 		<action name="getAllRptingSituation"   class="sisAdminAction"   method="getAllRptingSituation" />
 		<action name="uploadNTPhotos"   class="sisAdminAction"   method="uploadNTPhotos" />
 		<action name="uploadNTPhotosNew"   class="sisAdminAction"   method="uploadNTPhotosNew" />
+		<!-- 获取补贴后，该人的本笔记录的详情 -->
+		<action name="getThisApplyInfoByFlowId"  class="sisAdminAction"   method="getThisApplyInfoByFlowId" />
 		
-
 		
 	</package>
 </struts>  
