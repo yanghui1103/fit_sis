@@ -21,6 +21,7 @@ $(function(){
 	 
 	var allJlId = $("input[name='allRptedFlId']:checked").val();
 	if($("input[name='allRptedFlId']:checked").length <1){
+		navTab.closeCurrentTab();
 		alertMsg.error("请选择记录");return ;
 	} 
 	var array = new Array();
@@ -29,6 +30,7 @@ $(function(){
 });
 function dealInitCheckTopPage(data){ 
 	if(data.res!='2'){
+		navTab.closeCurrentTab();
 		alertToPageMsg(data);return ;}
 	var json = data.list ; 
 	$("#person_name",navTab.getCurrentPanel()).val(json[0].person_name);

@@ -21,6 +21,7 @@ $(function(){
 	 
 	var allJlId = $("input[name='recId']:checked").val();
 	if($("input[name='recId']:checked").length <1){
+		navTab.closeCurrentTab();
 		alertMsg.error("请选择记录");return ;
 	} 
 	var array = new Array();
@@ -29,6 +30,7 @@ $(function(){
 });
 function dealInitCheckTopPage(data){ 
 	if(data.res!='2'){
+		navTab.closeCurrentTab();
 		alertToPageMsg(data);return ;}
 	var json = data.binfo_list ; 
 	$("#person_name",navTab.getCurrentPanel()).val(json[0].person_name);
