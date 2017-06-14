@@ -367,7 +367,9 @@ rp.state temp_str3,(select item_name from sys_item where fdid= rp.state and ityp
          <!-- 检查是否有身份证号码正在进行申报中 -->
          <select id="checkPsnRpting"  parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
         select  av.id_ temp_str1 from act_ru_task av ,  act_hi_varinst av2 
-		where av.proc_inst_id_ = av2.proc_inst_id_ and av2.name_ ='card_id' and av2.text_=#{card_id}
+    	where av.proc_inst_id_ = av2.proc_inst_id_ and av2.name_ ='card_id' and av2.text_=#{card_id}
+    	union all
+    	select a.flow_id temp_str1 from  co_rpt_reconds a where 1=1 and a.isdeleted='0' and a.card_id =#{card_id}
          </select>
          <!-- 补贴报表 -->
          <select id="rptOfficeApplyedReport"  parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">

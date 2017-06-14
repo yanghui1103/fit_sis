@@ -1404,7 +1404,7 @@ public class SisAdminAction extends BaseAction{
             if(!"2".equals(info3.get("res"))){
                 wr.write(info3.toJSONString());
                 wr.close();
-                return null ;
+                return null ;  
             } 
             /*
              * end

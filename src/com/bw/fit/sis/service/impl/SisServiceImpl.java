@@ -1444,8 +1444,9 @@ public class SisServiceImpl implements SisService {
 
     @Override
     public JSONObject auditEasyRptRecond(SystemCommonModel c) { 
+        c.setTemp_str2("xiuGai"); // 审核不通过，到会到修改
         c.setSql("sisAdminDAO.auditEasyRptRecond");
-        JSONObject json = sisMybatisDaoUtil.sysInsertData(c.getSql(),c);
+        JSONObject json = sisMybatisDaoUtil.sysUpdateData(c.getSql(),c);
         if("1".equals(json.get("res"))){
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();  
             return json ;
@@ -1457,7 +1458,7 @@ public class SisServiceImpl implements SisService {
     public JSONObject guidangRptRecond(SystemCommonModel c) {
         c.setTemp_str2("guiDang");
         c.setSql("sisAdminDAO.auditEasyRptRecond");
-        JSONObject json = sisMybatisDaoUtil.sysInsertData(c.getSql(),c);
+        JSONObject json = sisMybatisDaoUtil.sysUpdateData(c.getSql(),c);
         if("1".equals(json.get("res"))){
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();  
             return json ;
