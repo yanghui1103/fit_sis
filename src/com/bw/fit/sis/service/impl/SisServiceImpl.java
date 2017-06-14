@@ -76,18 +76,20 @@ public class SisServiceImpl implements SisService {
                 calendar_end.setTime(sdf.parse(c.getEnd_date()));
                 List bList = getAllDateBetweenDays(calendar_start,calendar_end );
                 for(int j=0;j<list.size();j++){
-                    calendar_start = Calendar.getInstance(); 
-                    calendar_end = Calendar.getInstance(); 
-                    calendar_start.setTime(sdf.parse(list.get(j).getStart_date()));
-                    calendar_end.setTime(sdf.parse(list.get(j).getEnd_date()));
-                    List aList = getAllDateBetweenDays(calendar_start,calendar_end );
-                    for(int i1 = 0 ;i1<bList.size();i1++){
-                        for(int i2=0;i2<aList.size();i2++){
-                            if(bList.get(i1).toString().equals(aList.get(i2).toString())){
-                                info.put("res", "1");
-                                info.put("msg", "机构存在交叉日期");
-                                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
-                                return info ;
+                    if(list.get(j)==null || list.get(j).getStart_date()!=null || !"".equals(list.get(j).getStart_date())){
+                        calendar_start = Calendar.getInstance(); 
+                        calendar_end = Calendar.getInstance(); 
+                        calendar_start.setTime(sdf.parse(list.get(j).getStart_date()));
+                        calendar_end.setTime(sdf.parse(list.get(j).getEnd_date()));
+                        List aList = getAllDateBetweenDays(calendar_start,calendar_end );
+                        for(int i1 = 0 ;i1<bList.size();i1++){
+                            for(int i2=0;i2<aList.size();i2++){
+                                if(bList.get(i1).toString().equals(aList.get(i2).toString())){
+                                    info.put("res", "1");
+                                    info.put("msg", "机构存在交叉日期");
+                                    TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 侵入式开发
+                                    return info ;
+                                }
                             }
                         }
                     }
@@ -1433,6 +1435,15 @@ public class SisServiceImpl implements SisService {
     public JSONObject createEasyRptRecond(SystemCommonModel c) {
         c.setFdid(getUUID());
         c.setFlow_id(getUUID());
+        c.setSql("sisAdminDAO.getExistsPsn");
+        if(sisMybatisDaoUtil.getListData(c.getSql(), c).size()<1){            
+            c.setSql("sisAdminDAO.createPersonInfo");
+            JSONObject json = sisMybatisDaoUtil.sysInsertData(c.getSql(),c);
+            if("1".equals(json.get("res"))){
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();  
+                return json ;
+            }
+        }
         c.setSql("sisAdminDAO.createEasyRptRecond");
         JSONObject json = sisMybatisDaoUtil.sysInsertData(c.getSql(),c);
         if("1".equals(json.get("res"))){
@@ -1470,5 +1481,59 @@ public class SisServiceImpl implements SisService {
             return json ;
         }
         return json ;
+    }
+
+    @Override
+    public JSONObject qryEasyWaitCheckRecordList(SystemCommonModel c) {
+        // TODO Auto-generated method stub
+        JSONObject info = new JSONObject();
+        try {
+            List<String> ls = new ArrayList<String>();
+            String[] arr = c.getTemp_str1().split(",");
+            for(int i=0;i<arr.length;i++){
+                ls.add(arr[i]);
+            }
+            c.setTemp_list(ls);
+            c.setSql("sisAdminDAO.qryEasyWaitCheckRecordList");
+            List<SystemCommonModel> list = sisMybatisDaoUtil.getListData(
+                    c.getSql(), c); 
+            if(list.size()<1){
+                info.put("res", "1");
+                info.put("msg","无数据");
+                info.put("pageNum","0");
+                info.put("tatol", "0");
+                return info ;
+            }else{
+                info.put("res", "2");
+                info.put("msg","执行成功"); 
+            }
+            JSONArray array = new JSONArray();
+            for(int i=0;i<list.size();i++){
+                JSONObject jsonObjArr = new JSONObject();  
+                jsonObjArr.put("fdid", (list.get(i)).getFdid());
+                jsonObjArr.put("person_name", (list.get(i)).getPerson_name());
+                jsonObjArr.put("card_id", (list.get(i)).getCard_id()); 
+                jsonObjArr.put("start_date", (list.get(i)).getStart_date());
+                jsonObjArr.put("end_date", (list.get(i)).getEnd_date());
+                jsonObjArr.put("creator", (list.get(i)).getStaff_name()); 
+                jsonObjArr.put("create_time", (list.get(i)).getCreate_time()); 
+                jsonObjArr.put("staff_company_name", (list.get(i)).getStaff_company_name()); 
+                array.add(jsonObjArr);
+                jsonObjArr = null;
+            }
+            info.put("list", array);
+            array = null;
+            c.setEnd_num("-9");
+            List<SystemCommonModel> list_total = sisMybatisDaoUtil.getListData(
+                    c.getSql(), c); 
+            info.put("pageNum", 
+                    getPageTatolNum(list_total.size(),
+                            Integer.valueOf(c.getRecord_tatol())));
+            info.put("tatol", list_total.size());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.info(ex.getMessage());
+        }
+        return info;   
     }
 }

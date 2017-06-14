@@ -18,8 +18,8 @@
 	</insert>
 	<select id="checkCompanyExisteSubCycle" parameterType="com.bw.fit.common.models.SystemCommonModel"
 		resultType="com.bw.fit.common.models.SystemCommonModel">
-		   select start_date,end_date ,cp.company_name from sub_cycle sc,company cp 
-    where sc.org_id = cp.fdid and org_id =#{temp_str3}  and sc.isdeleted='0'  
+		   select nvl(to_char(start_date,'yyyy-MM-dd'),'1900-01-01') start_date, nvl(to_char(end_date,'yyyy-MM-dd'),'1900-01-01') end_date ,cp.company_name from sub_cycle sc,company cp 
+    where sc.org_id = cp.fdid  and org_id =#{temp_str3}  and sc.isdeleted='0'  
 		</select>
 		<!-- 周期列表 -->
 		<select id="qryAllCycleInfoList"  parameterType="com.bw.fit.common.models.SystemCommonModel"
@@ -369,7 +369,7 @@ rp.state temp_str3,(select item_name from sys_item where fdid= rp.state and ityp
         select  av.id_ temp_str1 from act_ru_task av ,  act_hi_varinst av2 
     	where av.proc_inst_id_ = av2.proc_inst_id_ and av2.name_ ='card_id' and av2.text_=#{card_id}
     	union all
-    	select a.flow_id temp_str1 from  co_rpt_reconds a where 1=1 and a.isdeleted='0' and a.card_id =#{card_id}
+    	select Translate(a.flow_id USING NCHAR_CS)  temp_str1 from  co_rpt_reconds a where 1=1 and a.isdeleted='0' and a.card_id =#{card_id}
          </select>
          <!-- 补贴报表 -->
          <select id="rptOfficeApplyedReport"  parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
@@ -453,9 +453,13 @@ and sc.cycle_code =  #{rpt_cycle}
        <!-- 简化录入 -->
        <insert id="createEasyRptRecond"   parameterType="com.bw.fit.common.models.SystemCommonModel">
        insert into co_rpt_reconds (fdid,flow_id,person_name,card_id,unit_type,unit_name,pay_start,pay_end,
-		person_type,sub_cycle,rpt_type,isdeleted,create_time,  creator,   state ) values 
-		(#{fdid},#{flow_id},#{person_name},#{card_id},#{unit_type},#{unit_name},#{pay_start},#{pay_end},#{person_type},#{sub_cycle},#{rpt_type},'0',
+		sub_cycle,rpt_type,isdeleted,create_time,  creator,   state ) values 
+		(#{fdid},#{flow_id},#{person_name},#{card_id},#{person_unit_type},#{person_unit},#{rpt_start},#{rpt_end},#{rpt_cycle},#{rpt_type},'0',
 		sysdate,#{staff_id},'waitAudit')
+       </insert>
+       <!-- 简化录入人 -->
+       <insert id="createEasyRpter"  parameterType="com.bw.fit.common.models.SystemCommonModel">
+       
        </insert>
        <!-- 简化版审核 -->
        <update id="auditEasyRptRecond"  parameterType="com.bw.fit.common.models.SystemCommonModel">
@@ -468,4 +472,35 @@ and sc.cycle_code =  #{rpt_cycle}
  		a.pay_start, a.pay_end,a.person_type,a.sub_cycle,a.rpt_type,a.flow_id,
  		a.isdeleted,a.create_time,a.create_time,a.creator,null,null,null from  co_rpt_reconds a where fdid =#{fdid}
        </insert>
+       <select id="qryEasyWaitCheckRecordList"  parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+        select * from (    select rr.fdid,rp.person_name,rp.card_id,rr.pay_start start_date,  rr.pay_end end_date,
+    (select staff_name from staff where fdid = rr.creator)  staff_name ,rr.create_time,
+    (select cp.fdid from company cp,staff2company scc where cp.fdid = scc.company_id and scc.staff_id = rr.creator) staff_company_id ,
+    (select company_name from company cp,staff2company scc where cp.fdid = scc.company_id and scc.staff_id = rr.creator) staff_company_name ,
+    (select item_name from sys_item where  fdid = rr.state and itype='CO_STATE') item_state,rownum pageno,rr.rpt_type ,rr.sub_cycle cycle_code
+    from  co_rpt_reconds rr,rpt_person rp
+    where rr.card_id = rp.card_id and rr.isdeleted ='0' 
+        ) cc where 1=1 
+  			<if test="person_name !='-9'">
+ 		 		and  cc.person_name like '%'||#{person_name}||'%'  
+ 		 </if>
+  			<if test="card_id !='-9'">
+ 		 		and  cc.card_id like '%'||#{card_id}||'%'  
+ 		 </if>
+ 		 <if test="temp_str1 !='-9'">
+ 		 and cc.staff_company_id  in
+  			<foreach item="item" index="index" collection="temp_list" open="(" separator="," close=")">  
+  					#{item}  
+ 			</foreach>    
+ 		 </if>
+  			<if test="rpt_type !='-9'">
+ 		 		and  cc.rpt_type =  #{rpt_type} 
+ 		 </if>
+  			<if test="rpt_cycle !='-9'">
+ 		 		and  sc.cycle_code =#{rpt_cycle}  
+ 		 </if>		
+ 		 <if test="end_num !='-9'">
+  				<![CDATA[  and cc.pageno >= #{start_num} and cc.pageno< #{end_num} ]]>
+  		</if>      
+       </select>
 </mapper>

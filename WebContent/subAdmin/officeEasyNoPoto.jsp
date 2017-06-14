@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="subAdmin/officeAptNohasNantian.js"></script>
+<script type="text/javascript" src="subAdmin/officeEasyNoPoto.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){	
 	Init();
@@ -14,7 +14,7 @@ $(document).ready(function(){
 	for(var i in arr.length){
 		 arr[i] = "-9";		 
 	}
-	arr[0] = "205";arr[1] = "navTab"; 
+	arr[0] = "211";arr[1] = "navTab"; 
 	renderBtnsToDiv( $("#subBar", navTab.getCurrentPanel())  ,'getAuthorityBtnsByThisUser.action',arr);
 	 arr[0] = "ROLE2SUBTYPE"; 
 	 takeCustomValueByOther($("#rpt_type",navTab.getCurrentPanel()),"getCustomValueByOther.action","1", arr);	
@@ -56,7 +56,7 @@ $(document).ready(function(){
 
 
 // 保存申报信息
-baidu(document).on('click', '#save205', function() {	  
+baidu(document).on('click', '#save211', function() {	  
 	 var card_id = $("#card_id",navTab.getCurrentPanel()).val();
 	 var gender = $("#gender",navTab.getCurrentPanel()).val();
 	 var rpt_type = $("#rpt_type",navTab.getCurrentPanel()).val(); 
@@ -142,32 +142,32 @@ function checkNewPerson(){
 		<div class="pageFormContent" layoutH="56">
 			<p>
 				<label>申报人姓名：</label>
-				<input   id="person_name" name="person_name"   class="required" type="text"    style="float:left"  readonly   />
+				<input   id="person_name" name="person_name"   class="required" type="text"  readonly  style="float:left"     />
 			</p>  
 			<p>
 				<label>身份证号码：</label>
-				<input   id="card_id" name="card_id"   class="required" type="text"   maxlength=18  style="float:left"  readonly   />
+				<input   id="card_id" name="card_id"   class="required" type="text"   maxlength=18   readonly  style="float:left"     />
 			</p> 
 			<p>
 				<label>申报人性别：</label> 
-				<select id="gender"  name="gender"     style="float:left"  disabled  > 
+				<select id="gender"  name="gender"     style="float:left"   disabled  > 
 				<option value="-9">请选择</option>
 				<option value="0">女</option>
 				<option value="1">男</option>
 				</select>
-				<input  type="hidden"  id="person_gender" name="person_gender"   readonly  />
+				<input  type="hidden"  id="person_gender" name="person_gender"     />
 			</p>   
 			<p>
 				<label>出生日期：</label>
-				<input   id="birchday" name="birchday"   class="required" type="text"    style="float:left"      readonly     />
+				<input   id="birchday" name="birchday"   class="required" type="text"   readonly   style="float:left"           />
 			</p>   
 			<p>
 				<label>民族：</label>
-				<input   id="nation" name="nation"   class="required" type="text"    style="float:left"       readonly    />
+				<input   id="nation" name="nation"   class="required" type="text"   readonly   style="float:left"           />
 			</p>   
 			<p>
 				<label>签发机构：</label>
-				<input   id="orgin" name="orgin"   class="required" type="text"    style="float:left"     readonly      />
+				<input   id="orgin" name="orgin"   class="required" type="text"   readonly   style="float:left"           />
 			</p>    
 			<p>
 				<label>联系电话：</label>
@@ -175,7 +175,7 @@ function checkNewPerson(){
 			</p>     
 			<p>
 				<label>人员类型：</label>
-				<input   id="p_type" name="p_type"   class="required" type="text"    style="float:left" maxlength=12      readonly    />
+				<input   id="p_type" name="p_type"   class="required" type="text"    readonly   style="float:left" maxlength=12          />
 			</p>  
 		<div><input type="button"  id="getCardInfo"  value="读取身份证卡信息"/>
 		<input type="button"  id="getPersonInfo"  value="申领概况"/></div>

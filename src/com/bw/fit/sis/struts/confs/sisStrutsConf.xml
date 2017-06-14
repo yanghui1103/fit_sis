@@ -20,6 +20,8 @@
 		<action name="createOldPersonRptRecond"   class="sisAdminAction"   method="createOldPersonRptRecond" />
 		<action name="createThisPersonRptRecond"   class="sisAdminAction"   method="createThisPersonRptRecond" />
 		<action name="qryWaitCheckRecordList"   class="sisAdminAction"   method="qryWaitCheckRecordList" />
+		<action name="qryEasyWaitCheckRecordList"   class="sisAdminAction"   method="qryEasyWaitCheckRecordList" />
+		
 		<action name="qryWaitCheckRecordList_finance"   class="sisAdminAction"   method="qryWaitCheckRecordList_finance" />
 		<action name="getThisCheckInfoAll"   class="sisAdminAction"   method="getThisCheckInfoAll" />
 		<action name="updateRptRecond"   class="sisAdminAction"   method="updateRptRecond" />

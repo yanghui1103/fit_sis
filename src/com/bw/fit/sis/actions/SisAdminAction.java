@@ -853,6 +853,38 @@ public class SisAdminAction extends BaseAction{
         }
         return null ;
     }
+    
+
+    public String qryEasyWaitCheckRecordList(){
+        try {
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            JSONObject obj = (JSONObject) JSONValue.parse(str);
+            JSONArray array = (JSONArray) obj.get("content");
+            String param1 = (String) (((JSONObject) array.get(0)).get("param1")); 
+            SystemCommonModel c = new SystemCommonModel();  
+            c.setPerson_name(param1);
+            c.setCard_id((String) (((JSONObject) array.get(0)).get("param2")));
+            c.setTemp_str1((String) (((JSONObject) array.get(0)).get("param3")));
+            c.setRpt_type((String) (((JSONObject) array.get(0)).get("param4")));
+            c.setRpt_cycle((String) (((JSONObject) array.get(0)).get("param5")));
+            c.setStart_num((String) (((JSONObject) array.get(0)).get("param6")));
+            c.setEnd_num((String) (((JSONObject) array.get(0)).get("param7")));
+            c.setTotal_reords((String) (((JSONObject) array.get(0)).get("param8")));
+            c.setRecord_tatol(c.getTotal_reords());
+            c.setTemp_str3((String) (((JSONObject) array.get(0)).get("param9")));
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")) .getStaff_id());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
+            JSONObject objItem = ((SisServiceImpl) getBean("sisServiceImpl")).qryEasyWaitCheckRecordList(c);
+            wr.write(objItem.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null ;
+    }
     /***
      * 查询该角色，所选中的组织
      * 下所有的财务拨款记录列表
@@ -1366,8 +1398,7 @@ public class SisAdminAction extends BaseAction{
                 if("card_id".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
                     c.setCard_id(((JSONObject)array.get(i)).get("value").toString());
                 }else if("person_name".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
-                    c.setPerson_name(((JSONObject)array.get(i)).get("value").toString());
-                    c.setTemp_str1(((JSONObject)array.get(i)).get("value").toString());
+                    c.setPerson_name(((JSONObject)array.get(i)).get("value").toString()); 
                 } else if("person_gender".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
                     c.setPerson_gender(((JSONObject)array.get(i)).get("value").toString());
                 }    else if("nation".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
@@ -1394,7 +1425,8 @@ public class SisAdminAction extends BaseAction{
             c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")).getStaff_id()); 
             c.setStaff_company_id(((LoginUser) session.getAttribute("LoginUser")).getOrg_cd());
             c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
-
+            c.setCreate_time(PubFun.getSysDate());
+            c.setFirst_time( PubFun.getTruncSysDate());
             /**
              * start:这个人是否有正在申报中的记录,如果有就跳出去
              */ 
