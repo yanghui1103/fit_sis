@@ -38,7 +38,7 @@
 		<action name="uploadNTPhotosNew"   class="sisAdminAction"   method="uploadNTPhotosNew" />
 		<!-- 获取补贴后，该人的本笔记录的详情 -->
 		<action name="getThisApplyInfoByFlowId"  class="sisAdminAction"   method="getThisApplyInfoByFlowId" />
-		
+		<action name="createEasyRptRecond"   class="sisAdminAction"   method="createEasyRptRecond" />
 		
 	</package>
 </struts>  

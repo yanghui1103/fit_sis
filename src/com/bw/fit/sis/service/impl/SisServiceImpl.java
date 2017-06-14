@@ -1428,4 +1428,46 @@ public class SisServiceImpl implements SisService {
         }
         return info;    
     }
+
+    @Override
+    public JSONObject createEasyRptRecond(SystemCommonModel c) {
+        c.setFdid(getUUID());
+        c.setFlow_id(getUUID());
+        c.setSql("sisAdminDAO.createEasyRptRecond");
+        JSONObject json = sisMybatisDaoUtil.sysInsertData(c.getSql(),c);
+        if("1".equals(json.get("res"))){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();  
+            return json ;
+        }
+        return json ;
+    }
+
+    @Override
+    public JSONObject auditEasyRptRecond(SystemCommonModel c) { 
+        c.setSql("sisAdminDAO.auditEasyRptRecond");
+        JSONObject json = sisMybatisDaoUtil.sysInsertData(c.getSql(),c);
+        if("1".equals(json.get("res"))){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();  
+            return json ;
+        }
+        return json ;
+    }
+
+    @Override
+    public JSONObject guidangRptRecond(SystemCommonModel c) {
+        c.setTemp_str2("guiDang");
+        c.setSql("sisAdminDAO.auditEasyRptRecond");
+        JSONObject json = sisMybatisDaoUtil.sysInsertData(c.getSql(),c);
+        if("1".equals(json.get("res"))){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();  
+            return json ;
+        }
+        c.setSql("sisAdminDAO.guidangRptRecond");
+        json = sisMybatisDaoUtil.sysInsertData(c.getSql(),c);
+        if("1".equals(json.get("res"))){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();  
+            return json ;
+        }
+        return json ;
+    }
 }

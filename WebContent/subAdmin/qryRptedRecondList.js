@@ -10,6 +10,7 @@ $(document).ready(function(){
 	 takeTypeDataList($("#rpt_type",navTab.getCurrentPanel()),"getSysItems.action","1", arr);	
 	 arr[0] = "SUBCYCLE"; 
 	 takeTypeDataList($("#sub_cycle",navTab.getCurrentPanel()),"getSysItems.action","1", arr);	
+	 
 });
 
 baidu(document).on('click', '#qry208', function() {

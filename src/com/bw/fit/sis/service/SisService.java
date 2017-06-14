@@ -44,4 +44,7 @@ public interface SisService {
     public JSONObject uploadNTPhotos(SystemCommonModel c,HttpServletRequest request,String path,String toPath);
     public JSONObject uploadNTPhotos2(SystemCommonModel c,HttpServletRequest request,String path,String new_path);
     public JSONObject getThisApplyInfoByFlowId(SystemCommonModel c);
+    public JSONObject createEasyRptRecond(SystemCommonModel c);
+    public JSONObject auditEasyRptRecond(SystemCommonModel c);
+    public JSONObject guidangRptRecond(SystemCommonModel c);
 }

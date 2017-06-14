@@ -448,4 +448,22 @@ and sc.cycle_code =  #{rpt_cycle}
        <select id="getExisteCntByFlowId"    parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
          select  *  from rpt_reconds where flow_id =  #{flow_id}
        </select>
+       <!-- 简化录入 -->
+       <insert id="createEasyRptRecond"   parameterType="com.bw.fit.common.models.SystemCommonModel">
+       insert into co_rpt_reconds (fdid,flow_id,person_name,card_id,unit_type,unit_name,pay_start,pay_end,
+		person_type,sub_cycle,rpt_type,isdeleted,create_time,  creator,   state ) values 
+		(#{fdid},#{flow_id},#{person_name},#{card_id},#{unit_type},#{unit_name},#{pay_start},#{pay_end},#{person_type},#{sub_cycle},#{rpt_type},'0',
+		sysdate,#{staff_id},'waitAudit')
+       </insert>
+       <!-- 简化版审核 -->
+       <update id="auditEasyRptRecond"  parameterType="com.bw.fit.common.models.SystemCommonModel">
+        update co_rpt_reconds set auditor = #{staff_id} ,audit_remark = #{temp_str1},state = #{temp_str2} where fdid = #{fdid}
+       </update>
+       <!-- 简化版归档 -->
+       <insert id="guidangRptRecond"   parameterType="com.bw.fit.common.models.SystemCommonModel">
+       insert into  rpt_reconds
+        select a.fdid,a.person_name,a.card_id,a.unit_type,a.unit_name,
+ 		a.pay_start, a.pay_end,a.person_type,a.sub_cycle,a.rpt_type,a.flow_id,
+ 		a.isdeleted,a.create_time,a.create_time,a.creator,null,null,null from  co_rpt_reconds a where fdid =#{fdid}
+       </insert>
 </mapper>
