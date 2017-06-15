@@ -41,7 +41,7 @@ function initCycleList(obj,num){
 				$tbody.append($tr);
 			}
 		} else{
-			alertMsg.info("暂无需审核的申报记录");return ;
+			alertMsg.info("暂无记录");return ;
 		}
 	},
 			'JSON',false);	

@@ -162,7 +162,7 @@ function checkNewPerson(){
 			</p>    
 			<p>
 				<label>联系电话：</label>
-				<input   id="phone" name="phone"    type="text"    style="float:left" maxlength=12      />
+				<input   id="phone" name="phone"    type="text"   readonly style="float:left" maxlength=12      />
 			</p>     
 			<p>
 				<label>初次申报日期：</label>

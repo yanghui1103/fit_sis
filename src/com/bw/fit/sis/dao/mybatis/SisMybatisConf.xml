@@ -513,7 +513,7 @@ and sc.cycle_code =  #{rpt_cycle}
 (select cycle_name from sub_cycle where fdid =  cr.sub_cycle ) temp_str3   ,
 (select item_name from  sys_item where fdid = cr.unit_type and itype='UNIT_TYPE' ) person_unit_type,cr.unit_name  person_unit,rp.gender person_gender,rp.nation person_nation,rp.phone person_phone
 ,(select staff_name from staff where fdid = cr.auditor) temp_str1,cr.audit_remark temp_str2,cr.unit_type temp_str4,cr.rpt_type temp_str5,
-(select cycle_code from sub_cycle where fdid =  cr.sub_cycle ) temp_str6
+  cr.sub_cycle   temp_str6
 from  co_rpt_reconds cr ,rpt_person rp
 where rp.card_id = cr.card_id  and cr.fdid = #{fdid}        
        </select>

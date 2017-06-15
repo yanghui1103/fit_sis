@@ -1591,6 +1591,13 @@ public class SisServiceImpl implements SisService {
 
     @Override
     public JSONObject deleteEasyRpt(SystemCommonModel c) {
+        c.setSql("sisAdminDAO.getWatUpdFdid");
+        if(sisMybatisDaoUtil.getListData(c.getSql(), c).size()<1){            
+            JSONObject j = new JSONObject();
+            j.put("res", "1");
+            j.put("msg", "订单不处于待修改");
+            return j;
+        } 
         c.setSql("sisAdminDAO.deleteEasyRpt");
         JSONObject json = sisMybatisDaoUtil.sysUpdateData(c.getSql(), c);
         if ("1".equals(json.get("res"))) {
@@ -1602,6 +1609,7 @@ public class SisServiceImpl implements SisService {
 
     @Override
     public JSONObject updateEastRpt(SystemCommonModel c) {
+        JSONObject json = new JSONObject();
         c.setSql("sisAdminDAO.getWatUpdFdid");
         if(sisMybatisDaoUtil.getListData(c.getSql(), c).size()<1){            
             JSONObject j = new JSONObject();
@@ -1609,12 +1617,15 @@ public class SisServiceImpl implements SisService {
             j.put("msg", "订单不处于待修改");
             return j;
         } 
-        c.setSql("sisAdminDAO.updateEastRptor");
-        JSONObject json = sisMybatisDaoUtil.sysUpdateData(c.getSql(), c);
-        if ("1".equals(json.get("res"))) {
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return json;
-        }
+        SystemCommonModel dd = new SystemCommonModel();
+        dd.setCard_id(c.getCard_id());
+        dd.setPerson_phone(c.getPerson_phone());
+        dd.setSql("sisAdminDAO.updateEastRptor"); 
+        //json = sisMybatisDaoUtil.sysUpdateData(dd.getSql(), dd);
+        //if ("1".equals(json.get("res"))) {
+       //     TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+       //     return json;
+        //}
         c.setSql("sisAdminDAO.updateEastRpt");
         json = sisMybatisDaoUtil.sysUpdateData(c.getSql(), c);
         if ("1".equals(json.get("res"))) {
