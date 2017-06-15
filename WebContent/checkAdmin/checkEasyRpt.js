@@ -31,6 +31,7 @@ function initCycleList(obj,num){
 				$tr.append($("<td width=10%>").html(replaceF9ValToUnknown(jsonArr[i].creator)));
 				$tr.append($("<td width=10%>").html(replaceF9ValToUnknown(jsonArr[i].staff_company_name)));
 				$tr.append($("<td width=15%>").html(replaceF9ValToUnknown(jsonArr[i].create_time)));
+				$tr.append($("<td width=10%>").html(replaceF9ValToUnknown(jsonArr[i].state)));
 				$tr.hover(function(){
 					$(this).addClass("hover selected");
 				},

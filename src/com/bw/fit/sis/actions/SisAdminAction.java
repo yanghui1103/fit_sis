@@ -1452,4 +1452,146 @@ public class SisAdminAction extends BaseAction{
         }
         return null ;
     }
+    /****
+     * 获取订单详情
+     */
+    public String getRptDetail(){
+        try {
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            SystemCommonModel c = new SystemCommonModel();  
+            JSONObject j  = (JSONObject) JSONValue.parse(str);  
+            JSONArray array = (JSONArray)j.get("content");
+            c.setFdid(((JSONObject)array.get(0)).get("param1").toString());
+            JSONObject json = ((SisServiceImpl) getBean("sisServiceImpl"))
+                    .getRptDetail(c);
+            wr.write(json.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null ;
+    }
+    /**
+     * 简化版审核
+     */
+    public String checkEasyRpt(){
+        try {
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            SystemCommonModel c = new SystemCommonModel();  
+            JSONArray array  = (JSONArray) JSONValue.parse(str);  
+            for(int i=0;i<array.size();i++){
+                if("fdid".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setFdid(((JSONObject)array.get(i)).get("value").toString());
+                }else if("check_result".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setCheck_result(((JSONObject)array.get(i)).get("value").toString());
+                } else if("check_info".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setCheck_info(((JSONObject)array.get(i)).get("value").toString());
+                }    else if("pass_type".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setTemp_str1(((JSONObject)array.get(i)).get("value").toString());
+                }  
+            }    
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")).getStaff_id()); 
+            c.setStaff_company_id(((LoginUser) session.getAttribute("LoginUser")).getOrg_cd());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
+            JSONObject json  = new JSONObject();
+
+            json = ((SisServiceImpl) getBean("sisServiceImpl"))
+                    .checkEasyRpt(c);
+            wr.write(json.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }                
+        
+        return null ;
+    }
+    /***
+     * 删除简化版记录
+     */
+    public String deleteEasyRpt(){
+        try {
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            SystemCommonModel c = new SystemCommonModel();  
+            JSONArray array  = (JSONArray) JSONValue.parse(str);  
+            for(int i=0;i<array.size();i++){
+                if("fdid".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setFdid(((JSONObject)array.get(i)).get("value").toString());
+                } 
+            }    
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")).getStaff_id()); 
+            c.setStaff_company_id(((LoginUser) session.getAttribute("LoginUser")).getOrg_cd());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
+            JSONObject json  = new JSONObject();
+
+            json = ((SisServiceImpl) getBean("sisServiceImpl"))
+                    .deleteEasyRpt(c);
+            wr.write(json.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }                
+        
+        return null ;
+        
+        
+    }
+    /***
+     * 简化版修改
+     * updateEasyRpt
+     */
+
+    public String updateEasyRpt(){
+        try {
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            SystemCommonModel c = new SystemCommonModel();  
+            JSONArray array  = (JSONArray) JSONValue.parse(str);  
+            for(int i=0;i<array.size();i++){
+                if("fdid".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setFdid(((JSONObject)array.get(i)).get("value").toString());
+                } else if("card_id".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setCard_id(((JSONObject)array.get(i)).get("value").toString());
+                }  else if("phone".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_phone(((JSONObject)array.get(i)).get("value").toString());
+                }   else if("sub_cycle".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setRpt_cycle(((JSONObject)array.get(i)).get("value").toString());
+                } else if("rpt_type".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setRpt_type(((JSONObject)array.get(i)).get("value").toString());
+                } else if("start_date".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setRpt_start(((JSONObject)array.get(i)).get("value").toString());
+                } else if("end_date".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setRpt_end(((JSONObject)array.get(i)).get("value").toString());
+                }   else if("unit_type".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_unit_type(((JSONObject)array.get(i)).get("value").toString());
+                }   else if("unit_name".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_unit(((JSONObject)array.get(i)).get("value").toString());
+                }   
+            }    
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")).getStaff_id()); 
+            c.setStaff_company_id(((LoginUser) session.getAttribute("LoginUser")).getOrg_cd());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
+            JSONObject json  = new JSONObject();
+
+            json = ((SisServiceImpl) getBean("sisServiceImpl"))
+                    .updateEastRpt(c);
+            wr.write(json.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }                        
+        return null ;
+        
+        
+    }
 }

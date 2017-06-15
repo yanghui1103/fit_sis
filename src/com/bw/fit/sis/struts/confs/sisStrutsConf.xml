@@ -24,6 +24,8 @@
 		
 		<action name="qryWaitCheckRecordList_finance"   class="sisAdminAction"   method="qryWaitCheckRecordList_finance" />
 		<action name="getThisCheckInfoAll"   class="sisAdminAction"   method="getThisCheckInfoAll" />
+		<action name="getRptDetail"  class="sisAdminAction"   method="getRptDetail" />
+		<action name="checkEasyRpt"  class="sisAdminAction"   method="checkEasyRpt" />
 		<action name="updateRptRecond"   class="sisAdminAction"   method="updateRptRecond" />
 		<action name="checkRpt"   class="sisAdminAction"   method="checkRpt" />
 		<action name="deleteRptRecond"    class="sisAdminAction"   method="deleteRptRecond" >
@@ -39,8 +41,10 @@
 		<action name="uploadNTPhotos"   class="sisAdminAction"   method="uploadNTPhotos" />
 		<action name="uploadNTPhotosNew"   class="sisAdminAction"   method="uploadNTPhotosNew" />
 		<!-- 获取补贴后，该人的本笔记录的详情 -->
-		<action name="getThisApplyInfoByFlowId"  class="sisAdminAction"   method="getThisApplyInfoByFlowId" />
-		<action name="createEasyRptRecond"   class="sisAdminAction"   method="createEasyRptRecond" />
+		<action name="getThisApplyInfoByFlowId"  class="sisAdminAction"   method="getThisApplyInfoByFlowId"/>
+		<action name="createEasyRptRecond"   class="sisAdminAction"   method="createEasyRptRecond" />  
+		<action name="deleteEasyRpt"   class="sisAdminAction"   method="deleteEasyRpt" />
+		<action name="updateEasyRpt"   class="sisAdminAction"   method="updateEasyRpt" />  
 		
 	</package>
 </struts>  

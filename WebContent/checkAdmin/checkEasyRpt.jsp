@@ -66,6 +66,7 @@ $(document).ready(function(){
 					<th width=10%>录入员</th>
 					<th width=10%>录入机构</th>
 					<th width=15%>录入时间</th>
+					<th width=10%>当前环节</th>
 				</tr>
 			</thead>
 			<tbody>

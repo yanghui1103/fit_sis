@@ -48,4 +48,8 @@ public interface SisService {
     public JSONObject auditEasyRptRecond(SystemCommonModel c);
     public JSONObject guidangRptRecond(SystemCommonModel c);
     public JSONObject qryEasyWaitCheckRecordList(SystemCommonModel c);
+    public JSONObject getRptDetail(SystemCommonModel c);
+    public JSONObject checkEasyRpt(SystemCommonModel c);
+    public JSONObject deleteEasyRpt(SystemCommonModel c);
+    public JSONObject updateEastRpt(SystemCommonModel c);
 }

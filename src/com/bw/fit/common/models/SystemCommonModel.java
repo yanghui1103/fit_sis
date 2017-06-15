@@ -66,6 +66,9 @@ public class SystemCommonModel {
     private String temp_str1;
     private String temp_str2;
     private String temp_str3;
+    private String temp_str4;
+    private String temp_str5;
+    private String temp_str6;
     private List<String> temp_list ;
     private String rpt_date; 
     private String card_id; 
@@ -198,6 +201,25 @@ public class SystemCommonModel {
     }
     public int getTemp_int3() {
         return temp_int3;
+    }
+    
+    public String getTemp_str4() {
+        return temp_str4;
+    }
+    public void setTemp_str4(String temp_str4) {
+        this.temp_str4 = temp_str4;
+    }
+    public String getTemp_str5() {
+        return temp_str5;
+    }
+    public void setTemp_str5(String temp_str5) {
+        this.temp_str5 = temp_str5;
+    }
+    public String getTemp_str6() {
+        return temp_str6;
+    }
+    public void setTemp_str6(String temp_str6) {
+        this.temp_str6 = temp_str6;
     }
     public void setTemp_int3(int temp_int3) {
         this.temp_int3 = temp_int3;

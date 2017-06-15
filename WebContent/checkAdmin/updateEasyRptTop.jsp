@@ -6,13 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
 <script type="text/javascript">
 $(function(){
-	var arr = new Array(60);
-	for(var i in arr.length){
-		 arr[i] = "-9";		 
-	}  
-	 arr[0] = "CHECKRT"; 
-	 takeTypeDataList($("#check_result",navTab.getCurrentPanel()),"getSysItems.action","1", arr);	 
-	 
+	
 	var allJlId = $("input[name='allJlId']:checked").val();
 	if($("input[name='allJlId']:checked").length <1){
 		navTab.closeCurrentTab();
@@ -26,8 +20,7 @@ function dealInitCheckTopPage(data){
 	if(data.res!='2'){
 		navTab.closeCurrentTab();
 		alertToPageMsg(data);return ;}
-	var json = data.list ; 
- 
+	var json = data.list ;     
 	$("#person_name",navTab.getCurrentPanel()).val(json[0].person_name);
 	$("#card_id",navTab.getCurrentPanel()).val(json[0].card_id);
 	$("#phone",navTab.getCurrentPanel()).val(json[0].phone);
@@ -35,17 +28,35 @@ function dealInitCheckTopPage(data){
 	$("#nation",navTab.getCurrentPanel()).val(json[0].nation);
 	$("#first_date",navTab.getCurrentPanel()).val(json[0].first_time);  
 	$("#unit_name",navTab.getCurrentPanel()).val(json[0].unit_name);
-	$("#unit_type",navTab.getCurrentPanel()).val(json[0].unit_type);
-	$("#rpt_type",navTab.getCurrentPanel()).val(json[0].rpt_type);
-	$("#sub_cycle",navTab.getCurrentPanel()).val(json[0].sub_cycle);
+// 	$("#unit_type",navTab.getCurrentPanel()).val(json[0].unit_type_cd);
+// 	$("#rpt_type",navTab.getCurrentPanel()).val(json[0].rpt_type_cd);
+// 	$("#sub_cycle",navTab.getCurrentPanel()).val(json[0].cycle_cd);
 	$("#start_date",navTab.getCurrentPanel()).val(json[0].start_date);
 	$("#end_date",navTab.getCurrentPanel()).val(json[0].end_date);  	 
 	$("#flow_id",navTab.getCurrentPanel()).val(json[0].fdid);
 	$("#fdid",navTab.getCurrentPanel()).val(json[0].fdid);
 	$("#beforeAuditor",navTab.getCurrentPanel()).val(json[0].beforeAuditor);
 	$("#beforeAudit",navTab.getCurrentPanel()).val(json[0].beforeAudit);
+	
+	initSelectedOpt(json[0].unit_type_cd,json[0].rpt_type_cd,json[0].cycle_cd) ;
 }
 
+
+function initSelectedOpt(unit_type_cd,rpt_type_cd,cycle_cd){
+	var arr = new Array(60);
+	for(var i in arr.length){
+		 arr[i] = "-9";		 
+	}  
+	 arr[0] = "SUB_TYPE"; 
+	 takeTypeDataListV2($("#rpt_type",navTab.getCurrentPanel()),"getSysItems.action","1", arr,rpt_type_cd);	
+	 arr[0] = "UNIT_TYPE"; 
+	 takeTypeDataListV2($("#unit_type",navTab.getCurrentPanel()),"getSysItems.action","1", arr,unit_type_cd);	
+	 arr[0] = "CHECKRT"; 
+	 takeTypeDataList($("#check_result",navTab.getCurrentPanel()),"getSysItems.action","1", arr);	
+	 arr[0] = "SUBCYCLE"; 
+	 takeTypeDataListV2($("#sub_cycle",navTab.getCurrentPanel()),"getSysItems.action","1", arr,cycle_cd);	 
+	 $("#updateERpt",navTab.getCurrentPanel()).initUI();
+}
 $('#getHis', navTab.getCurrentPanel()).click( function() {	   
 	var flow_id = $("#flow_id",navTab.getCurrentPanel()).val();  
 	if(flow_id=="") {alertMsg.info("流程id无效");return ;} 
@@ -60,11 +71,11 @@ $('#getPhoto', navTab.getCurrentPanel()).click( function() {
 	$(".ahrefCss").attr("href","system/attachmentPage.jsp?isRead=1&foregin_id="+flow_id+"");	
 	$(".ahrefCss").trigger("click"); 
 }); 
-//确认审核-复审
-$("#auditFirst", navTab.getCurrentPanel()).click( function() {	   
-	alertMsg.confirm("是否确认对此记录进行复审确认?", {
+// 
+$("#delete", navTab.getCurrentPanel()).click( function() {	   
+	alertMsg.confirm("是否确认删除该记录(不可恢复)?", {
 		 okCall: function(){ 
-			 createJsonAndPost2Java('checkEasyRpt.action',$("#createForm", navTab.getCurrentPanel()),function(data){
+			 createJsonAndPost2Java('deleteEasyRpt.action',$("#createForm", navTab.getCurrentPanel()),function(data){
 				 navTab.closeCurrentTab();
 				 alertToPageMsg(data);		
 			 },'JSON',false) ;
@@ -74,6 +85,17 @@ $("#auditFirst", navTab.getCurrentPanel()).click( function() {
 }); 
 
 
+$("#update", navTab.getCurrentPanel()).click( function() {	   
+	alertMsg.confirm("是否确认修改该记录?", {
+		 okCall: function(){ 
+			 createJsonAndPost2Java('updateEasyRpt.action',$("#createForm", navTab.getCurrentPanel()),function(data){
+				 navTab.closeCurrentTab();
+				 alertToPageMsg(data);		
+			 },'JSON',false) ;
+		 },
+		 cancelCall : function() {}
+		});		
+}); 
 
 $('#getPersonInfo', navTab.getCurrentPanel()).click( function() {	  
 	var card_id = $("#card_id",navTab.getCurrentPanel()).val();   
@@ -116,7 +138,7 @@ function checkNewPerson(){
 </head>
 <body>
 
-	<div class="pageContent">
+	<div id="updateERpt" class="pageFormContent">
 	<form method="post" action=""  id=createForm class="pageForm required-validate">
 		<div class="pageFormContent" layoutH="116">
 			<p>
@@ -140,7 +162,7 @@ function checkNewPerson(){
 			</p>    
 			<p>
 				<label>联系电话：</label>
-				<input   id="phone" name="phone"    type="text"    style="float:left" maxlength=12  readonly    />
+				<input   id="phone" name="phone"    type="text"    style="float:left" maxlength=12      />
 			</p>     
 			<p>
 				<label>初次申报日期：</label>
@@ -149,27 +171,30 @@ function checkNewPerson(){
 		<div class="divider"></div>	
 		<p>
 				<label>就业单位名称：</label>
-				<input   id="unit_name" name="unit_name"   class="required" type="text"   readonly  style="float:left"  maxlength=20     />
+				<input   id="unit_name" name="unit_name"   class="required" type="text"     style="float:left"  maxlength=20     />
 			</p>  
 		<p>
-				<label>就业单位类型：</label>			 
-				<input type=text id="unit_type"  readonly />
+				<label>就业单位类型：</label>				
+				<select id="unit_type"  name="unit_type"     style="float:left" > 
+				</select>
 			</p>  
 		<p>
 				<label>补贴类型：</label>				
-				<input type=text id="rpt_type"  readonly />
+				<select id="rpt_type"  name="rpt_type"    style="float:left" > 
+				</select>
 			</p> 
 		<p>
-				<label>申报周期：</label>				 
-				<input type=text id="sub_cycle"  readonly />
+				<label>申报周期：</label>				
+				<select id="sub_cycle"  name="sub_cycle"    style="float:left" > 
+				</select>
 			</p>   
 				<p>
 				<label>票据缴费开始月份：</label>
-				<input id=start_date ename="开始日期" name="start_date" type="text" class="date required "  disabled datefmt='yyyyMM' style="float:left"  readonly="true" />
+				<input id=start_date ename="开始日期" name="start_date" type="text" class="date required "    datefmt='yyyyMM' style="float:left"   />
 			</p>
 				<p>
 				<label>票据缴费结束月份：</label>
-				<input id=end_date ename="结束日期"  name="end_date" type="text" class="date required " disabled  datefmt='yyyyMM' style="float:left"  readonly="true" />
+				<input id=end_date ename="结束日期"  name="end_date" type="text" class="date required "   datefmt='yyyyMM' style="float:left"   />
 			</p>
 		<p>
 			<label>上次审核人：</label>
@@ -185,27 +210,23 @@ function checkNewPerson(){
 		<button id="getPhoto"   type="button" >查看附件</button>
 		<input type="button"  id="getPersonInfo"  value="申领概况"/> 
 		</p>
+		</div> 
+		<div class="formBar" id="subBar">
+				<ul>
+					<li><div class="buttonActive">
+							<div class="buttonContent">
+								<button type="button"  id="update" >保存</button>
+							</div>
+						</div></li>
+					<li><div class="buttonActive">
+							<div class="buttonContent">
+								<button type="button"  id="delete" >确认删除</button>
+							</div>
+						</div></li>
+				</ul>
 		</div>
-		<div class="pageFormContent"> 
-		<div class="divider"></div>	
-		<p><label>审核结果：</label>		
-				<select id="check_result"  name="check_result"    style="float:left" > 
-				</select>
-		</p>
-		<p><label>审核备注：</label>		
-		<input  type="text"  maxlength=15  id="check_info"  name="check_info"       />
-		</p>
 		</form>
 </div> 	
-
-		<div   style="display:none;">
-		<a class="button checkHis"  target="dialog" rel="dlg_page115" mask="true" title="审核历史"></a>  
-		<a class="button ahrefCss"  target="dialog" rel="dlg_page101" mask="true" title="附件"><span>附件</span></a>
-		<a class="button rptedInfos"  target="dialog" rel="dlg_page113" mask="true" title="申领概况"><span>申领概况</span></a>  
-		</div>
-		
-		<div class="formBar" id="subBar">
-		<button type=button id="auditFirst">审核确认</button>
-		</div>
+ 
 </body>
 </html>

@@ -480,6 +480,28 @@ function takeTypeDataList(control,action,isSelect,array){
  }
 
 
+function takeTypeDataListV2(control,action,isSelect,array,selectVal){ 
+	var eJson = createParamJsonCommon(array);
+	eJson = JSON.stringify(eJson); 
+	var args = {
+		"context" : eJson
+	};
+	baidu.post(action, args, function(json) {   
+		// 请选择
+		if(isSelect == '1'){
+			control.append("<option value='-9'>---请选择---</option>");
+		}    
+		for(var i=0;i< json.length;i++){
+			if(json[i].id == selectVal){
+				control.append("<option selected  value='"+json[i].id+"'>"+json[i].name+"</option>");
+			}else{
+				control.append("<option value='"+json[i].id+"'>"+json[i].name+"</option>");
+			}
+		}
+		//control.addClass("combox");
+		//control.combox();
+	},  'json');
+ }
 
 
 

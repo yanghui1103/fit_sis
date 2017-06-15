@@ -463,7 +463,7 @@ and sc.cycle_code =  #{rpt_cycle}
        </insert>
        <!-- 简化版审核 -->
        <update id="auditEasyRptRecond"  parameterType="com.bw.fit.common.models.SystemCommonModel">
-        update co_rpt_reconds set auditor = #{staff_id} ,audit_remark = #{temp_str1},state = #{temp_str2} where fdid = #{fdid}
+        update co_rpt_reconds set auditor = #{staff_id} ,audit_remark = #{check_info},state = #{temp_str2} where fdid = #{fdid}
        </update>
        <!-- 简化版归档 -->
        <insert id="guidangRptRecond"   parameterType="com.bw.fit.common.models.SystemCommonModel">
@@ -503,4 +503,36 @@ and sc.cycle_code =  #{rpt_cycle}
   				<![CDATA[  and cc.pageno >= #{start_num} and cc.pageno< #{end_num} ]]>
   		</if>      
        </select>
+       <!-- 获取订单的详情 -->
+       <select id="getRptDetail"   parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+           select cr.fdid,rp.person_name,cr.card_id,cr.pay_start start_date,cr.pay_end end_date,
+(select staff_name from staff where fdid = cr.creator) staff_name ,cr.create_time,
+ (select fdid from company cp,staff2company scc where cp.fdid = scc.company_id and scc.staff_id = cr.creator) staff_company_id ,
+ (select company_name from company cp,staff2company scc where cp.fdid = scc.company_id and scc.staff_id = cr.creator) staff_company_name ,
+ (select item_name from sys_item where itype='SUB_TYPE' and fdid = cr.rpt_type)   rpt_type,
+(select cycle_name from sub_cycle where fdid =  cr.sub_cycle ) temp_str3   ,
+(select item_name from  sys_item where fdid = cr.unit_type and itype='UNIT_TYPE' ) person_unit_type,cr.unit_name  person_unit,rp.gender person_gender,rp.nation person_nation,rp.phone person_phone
+,(select staff_name from staff where fdid = cr.auditor) temp_str1,cr.audit_remark temp_str2,cr.unit_type temp_str4,cr.rpt_type temp_str5,
+(select cycle_code from sub_cycle where fdid =  cr.sub_cycle ) temp_str6
+from  co_rpt_reconds cr ,rpt_person rp
+where rp.card_id = cr.card_id  and cr.fdid = #{fdid}        
+       </select>
+       <select id="getExisCheckFdid"  parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+          select * from  co_rpt_reconds  a where a.state = 'waitAudit' and fdid = #{fdid}  and isdeleted ='0'        
+       </select>
+       <select id="getWatUpdFdid"  parameterType="com.bw.fit.common.models.SystemCommonModel" 	resultType="com.bw.fit.common.models.SystemCommonModel">
+          select * from  co_rpt_reconds  a where a.state = 'xiuGai' and fdid = #{fdid}  and isdeleted ='0'        
+       </select>
+       <!-- 简化版删除 -->
+       <update id="deleteEasyRpt"   parameterType="com.bw.fit.common.models.SystemCommonModel">
+       update co_rpt_reconds set isdeleted='1' where fdid = #{fdid}
+       </update>
+       <!-- 修改录入人电话 -->
+       <update id="updateEastRptor"   parameterType="com.bw.fit.common.models.SystemCommonModel">
+       update rpt_person set phone = #{person_phone} where card_id = #{card_id}
+       </update>
+       <update id="updateEastRpt"   parameterType="com.bw.fit.common.models.SystemCommonModel">
+        update co_rpt_reconds  a set a.unit_type = #{person_unit_type},a.unit_name=#{person_unit},state='waitAudit',
+		pay_start = #{rpt_start},pay_end=#{rpt_end},sub_cycle =#{rpt_cycle},rpt_type=#{rpt_type} where fdid = #{fdid}
+       </update>
 </mapper>
