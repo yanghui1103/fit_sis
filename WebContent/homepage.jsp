@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="icon" href="images/icon.gif" type="images/gif"/> 
-<title>系统</title>
+<title>鄂尔多斯市困难人员补贴申报管理系统</title>
 <link href="common/css/css_old.css" rel="stylesheet" type="text/css" media="screen"/>
 <link href="themes/default/style.css" rel="stylesheet" type="text/css" media="screen"/>
 <link href="themes/css/core.css" rel="stylesheet" type="text/css" media="screen"/>
@@ -100,7 +100,11 @@ $(function(){
 		generateTree();
    		initDwzPage();   		
 });
- 
+
+function reloadPage() {
+	window.location.href = window.location.href;
+	window.location.reload();
+}
 </script>
 </head>
 
@@ -114,6 +118,7 @@ $(function(){
 					<li><a id="zhanghao">您好,<%=((LoginUser)session.getAttribute("LoginUser")).getStaff_name() %></a></li>
 					<li><a id="zhanghao">角色:<%=((LoginUser)session.getAttribute("LoginUser")).getRole_name() %></a></li>
 					<li><a id="company">所属机构:<%=((LoginUser)session.getAttribute("LoginUser")).getOrg_name() %></a></li>
+					<li><a href="javascript:reloadPage();"><span>刷新</span></a></li>
 					<li><a href="logOut.action">退出</a></li>
 				</ul> 
 			</div>
