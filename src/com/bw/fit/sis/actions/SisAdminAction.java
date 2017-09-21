@@ -285,6 +285,8 @@ public class SisAdminAction extends BaseAction{
                     c.setFirst_time(((JSONObject)array.get(i)).get("value").toString());
                 }  else if("state".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
                     c.setPerson_state(((JSONObject)array.get(i)).get("value").toString());
+                } else if("nation".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_nation(((JSONObject)array.get(i)).get("value").toString());
                 } 
             }    
             c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")).getStaff_id());

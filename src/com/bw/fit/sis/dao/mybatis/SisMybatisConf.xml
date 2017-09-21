@@ -112,7 +112,7 @@
 	<update id="changePsnBaseInfo" parameterType="com.bw.fit.common.models.SystemCommonModel">
 		update rpt_person set
 		person_name=#{person_name},phone=#{person_phone},gender=#{person_gender},first_time=to_date(#{first_time},'yyyy-MM-dd'),
-		state = #{person_state} where card_id = #{card_id}
+		state = #{person_state},nation=#{person_nation}  where card_id = #{card_id}
 	</update>
 	<!-- 获取该用户拥有的申报类型 -->
 	<select id="getRptValueByStaff" parameterType="com.bw.fit.common.models.SystemCommonModel"

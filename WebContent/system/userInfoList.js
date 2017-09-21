@@ -46,7 +46,7 @@ function initUserInfoList(obj,num){
 	var userInfoorg_id = $("#userInfoorg_id").val() == "" ? "-9" : $("#userInfoorg_id").val();  
 	var userInfo_role_cd = $("#userInfo_role_cd").val() == "" ? "-9" : $("#userInfo_role_cd").val();
 	var array = new Array(userInfokeyword,userInfoorg_id, userInfo_role_cd,num*total + "", (num*total + total)+"",total+"" );  
-	if(userInfoorg_id=="-9"){alertMsg.info("请选择机构!");return ;} 
+	
 	createJsonAndAjax('qryAllUserInfoList.action', array, dealQryAllUserInfoList,
 			'JSON');	
 }

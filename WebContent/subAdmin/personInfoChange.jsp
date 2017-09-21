@@ -80,7 +80,7 @@ baidu(document).on('click', '#getInfo', function() {
 			</p> 
 				<p>
 				<label>民族：</label>
-				<input id=nation  ename="民族" name="nation" type="text"  readonly style="float:left"   />
+				<input id=nation  ename="民族" name="nation" type="text"    style="float:left"   />
 			</p>
 				<p>
 				<label>籍贯：</label>

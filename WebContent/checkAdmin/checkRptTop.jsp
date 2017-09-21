@@ -66,6 +66,11 @@ $('#getPhoto', navTab.getCurrentPanel()).click( function() {
 }); 
 //确认审核-初审
 $("#auditFirst", navTab.getCurrentPanel()).click( function() {	   
+	var check_result = $("#check_result",navTab.getCurrentPanel()).val();  
+	if(check_result==""||check_result=="-9"){
+		alertMsg.error("请选择审核结果");
+		return ;
+	}
 	alertMsg.confirm("是否确认对此记录进行初审确认?", {
 		 okCall: function(){ 
 			 createJsonAndPost2Java('checkRpt.action',$("#createForm", navTab.getCurrentPanel()),function(data){
@@ -189,7 +194,7 @@ function checkNewPerson(){
 		<div class="pageFormContent"> 
 		<div class="divider"></div>	
 		<p><label>审核结果：</label>		
-				<select id="check_result"  name="check_result"    style="float:left" > 
+				<select id="check_result"  name="check_result"  id="check_result"   style="float:left" > 
 				</select>
 		</p>
 		<p><label>审核备注：</label>		
@@ -200,7 +205,8 @@ function checkNewPerson(){
 
 		<div   style="display:none;">
 		<a class="button checkHis"  target="dialog" rel="dlg_page111" mask="true" title="审核历史"></a>  
-		<a class="button ahrefCss"  target="dialog" rel="dlg_page101" mask="true" title="附件"><span>附件</span></a>  
+		<a class="button ahrefCss"  target="dialog" rel="dlg_page101"  width="700" height="200" 
+		  title="附件"><span>附件</span></a>  
 		<a class="button rptedInfos"  target="dialog" rel="dlg_page103" mask="true" title="申领概况"><span>申领概况</span></a> 
 		</div>
 		

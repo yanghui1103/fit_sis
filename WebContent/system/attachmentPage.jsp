@@ -61,6 +61,16 @@ function dealInitList(data){
 		}
 	} 
 } 
+function ffg(){
+	
+	$("#photodiv",$.pdialog.getCurrent() ).trigger("click");	
+}
+
+$("#closeCss",$.pdialog.getCurrent() ).click(function(){		 
+	$.pdialog.closeCurrent();
+});
+
+
 $("#upFileCss",$.pdialog.getCurrent() ).click(function(){		 
 	ajaxFileUpload(foregin_id);
 	$("#refreshFileCss",$.pdialog.getCurrent() ).trigger("click");
@@ -103,8 +113,11 @@ $("#deleteFileCss",$.pdialog.getCurrent() ).click(function(){
 						    <% 
 						}
 						%>
-						
+						<div style="display:none">
+							<a  id="photodiv" target=dialog></a>
+						</div>
 						<div class="button"><div class="buttonContent"  id="refreshFileCss"><button>刷新</button></div></div>
+						 
 						<!-- 
 						<div class="button"><div class="buttonContent"  id="downFileCss"><button>下载</button></div></div>
 						 -->
@@ -119,7 +132,7 @@ $("#deleteFileCss",$.pdialog.getCurrent() ).click(function(){
 				<th width="20%">上传时间</th>
 				<th width="10%">上传者</th>
 				<th width="10%">说明</th>
-				<th width="5%"></th>
+				<th width="5%">操作</th>
 			</tr>
 		</thead>
 		<tbody id="attach_list"></tbody>	 	

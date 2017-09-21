@@ -62,6 +62,10 @@ function dealInitList(data){
 		}
 	} 
 } 
+$("#closeCss",$.pdialog.getCurrent() ).click(function(){		 
+	$.pdialog.closeCurrent();
+});
+
 $("#upFileCss",$.pdialog.getCurrent() ).click(function(){		 
 	ajaxFileUpload(foregin_id);
 	$("#refreshFileCss",$.pdialog.getCurrent() ).trigger("click");
@@ -106,6 +110,8 @@ $("#deleteFileCss",$.pdialog.getCurrent() ).click(function(){
 						%>
 						
 						<div class="button"><div class="buttonContent"  id="refreshFileCss"><button>刷新</button></div></div>
+						<div class="button"><div class="buttonContent"  id="closeCss"><button>关闭</button></div></div>
+						
 						<!-- 
 						<div class="button"><div class="buttonContent"  id="downFileCss"><button>下载</button></div></div>
 						 -->
