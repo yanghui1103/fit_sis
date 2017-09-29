@@ -1033,7 +1033,20 @@ public class SisAdminAction extends BaseAction{
                     c.setFdid(((JSONObject)array.get(i)).get("value").toString());
                 }  
             }    
-            
+            /**
+             * start:这个人是否有正在申报中的记录,如果有就跳出去
+             */ 
+            JSONObject info3 = new JSONObject();
+            info3  = ((SisServiceImpl) getBean("sisServiceImpl"))
+                    .getTheCheckResaultApply(c);
+            if(!"2".equals(info3.get("res"))){
+                wr.write(info3.toJSONString());
+                wr.close();
+                return null ;  
+            } 
+            /*
+             * end
+             */
  
             c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")).getStaff_id()); 
             c.setStaff_company_id(((LoginUser) session.getAttribute("LoginUser")).getOrg_cd());

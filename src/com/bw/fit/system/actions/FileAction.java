@@ -122,7 +122,7 @@ public class FileAction extends ActionSupport {
             outputStream.flush();
             // 与此同时写入一个绝对路径的文件夹下
            createOtherPath("/opt/app/uploadfiles_bak",afterFileName,f);
-			// createOtherPath("d://uploadfiles_bak",afterFileName,f);					
+//			 createOtherPath("d://uploadfiles_bak",afterFileName,f);					
 		} catch (Exception e) {
 			e.printStackTrace();
 			message = "1";

@@ -34,6 +34,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.bw.fit.common.models.LoginUser;
 import com.bw.fit.common.models.SystemCommonModel;
+import com.bw.fit.common.utils.PubFun;
 import com.bw.fit.sis.dao.utils.SisMybatisDaoUtil;
 import com.bw.fit.sis.service.SisService;
 import com.bw.fit.system.dao.utils.SystemMybatisDaoUtil;
@@ -48,6 +49,53 @@ public class SisServiceImpl implements SisService {
     @Autowired
     private SystemAdminServiceImpl systemAdminServiceImpl;
 
+    @Override
+    public JSONObject getTheCheckResaultApply(SystemCommonModel c){
+        JSONObject json = new JSONObject();
+        c.setSql("sisAdminDAO.getPsnBaseInfo");
+        List<SystemCommonModel> list = sisMybatisDaoUtil.getListData(c.getSql(), c);
+        if(list!=null&&list.size()>0){
+            String gender = list.get(0).getPerson_gender();
+            String rpt_year = PubFun.getSysDate().substring(0, 4);
+            String first_year = list.get(0).getFirst_time().substring(0, 4);
+            String brith_year = c.getCard_id().substring(6, 10);
+            c.setSql("sisAdminDAO.getThisPsnAllYue");
+            SystemCommonModel mm = (SystemCommonModel)sisMybatisDaoUtil.getOneData(c.getSql(), c);
+            c.setSql("sisAdminDAO.getThisPsnThisYue");
+            SystemCommonModel mm_this = (SystemCommonModel)sisMybatisDaoUtil.getOneData(c.getSql(), c);
+            
+            if("0".equals(gender)&&( Integer.valueOf(first_year) -Integer.valueOf(brith_year) >=40  ) &&
+                    ( Integer.valueOf(first_year) -Integer.valueOf(brith_year) <45 )  ){ // woman
+                if(mm.getTemp_int1()+mm_this.getTemp_int2()>36){
+                    json.put("res","1");
+                    json.put("msg", "申领月数超出限制，请调整申领起止月份");
+                    return json ;
+                }
+            }
+            if("1".equals(gender)&&( Integer.valueOf(first_year) -Integer.valueOf(brith_year) >=50  ) &&
+                    ( Integer.valueOf(first_year) -Integer.valueOf(brith_year) <55 )  ){ // man
+                if(mm.getTemp_int1()+mm_this.getTemp_int2()>36){
+                    json.put("res","1");
+                    json.put("msg", "申领月数超出限制，请调整申领起止月份");
+                    return json ;
+                }
+            }
+            
+            // 超出年龄就不予受理
+
+            if("1".equals(gender)&&( Integer.valueOf(first_year) -Integer.valueOf(brith_year)  >=61)  ){ // man 
+                    json.put("res","1");
+                    json.put("msg", "年龄不符");  
+            }
+            if("0".equals(gender)&&( Integer.valueOf(first_year) -Integer.valueOf(brith_year)  >=51)  ){ // woman 
+                json.put("res","1");
+                json.put("msg", "年龄不符");  
+            }
+        }
+        
+        json.put("res", "2");
+        return json ;
+    }
     /***
      * 新建申报周期
      */
@@ -1031,6 +1079,17 @@ public class SisServiceImpl implements SisService {
     }
 
     @Override
+    public JSONObject checkPsnRpting2(SystemCommonModel c) {
+        // TODO Auto-generated method stub 
+        c.setAction_name("createThisPersonRptRecond");
+        JSONObject info1 = sisMybatisDaoUtil.getTheCheckResault(c);
+        if (!"2".equals(info1.get("res"))) {
+            return info1;
+        }
+        return info1 ;
+    }
+
+    @Override
     public JSONObject checkPsnRpting(SystemCommonModel c) {
         // TODO Auto-generated method stub
         JSONObject info = new JSONObject();
@@ -1440,7 +1499,7 @@ public class SisServiceImpl implements SisService {
     @Override
     public JSONObject auditEasyRptRecond(SystemCommonModel c) {
         c.setSql("sisAdminDAO.getExisCheckFdid");
-        if(sisMybatisDaoUtil.getListData(c.getSql(), c).size()<1){            
+        if (sisMybatisDaoUtil.getListData(c.getSql(), c).size() < 1) {
             JSONObject j = new JSONObject();
             j.put("res", "1");
             j.put("msg", "订单不处于待审核");
@@ -1459,7 +1518,7 @@ public class SisServiceImpl implements SisService {
     @Override
     public JSONObject guidangRptRecond(SystemCommonModel c) {
         c.setSql("sisAdminDAO.getExisCheckFdid");
-        if(sisMybatisDaoUtil.getListData(c.getSql(), c).size()<1){            
+        if (sisMybatisDaoUtil.getListData(c.getSql(), c).size() < 1) {
             JSONObject j = new JSONObject();
             j.put("res", "1");
             j.put("msg", "订单不处于待审核");
@@ -1535,22 +1594,22 @@ public class SisServiceImpl implements SisService {
     @Override
     public JSONObject getRptDetail(SystemCommonModel c) {
         // TODO Auto-generated method stub
-        JSONObject info = new JSONObject(); 
+        JSONObject info = new JSONObject();
         c.setSql("sisAdminDAO.getRptDetail");
-        if(c.getFdid().contains(",")){
-            String[] sp = c.getFdid().split(","); 
+        if (c.getFdid().contains(",")) {
+            String[] sp = c.getFdid().split(",");
             c.setFdid(sp[0]);
         }
         List<SystemCommonModel> list = sisMybatisDaoUtil.getListData(c.getSql(), c);
-        if(list.size()<1){
-            info.put("res","1");
+        if (list.size() < 1) {
+            info.put("res", "1");
             info.put("msg", "无数据");
-            return info ;
+            return info;
         }
-        info.put("res","2");
+        info.put("res", "2");
         info.put("msg", "有数据");
         JSONArray array = new JSONArray();
-        JSONObject json  = new JSONObject();
+        JSONObject json = new JSONObject();
         json.put("fdid", list.get(0).getFdid());
         json.put("card_id", list.get(0).getCard_id());
         json.put("person_name", list.get(0).getPerson_name());
@@ -1566,9 +1625,9 @@ public class SisServiceImpl implements SisService {
         json.put("unit_name", list.get(0).getPerson_unit());
         json.put("unit_type", list.get(0).getPerson_unit_type());
         json.put("rpt_type", list.get(0).getRpt_type());
-        json.put("sub_cycle", list.get(0).getTemp_str3()); 
-        json.put("beforeAuditor", list.get(0).getTemp_str1()); 
-        json.put("beforeAudit", list.get(0).getTemp_str2()); 
+        json.put("sub_cycle", list.get(0).getTemp_str3());
+        json.put("beforeAuditor", list.get(0).getTemp_str1());
+        json.put("beforeAudit", list.get(0).getTemp_str2());
         json.put("unit_type_cd", list.get(0).getTemp_str4());
         json.put("rpt_type_cd", list.get(0).getTemp_str5());
         json.put("cycle_cd", list.get(0).getTemp_str6());
@@ -1579,11 +1638,11 @@ public class SisServiceImpl implements SisService {
 
     @Override
     public JSONObject checkEasyRpt(SystemCommonModel c) {
-        //简化版审核
+        // 简化版审核
         JSONObject j = new JSONObject();
-        if("NO1".equals(c.getCheck_result())){
-           j= auditEasyRptRecond(c);
-        }else{
+        if ("NO1".equals(c.getCheck_result())) {
+            j = auditEasyRptRecond(c);
+        } else {
             j = guidangRptRecond(c);
         }
         return j;
@@ -1592,12 +1651,12 @@ public class SisServiceImpl implements SisService {
     @Override
     public JSONObject deleteEasyRpt(SystemCommonModel c) {
         c.setSql("sisAdminDAO.getWatUpdFdid");
-        if(sisMybatisDaoUtil.getListData(c.getSql(), c).size()<1){            
+        if (sisMybatisDaoUtil.getListData(c.getSql(), c).size() < 1) {
             JSONObject j = new JSONObject();
             j.put("res", "1");
             j.put("msg", "订单不处于待修改");
             return j;
-        } 
+        }
         c.setSql("sisAdminDAO.deleteEasyRpt");
         JSONObject json = sisMybatisDaoUtil.sysUpdateData(c.getSql(), c);
         if ("1".equals(json.get("res"))) {
@@ -1611,21 +1670,21 @@ public class SisServiceImpl implements SisService {
     public JSONObject updateEastRpt(SystemCommonModel c) {
         JSONObject json = new JSONObject();
         c.setSql("sisAdminDAO.getWatUpdFdid");
-        if(sisMybatisDaoUtil.getListData(c.getSql(), c).size()<1){            
+        if (sisMybatisDaoUtil.getListData(c.getSql(), c).size() < 1) {
             JSONObject j = new JSONObject();
             j.put("res", "1");
             j.put("msg", "订单不处于待修改");
             return j;
-        } 
+        }
         SystemCommonModel dd = new SystemCommonModel();
         dd.setCard_id(c.getCard_id());
         dd.setPerson_phone(c.getPerson_phone());
-        dd.setSql("sisAdminDAO.updateEastRptor"); 
-        //json = sisMybatisDaoUtil.sysUpdateData(dd.getSql(), dd);
-        //if ("1".equals(json.get("res"))) {
-       //     TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-       //     return json;
-        //}
+        dd.setSql("sisAdminDAO.updateEastRptor");
+        // json = sisMybatisDaoUtil.sysUpdateData(dd.getSql(), dd);
+        // if ("1".equals(json.get("res"))) {
+        // TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        // return json;
+        // }
         c.setSql("sisAdminDAO.updateEastRpt");
         json = sisMybatisDaoUtil.sysUpdateData(c.getSql(), c);
         if ("1".equals(json.get("res"))) {

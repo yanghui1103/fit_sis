@@ -15,8 +15,7 @@ import org.apache.struts2.ServletActionContext;
 
 public class Test  {
     public static void main(String[] args) {  
-         String s = "2016-09-21 09-11-40.bmp";
-        String ss = PubFun.replaceNtStrToUid(s);
-        System.out.println(ss);
+         String s = "2016-12-12"; 
+         System.out.println(s.substring(0, 4));
     }  
 }

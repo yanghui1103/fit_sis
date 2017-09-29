@@ -108,6 +108,16 @@
 		(select staff_name from staff where fdid = a.creator) staff_name ,card_id ,
 		a.create_time from rpt_person a where card_id = #{card_id}
 	</select>
+	<select id="getThisPsnAllYue"   parameterType="com.bw.fit.common.models.SystemCommonModel"
+		resultType="com.bw.fit.common.models.SystemCommonModel">
+	select  sum(months_between( to_date(pay_end,'yyyyMM'),to_date(pay_start,'yyyyMM') ) +1)     temp_int1 
+          from rpt_reconds where card_id = #{card_id}  and isdeleted='0' 
+	</select>
+	<select id="getThisPsnThisYue"     parameterType="com.bw.fit.common.models.SystemCommonModel"
+		resultType="com.bw.fit.common.models.SystemCommonModel">
+			select abs( months_between( to_date(#{rpt_start},'yyyyMM'),to_date(#{rpt_end},'yyyyMM') ) +1  )   temp_int2 
+          from dual 
+	</select>
 	<!-- 修改申报人基础信息 -->
 	<update id="changePsnBaseInfo" parameterType="com.bw.fit.common.models.SystemCommonModel">
 		update rpt_person set
@@ -164,7 +174,8 @@
 	<!-- 财务拨款专用，参考qryWaitCheckRecordList -->
 	<select id="qryWaitCheckRecordList_finance" parameterType="com.bw.fit.common.models.SystemCommonModel"
 		resultType="com.bw.fit.common.models.SystemCommonModel">
-		select cc.* from ( select gg.* from ( SELECT A.ID_ AS TASK_ID,
+		select * from (  select ff.*,rownum pageno 
+		from (  select dd.* from ( select gg.* from ( SELECT A.ID_ AS TASK_ID,
 		A.PROC_INST_ID_ PROC_INST_ID,
 		(select text_ from act_hi_detail where proc_inst_id_ = a.proc_inst_id_ and
 		name_ ='fdid' and act_inst_id_ =ah.id_ ) fdid,
@@ -193,7 +204,7 @@
 		='sub_cycle' and act_inst_id_ =ah.id_ )) temp_str2,
 		(select text_ from act_hi_detail where proc_inst_id_ = a.proc_inst_id_ and
 		name_ ='sub_cycle' and act_inst_id_ =ah.id_ ) rpt_cycle,ah.id_
-		temp_str3,rownum pageno
+		temp_str3
 		FROM ACT_RU_TASK A ,staff2roles sr ,sys_item si ,ACT_HI_ACTINST ah
 		where 1=1 and a.assignee_ = si.itype and si.fdid = sr.role_id and si.itype
 		= #{temp_str3} and sr.staff_id = #{staff_id}
@@ -227,8 +238,10 @@
 			act_hi_detail where proc_inst_id_ = a.proc_inst_id_ and name_
 			='sub_cycle' and act_inst_id_ =ah.id_ )) =#{rpt_cycle}
 		</if>
-		) gg order by gg.create_time asc
-		) cc
+		) gg 
+		) dd
+		order by to_date(create_time,'yyyy-MM-dd hh24:mi:ss') desc  
+		) ff ) cc
 		where 1=1
 		<if test="person_name !='-9'">
 			and cc.person_name like '%'||#{person_name}||'%'
@@ -237,7 +250,7 @@
 			and cc.card_id like '%'||#{card_id}||'%'
 		</if>
 		<if test="end_num !='-9'">
-  				<![CDATA[  and cc.pageno >= #{start_num} and cc.pageno<  #{end_num} ]]>
+  				<![CDATA[  and pageno >= #{start_num} and pageno<  #{end_num} ]]>
 		</if>
 		<!-- and ah.id_ = (select max(id_) from ACT_HI_ACTINST aw where aw.proc_inst_id_ 
 			= a.proc_inst_id_ and aw.assignee_ ='creator' and end_time_ is not null) -->
@@ -245,7 +258,8 @@
 	<!-- 根据角色，机构等查询待审核列表 -->
 	<select id="qryWaitCheckRecordList" parameterType="com.bw.fit.common.models.SystemCommonModel"
 		resultType="com.bw.fit.common.models.SystemCommonModel">
-		select cc.* from ( select gg.* from ( SELECT A.ID_ AS TASK_ID,
+		select * from (  select ff.*,rownum pageno
+		 from (  select dd.* from ( select gg.* from ( SELECT A.ID_ AS TASK_ID,
 		A.PROC_INST_ID_ PROC_INST_ID,
 		(select text_ from act_hi_detail where proc_inst_id_ = a.proc_inst_id_ and
 		name_ ='fdid' and act_inst_id_ =ah.id_ ) fdid,
@@ -274,7 +288,7 @@
 		='sub_cycle' and act_inst_id_ =ah.id_ )) temp_str2,
 		(select text_ from act_hi_detail where proc_inst_id_ = a.proc_inst_id_ and
 		name_ ='sub_cycle' and act_inst_id_ =ah.id_ ) rpt_cycle,ah.id_
-		temp_str3,rownum pageno
+		temp_str3
 		FROM ACT_RU_TASK A ,staff2roles sr ,sys_item si ,ACT_HI_ACTINST ah
 		where 1=1 and a.assignee_ = si.itype and si.fdid = sr.role_id and si.itype
 		= #{temp_str3} and sr.staff_id = #{staff_id}
@@ -298,8 +312,9 @@
 			</foreach>
 		</if>
 		) gg
-		order by gg.create_time asc
-		) cc
+		)  dd
+		order by to_date(create_time,'yyyy-MM-dd hh24:mi:ss') desc  
+		) ff  ) cc
 		where 1=1
 		<if test="person_name !='-9'">
 			and cc.person_name like '%'||#{person_name}||'%'
@@ -314,7 +329,7 @@
 			and cc.rpt_cycle =#{rpt_cycle}
 		</if>
 		<if test="end_num !='-9'">
-  				<![CDATA[  and cc.pageno >= #{start_num} and cc.pageno<  #{end_num} ]]>
+  				<![CDATA[  and pageno >= #{start_num} and pageno<  #{end_num} ]]>
 		</if>
 	</select>
 	<!-- 用于待补贴的列表 -->

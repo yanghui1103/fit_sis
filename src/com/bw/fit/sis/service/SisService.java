@@ -52,4 +52,6 @@ public interface SisService {
     public JSONObject checkEasyRpt(SystemCommonModel c);
     public JSONObject deleteEasyRpt(SystemCommonModel c);
     public JSONObject updateEastRpt(SystemCommonModel c);
+    public JSONObject checkPsnRpting2(SystemCommonModel c) ;
+    public JSONObject getTheCheckResaultApply(SystemCommonModel c);
 }
