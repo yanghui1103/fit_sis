@@ -57,7 +57,7 @@ function getMaxMonthsByCard(card_id,gender,zhousui,p_type){
 		return (50 - zhousui) *12 +ling_yue ;
 	}else if(gender =="1" &&p_type =="101" ){
 		return "36" ;
-	}else if(gender =="0" &&p_type =="102" ){
+	}else if(gender =="1" &&p_type =="102" ){
 		return (60 - zhousui) *12+ling_yue ;
 	}else {
 		return "0";

@@ -15,7 +15,7 @@ import org.apache.struts2.ServletActionContext;
 
 public class Test  {
     public static void main(String[] args) {  
-         String s = "2016-12-12"; 
-         System.out.println(s.substring(0, 4));
+         String s = "09"; 
+         System.out.println(Integer.valueOf(s));
     }  
 }

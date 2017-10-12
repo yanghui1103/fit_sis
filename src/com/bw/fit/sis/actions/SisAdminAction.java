@@ -363,6 +363,14 @@ public class SisAdminAction extends BaseAction{
             wr.close();
             return null ;
         }
+        info3 = new JSONObject();
+        info3  = ((SisServiceImpl) getBean("sisServiceImpl"))
+                .getTheCheckResaultApply(c);
+        if(!"2".equals(info3.get("res"))){
+            wr.write(info3.toJSONString());
+            wr.close();
+            return null ;
+        }
         /*
          * end
          */
@@ -793,6 +801,14 @@ public class SisAdminAction extends BaseAction{
                 wr.write(info3.toJSONString());
                 wr.close();
                 return null ;
+            } 
+            info3 = new JSONObject();
+            info3  = ((SisServiceImpl) getBean("sisServiceImpl"))
+                    .getTheCheckResaultApply(c);
+            if(!"2".equals(info3.get("res"))){
+                wr.write(info3.toJSONString());
+                wr.close();
+                return null ;  
             } 
             /*
              * end

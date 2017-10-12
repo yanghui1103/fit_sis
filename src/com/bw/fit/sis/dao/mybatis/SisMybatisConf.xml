@@ -115,7 +115,7 @@
 	</select>
 	<select id="getThisPsnThisYue"     parameterType="com.bw.fit.common.models.SystemCommonModel"
 		resultType="com.bw.fit.common.models.SystemCommonModel">
-			select abs( months_between( to_date(#{rpt_start},'yyyyMM'),to_date(#{rpt_end},'yyyyMM') ) +1  )   temp_int2 
+			select abs( months_between( to_date(#{rpt_end},'yyyyMM'),to_date(#{rpt_start},'yyyyMM') ) +1  )   temp_int2 
           from dual 
 	</select>
 	<!-- 修改申报人基础信息 -->

@@ -59,6 +59,7 @@ public class SisServiceImpl implements SisService {
             String rpt_year = PubFun.getSysDate().substring(0, 4);
             String first_year = list.get(0).getFirst_time().substring(0, 4);
             String brith_year = c.getCard_id().substring(6, 10);
+            String birth_month = c.getCard_id().substring(10, 12) ;
             c.setSql("sisAdminDAO.getThisPsnAllYue");
             SystemCommonModel mm = (SystemCommonModel)sisMybatisDaoUtil.getOneData(c.getSql(), c);
             c.setSql("sisAdminDAO.getThisPsnThisYue");
@@ -83,13 +84,27 @@ public class SisServiceImpl implements SisService {
             
             // 超出年龄就不予受理
 
-            if("1".equals(gender)&&( Integer.valueOf(first_year) -Integer.valueOf(brith_year)  >=61)  ){ // man 
+            if("1".equals(gender)&&( Integer.valueOf(rpt_year) -Integer.valueOf(brith_year)  >=61)  ){ // man 
                     json.put("res","1");
                     json.put("msg", "年龄不符");  
+                    return json ;
             }
-            if("0".equals(gender)&&( Integer.valueOf(first_year) -Integer.valueOf(brith_year)  >=51)  ){ // woman 
+            if("0".equals(gender)&&( Integer.valueOf(rpt_year) -Integer.valueOf(brith_year)  >=51)  ){ // woman 
                 json.put("res","1");
                 json.put("msg", "年龄不符");  
+                return json ;
+            }
+            
+            // 如果是最后一年申报
+            if("1".equals(gender)&&( Integer.valueOf(rpt_year) -Integer.valueOf(brith_year)  ==60)&&mm_this.getTemp_int2()>Integer.valueOf(birth_month)  ){ // man 
+                    json.put("res","1");
+                    json.put("msg", "超月数申报，请重新确认申报起止月份");  
+                    return json ;
+            }
+            if("0".equals(gender)&&( Integer.valueOf(rpt_year) -Integer.valueOf(brith_year)  ==50) &&mm_this.getTemp_int2()>Integer.valueOf(birth_month)   ){ // woman 
+                json.put("res","1");
+                json.put("msg", "超月数申报，请重新确认申报起止月份");  
+                return json ;
             }
         }
         

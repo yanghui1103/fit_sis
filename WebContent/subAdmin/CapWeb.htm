@@ -23,7 +23,8 @@ function jsStartPreviewProc() {
 	try
 	{ 	
 		testocx.StopPreview();
-		ret=testocx.StartPreviewProc();	
+		ret=testocx.PandaCapturePlay();	
+		testocx.ManualToAuto();
 	}
 	catch(e)
 	{
