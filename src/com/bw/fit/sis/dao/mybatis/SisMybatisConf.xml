@@ -110,7 +110,7 @@
 	</select>
 	<select id="getThisPsnAllYue"   parameterType="com.bw.fit.common.models.SystemCommonModel"
 		resultType="com.bw.fit.common.models.SystemCommonModel">
-	select  sum(months_between( to_date(pay_end,'yyyyMM'),to_date(pay_start,'yyyyMM') ) +1)     temp_int1 
+	select   nvl(sum(months_between( to_date(pay_end,'yyyyMM'),to_date(pay_start,'yyyyMM') ) +1) ,0)     temp_int1 
           from rpt_reconds where card_id = #{card_id}  and isdeleted='0' 
 	</select>
 	<select id="getThisPsnThisYue"     parameterType="com.bw.fit.common.models.SystemCommonModel"

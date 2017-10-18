@@ -50,67 +50,76 @@ public class SisServiceImpl implements SisService {
     private SystemAdminServiceImpl systemAdminServiceImpl;
 
     @Override
-    public JSONObject getTheCheckResaultApply(SystemCommonModel c){
+    public JSONObject getTheCheckResaultApply(SystemCommonModel c) {
         JSONObject json = new JSONObject();
+        json.put("res", "2");
+        json.put("msg", "无错误");
         c.setSql("sisAdminDAO.getPsnBaseInfo");
         List<SystemCommonModel> list = sisMybatisDaoUtil.getListData(c.getSql(), c);
-        if(list!=null&&list.size()>0){
+        if (list != null && list.size() > 0) {
             String gender = list.get(0).getPerson_gender();
             String rpt_year = PubFun.getSysDate().substring(0, 4);
             String first_year = list.get(0).getFirst_time().substring(0, 4);
             String brith_year = c.getCard_id().substring(6, 10);
-            String birth_month = c.getCard_id().substring(10, 12) ;
+            String birth_month = c.getCard_id().substring(10, 12);
             c.setSql("sisAdminDAO.getThisPsnAllYue");
-            SystemCommonModel mm = (SystemCommonModel)sisMybatisDaoUtil.getOneData(c.getSql(), c);
+            SystemCommonModel mm = (SystemCommonModel) sisMybatisDaoUtil.getOneData(c.getSql(), c);
             c.setSql("sisAdminDAO.getThisPsnThisYue");
-            SystemCommonModel mm_this = (SystemCommonModel)sisMybatisDaoUtil.getOneData(c.getSql(), c);
-            
-            if("0".equals(gender)&&( Integer.valueOf(first_year) -Integer.valueOf(brith_year) >=40  ) &&
-                    ( Integer.valueOf(first_year) -Integer.valueOf(brith_year) <45 )  ){ // woman
-                if(mm.getTemp_int1()+mm_this.getTemp_int2()>36){
-                    json.put("res","1");
+            SystemCommonModel mm_this = (SystemCommonModel) sisMybatisDaoUtil.getOneData(c.getSql(), c);
+
+            if ("0".equals(gender) && (Integer.valueOf(first_year) - Integer.valueOf(brith_year) >= 40)
+                    && (Integer.valueOf(first_year) - Integer.valueOf(brith_year) < 45)) { // woman
+                if (mm.getTemp_int1() + mm_this.getTemp_int2() > 36) {
+                    json = new JSONObject();
+                    json.put("res", "1");
                     json.put("msg", "申领月数超出限制，请调整申领起止月份");
-                    return json ;
+                    return json;
                 }
             }
-            if("1".equals(gender)&&( Integer.valueOf(first_year) -Integer.valueOf(brith_year) >=50  ) &&
-                    ( Integer.valueOf(first_year) -Integer.valueOf(brith_year) <55 )  ){ // man
-                if(mm.getTemp_int1()+mm_this.getTemp_int2()>36){
-                    json.put("res","1");
+            if ("1".equals(gender) && (Integer.valueOf(first_year) - Integer.valueOf(brith_year) >= 50)
+                    && (Integer.valueOf(first_year) - Integer.valueOf(brith_year) < 55)) { // man
+                if (mm.getTemp_int1() + mm_this.getTemp_int2() > 36) {
+                    json = new JSONObject();
+                    json.put("res", "1");
                     json.put("msg", "申领月数超出限制，请调整申领起止月份");
-                    return json ;
+                    return json;
                 }
             }
-            
+
             // 超出年龄就不予受理
 
-            if("1".equals(gender)&&( Integer.valueOf(rpt_year) -Integer.valueOf(brith_year)  >=61)  ){ // man 
-                    json.put("res","1");
-                    json.put("msg", "年龄不符");  
-                    return json ;
+            if ("1".equals(gender) && (Integer.valueOf(rpt_year) - Integer.valueOf(brith_year) >= 61)) { // man
+                json = new JSONObject();
+                json.put("res", "1");
+                json.put("msg", "年龄不符");
+                return json;
             }
-            if("0".equals(gender)&&( Integer.valueOf(rpt_year) -Integer.valueOf(brith_year)  >=51)  ){ // woman 
-                json.put("res","1");
-                json.put("msg", "年龄不符");  
-                return json ;
+            if ("0".equals(gender) && (Integer.valueOf(rpt_year) - Integer.valueOf(brith_year) >= 51)) { // woman
+                json = new JSONObject();        
+                json.put("res", "1");
+                json.put("msg", "年龄不符");
+                return json;
             }
-            
+
             // 如果是最后一年申报
-            if("1".equals(gender)&&( Integer.valueOf(rpt_year) -Integer.valueOf(brith_year)  ==60)&&mm_this.getTemp_int2()>Integer.valueOf(birth_month)  ){ // man 
-                    json.put("res","1");
-                    json.put("msg", "超月数申报，请重新确认申报起止月份");  
-                    return json ;
+            if ("1".equals(gender) && (Integer.valueOf(rpt_year) - Integer.valueOf(brith_year) == 60)
+                    && mm_this.getTemp_int2() > Integer.valueOf(birth_month)) { // man
+                json = new JSONObject();        
+                json.put("res", "1");
+                json.put("msg", "超月数申报，请重新确认申报起止月份");
+                return json;
             }
-            if("0".equals(gender)&&( Integer.valueOf(rpt_year) -Integer.valueOf(brith_year)  ==50) &&mm_this.getTemp_int2()>Integer.valueOf(birth_month)   ){ // woman 
-                json.put("res","1");
-                json.put("msg", "超月数申报，请重新确认申报起止月份");  
-                return json ;
+            if ("0".equals(gender) && (Integer.valueOf(rpt_year) - Integer.valueOf(brith_year) == 50)
+                    && mm_this.getTemp_int2() > Integer.valueOf(birth_month)) { // woman
+                json = new JSONObject();        
+                json.put("res", "1");
+                json.put("msg", "超月数申报，请重新确认申报起止月份");
+                return json;
             }
         }
-        
-        json.put("res", "2");
-        return json ;
+        return json;
     }
+
     /***
      * 新建申报周期
      */
@@ -1095,13 +1104,13 @@ public class SisServiceImpl implements SisService {
 
     @Override
     public JSONObject checkPsnRpting2(SystemCommonModel c) {
-        // TODO Auto-generated method stub 
+        // TODO Auto-generated method stub
         c.setAction_name("createThisPersonRptRecond");
         JSONObject info1 = sisMybatisDaoUtil.getTheCheckResault(c);
         if (!"2".equals(info1.get("res"))) {
             return info1;
         }
-        return info1 ;
+        return info1;
     }
 
     @Override

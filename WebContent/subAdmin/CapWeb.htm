@@ -498,7 +498,11 @@ $(function(){
   <input  type="button"  name="Record" value="  录像  " onClick="RecordVideo()">
   <input  type="button"  name="AddWater" value="添加水印" disabled onClick="AddWaterMark()">
 </p>
-<p>操作返回信息:
+<p>
+
+			请选择分辨率： <select name="SelectResolutionBox" size="1" id="s2"
+				onChange="JsSelResolution()">
+				操作返回信息:
   <input id=MessageCtrl  name=txtControl1 readonly style="WIDTH: 300; height:19" size="20"  >
 </p>
 <p>图像文件名称:
