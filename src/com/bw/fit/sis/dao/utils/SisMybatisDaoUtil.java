@@ -125,7 +125,13 @@ public class SisMybatisDaoUtil {
 	    if(!"2".equals(o.get("res"))){ 
             return o ;
 	    }
-	    int res = sqlSessionTemplate.update(sql, param);
+	    int res = 0;
+	            try {
+                    res = sqlSessionTemplate.update(sql, param);
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
 	    if(res<1){
 	        obj.put("res", "1");
 	        obj.put("msg","执行失败");
@@ -142,7 +148,13 @@ public class SisMybatisDaoUtil {
         if(!"2".equals(o.get("res"))){ 
             return o ;
         }
-        int res = sqlSessionTemplate.insert(sql, param);
+        int res = 0;
+        try {
+            res = sqlSessionTemplate.insert(sql, param);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         if(res<1){
             obj.put("res", "1");
             obj.put("msg","执行失败");

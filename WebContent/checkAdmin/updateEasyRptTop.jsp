@@ -86,6 +86,19 @@ $("#delete", navTab.getCurrentPanel()).click( function() {
 
 
 $("#update", navTab.getCurrentPanel()).click( function() {	   
+	 	var card_id = $("#card_id",navTab.getCurrentPanel()).val();
+	 	var gender = $("#gender",navTab.getCurrentPanel()).val();
+	 	var rpt_type = $("#rpt_type",navTab.getCurrentPanel()).val(); 
+	 	var sub_cycle = $("#sub_cycle",navTab.getCurrentPanel()).val(); 
+	 	var unit_type = $("#unit_type",navTab.getCurrentPanel()).val(); 
+	 	$("#person_gender",navTab.getCurrentPanel()).val(gender);
+	 	if(card_id.length!=18){alertMsg.info("身份证号码应该为18位");return ;}
+	 	if(gender=="-9"|| sub_cycle==""||sub_cycle=="undefined"){alertMsg.info("请选择申报人性别");return ;}
+	 	if(rpt_type=="-9"|| sub_cycle==""||sub_cycle=="undefined"){alertMsg.info("请选择补贴类型");return ;}
+	 	if(sub_cycle=="-9"|| sub_cycle==""||sub_cycle=="undefined" ){alertMsg.info("请选择申报周期");return ;}
+	 	if(unit_type=="-9"|| sub_cycle==""||sub_cycle=="undefined"){alertMsg.info("请选择就业单位类型");return ;}
+	 	
+	 	
 	alertMsg.confirm("是否确认修改该记录?", {
 		 okCall: function(){ 
 			 createJsonAndPost2Java('updateEasyRpt.action',$("#createForm", navTab.getCurrentPanel()),function(data){

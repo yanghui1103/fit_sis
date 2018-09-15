@@ -68,7 +68,7 @@ public class SisServiceImpl implements SisService {
             SystemCommonModel mm_this = (SystemCommonModel) sisMybatisDaoUtil.getOneData(c.getSql(), c);
 
             if ("0".equals(gender) && (Integer.valueOf(first_year) - Integer.valueOf(brith_year) >= 40)
-                    && (Integer.valueOf(first_year) - Integer.valueOf(brith_year) < 45)) { // woman
+                    && (Integer.valueOf(first_year) - Integer.valueOf(brith_year) <= 45)) { // woman
                 if (mm.getTemp_int1() + mm_this.getTemp_int2() > 36) {
                     json = new JSONObject();
                     json.put("res", "1");
@@ -76,8 +76,9 @@ public class SisServiceImpl implements SisService {
                     return json;
                 }
             }
+            
             if ("1".equals(gender) && (Integer.valueOf(first_year) - Integer.valueOf(brith_year) >= 50)
-                    && (Integer.valueOf(first_year) - Integer.valueOf(brith_year) < 55)) { // man
+                    && (Integer.valueOf(first_year) - Integer.valueOf(brith_year) <= 55)) { // man
                 if (mm.getTemp_int1() + mm_this.getTemp_int2() > 36) {
                     json = new JSONObject();
                     json.put("res", "1");
@@ -87,7 +88,6 @@ public class SisServiceImpl implements SisService {
             }
 
             // 超出年龄就不予受理
-
             if ("1".equals(gender) && (Integer.valueOf(rpt_year) - Integer.valueOf(brith_year) >= 61)) { // man
                 json = new JSONObject();
                 json.put("res", "1");
@@ -650,6 +650,60 @@ public class SisServiceImpl implements SisService {
             log.info(ex.getMessage());
         }
         return info;
+    }
+
+    
+    
+    @Override
+    public JSONObject qryTempRecordList(SystemCommonModel c) {
+        JSONObject info = new JSONObject();
+        try {
+            List<String> ls = new ArrayList<String>();
+            String[] arr = c.getTemp_str1().split(",");
+            for (int i = 0; i < arr.length; i++) {
+                ls.add(arr[i]);
+            }
+            c.setTemp_list(ls);
+            c.setSql("sisAdminDAO.qryTempRecordList");
+            List<SystemCommonModel> list = sisMybatisDaoUtil.getListData(c.getSql(), c);
+            if (list.size() < 1) {
+                info.put("res", "1");
+                info.put("msg", "无数据");
+                info.put("pageNum", "0");
+                info.put("tatol", "0");
+                return info;
+            } else {
+                info.put("res", "2");
+                info.put("msg", "执行成功");
+            }
+            JSONArray array = new JSONArray();
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObjArr = new JSONObject();
+                jsonObjArr.put("proc_inst_id", (list.get(i)).getProc_inst_id());
+                jsonObjArr.put("fdid", (list.get(i)).getFdid());
+                jsonObjArr.put("person_name", (list.get(i)).getPerson_name());
+                jsonObjArr.put("card_id", (list.get(i)).getCard_id());
+                jsonObjArr.put("start_date", (list.get(i)).getStart_date());
+                jsonObjArr.put("end_date", (list.get(i)).getEnd_date());
+                jsonObjArr.put("creator", (list.get(i)).getStaff_name());
+                jsonObjArr.put("act_inst_id", (list.get(i).getTemp_str3()));
+                jsonObjArr.put("create_time", (list.get(i)).getCreate_time());
+                jsonObjArr.put("staff_company_name", (list.get(i)).getStaff_company_name());
+                array.add(jsonObjArr);
+                jsonObjArr = null;
+            }
+            info.put("list", array);
+            array = null;
+            c.setEnd_num("-9");
+            List<SystemCommonModel> list_total = sisMybatisDaoUtil.getListData(c.getSql(), c);
+            info.put("pageNum", getPageTatolNum(list_total.size(), Integer.valueOf(c.getRecord_tatol())));
+            info.put("tatol", list_total.size());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.info(ex.getMessage());
+        }
+        return info;
+    
     }
 
     @Override
@@ -1216,10 +1270,10 @@ public class SisServiceImpl implements SisService {
         HSSFRow row2 = sheet.createRow(3);
         row2.setHeight((short) 750);
         String[] excelHeader = { "申报人姓名", "申报人身份证号码", "性别", "联系电话", "民族", "签发单位", "初次申报日期", "票据开始月份", "票据结束月份",
-                "就业单位类型", "就业单位", "申报类型", "申报周期", "申报人类型", "初次申报周岁", "录入人员", "录入机构", "录入时间", "已享受月数" };
+                "就业单位类型", "就业单位", "申报类型", "申报周期", "申报人类型", "初次申报周岁", "录入人员", "录入机构", "录入时间", "已享受月数","本次申报月数","本次应享受金额" };
         // 单元格列宽
         int[] excelHeaderWidth = { 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120,
-                120, 120 };
+                120, 120, 120, 120 };
         // 设置列宽度（像素）
         for (int i = 0; i < excelHeaderWidth.length; i++) {
             sheet.setColumnWidth(i, 45 * excelHeaderWidth[i]);
@@ -1270,6 +1324,8 @@ public class SisServiceImpl implements SisService {
             rowi.createCell(16).setCellValue(list4.get(i).getStaff_company_name());
             rowi.createCell(17).setCellValue(list4.get(i).getCreate_time());
             rowi.createCell(18).setCellValue(list4.get(i).getTemp_str2());
+            rowi.createCell(19).setCellValue(list4.get(i).getTemp_str3());
+            rowi.createCell(20).setCellValue(list4.get(i).getDesp());
         }
         //
         String file_name = getUUID() + ".xls";
@@ -1716,5 +1772,29 @@ public class SisServiceImpl implements SisService {
             return json;
         }
         return json;
+    }
+
+    @Override
+    public JSONObject createThisTmpRptRecond(SystemCommonModel c) {
+        JSONObject json = new JSONObject();
+        c.setSql("sisAdminDAO.createThisTmpRptRecond");
+        json =  sisMybatisDaoUtil.sysInsertData(c.getSql(), c);
+        if ("1".equals(json.get("res"))) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return json;
+        }
+        
+        c.setSql("sisAdminDAO.createThisTmpPerson");
+        json = new JSONObject();
+        json = sisMybatisDaoUtil.sysInsertData(c.getSql(), c);
+        if ("1".equals(json.get("res"))) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return json;
+        }
+        json = new JSONObject();
+        json.put("res", "2");
+        json.put("msg", "暂存成功");
+        
+        return json ;
     }
 }

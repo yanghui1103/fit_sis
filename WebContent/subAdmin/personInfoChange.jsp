@@ -72,7 +72,7 @@ baidu(document).on('click', '#getInfo', function() {
 			</p>
 			<p>
 				<label>性别：</label>
-				<select id="gender"  name="gender"   style="float:left"  > 
+				<select id="gender"  name="gender"  disabled='disabled'  style="float:left"  > 
 					<option value="-9" selected>请选择</option>
 					<option value="0">女</option>
 					<option value="1">男</option>
@@ -92,7 +92,7 @@ baidu(document).on('click', '#getInfo', function() {
 			</p>
 				<p>
 				<label>初次申报日期：</label>
-				<input id=first_date  ename="初次申报时间" name="first_date" type="text"    class="date required"  readonly style="float:left"   />
+				<input id=first_date  ename="初次申报时间" name="first_date" type="text"    class="required"  readonly style="float:left"   />
 			</p>
 			<p>
 				<label>状态：</label>

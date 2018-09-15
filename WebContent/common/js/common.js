@@ -165,10 +165,8 @@ function ajaxFileUpload(foregin_id)
 					{						
 						 //var edom = createParamDom3(foregin_id, data.message ,data.beforeName);  
 						// var ttDom = AjaxExchangeBackXMLDataByXML('createForeignAndAttachmentRelation.action',edom);   
-						
-						 var array = new Array(foregin_id, data.message ,data.beforeName );   
-							createJsonAndAjax('createForeignAndAttachmentRelation.action', array, dealUploadList,
-									'JSON');	
+						var array = new Array(foregin_id, data.message ,data.beforeName );   
+						createJsonAndAjax('createForeignAndAttachmentRelation.action', array, dealUploadList, 'JSON');	
 					}
 				}
 			},

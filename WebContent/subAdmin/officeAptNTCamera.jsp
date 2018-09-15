@@ -79,6 +79,31 @@ baidu(document).on('click', '#save206', function() {
 		});		
 });
 
+
+//保存申报信息
+baidu(document).on('click', '#saveTmp206', function() {	  
+	 var card_id = $("#card_id",navTab.getCurrentPanel()).val();
+	 var gender = $("#gender",navTab.getCurrentPanel()).val();
+	 var rpt_type = $("#rpt_type",navTab.getCurrentPanel()).val(); 
+	 var sub_cycle = $("#sub_cycle",navTab.getCurrentPanel()).val(); 
+	 var unit_type = $("#unit_type",navTab.getCurrentPanel()).val(); 
+	 $("#person_gender",navTab.getCurrentPanel()).val(gender);
+	 if(card_id.length!=18){alertMsg.info("身份证号码应该为18位");return ;}
+	 if(gender=="-9"){alertMsg.info("请选择申报人性别");return ;}
+	 if(rpt_type=="-9"){alertMsg.info("请选择申报类型");return ;}
+	 if(sub_cycle=="-9"|| sub_cycle==""||sub_cycle=="undefined" ){alertMsg.info("请选择申报周期");return ;}
+	 if(unit_type=="-9"){alertMsg.info("请选择就业单位类型");return ;}
+	alertMsg.confirm("是否确认录入该人的申报数据！,将会保存为暂存状态", {
+		 okCall: function(){ 
+			 createJsonAndPost2Java('createThisTmpRptRecond.action',$("#createForm", navTab.getCurrentPanel()),function(data){
+				 navTab.closeCurrentTab();
+				 alertToPageMsg(data);		
+			 },'JSON',false) ;
+		 },
+		 cancelCall : function() {}
+		});		
+});
+
 //拍摄仪上传
 $('#getNTPhoto', navTab.getCurrentPanel()).click( function() {	  
 	var flow_id = $("#flow_id",navTab.getCurrentPanel()).val();  

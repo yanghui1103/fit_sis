@@ -837,6 +837,122 @@ public class SisAdminAction extends BaseAction{
         
         return null ;
     }
+    /****
+     * 保存为暂存状态
+     * @return
+     */
+    public String createThisTmpRptRecond(){
+        try {
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            SystemCommonModel c = new SystemCommonModel();  
+            JSONArray array  = (JSONArray) JSONValue.parse(str);  
+            for(int i=0;i<array.size();i++){
+                if("card_id".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setCard_id(((JSONObject)array.get(i)).get("value").toString());
+                }else if("person_name".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_name(((JSONObject)array.get(i)).get("value").toString());
+                    c.setTemp_str1(((JSONObject)array.get(i)).get("value").toString());
+                } else if("person_gender".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_gender(((JSONObject)array.get(i)).get("value").toString());
+                }    else if("nation".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_nation(((JSONObject)array.get(i)).get("value").toString());
+                }else if("phone".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_phone(((JSONObject)array.get(i)).get("value").toString());
+                }   else if("orgin".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_orgin(((JSONObject)array.get(i)).get("value").toString());
+                }  else if("sub_cycle".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setRpt_cycle(((JSONObject)array.get(i)).get("value").toString());
+                } else if("rpt_type".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setRpt_type(((JSONObject)array.get(i)).get("value").toString());
+                } else if("start_date".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setRpt_start(((JSONObject)array.get(i)).get("value").toString());
+                } else if("end_date".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setRpt_end(((JSONObject)array.get(i)).get("value").toString());
+                }   else if("unit_type".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_unit_type(((JSONObject)array.get(i)).get("value").toString());
+                }   else if("unit_name".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setPerson_unit(((JSONObject)array.get(i)).get("value").toString());
+                }   else if("flow_id".equalsIgnoreCase(((JSONObject)array.get(i)).get("name").toString())){
+                    c.setFdid(((JSONObject)array.get(i)).get("value").toString());
+                }  
+            }    
+
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")).getStaff_id()); 
+            c.setStaff_company_id(((LoginUser) session.getAttribute("LoginUser")).getOrg_cd());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
+
+            /**
+             * start:这个人是否有正在申报中的记录,如果有就跳出去
+             */
+            // c.setSql("sisAdminDAO.checkPsnRpting");
+            JSONObject info3 = new JSONObject();
+            info3  = ((SisServiceImpl) getBean("sisServiceImpl"))
+                    .checkPsnRpting(c);
+            if(!"2".equals(info3.get("res"))){
+                wr.write(info3.toJSONString());
+                wr.close();
+                return null ;
+            } 
+            info3 = new JSONObject();
+            info3  = ((SisServiceImpl) getBean("sisServiceImpl"))
+                    .getTheCheckResaultApply(c);
+            if(!"2".equals(info3.get("res"))){
+                wr.write(info3.toJSONString());
+                wr.close();
+                return null ;  
+            } 
+            /*
+             * end
+             */
+            
+            JSONObject objItem = new JSONObject();
+            wr.write(objItem.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }                
+        
+        return null ;
+    }
+    
+    
+    
+
+    public String qryTempRecordList(){
+        try {
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            JSONObject obj = (JSONObject) JSONValue.parse(str);
+            JSONArray array = (JSONArray) obj.get("content");
+            String param1 = (String) (((JSONObject) array.get(0)).get("param1")); 
+            SystemCommonModel c = new SystemCommonModel();  
+            c.setPerson_name(param1);
+            c.setCard_id((String) (((JSONObject) array.get(0)).get("param2")));
+            c.setTemp_str1((String) (((JSONObject) array.get(0)).get("param3")));
+            c.setRpt_type((String) (((JSONObject) array.get(0)).get("param4")));
+            c.setRpt_cycle((String) (((JSONObject) array.get(0)).get("param5")));
+            c.setStart_num((String) (((JSONObject) array.get(0)).get("param6")));
+            c.setEnd_num((String) (((JSONObject) array.get(0)).get("param7")));
+            c.setTotal_reords((String) (((JSONObject) array.get(0)).get("param8")));
+            c.setRecord_tatol(c.getTotal_reords());
+            c.setTemp_str3((String) (((JSONObject) array.get(0)).get("param9")));
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")) .getStaff_id());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
+            JSONObject objItem = ((SisServiceImpl) getBean("sisServiceImpl")).qryTempRecordList(c);
+            wr.write(objItem.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null ;
+    }
+    
+    
     /***
      * 查询该角色，所选中的组织
      * 下所有的待审核记录列表

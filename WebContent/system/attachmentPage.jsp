@@ -62,7 +62,6 @@ function dealInitList(data){
 	} 
 } 
 function ffg(){
-	
 	$("#photodiv",$.pdialog.getCurrent() ).trigger("click");	
 }
 

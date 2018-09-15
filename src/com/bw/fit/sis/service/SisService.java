@@ -26,6 +26,12 @@ public interface SisService {
     public  JSONObject luruNewRptFlow(SystemCommonModel c,RuntimeService runtimeService,FormService formService, TaskService taskService) ;
     public  JSONObject luruNewPsnAndHisRptFlow(SystemCommonModel c,RuntimeService runtimeService,FormService formService, TaskService taskService) ;
     public JSONObject qryWaitCheckRecordList(SystemCommonModel c);
+    /***
+     * 查询暂存数据
+     * @param c
+     * @return
+     */
+    public JSONObject qryTempRecordList(SystemCommonModel c);
     public JSONObject getThisCheckInfoAll(SystemCommonModel c);
     public  JSONObject checkRpt(SystemCommonModel c,RuntimeService runtimeService,FormService formService, TaskService taskService) ;
     public  JSONObject checkRptSecond(SystemCommonModel c,RuntimeService runtimeService,FormService formService, TaskService taskService) ;
@@ -54,4 +60,10 @@ public interface SisService {
     public JSONObject updateEastRpt(SystemCommonModel c);
     public JSONObject checkPsnRpting2(SystemCommonModel c) ;
     public JSONObject getTheCheckResaultApply(SystemCommonModel c);
+    /*****
+     * 保存为暂存
+     * @param c
+     * @return
+     */
+    public JSONObject createThisTmpRptRecond(SystemCommonModel c);
 }

@@ -52,7 +52,7 @@
 				</ul>
 			</div>
 		</div>
-		<div id="login_footer">平台技术支撑：博为科技有限责任公司负责
+		<div id="login_footer">平台技术支撑：博为科技有限责任公司负责[电话:18604773099]
 		</div>
 	</div>
 </body>
