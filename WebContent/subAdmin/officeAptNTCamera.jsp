@@ -174,15 +174,15 @@ function checkNewPerson(){
 		<div class="pageFormContent" layoutH="56">
 			<p>
 				<label>申报人姓名：</label>
-				<input   id="person_name" name="person_name"   class="required" type="text"    style="float:left"  readonly   />
+				<input   id="person_name" name="person_name"   class="required" type="text"    style="float:left"      />
 			</p>  
 			<p>
 				<label>身份证号码：</label>
-				<input   id="card_id" name="card_id"   class="required" type="text"   maxlength=18  style="float:left"  readonly   />
+				<input   id="card_id" name="card_id"   class="required" type="text"   maxlength=18  style="float:left"      />
 			</p> 
 			<p>
 				<label>申报人性别：</label> 
-				<select id="gender"  name="gender"     style="float:left"  disabled  > 
+				<select id="gender"  name="gender"     style="float:left"     > 
 				<option value="-9">请选择</option>
 				<option value="0">女</option>
 				<option value="1">男</option>
@@ -191,15 +191,15 @@ function checkNewPerson(){
 			</p>   
 			<p>
 				<label>出生日期：</label>
-				<input   id="birchday" name="birchday"   class="required" type="text"    style="float:left"      readonly     />
+				<input   id="birchday" name="birchday"   class="required" type="text"    style="float:left"            />
 			</p>   
 			<p>
 				<label>民族：</label>
-				<input   id="nation" name="nation"   class="required" type="text"    style="float:left"       readonly    />
+				<input   id="nation" name="nation"   class="required" type="text"    style="float:left"            />
 			</p>   
 			<p>
 				<label>签发机构：</label>
-				<input   id="orgin" name="orgin"   class="required" type="text"    style="float:left"     readonly      />
+				<input   id="orgin" name="orgin"   class="required" type="text"    style="float:left"            />
 			</p>    
 			<p>
 				<label>联系电话：</label>
@@ -207,7 +207,7 @@ function checkNewPerson(){
 			</p>     
 			<p>
 				<label>人员类型：</label>
-				<input   id="p_type" name="p_type"   class="required" type="text"    style="float:left" maxlength=12      readonly    />
+				<input   id="p_type" name="p_type"   class="required" type="text"    style="float:left" maxlength=12           />
 			</p>  
 		<div><input type="button"  id="getCardInfo"  value="读取身份证卡信息"/>
 		<input type="button"  id="getPersonInfo"  value="申领概况"/></div>

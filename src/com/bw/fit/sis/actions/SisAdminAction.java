@@ -908,6 +908,8 @@ public class SisAdminAction extends BaseAction{
              */
             
             JSONObject objItem = new JSONObject();
+            objItem= ((SisServiceImpl) getBean("sisServiceImpl"))
+                    .createThisTmpRptRecond(c);
             wr.write(objItem.toJSONString());
             wr.close();
         } catch (Exception e) {
@@ -1053,6 +1055,31 @@ public class SisAdminAction extends BaseAction{
         }
         return null ;
     }
+    
+    public String getTempPsnInfo(){
+        try {
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            JSONObject obj = (JSONObject) JSONValue.parse(str);
+            JSONArray array = (JSONArray) obj.get("content");
+            String param1 = (String) (((JSONObject) array.get(0)).get("param1")); 
+            SystemCommonModel c = new SystemCommonModel();  
+            String[] array2 = param1.split(",");
+            c.setFdid(array2[0]);  
+            c.setCard_id(array2[1]);
+            c.setStaff_id(((LoginUser) session.getAttribute("LoginUser")) .getStaff_id());
+            c.setAction_name(Thread.currentThread().getStackTrace()[1].getMethodName());
+            JSONObject objItem = ((SisServiceImpl) getBean("sisServiceImpl")).getThisTmpCheckInfoAll(c);
+            wr.write(objItem.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null ;
+    }
+    
     /***
      * 根据流程id（记录id）获取这个
      * 人这条申报记录的全部信息

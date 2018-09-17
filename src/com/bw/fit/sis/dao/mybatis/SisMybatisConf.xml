@@ -176,21 +176,18 @@
 		insert into rpt_person_tempory
 		(card_id,person_name,phone,gender,nation,orgin,first_time,state,create_company,creator,create_time,version_time)
 		values
-		(#{card_id},#{person_name},#{person_phone},#{person_gender},#{person_nation},#{person_orgin},
-		to_date(#{first_time},'yyyy-MM-dd') ,'2',
-		#{staff_company_id} ,#{staff_id},to_date(#{create_time},'yyyy-MM-dd
-		hh24:mi:ss'),to_date(#{create_time},'yyyy-MM-dd hh24:mi:ss') )
+		(#{card_id},#{person_name,jdbcType=VARCHAR},#{person_phone,jdbcType=VARCHAR},#{person_gender,jdbcType=VARCHAR},#{person_nation,jdbcType=VARCHAR},#{person_orgin,jdbcType=VARCHAR},
+		to_date(#{first_time,jdbcType=VARCHAR},'yyyy-MM-dd') ,'2',
+		#{staff_company_id,jdbcType=VARCHAR} ,#{staff_id,jdbcType=VARCHAR},sysdate,sysdate )
 	</insert>
 	
 	<insert id="createThisTmpRptRecond" parameterType="com.bw.fit.common.models.SystemCommonModel">
 		insert into rpt_reconds_tempory
 		(fdid,person_name,card_id,unit_type,unit_name,pay_start,pay_end,sub_cycle,rpt_type,isdeleted,create_time,version_time,creator)
 		values
-		(#{fdid},#{person_name},#{card_id},#{person_unit_type},#{person_unit},
-		#{rpt_start} , #{rpt_end} ,#{rpt_cycle},#{rpt_type},'0',
-		to_date(#{create_time},'yyyy-MM-dd
-		hh24:mi:ss'),to_date(#{create_time},'yyyy-MM-dd
-		hh24:mi:ss'),#{staff_id} )
+		(#{fdid},#{person_name,jdbcType=VARCHAR},#{card_id},#{person_unit_type,jdbcType=VARCHAR},#{person_unit,jdbcType=VARCHAR},
+		#{rpt_start,jdbcType=VARCHAR} , #{rpt_end,jdbcType=VARCHAR} ,#{rpt_cycle,jdbcType=VARCHAR},#{rpt_type,jdbcType=VARCHAR},'0',
+		sysdate,sysdate,#{staff_id,jdbcType=VARCHAR} )
 	</insert>
 	
 	<!-- 财务拨款专用，参考qryWaitCheckRecordList -->
@@ -846,5 +843,15 @@
         open="(" separator="," close=")">
         #{item}
       </foreach>
+	</select>
+	
+	<select id="getTmpBaseinfo"  parameterType="com.bw.fit.common.models.SystemCommonModel"
+		resultType="com.bw.fit.common.models.SystemCommonModel">
+		select * from rpt_person_tempory a where a.card_id = #{card_id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getTmpReconds"   parameterType="com.bw.fit.common.models.SystemCommonModel"
+		resultType="com.bw.fit.common.models.SystemCommonModel">
+		select * from  rpt_reconds_tempory a where a.fdid = #{fdid,jdbcType=VARCHAR}
 	</select>
 </mapper>

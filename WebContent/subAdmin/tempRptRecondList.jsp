@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript"  src="subAdmin/updateRptRecondList.js"></script>
+<script type="text/javascript"  src="subAdmin/tempRptRecondList.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	var arr = new Array(60);
 	for(var i in arr.length){
 		 arr[i] = "-9";		 
-	}arr[0] = "207";arr[1] = "navTab"; 
+	}arr[0] = "219";arr[1] = "navTab"; 
 	renderBtnsToDiv( $("#subBar", navTab.getCurrentPanel())  ,'getAuthorityBtnsByThisUser.action',arr);
 	 arr[0] = "ROLE2SUBTYPE"; 
 	 takeCustomValueByOther($("#rpt_type",navTab.getCurrentPanel()),"getCustomValueByOther.action","1", arr);	

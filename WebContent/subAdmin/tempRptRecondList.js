@@ -3,7 +3,7 @@ var num =0;
 var total = 20;   //每页记录数 
 
 baidu(document).on('click', '#qry219', function() {
-	initCycleList($("#allDiv2", navTab.getCurrentPanel()).find("tbody"),"0"); 	
+	initCycleList($("#allDiv", navTab.getCurrentPanel()).find("tbody"),"0"); 	
 });
 function initCycleList(obj,num){ 
 	var person_name = $("#person_name", navTab.getCurrentPanel()).val() == "" ? "-9" : $("#person_name", navTab.getCurrentPanel()).val();
@@ -21,7 +21,7 @@ function initCycleList(obj,num){
 			var jsonArr = data.list;
 			for (var i = 0; i < jsonArr.length; i++) {
 				var $tr = $("<tr  target=sid_user rel=" + (i + 1) + " >");
-				$tr.append($("<td width=5%>").html("<input type=radio name=allJlId value='"+(jsonArr[i].fdid ) +","+jsonArr[i].proc_inst_id +","+jsonArr[i].act_inst_id +"'/>"));
+				$tr.append($("<td width=5%>").html("<input type=radio name=allJlId value='"+(jsonArr[i].fdid ) +","+jsonArr[i].card_id +","+jsonArr[i].card_id +"'/>"));
 				$tr.append($("<td width=15%>").html(replaceF9ValToUnknown(jsonArr[i].person_name)));
 				$tr.append($("<td width=10%>").html(replaceF9ValToUnknown(jsonArr[i].card_id))); 
 				$tr.append($("<td width=10%>").html(replaceF9ValToUnknown(jsonArr[i].start_date)));
@@ -48,5 +48,5 @@ function initCycleList(obj,num){
 
 $("#PageNo", navTab.getCurrentPanel()).change(function(){	
 	num = $("#PageNo", navTab.getCurrentPanel()).val();
-	initCycleList($("#allDiv2", navTab.getCurrentPanel()).find("tbody"),num+""); 
+	initCycleList($("#allDiv", navTab.getCurrentPanel()).find("tbody"),num+""); 
 });

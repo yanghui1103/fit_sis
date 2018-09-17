@@ -26,7 +26,7 @@ $(function(){
 	} 
 	var array = new Array();
 	array[0] = allJlId ;
-	createJsonAndAjaxNew('getThisCheckInfoAll.action', array,dealInitCheckTopPage,'json',true  ) ;
+	createJsonAndAjaxNew('getTempPsnInfo.action', array,dealInitCheckTopPage,'json',true  ) ;
 });
 function dealInitCheckTopPage(data){ 
 	if(data.res!='2'){
@@ -155,7 +155,6 @@ $("#saveTmpToNext", navTab.getCurrentPanel()).click( function() {
 		<input   type="hidden"   id="flow_id"  name="flow_id"  />
 		<input   type="hidden"   id="pass_type"  name="pass_type"  value="1" />
 		<button id="getPhoto"   type="button" >查看附件</button>
-		<button id="getHis"   type="button" >审核历史</button>
 		</p>
 		</div> 
 		</form>

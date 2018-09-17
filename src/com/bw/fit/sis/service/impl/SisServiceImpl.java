@@ -759,6 +759,76 @@ public class SisServiceImpl implements SisService {
     }
 
     @Override
+    public JSONObject getThisTmpCheckInfoAll(SystemCommonModel c) {
+        JSONObject info = new JSONObject();
+        try{
+        c.setSql("sisAdminDAO.getTmpBaseinfo");
+        SystemCommonModel sm = (SystemCommonModel)sisMybatisDaoUtil.getOneData(c.getSql(), c);
+        JSONArray array = new JSONArray();
+        if(sm != null){
+            JSONObject jsonObjArr = new JSONObject();
+            jsonObjArr.put("person_name", sm.getPerson_name());
+            jsonObjArr.put("card_id", sm.getCard_id());
+            jsonObjArr.put("person_phone", sm.getPerson_phone());
+            jsonObjArr.put("person_gender", sm.getPerson_gender());
+            jsonObjArr.put("person_nation", sm.getPerson_nation());
+            jsonObjArr.put("person_orgin", sm.getPerson_orgin());
+            jsonObjArr.put("first_time", sm.getFirst_time());
+            jsonObjArr.put("person_state", sm.getPerson_state());
+            jsonObjArr.put("select_company_name", sm.getSelect_company_name());
+            jsonObjArr.put("create_time", sm.getCreate_time());
+            jsonObjArr.put("staff_name", sm.getStaff_name());
+            array.add(jsonObjArr);
+            jsonObjArr = null;
+        }
+        info.put("binfo_list", array);
+        array = null;
+        array = new JSONArray();
+        c.setSql("sisAdminDAO.getTmpReconds");
+        List<SystemCommonModel> list3 = sisMybatisDaoUtil.getListData(c.getSql(), c);
+        for (int i = 0; i < list3.size(); i++) {
+            JSONObject jsonObjArr = new JSONObject();
+            jsonObjArr.put("pay_start", (list3.get(i)).getStart_date());
+            jsonObjArr.put("pay_end", (list3.get(i)).getEnd_date());
+            jsonObjArr.put("unit_type", (list3.get(i)).getPerson_unit_type());
+            jsonObjArr.put("unit_name", (list3.get(i)).getPerson_unit());
+            jsonObjArr.put("rpt_type", (list3.get(i)).getRpt_type());
+            jsonObjArr.put("sub_cycle", (list3.get(i)).getRpt_cycle());
+            jsonObjArr.put("my_sub_cycle", (list3.get(i)).getTemp_str3());
+            array.add(jsonObjArr);
+            jsonObjArr = null;
+        }
+        info.put("flow_list", array);
+        array = null;
+        array = new JSONArray();
+        // 最后把图片附件加入
+        c.setSql("sisAdminDAO.getPhotoByFdid");
+        List<SystemCommonModel> list4 = sisMybatisDaoUtil.getListData(c.getSql(), c);
+        if (list4.size() < 1) {
+            info.put("res", "2");
+            info.put("msg", "此人申报记录中图片未知");
+            return info;
+        }
+        for (int i = 0; i < list4.size(); i++) {
+            JSONObject jsonObjArr = new JSONObject();
+            jsonObjArr.put("photo_after_name", (list4.get(i)).getTemp_str2());
+            jsonObjArr.put("flow_id", (list4.get(i)).getFdid());
+            array.add(jsonObjArr);
+            jsonObjArr = null;
+        }
+        info.put("photo_list", array);
+        array = null;
+        info.put("res", "2");
+        info.put("msg", "查询成功");
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        log.info(ex.getMessage());
+    }
+
+    return info;
+    }
+
+    @Override
     public JSONObject getThisCheckInfoAll(SystemCommonModel c) {
         // TODO Auto-generated method stub
         JSONObject info = new JSONObject();
