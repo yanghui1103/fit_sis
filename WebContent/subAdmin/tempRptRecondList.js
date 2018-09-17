@@ -2,6 +2,18 @@
 var num =0;
 var total = 20;   //每页记录数 
 
+baidu(document).on('click', '#delete219', function() {
+	var allJlId = $("input[name='allJlId']:checked").val();
+	if($("input[name='allJlId']:checked").length <1){
+		alertMsg.error("请选择记录");return ;
+	}
+	var array = new Array();
+	array[0] = allJlId ;
+	createJsonAndAjaxNew('deleteTempRecord.action', array,function(data){
+		alert(data.msg);
+	},'json',true  ) ;
+});
+
 baidu(document).on('click', '#qry219', function() {
 	initCycleList($("#allDiv", navTab.getCurrentPanel()).find("tbody"),"0"); 	
 });

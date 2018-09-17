@@ -24,6 +24,7 @@
 		<action name="qryTempRecordList"   class="sisAdminAction"   method="qryTempRecordList" />
 		<action name="qryEasyWaitCheckRecordList"   class="sisAdminAction"   method="qryEasyWaitCheckRecordList" />
 		
+		<action name="deleteTempRecord"   class="sisAdminAction"   method="deleteTempRecord" />
 		<action name="qryWaitCheckRecordList_finance"   class="sisAdminAction"   method="qryWaitCheckRecordList_finance" />
 		<action name="getThisCheckInfoAll"   class="sisAdminAction"   method="getThisCheckInfoAll" />
 		<action name="getRptDetail"  class="sisAdminAction"   method="getRptDetail" />

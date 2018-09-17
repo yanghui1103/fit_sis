@@ -854,4 +854,12 @@
 		resultType="com.bw.fit.common.models.SystemCommonModel">
 		select * from  rpt_reconds_tempory a where a.fdid = #{fdid,jdbcType=VARCHAR}
 	</select>
+	
+	<delete id="deleteTempRecord"  parameterType="com.bw.fit.common.models.SystemCommonModel">
+		delete from rpt_person_tempory a where a.card_id = #{card_id,jdbcType=VARCHAR}
+	</delete>
+	
+	<delete id="deleteTempPerson"  parameterType="com.bw.fit.common.models.SystemCommonModel">
+		delete from  rpt_reconds_tempory a where a.card_id = #{card_id,jdbcType=VARCHAR}
+	</delete>
 </mapper>

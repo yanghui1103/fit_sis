@@ -32,6 +32,7 @@ public interface SisService {
      * @return
      */
     public JSONObject qryTempRecordList(SystemCommonModel c);
+    public JSONObject deleteTempRecord(SystemCommonModel c);
     public JSONObject getThisCheckInfoAll(SystemCommonModel c);
     public JSONObject getThisTmpCheckInfoAll(SystemCommonModel c);
     public  JSONObject checkRpt(SystemCommonModel c,RuntimeService runtimeService,FormService formService, TaskService taskService) ;

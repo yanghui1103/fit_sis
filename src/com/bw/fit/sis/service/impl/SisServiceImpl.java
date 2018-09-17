@@ -1867,4 +1867,30 @@ public class SisServiceImpl implements SisService {
         
         return json ;
     }
+
+    @Override
+    public JSONObject deleteTempRecord(SystemCommonModel c) {
+        JSONObject json = new JSONObject();
+        c.setSql("sisAdminDAO.deleteTempRecord");
+        json =  sisMybatisDaoUtil.sysDeleteData(c.getSql(), c);
+        if ("1".equals(json.get("res"))) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return json;
+        }
+        
+        c.setSql("sisAdminDAO.deleteTempPerson");
+        json = new JSONObject();
+        json = sisMybatisDaoUtil.sysDeleteData(c.getSql(), c);
+        if ("1".equals(json.get("res"))) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return json;
+        }
+        json = new JSONObject();
+        json.put("res", "2");
+        json.put("msg", "删除成功");
+        
+        return json ;
+    }
+    
+    
 }

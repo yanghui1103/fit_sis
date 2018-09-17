@@ -920,7 +920,28 @@ public class SisAdminAction extends BaseAction{
         return null ;
     }
     
-    
+    public String deleteTempRecord(){
+        try {
+            response.setContentType("text/plain;charset=UTF-8");
+            Writer wr = response.getWriter();
+            String str =  (request.getParameter("context")) ; 
+            JSONObject obj = (JSONObject) JSONValue.parse(str);
+            JSONArray array = (JSONArray) obj.get("content");
+            String param1 = (String) (((JSONObject) array.get(0)).get("param1")); 
+            SystemCommonModel c = new SystemCommonModel();  
+            String[] array2 = param1.split(",");
+            c.setFdid(array2[0]); 
+            c.setCard_id(array2[1]); 
+            
+            JSONObject objItem = ((SisServiceImpl) getBean("sisServiceImpl")).deleteTempRecord(c);
+            wr.write(objItem.toJSONString());
+            wr.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null ;
+    }
     
 
     public String qryTempRecordList(){
