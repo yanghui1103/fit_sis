@@ -683,8 +683,8 @@ public class SisServiceImpl implements SisService {
                 jsonObjArr.put("fdid", (list.get(i)).getFdid());
                 jsonObjArr.put("person_name", (list.get(i)).getPerson_name());
                 jsonObjArr.put("card_id", (list.get(i)).getCard_id());
-                jsonObjArr.put("start_date", (list.get(i)).getStart_date());
-                jsonObjArr.put("end_date", (list.get(i)).getEnd_date());
+                jsonObjArr.put("start_date", (list.get(i)).getRpt_start());
+                jsonObjArr.put("end_date", (list.get(i)).getRpt_end());
                 jsonObjArr.put("creator", (list.get(i)).getStaff_name());
                 jsonObjArr.put("act_inst_id", (list.get(i).getTemp_str3()));
                 jsonObjArr.put("create_time", (list.get(i)).getCreate_time());
@@ -788,6 +788,7 @@ public class SisServiceImpl implements SisService {
         List<SystemCommonModel> list3 = sisMybatisDaoUtil.getListData(c.getSql(), c);
         for (int i = 0; i < list3.size(); i++) {
             JSONObject jsonObjArr = new JSONObject();
+            jsonObjArr.put("fdid", c.getFdid());
             jsonObjArr.put("pay_start", (list3.get(i)).getStart_date());
             jsonObjArr.put("pay_end", (list3.get(i)).getEnd_date());
             jsonObjArr.put("unit_type", (list3.get(i)).getPerson_unit_type());

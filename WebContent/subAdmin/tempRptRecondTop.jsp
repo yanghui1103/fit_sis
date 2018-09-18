@@ -17,7 +17,7 @@ $(function(){
 	 arr[0] = "CHECKRT"; 
 	 takeTypeDataList($("#check_result",navTab.getCurrentPanel()),"getSysItems.action","1", arr);	
 	 arr[0] = "Company2SubCycle"; 
-	 takeCustomValueByOther($("#sub_cycle",navTab.getCurrentPanel()),"getCustomValueByOther.action","1", arr);	
+	 takeCustomValueByOther($("#sub_cycle",navTab.getCurrentPanel()),"getCustomValueByOther.action","0", arr);	
 	 
 	var allJlId = $("input[name='allJlId']:checked").val();
 	if($("input[name='allJlId']:checked").length <1){
@@ -38,17 +38,15 @@ function dealInitCheckTopPage(data){
 	$("#phone",navTab.getCurrentPanel()).val(json[0].person_phone);
 	$("#gender",navTab.getCurrentPanel()).val(json[0].person_gender);
 	$("#nation",navTab.getCurrentPanel()).val(json[0].person_nation);
-	$("#first_date",navTab.getCurrentPanel()).val(json[0].first_time); 
 	json = data.flow_list ; 
 	$("#unit_name",navTab.getCurrentPanel()).val(json[0].unit_name);
 	$("#unit_type",navTab.getCurrentPanel()).val(json[0].unit_type);
 	$("#rpt_type",navTab.getCurrentPanel()).val(json[0].rpt_type);
-	$("#sub_cycle",navTab.getCurrentPanel()).val(json[0].my_sub_cycle);
+	$("#sub_cycle",navTab.getCurrentPanel()).val(json[0].sub_cycle);
 	$("#start_date",navTab.getCurrentPanel()).val(json[0].pay_start);
 	$("#end_date",navTab.getCurrentPanel()).val(json[0].pay_end);   
-	data.photo_list ;
-	$("#flow_id",navTab.getCurrentPanel()).val(data.fdid);
-	$("#fdid",navTab.getCurrentPanel()).val(data.fdid);
+	$("#flow_id",navTab.getCurrentPanel()).val(json[0].fdid);
+	$("#fdid",navTab.getCurrentPanel()).val(json[0].fdid);
 }
 
 $('#getHis', navTab.getCurrentPanel()).click( function() {	   
@@ -61,8 +59,7 @@ $('#getHis', navTab.getCurrentPanel()).click( function() {
 
 //获取附件页 
 $('#getPhoto', navTab.getCurrentPanel()).click( function() {	   
-	var flow_id = $("#flow_id",navTab.getCurrentPanel()).val();  
-	if(flow_id=="") {alertMsg.info("无图片附件");return ;} 
+	var flow_id = $("#fdid",navTab.getCurrentPanel()).val();  
 	$(".ahrefCss").attr("href","system/attachmentPage.jsp?isRead=0&foregin_id="+flow_id+"");	
 	$(".ahrefCss").trigger("click"); 
 }); 
@@ -82,7 +79,9 @@ $("#saveTmpToNext", navTab.getCurrentPanel()).click( function() {
 	alertMsg.confirm("是否将暂存记录正式提交?，后续将立即进入审核流程", {
 		 okCall: function(){ 
 			 createJsonAndPost2Java('createThisPersonRptRecond.action',$("#createTsForm", navTab.getCurrentPanel()),function(data){
-				 navTab.closeCurrentTab();
+				 if(data.res =='2'){
+					 navTab.closeCurrentTab();
+				 }
 				 alertToPageMsg(data);		
 			 },'JSON',false) ;
 		 },

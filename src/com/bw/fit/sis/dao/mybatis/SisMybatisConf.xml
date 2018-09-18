@@ -177,7 +177,7 @@
 		(card_id,person_name,phone,gender,nation,orgin,first_time,state,create_company,creator,create_time,version_time)
 		values
 		(#{card_id},#{person_name,jdbcType=VARCHAR},#{person_phone,jdbcType=VARCHAR},#{person_gender,jdbcType=VARCHAR},#{person_nation,jdbcType=VARCHAR},#{person_orgin,jdbcType=VARCHAR},
-		to_date(#{first_time,jdbcType=VARCHAR},'yyyy-MM-dd') ,'2',
+		sysdate ,'2',
 		#{staff_company_id,jdbcType=VARCHAR} ,#{staff_id,jdbcType=VARCHAR},sysdate,sysdate )
 	</insert>
 	
@@ -835,9 +835,10 @@
 	
 	<select id="qryTempRecordList"  parameterType="com.bw.fit.common.models.SystemCommonModel"
 		resultType="com.bw.fit.common.models.SystemCommonModel">
-		select rt.fdid,p.card_id,p.person_name,rt.pay_start rpt_start,rt.pay_end rpt_end
-		from rpt_person_tempory p,rpt_reconds_tempory rt,staff2company sc
-		where rt.card_id = p.card_id and rt.creator = sc.staff_id and sc.company_id 
+		select rt.fdid,p.card_id,p.person_name,rt.pay_start rpt_start,rt.pay_end rpt_end,rt.create_time,
+st.staff_name ,cp.company_name  staff_company_name
+    from rpt_person_tempory p,rpt_reconds_tempory rt,staff2company sc,company cp,staff st
+    where rt.card_id = p.card_id and rt.creator = sc.staff_id and st.fdid = sc.staff_id and sc.company_id = cp.fdid   and sc.company_id 
 		in
       <foreach item="item" index="index" collection="temp_list"
         open="(" separator="," close=")">
@@ -847,12 +848,18 @@
 	
 	<select id="getTmpBaseinfo"  parameterType="com.bw.fit.common.models.SystemCommonModel"
 		resultType="com.bw.fit.common.models.SystemCommonModel">
-		select * from rpt_person_tempory a where a.card_id = #{card_id,jdbcType=VARCHAR}
+		select a.card_id,a.person_name,a.phone person_phone,a.gender person_gender,
+a.nation person_nation,rr.unit_name person_unit, rr.pay_start rpt_start,rr.pay_end rpt_end
+,rr.rpt_type  ,rr.unit_type person_unit_type,rr.sub_cycle rpt_cycle
+ from rpt_person_tempory a,rpt_reconds_tempory rr
+ where a.card_id = rr.card_id   and  a.card_id = #{card_id,jdbcType=VARCHAR}
 	</select>
 	
 	<select id="getTmpReconds"   parameterType="com.bw.fit.common.models.SystemCommonModel"
 		resultType="com.bw.fit.common.models.SystemCommonModel">
-		select * from  rpt_reconds_tempory a where a.fdid = #{fdid,jdbcType=VARCHAR}
+		  select rr.unit_name person_unit, rr.pay_start start_date,rr.pay_end end_date
+,rr.rpt_type  ,rr.unit_type person_unit_type,rr.sub_cycle rpt_cycle, cc.cycle_code
+from  rpt_reconds_tempory rr ,sub_cycle cc where cc.fdid = rr.sub_cycle     and  rr.fdid = #{fdid,jdbcType=VARCHAR}
 	</select>
 	
 	<delete id="deleteTempRecord"  parameterType="com.bw.fit.common.models.SystemCommonModel">
